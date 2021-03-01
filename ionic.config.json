@@ -1,0 +1,7 @@
+{
+  "name": "MRA-mobile",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
