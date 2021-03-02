@@ -1,0 +1,29 @@
+.separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 20px 0 30px;
+  font-size: 15px;
+}
+
+.separator::before,
+.separator::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #000;
+}
+
+.separator:not(:empty)::before {
+  margin-right: 0.25em;
+}
+
+.separator:not(:empty)::after {
+  margin-left: 0.25em;
+}
+
+@media (prefers-color-scheme: dark) {
+  .separator::before,
+  .separator::after {
+    border-bottom: 1px solid #fff;
+  }
+}

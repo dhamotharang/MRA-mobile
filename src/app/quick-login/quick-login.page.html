@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <section id="google">
+          <h5>Login with Google</h5>
+          <ion-input clearInput name="gmail" placeholder="Enter your Gmail address" type="email" required="true">
+          </ion-input>
+        </section>
+        <div class="separator">or use a phone number</div>
+        <section>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="4">
+                <div>
+                  <ion-select placeholder="🇲🇾 +60"></ion-select>
+                </div>
+              </ion-col>
+              <ion-col size="8">
+                <div>
+                  <ion-input name="phone-number" placeholder="Eg. 18 292 0039" type="tel" required="true"></ion-input>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </section>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button expand="full">Login</ion-button>
+  </ion-toolbar>
+</ion-footer>
