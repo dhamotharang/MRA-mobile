@@ -11,6 +11,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'quick-login',
+    loadChildren: () => import('./quick-login/quick-login.module').then( m => m.QuickLoginPageModule)
+  },
 ];
 
 @NgModule({
