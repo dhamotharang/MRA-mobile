@@ -15,6 +15,10 @@ const routes: Routes = [
     path: 'quick-login',
     loadChildren: () => import('./quick-login/quick-login.module').then( m => m.QuickLoginPageModule)
   },
+  {
+    path: 'payment-history',
+    loadChildren: () => import('./payment-history/payment-history.module').then( m => m.PaymentHistoryPageModule)
+  },
 ];
 
 @NgModule({
