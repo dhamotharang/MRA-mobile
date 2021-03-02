@@ -1,20 +1,29 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      MRA
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
   <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <section>
+      <img id="logo" src="../../assets/mra.png" />
+    </section>
+    <section id="title-content">
+      <h6>Welcome</h6>
+      <h2>Log in to your account</h2>
+    </section>
+    <section>
+      <ion-grid>
+        <ion-row>
+          <ion-button expand="block" color='danger'>Sign in with Google</ion-button>
+        </ion-row>
+        <ion-row>
+          <ion-button expand="block" [routerLink]="['/quick-login']">Payment history</ion-button>
+        </ion-row>
+      </ion-grid>
+    </section>
   </div>
 </ion-content>
