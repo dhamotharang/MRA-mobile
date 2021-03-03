@@ -2,11 +2,9 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  templateUrl: 'launch.page.html',
+  styleUrls: ['launch.page.scss'],
 })
-export class HomePage {
-
+export class LaunchPage {
   constructor() {}
-
 }
