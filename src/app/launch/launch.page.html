@@ -18,10 +18,14 @@
     <section>
       <ion-grid>
         <ion-row>
-          <ion-button expand="block" color='danger' [routerLink]="['/home-tab']">Sign in with Google</ion-button>
+          <ion-col>
+            <ion-button expand="block" color='danger' [routerLink]="['/home-tab']">Sign in with Google</ion-button>
+          </ion-col>
         </ion-row>
         <ion-row>
-          <ion-button expand="block" [routerLink]="['/quick-login']">Payment history</ion-button>
+          <ion-col>
+            <ion-button expand="block" [routerLink]="['/quick-login']">Payment history</ion-button>
+          </ion-col>
         </ion-row>
       </ion-grid>
     </section>
