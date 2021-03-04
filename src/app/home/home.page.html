@@ -1,29 +1,20 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
+<ion-header>
+  <ion-toolbar class="toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="launch"></ion-back-button>
+      <ion-icon slot="icon-only" name="person-circle"></ion-icon>
+    </ion-buttons>
     <ion-title>
-      MRA
+      <img src="../../assets/mra.png" height="30" />
     </ion-title>
+    <ion-buttons slot="primary">
+      <ion-fab-button fill="solid" color="danger" size="small">
+        SOS
+      </ion-fab-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <div id="container">
-    <section>
-      <img id="logo" src="../../assets/mra.png" />
-    </section>
-    <section id="title-content">
-      <h6>Welcome</h6>
-      <h2>Log in to your account</h2>
-    </section>
-    <section>
-      <ion-grid>
-        <ion-row>
-          <ion-button expand="block" color='danger'>Sign in with Google</ion-button>
-        </ion-row>
-        <ion-row>
-          <ion-button expand="block" [routerLink]="['/quick-login']">Payment history</ion-button>
-        </ion-row>
-      </ion-grid>
-    </section>
-  </div>
+<ion-content>
+
 </ion-content>
