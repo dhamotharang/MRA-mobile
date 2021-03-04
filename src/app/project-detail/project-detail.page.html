@@ -1,0 +1,165 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Project Detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid class="grid-padding">
+    <ion-row>
+      <ion-col class="ion-no-padding">
+        <img class="banner-image" [src]="[projectDetail?.project_image]" (click)="openImageFx(projectDetail?.projectDetail)">
+        <!-- <ion-spinner class="spinner-loading" *ngIf='spinnerloading'></ion-spinner> -->
+
+        <!-- <ion-slides pager="true" loop=true>
+          <ion-slide *ngFor='let data of serviceBannerData'>
+            <div>
+              <img *ngIf='data?.image_path' #img10 (error)="img10.src =imageProvider.imageErrorHandle('productImage')"
+                class="card-image" [src]="data?.image_path" (click)="openImageFx(data?.image_path)">
+            </div>
+          </ion-slide>
+        </ion-slides> -->
+
+      </ion-col>
+    </ion-row>
+
+    <!-- *ngIf='!spinnerloading' -->
+    <div>
+
+      <ion-item lines="none">
+        <ion-label class="margin-top">
+          <p class="project-name">{{projectDetail?.project_name}}</p>
+        </ion-label>
+      </ion-item>
+
+      <ion-item lines="none" no-padding>
+        <ion-label class="margin-top">
+          <ion-row>
+            <ion-col col-1>
+              <ion-button (click)="callFx()" fill="clear" round class="selected-button">  
+                <ion-icon ios="call" md="call" class="call-icon">
+                </ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col col-1>
+              <ion-button (click)="openLink()" fill="clear" round class="selected-button">  
+                <ion-icon ios="logo-whatsapp" md="logo-whatsapp" class="whatsapp-icon">
+                </ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col col-1>
+              <ion-button (click)="openLink()" fill="clear" round class="selected-button">  
+                <ion-icon ios="mail" md="mail" class="mail-icon">
+                </ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col col-3></ion-col>
+            <ion-col col-6>
+              <ion-card class="active-card">
+                <ion-icon ios="ellipse" md="ellipse" class="active-icon">
+                </ion-icon>
+                <p class="active-label">ACTIVE</p>          
+              </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-label>
+      </ion-item>
+
+
+      <ion-item class="ion-no-padding" lines="none">
+        <ion-label class="margin-top">
+
+          <ion-row style="padding-left: 16px;">
+            <ion-col>
+              <ion-row (click)='launchNavigation()'>
+                <ion-col col-1>
+                  <ion-icon class="location-icon" ios="location" md="location">
+                  </ion-icon>
+                </ion-col>
+                <ion-col col-11 class="ion-margin-start">
+                  <p class="label-detail">
+                    <!-- {{projectDetail?.unit_no}}, -->
+                    {{projectDetail?.address}},
+                    {{projectDetail?.postcode}} {{projectDetail?.city}},
+                    {{projectDetail?.state}}</p>
+                </ion-col>
+              </ion-row>
+
+              <ion-row (click)='openProviderSchedule()'>
+                <ion-col col-1>
+                  <ion-icon class="calendar-icon" ios="calendar" md="calendar"></ion-icon>
+                </ion-col>
+                <ion-col col-11 class="ion-margin-start">
+                  <span class="label-detail">3/3/2021 - 10/3/2021</span>
+                </ion-col>
+              </ion-row>
+
+            </ion-col>
+          </ion-row>
+        </ion-label>
+      </ion-item>
+
+
+      <ion-item-divider class="ion-no-padding" sticky class="purple-background">
+        <ion-row>
+          <ion-col col-11>
+            <p class="label-description">
+              Description
+            </p>
+          </ion-col>
+          <ion-col col-1>
+            <ion-icon class="expand-icon" ios="chevron-down-outline" md="chevron-down-outline">
+            </ion-icon>
+          </ion-col>
+        </ion-row>
+
+      </ion-item-divider>
+
+
+      <ion-item class="ion-no-padding" lines="none">
+        <ion-label class="margin-top">
+          <ion-row style="padding-left: 16px;">
+            <ion-col>
+              <p class="description-text">
+                {{projectDetail?.description}}
+              <!-- <p [innerHtml]="serviceDetailData?.description" class="description_new"> -->
+              </p>
+            </ion-col>
+          </ion-row>
+        </ion-label>
+      </ion-item>
+
+
+      <ion-item class="ion-no-padding" lines="none">
+        <ion-label class="margin-top">
+          <ion-row class="padding-others">
+            <ion-col>
+              <ion-button [routerLink]="['/live-feed']" fill="clear" round class="others">  
+                <!-- <ion-icon ios="meccapan-script-text-outline" md="meccapan-script-text-outline" style="color: #4d4d4d" class="shop_icon"></ion-icon> -->
+                <p class="link-label">Live Feed</p>
+              </ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button (click)="openLink()" fill="clear" round class="others">  
+                <p class="link-label">Volunteer</p>
+              </ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button (click)="openLink()" fill="clear" round class="others">  
+                <p class="link-label">Task</p>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-label>
+      </ion-item>
+
+
+
+
+
+    </div>
+
+  </ion-grid>
+
+</ion-content>

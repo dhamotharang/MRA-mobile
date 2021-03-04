@@ -1,0 +1,126 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Feed</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- <ion-list>
+    <ion-card no-padding *ngFor='let data of feedList'>
+      <ion-label no-margin>
+        <ion-row no-margin>
+          <ion-col>
+            <img class="img-style"
+            [src]="[data?.feed_image]">
+          </ion-col>
+          <ion-col col-10>
+            <p class="project-name">{{data?.feed_name}}</p>
+          </ion-col>
+        </ion-row>
+        <ion-row no-margin>
+          <ion-col></ion-col>
+          <ion-col col-10>
+            <p class="project-name">Today</p>
+          </ion-col>
+        </ion-row>
+      </ion-label>
+    </ion-card>
+  </ion-list> -->
+
+
+  <ion-card *ngFor="let data of feedList" class="no_padding ldt-float-right-in cart-detail">
+
+    <ion-row>
+      <ion-col col-1 no-padding>
+        <img class="img-style" [src]="data?.feed_image">
+      </ion-col>
+
+      <ion-col>
+        <ion-row>
+          <ion-col no-padding>
+            <ion-row>
+              <ion-col class='padding_top_bot_zero'>
+                <p class="label_service_name">{{data?.feed_name}}</p>
+              </ion-col>
+            </ion-row>
+            <!-- <ion-row *ngIf="booking?.variation_name != null">
+              <ion-col class='padding_top_bot_zero'>
+                <p class="label_provider_name" style="color: #000 !important;">{{booking.variation_name}}</p>
+              </ion-col>
+            </ion-row> -->
+            <ion-row>
+              <ion-col class='padding_top_bot_zero'>
+                <p class="label_provider_name">Today</p>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col (click)="chooseToCheckOut(booking)" col-2>
+            <!-- <p class="tickbox" *ngIf='!checkingChoosenFx(booking)'></p>
+            <ion-icon class="tick-icon" *ngIf='checkingChoosenFx(booking)' name="checkbox-outline">
+            </ion-icon> -->
+          </ion-col>
+        </ion-row>
+
+        <!-- <hr class="line_style"> -->
+
+        <!-- <ion-row>
+          <ion-col>
+            <ion-row>
+              <ion-col class='padding_top_bot_zero' style="padding-left: 0px;">
+                <p class="label_date"> {{(booking.start_date | date: 'd MMMM, y')}}</p>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col col-2 (tap)='removeItemFromCart(booking)'>
+            <ion-icon class="trash-icon" ios="meccapan-trash_cart" md="meccapan-trash_cart"></ion-icon>
+          </ion-col>
+        </ion-row> -->
+        <!-- <ion-row>
+          <ion-col no-padding>
+            <p class="icon_detail">
+              {{typeOfBookingFx(booking)}}</p>
+          </ion-col>
+        </ion-row> -->
+        <!-- <ion-row>
+          <ion-col style="padding-bottom: 0px;">
+            <div *ngIf='booking?.discount != 0 ||booking?.early_discount != 0 '>
+              <p class="price-discount-p">
+                RM{{serviceApiProvider.calculateInitialPriceFx(booking?.initial_price,booking)|number:'1.2-2'}}
+              </p>
+              <p class="price-initial-p">
+                RM{{this.defaultValueProvder.roundNumFx(booking?.price_after_discount)|number:'1.2-2'}}
+              </p>
+            </div>
+            <div *ngIf='booking?.discount == 0 && booking?.early_discount == 0'>
+              <p class="price-initial-p">
+                RM{{serviceApiProvider.calculateInitialPriceFx(booking?.initial_price,booking)|number:'1.2-2'}}
+              </p>
+            </div>
+          </ion-col>
+        </ion-row> -->
+        <!-- <ion-row *ngIf='booking?.delivery_option.length != 0'>
+          <ion-col no-padding col-7>
+            <p class="delivery_label">
+              Delivery option</p>
+          </ion-col>
+          <ion-col col-4 style="text-align: right; margin-top: -2%" class="padding-no-side">
+            <ion-icon *ngIf="booking?.Is_delivered == true" ios="meccapan-delivery" md="meccapan-delivery"
+              class="delivery-icon">
+            </ion-icon>
+            <ion-icon *ngIf="booking?.Is_self_pickup == true" ios="meccapan-pickup" md="meccapan-pickup"
+              class="pickup-icon">
+            </ion-icon>
+            <ion-icon *ngIf="booking?.Is_rider == true" ios="meccapan-rider" md="meccapan-rider"
+              class="rider-icon">
+            </ion-icon>
+          </ion-col>
+        </ion-row> -->
+      </ion-col>
+    </ion-row>
+    <!-- <div *ngIf='showErrorSignFx(booking) == false' class="alertPulse">
+
+    </div> -->
+  </ion-card>
+
+</ion-content>

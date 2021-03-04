@@ -1,0 +1,176 @@
+.grid-padding {
+    padding-left: 0%;
+    padding-right: 0%;
+    padding-top: 0%;
+    margin-top: 0%;
+    margin-bottom: 3rem;
+}
+
+.banner-image {
+    object-fit: fill;
+    height: 197px !important;
+    width: 100% !important;
+    padding-bottom: 0%;
+    z-index: 1000;
+}
+
+.margin-top {
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+
+.project-name {
+    text-transform: capitalize;
+    overflow: inherit;
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: normal;
+    text-overflow: inherit;
+    color: #424242;
+    // font-family: Lato-Regular;
+    white-space: normal;
+}
+  
+.selected-button {
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 0.5rem;
+    height: 2.3rem;
+    text-align: center;
+    width: 2.8rem;
+}
+
+.call-icon {
+    font-size: 1.5rem !important;
+    color: black;
+    // color: #4285f4;
+}
+
+.whatsapp-icon {
+    font-size: 1.5rem !important;
+    color: black;
+}
+
+.mail-icon {
+    font-size: 1.5rem !important;
+    color: black;
+}
+
+.location-icon {
+    position: relative;
+    font-size: 1.3rem;
+    color: #ca1212;
+}
+
+.calendar-icon {
+    position: relative;
+    font-size: 1.2rem;
+    color: #424242;
+}
+
+.label-detail {
+    overflow: inherit;
+    font-size: 1rem;
+    line-height: normal;
+    text-overflow: inherit;
+    color: #424242;
+    white-space: normal;
+    margin-left: -8rem;
+    // font-family: Varela_Round !important;
+  }
+
+.active-label {
+    font-size: 0.8rem;
+    text-align: right;
+    color: black;
+    margin-right: 0.2rem;
+    margin-left: 1.3rem;
+}
+
+.active-button {
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 0.5rem;
+    height: 1.7rem;
+    text-align: center;
+    width: 5.8rem;
+}
+
+.active-icon {
+    font-size: 1rem !important;
+    color: #41d994;
+    position: fixed;
+    margin-left: 0.2rem;
+    margin-top: 2px;
+}
+
+.active-card {
+    height: 1.4rem;
+    width: 4.5rem;
+    border-radius: -3px;
+    border: solid;
+    border-width: 1px;
+}
+
+
+.label-description {
+    // font-family: Varela_Round;
+    // font-weight: 600;
+    font-size: 1rem;
+    position: relative;
+    text-align: left;
+    color: black;
+    margin-right: 13rem;
+}
+
+.purple-background {
+    height: 2.5rem;
+    border-bottom: transparent !important;
+    z-index: 0;
+    background: #f1deff;
+    z-index: 1000;
+}
+
+.expand-icon {
+    font-size: 1.2rem;
+    color: #424242;
+    margin-top: 1rem;
+}
+
+.description-text {
+    // font-family: Varela_Round;
+    font-size: 1rem;
+    color: #424242;
+    white-space: pre-line;
+    text-align: left;
+}
+
+.padding-others {
+    padding-left: 12px;
+    padding-bottom: 5px;
+    padding-top: 26px;
+}
+
+.others {
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 0.5rem;
+    height: 2.3rem;
+    text-align: center;
+    width: 6rem;
+}
+
+.link-label {
+    font-size: 0.8rem;
+    // text-align: right;
+    color: black;
+    // margin-right: 0.2rem;
+    // margin-left: 1.3rem;
+}
+
+
+
+
