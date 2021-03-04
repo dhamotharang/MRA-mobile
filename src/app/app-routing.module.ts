@@ -14,7 +14,8 @@ const routes: Routes = [
   {
     path: 'quick-login',
     loadChildren: () => import('./quick-login/quick-login.module').then( m => m.QuickLoginPageModule)
-  },  {
+  },
+  {
     path: 'project-list',
     loadChildren: () => import('./project-list/project-list.module').then( m => m.ProjectListPageModule)
   },
@@ -25,6 +26,10 @@ const routes: Routes = [
   {
     path: 'live-feed',
     loadChildren: () => import('./live-feed/live-feed.module').then( m => m.LiveFeedPageModule)
+  },
+  {
+    path: 'payment-history',
+    loadChildren: () => import('./payment-history/payment-history.module').then( m => m.PaymentHistoryPageModule)
   },
 
 ];
