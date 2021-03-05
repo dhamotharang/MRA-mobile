@@ -1,12 +1,18 @@
 <ion-content>
-  <ion-grid class="grid-padding">
-    <ion-row>
-      <ion-col class="ion-no-padding">
-        <div>
-          <img class="card-image" src="../../assets/nav-bg.jpg">
-        </div>
-        <button outline class="back-cus-button" (click)="goBack()" ion-button>
-        </button>
+  <ion-grid class="header">
+    <ion-row class="ion-justify-content-between ion-align-items-center">
+      <ion-col>
+        <ion-buttons>
+          <ion-back-button defaultHref="launch"></ion-back-button>
+        </ion-buttons>
+      </ion-col>
+      <ion-col>
+        <img src="../../assets/mra.png" alt="MRA logo" />
+      </ion-col>
+      <ion-col>
+        <ion-fab horizontal="end" vertical="center">
+          <ion-fab-button color="danger" size="small">SOS</ion-fab-button>
+        </ion-fab>
       </ion-col>
     </ion-row>
   </ion-grid>
