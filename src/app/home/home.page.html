@@ -1,20 +1,19 @@
-<ion-header>
-  <ion-toolbar class="toolbar">
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="launch"></ion-back-button>
-      <ion-icon slot="icon-only" name="person-circle"></ion-icon>
-    </ion-buttons>
-    <ion-title>
-      <img src="../../assets/mra.png" height="30" />
-    </ion-title>
-    <ion-buttons slot="primary">
-      <ion-fab-button fill="solid" color="danger" size="small">
-        SOS
-      </ion-fab-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-
+  <ion-grid class="header">
+    <ion-row class="ion-justify-content-between ion-align-items-center">
+      <ion-col>
+        <ion-buttons>
+          <ion-back-button defaultHref="launch"></ion-back-button>
+        </ion-buttons>
+      </ion-col>
+      <ion-col>
+        <img src="../../assets/mra.png" alt="MRA logo" />
+      </ion-col>
+      <ion-col>
+        <ion-fab horizontal="end" vertical="center">
+          <ion-fab-button color="danger" size="small">SOS</ion-fab-button>
+        </ion-fab>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
