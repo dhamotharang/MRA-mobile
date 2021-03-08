@@ -20,6 +20,18 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'project-list',
+    loadChildren: () => import('./project-list/project-list.module').then( m => m.ProjectListPageModule)
+  },
+  {
+    path: 'project-detail',
+    loadChildren: () => import('./project-detail/project-detail.module').then( m => m.ProjectDetailPageModule)
+  },
+  {
+    path: 'live-feed',
+    loadChildren: () => import('./live-feed/live-feed.module').then( m => m.LiveFeedPageModule)
+  },
+  {
     path: 'payment-history',
     loadChildren: () =>
       import('./payment-history/payment-history.module').then(
@@ -31,6 +43,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./home/home.module').then((m) => m.HomePageModule),
   },
+
 ];
 
 @NgModule({

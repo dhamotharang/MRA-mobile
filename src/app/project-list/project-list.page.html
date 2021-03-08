@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Projects</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-row justify-content-center>
+      <ion-col col-12 no-padding>
+          <button class="search-box" ion-button color="light">
+              <ion-row style="width: 100%;">
+                  <ion-col col-11>
+                      <input class="input-search" placeholder="Search here">
+                  </ion-col>
+                  <ion-col col-1 class="align-text">
+                    <ion-icon class="search-icon" ios="search-outline" md="search-sharp"></ion-icon>
+                  </ion-col>
+              </ion-row>
+          </button>
+      </ion-col>
+  </ion-row>
+
+    
+
+    <ion-list>
+      <ion-item no-padding *ngFor='let data of projectList'>
+        <ion-label no-margin [routerLink]="['/project-detail']">
+          <ion-row>
+            <ion-col>
+              <img class="img-style"
+              [src]="[data?.project_image]">
+            </ion-col>
+            <ion-col col-10>
+              <p class="project-name">{{data?.project_name}}</p>
+            </ion-col>
+          </ion-row>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+</ion-content>

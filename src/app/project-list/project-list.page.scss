@@ -1,0 +1,49 @@
+.search-box {
+    width: 98%;
+    height: 32px;
+    border-radius: 4px;
+    background-color: #ffffff;
+    padding: 0% 0%;
+    border-width: 1px;
+    color: white;
+    border-style: solid;
+    box-shadow: unset !important;
+    border-color: #4285f4;
+    margin: 1% 0 0 0%;
+}
+
+.align-text {
+  text-align: right;
+}
+
+.input-search {
+  color: black;
+  background: #ffffff;
+  border-color: #ffffff;
+  width: 100%;
+  border-color: transparent;
+}
+
+.img-style {
+  border-radius: 50%;
+  height: 3.5rem;
+  width: 3.5rem;
+  border-width: 1px;
+  border-style: solid;
+  color: #F5F5F5;
+  object-fit: cover;
+  // margin-top: -1rem;
+}
+
+.project-name {
+  color: #212121;
+  // font-family: Varela_Round;
+  font-size: 1rem;
+  white-space: normal;
+  margin-left: -4rem;
+}
+
+.search-icon {
+  color: black;
+  font-size: 1.2rem;
+}
