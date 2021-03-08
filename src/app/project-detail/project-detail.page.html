@@ -36,26 +36,26 @@
       <ion-item lines="none" no-padding>
         <ion-label class="margin-top">
           <ion-row>
-            <ion-col col-1>
+            <ion-col size="2">
               <ion-button (click)="callFx()" fill="clear" round class="selected-button">  
                 <ion-icon ios="call" md="call" class="call-icon">
                 </ion-icon>
               </ion-button>
             </ion-col>
-            <ion-col col-1>
+            <ion-col size="2">
               <ion-button (click)="openLink()" fill="clear" round class="selected-button">  
                 <ion-icon ios="logo-whatsapp" md="logo-whatsapp" class="whatsapp-icon">
                 </ion-icon>
               </ion-button>
             </ion-col>
-            <ion-col col-1>
+            <ion-col size="2">
               <ion-button (click)="openLink()" fill="clear" round class="selected-button">  
                 <ion-icon ios="mail" md="mail" class="mail-icon">
                 </ion-icon>
               </ion-button>
             </ion-col>
-            <ion-col col-3></ion-col>
-            <ion-col col-6>
+            <ion-col size="2"></ion-col>
+            <ion-col size="4">
               <ion-card class="active-card">
                 <ion-icon ios="ellipse" md="ellipse" class="active-icon">
                 </ion-icon>
@@ -73,11 +73,11 @@
           <ion-row style="padding-left: 16px;">
             <ion-col>
               <ion-row (click)='launchNavigation()'>
-                <ion-col col-1>
+                <ion-col size="2">
                   <ion-icon class="location-icon" ios="location" md="location">
                   </ion-icon>
                 </ion-col>
-                <ion-col col-11 class="ion-margin-start">
+                <ion-col class="ion-margin-start">
                   <p class="label-detail">
                     <!-- {{projectDetail?.unit_no}}, -->
                     {{projectDetail?.address}},
@@ -87,10 +87,10 @@
               </ion-row>
 
               <ion-row (click)='openProviderSchedule()'>
-                <ion-col col-1>
+                <ion-col size="2">
                   <ion-icon class="calendar-icon" ios="calendar" md="calendar"></ion-icon>
                 </ion-col>
-                <ion-col col-11 class="ion-margin-start">
+                <ion-col class="ion-margin-start">
                   <span class="label-detail">3/3/2021 - 10/3/2021</span>
                 </ion-col>
               </ion-row>
@@ -103,12 +103,12 @@
 
       <ion-item-divider class="ion-no-padding" sticky class="purple-background">
         <ion-row>
-          <ion-col col-11>
+          <ion-col>
             <p class="label-description">
               Description
             </p>
           </ion-col>
-          <ion-col col-1>
+          <ion-col size="1">
             <ion-icon class="expand-icon" ios="chevron-down-outline" md="chevron-down-outline">
             </ion-icon>
           </ion-col>

@@ -32,6 +32,10 @@ const routes: Routes = [
     loadChildren: () => import('./live-feed/live-feed.module').then( m => m.LiveFeedPageModule)
   },
   {
+    path: 'create-post',
+    loadChildren: () => import('./create-post/create-post.module').then( m => m.CreatePostPageModule)
+  },
+  {
     path: 'payment-history',
     loadChildren: () =>
       import('./payment-history/payment-history.module').then(
@@ -42,7 +46,7 @@ const routes: Routes = [
     path: 'home-tab',
     loadChildren: () =>
       import('./home/home.module').then((m) => m.HomePageModule),
-  },
+  }
 
 ];
 
