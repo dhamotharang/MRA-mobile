@@ -1,0 +1,33 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      MRA
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div id="container">
+    <section>
+      <img id="logo" src="../../assets/mra.png" />
+    </section>
+    <section id="title-content">
+      <h6>Welcome</h6>
+      <h2>Log in to your account</h2>
+    </section>
+    <section>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button expand="block" color='danger' [routerLink]="['/home-tab']">Sign in with Google</ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-button expand="block" [routerLink]="['/quick-login']">Payment history</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </section>
+  </div>
+</ion-content>

@@ -1,29 +1,19 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      MRA
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <div id="container">
-    <section>
-      <img id="logo" src="../../assets/mra.png" />
-    </section>
-    <section id="title-content">
-      <h6>Welcome</h6>
-      <h2>Log in to your account</h2>
-    </section>
-    <section>
-      <ion-grid>
-        <ion-row>
-          <ion-button expand="block" color='danger'>Sign in with Google</ion-button>
-        </ion-row>
-        <ion-row>
-          <ion-button expand="block" [routerLink]="['/quick-login']">Payment history</ion-button>
-        </ion-row>
-      </ion-grid>
-    </section>
-  </div>
+<ion-content>
+  <ion-grid class="header">
+    <ion-row class="ion-justify-content-between ion-align-items-center">
+      <ion-col>
+        <ion-buttons>
+          <ion-back-button defaultHref="launch"></ion-back-button>
+        </ion-buttons>
+      </ion-col>
+      <ion-col>
+        <img src="../../assets/mra.png" alt="MRA logo" />
+      </ion-col>
+      <ion-col>
+        <ion-fab horizontal="end" vertical="center">
+          <ion-fab-button color="danger" size="small">SOS</ion-fab-button>
+        </ion-fab>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
