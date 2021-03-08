@@ -6,8 +6,8 @@
     border-style: solid;
     color: #F5F5F5;
     object-fit: cover;
-    // margin-top: -1rem;
-    
+    margin-left: 0.5rem;
+    margin-top: 0.5rem;  
 }
 
 
@@ -24,21 +24,70 @@
     padding-bottom: 0px;
 }
 
-.label_service_name {
-    line-height: inherit;
+.label-feed-title {
     color: #212121;
-    font-size: 1.5rem;
-    font-family: Varela_Round;
-    font-weight: 600;
-    position: relative;
+    font-size: 1rem;
+    margin-left: 0rem;
+}
+
+.label-feed-date {
+    color: #212121;
+    font-size: 0.8rem;
+    margin-left: 0rem;
+    margin-top: -1rem;
+}
+
+.feed-card {
+    background-color: #d8d8d88a;
+    border-radius: 0.5rem;
+    height: auto;
+    width: auto;
+}
+
+.new-card {
+    height: 0.8rem;
+    width: 2rem;
+    border-width: 1px;
+    margin-top: -1rem;
+    margin-left: 0rem;
+    background-color: #96e2cd;
+}
+
+.new-label {
+    font-size: 0.8rem;
+    color: #09913f;
+    text-align: center;
+    margin-top: 0px;
+
+}
+
+.description {
+    color: black;
     white-space: normal;
 }
 
-.label_provider_name {
-    font-size: 1.2rem;
-    font-weight: normal;
-    font-family: Varela_Round !important;
-    color: #757575;
-    position: relative;
-    white-space: normal;
+.description-row {
+    margin-top: -1.2rem;
 }
+
+.attach-img {
+    border-radius: 17%;
+    border: #9b9999;
+    border-width: 0.1px;
+    height: 5.5rem;
+    width: 5rem;
+    border-style: solid;
+    color: #F5F5F5;
+    object-fit: cover;
+    margin-bottom: 0.5rem;
+}
+
+.center {
+    text-align: center;
+}
+
+ion-scroll.scroll-x .scroll-content {
+    padding-top: 0px;
+}
+
+

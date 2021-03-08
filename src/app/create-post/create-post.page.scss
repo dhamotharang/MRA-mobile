@@ -1,0 +1,24 @@
+.img-style {
+    border-radius: 50%;
+    height: 3.5rem;
+    width: 3.5rem;
+    border-width: 1px;
+    border-style: solid;
+    color: #F5F5F5;
+    object-fit: cover;
+    margin-left: 0.5rem;
+    margin-top: 0.5rem;
+}
+  
+.project-name {
+    color: #212121;
+    font-size: 1rem;
+    white-space: normal;
+    margin-top: 1rem;
+    position: inherit;
+}
+
+.more-icon {
+    margin-top: 1rem;
+    margin-left: -0.5rem;
+}

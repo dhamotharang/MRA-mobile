@@ -7,13 +7,13 @@
 <ion-content>
 
     <ion-row justify-content-center>
-      <ion-col col-12 no-padding>
+      <ion-col no-padding>
           <button class="search-box" ion-button color="light">
               <ion-row style="width: 100%;">
-                  <ion-col col-11>
+                  <ion-col size="10">
                       <input class="input-search" placeholder="Search here">
                   </ion-col>
-                  <ion-col col-1 class="align-text">
+                  <ion-col size="2" class="align-text">
                     <ion-icon class="search-icon" ios="search-outline" md="search-sharp"></ion-icon>
                   </ion-col>
               </ion-row>
@@ -27,11 +27,11 @@
       <ion-item no-padding *ngFor='let data of projectList'>
         <ion-label no-margin [routerLink]="['/project-detail']">
           <ion-row>
-            <ion-col>
+            <ion-col size="3">
               <img class="img-style"
               [src]="[data?.project_image]">
             </ion-col>
-            <ion-col col-10>
+            <ion-col size="9">
               <p class="project-name">{{data?.project_name}}</p>
             </ion-col>
           </ion-row>

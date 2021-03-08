@@ -26,6 +26,10 @@ const routes: Routes = [
     path: 'live-feed',
     loadChildren: () => import('./live-feed/live-feed.module').then( m => m.LiveFeedPageModule)
   },
+  {
+    path: 'create-post',
+    loadChildren: () => import('./create-post/create-post.module').then( m => m.CreatePostPageModule)
+  },
 
 ];
 
