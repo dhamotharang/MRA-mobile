@@ -27,14 +27,38 @@
   background-color: white;
   z-index: 10;
   box-shadow: 2px 4px 10px rgba(97, 97, 100, 0.12);
+
+  ion-icon {
+    margin-bottom: 6px;
+    font-size: 2rem;
+  }
+
+  p {
+    font-size: 15px;
+    margin: 0;
+  }
 }
 
-.action-item ion-icon {
-  margin-bottom: 6px;
-  font-size: 2rem;
-}
+.project-card-container {
+  padding: 0 12px;
+  margin: 10px 0;
+  position: absolute;
+  top: 375px;
+  width: 100%;
 
-.action-item p {
-  font-size: 15px;
-  margin: 0;
+  ion-card {
+    width: 140px;
+    height: 240px;
+
+    img {
+      height: 140px;
+      width: 140px;
+      object-fit: cover;
+    }
+
+    ion-card-content {
+      padding: 12px;
+      text-align: left;
+    }
+  }
 }
