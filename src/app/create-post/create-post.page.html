@@ -15,10 +15,52 @@
       <ion-col size="8">
         <p class="project-name">{{project_name}}</p>
       </ion-col>
-      <ion-col size="1">
-        <ion-icon class="more-icon" ios="ellipsis-vertical" md="ellipsis-vertical"></ion-icon>
-      </ion-col>
     </ion-row>
   </ion-label>
+
+  <form [formGroup]="postForm">
+
+      <ion-row>
+        <ion-col>
+          <ion-card class="title-box">
+            <ion-input formControlName='title' class="input_title" type="text"
+            placeholder="Post Title">
+          </ion-input>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-card class="description-box">
+            <ion-row>
+              <ion-col>
+                <ion-textarea class="description_label" rows="10" placeholder="What's on your mind"
+                formControlName="description" maxlength="1000">
+              </ion-textarea>
+              </ion-col>
+            </ion-row>
+            <ion-row class="attach-icon-padding">
+              <ion-col size="2">
+                <ion-icon class="attach-icon" ios="camera" md="camera"></ion-icon>
+              </ion-col>
+              <ion-col size="2">
+                <ion-icon class="attach-icon" ios="image" md="image"></ion-icon>
+              </ion-col>
+              <ion-col size="2">
+                <ion-icon class="attach-icon" ios="location" md="location"></ion-icon>
+              </ion-col>
+              <ion-col size="2"></ion-col>
+              <ion-col size="4">
+                <button ion-button (click)="post()" class="post-button">
+                  <p class="post-label">Post</p>
+                </button>
+              </ion-col>
+            </ion-row>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+
+  </form>
 
 </ion-content>

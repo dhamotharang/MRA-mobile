@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CallNumber } from '@ionic-native/call-number/ngx';
-import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator/ngx';
 import { Router, ActivatedRoute } from '@angular/router';
+import { CallNumberProvider } from 'src/providers/call-number.provider';
+import { LaunchNavigatorProvider } from 'src/providers/launch-navigator.provider';
 
 @Component({
   selector: 'app-project-detail',
@@ -24,10 +24,10 @@ export class ProjectDetailPage implements OnInit {
   
 
   constructor(
-    public callNumber: CallNumber,
-    public launchNavigator: LaunchNavigator,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private callNumberProvider: CallNumberProvider,
+    private launchNavigatorProvider: LaunchNavigatorProvider
   ) { }
 
   ngOnInit() {
@@ -42,22 +42,12 @@ export class ProjectDetailPage implements OnInit {
 
   callFx() {
     let phoneNumber = '0174164546';
-    console.log('dialingFx', phoneNumber)
-    this.callNumber.callNumber(phoneNumber, true)
-        .then(res => console.log('Launched dialer!', res));
+    this.callNumberProvider.dialingFx(phoneNumber)
   }
 
   launchNavigation() {
     let address = 'Serin Residency, Jalan Fauna 1, 63000 Cyberjaya Selangor'
-    console.log('launchNavigation', address)
-    let options: LaunchNavigatorOptions = {
-        start: address
-    };
-  
-    this.launchNavigator.navigate(address)
-        .then(
-            success => console.log('Launched navigator'),
-            error => console.log('error Launched navigator'))
+    this.launchNavigatorProvider.launchNavigation(address)
   }
 
 }
