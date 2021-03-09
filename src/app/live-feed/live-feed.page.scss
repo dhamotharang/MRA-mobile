@@ -90,4 +90,42 @@ ion-scroll.scroll-x .scroll-content {
     padding-top: 0px;
 }
 
+.fab-button {
+    position: absolute;
+    margin: auto;
+    border: 1px solid;
+    right: 0px;
+    border-radius: 30px;
+    height: 39px;
+}
+
+.alert-icon {
+    border: solid;
+    border-radius: 20px;
+    margin-top: 2px;
+    background-color: red;
+    color: white;
+}
+
+.fab-label {
+    margin-top: 0px;
+}
+
+ion-fab-button[data-desc] {
+    position: relative;
+  }
+  
+  ion-fab-button[data-desc]::after {
+    position: absolute;
+    content: attr(data-desc);
+    z-index: 1;
+    right: 55px;
+    bottom: 4px;
+    padding: 9px;
+    background-color: white;
+    border-radius: 8px;
+    color: black;
+    box-shadow: 0 3px 5px -1px rgba(0,0,0,0.2), 0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12);
+  }
+
 
