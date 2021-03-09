@@ -16,4 +16,10 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+  <div class="actions-grid">
+    <ion-card class="action-item ion-no-margin" *ngFor="let item of actions">
+      <ion-icon name="{{ item.icon }}"></ion-icon>
+      <p>{{ item.title }}</p>
+    </ion-card>
+  </div>
 </ion-content>
