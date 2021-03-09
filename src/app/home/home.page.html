@@ -15,11 +15,48 @@
         </ion-fab>
       </ion-col>
     </ion-row>
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <h5 class="greet-text">Good Evening, Siti</h5>
+      </ion-col>
+    </ion-row>
   </ion-grid>
   <div class="actions-grid">
-    <ion-card class="action-item ion-no-margin" *ngFor="let item of actions">
-      <ion-icon name="{{ item.icon }}"></ion-icon>
-      <p>{{ item.title }}</p>
+    <ion-card class="action-item ion-no-margin">
+      <ion-icon name="add-outline"></ion-icon>
+      <ion-card-content class="ion-no-padding">
+        Join Project
+      </ion-card-content>
+    </ion-card>
+    <ion-card class="action-item ion-no-margin">
+      <ion-icon name="archive-outline"></ion-icon>
+      <ion-card-content class="ion-no-padding">
+        Inventory
+      </ion-card-content>
+    </ion-card>
+    <ion-card class="action-item ion-no-margin">
+      <ion-icon name="qr-code-outline"></ion-icon>
+      <ion-card-content class="ion-no-padding">
+        QR Code
+      </ion-card-content>
+    </ion-card>
+    <ion-card class="action-item ion-no-margin">
+      <ion-icon name="calendar-number-outline"></ion-icon>
+      <ion-card-content class="ion-no-padding">
+        View Events
+      </ion-card-content>
+    </ion-card>
+    <ion-card class="action-item ion-no-margin">
+      <ion-icon name="document-text-outline"></ion-icon>
+      <ion-card-content class="ion-no-padding">
+        Payment History
+      </ion-card-content>
+    </ion-card>
+    <ion-card class="action-item ion-no-margin">
+      <ion-icon name="cash-outline"></ion-icon>
+      <ion-card-content class="ion-no-padding">
+        Record Payment
+      </ion-card-content>
     </ion-card>
   </div>
   <div class="project-card-container">
