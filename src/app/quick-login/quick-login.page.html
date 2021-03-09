@@ -22,7 +22,9 @@
             <ion-row>
               <ion-col size="4">
                 <div>
-                  <ion-select placeholder="🇲🇾 +60"></ion-select>
+                  <ion-select placeholder="🇲🇾 +60">
+                    <ion-select-option value="malaysia">🇲🇾 +60</ion-select-option>
+                  </ion-select>
                 </div>
               </ion-col>
               <ion-col size="8">
@@ -40,6 +42,6 @@
 
 <ion-footer>
   <ion-toolbar>
-    <ion-button expand="full">Login</ion-button>
+    <ion-button expand="full" [routerLink]="['/payment-history']">Login</ion-button>
   </ion-toolbar>
 </ion-footer>

@@ -3,18 +3,23 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    path: 'launch',
+    loadChildren: () =>
+      import('./launch/launch.module').then((m) => m.LaunchPageModule),
   },
   {
     path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
+    redirectTo: 'launch',
+    pathMatch: 'full',
   },
   {
     path: 'quick-login',
-    loadChildren: () => import('./quick-login/quick-login.module').then( m => m.QuickLoginPageModule)
-  },  {
+    loadChildren: () =>
+      import('./quick-login/quick-login.module').then(
+        (m) => m.QuickLoginPageModule
+      ),
+  },
+  {
     path: 'project-list',
     loadChildren: () => import('./project-list/project-list.module').then( m => m.ProjectListPageModule)
   },
@@ -30,13 +35,25 @@ const routes: Routes = [
     path: 'create-post',
     loadChildren: () => import('./create-post/create-post.module').then( m => m.CreatePostPageModule)
   },
+  {
+    path: 'payment-history',
+    loadChildren: () =>
+      import('./payment-history/payment-history.module').then(
+        (m) => m.PaymentHistoryPageModule
+      ),
+  },
+  {
+    path: 'home-tab',
+    loadChildren: () =>
+      import('./home/home.module').then((m) => m.HomePageModule),
+  }
 
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
