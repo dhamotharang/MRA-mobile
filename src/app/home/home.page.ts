@@ -47,8 +47,13 @@ export class HomePage implements OnInit {
         icon: 'cash-outline',
       },
     ];
-    console.log(this.actions);
   }
+
+  option = {
+    slidesPerView: 2.5,
+    // loop: true,
+    spaceBetween: 10,
+  };
 
   ngOnInit() {}
 }

@@ -22,4 +22,49 @@
       <p>{{ item.title }}</p>
     </ion-card>
   </div>
+  <div class="project-card-container">
+    <ion-grid>
+      <ion-row class="ion-justify-content-between ion-align-items-center">
+        <ion-col>
+          <h5 class="ion-no-margin">Your projects</h5>
+        </ion-col>
+        <ion-col class="ion-text-right ion-align-self-baseline">
+          View more
+          <ion-icon name="arrow-forward-outline"></ion-icon>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-margin-top">
+        <ion-col>
+          <ion-slides [options]="option">
+            <ion-slide>
+              <ion-card class="ion-no-margin">
+                <img
+                  src="https://images.unsplash.com/photo-1601055283742-8b27e81b5553?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                  alt="" />
+                <ion-card-content>Third Wave Covid-19 Emergency</ion-card-content>
+              </ion-card>
+            </ion-slide>
+            <ion-slide>
+              <ion-card class="ion-no-margin">
+                <img
+                  src="https://images.unsplash.com/photo-1563260324-5ebeedc8af7c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1267&q=80"
+                  alt="">
+                <ion-card-content>
+                  Gaza Winter Warming Aid
+                </ion-card-content>
+              </ion-card>
+            </ion-slide>
+            <ion-slide>
+              <ion-card class="ion-no-margin">
+                <img
+                  src="https://assets.theedgemarkets.com/Malaysia-covid-19_reuters_08032021.jpg?MMtZgyw0vLSSDnUTRXvXRA82yb64wWze"
+                  alt="">
+                <ion-card-content>Covid-19 in Malaysia</ion-card-content>
+              </ion-card>
+            </ion-slide>
+          </ion-slides>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>
