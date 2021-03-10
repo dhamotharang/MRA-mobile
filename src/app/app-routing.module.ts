@@ -46,7 +46,23 @@ const routes: Routes = [
     path: 'home-tab',
     loadChildren: () =>
       import('./home/home.module').then((m) => m.HomePageModule),
+  },  {
+    path: 'volunteer-list',
+    loadChildren: () => import('./volunteer-list/volunteer-list.module').then( m => m.VolunteerListPageModule)
+  },
+  {
+    path: 'volunteer-list',
+    loadChildren: () => import('./volunteer-list/volunteer-list.module').then( m => m.VolunteerListPageModule)
+  },
+  {
+    path: 'volunteer-list',
+    loadChildren: () => import('./volunteer-list/volunteer-list.module').then( m => m.VolunteerListPageModule)
+  },
+  {
+    path: 'task-list',
+    loadChildren: () => import('./task-list/task-list.module').then( m => m.TaskListPageModule)
   }
+
 
 ];
 
