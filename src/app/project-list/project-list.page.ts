@@ -8,7 +8,7 @@ import { Router, NavigationExtras } from '@angular/router';
   styleUrls: ['./project-list.page.scss'],
 })
 export class ProjectListPage implements OnInit {
-  projectList = [
+  private projectList = [
     {project_name: 'Third Wave Covid-19 Emergency',project_image: 'assets/covid-img.jpg'},
     {project_name: 'Gaza Winter Warming Aid',project_image: 'assets/gaza-img.jpg'}
   ]

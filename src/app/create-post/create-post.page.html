@@ -40,24 +40,25 @@
               </ion-textarea>
               </ion-col>
             </ion-row>
-            <ion-row class="attach-icon-padding">
-              <ion-col size="2">
-                <ion-icon class="attach-icon" ios="camera" md="camera"></ion-icon>
-              </ion-col>
-              <ion-col size="2">
-                <ion-icon class="attach-icon" ios="image" md="image"></ion-icon>
-              </ion-col>
-              <ion-col size="2">
-                <ion-icon class="attach-icon" ios="location" md="location"></ion-icon>
-              </ion-col>
-              <ion-col size="2"></ion-col>
-              <ion-col size="4">
-                <button ion-button (click)="post()" class="post-button">
-                  <p class="post-label">Post</p>
-                </button>
-              </ion-col>
-            </ion-row>
           </ion-card>
+          <ion-row class="attach-icon-padding">
+            <ion-col (click)="takePicture()">
+              <ion-icon class="attach-icon" ios="camera" md="camera"></ion-icon>
+            </ion-col>
+            <ion-col (click)="getImageFx()">
+              <ion-icon class="attach-icon" ios="image" md="image"></ion-icon>
+            </ion-col>
+            <ion-col>
+              <ion-icon class="attach-icon" ios="location" md="location"></ion-icon>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <button ion-button (click)="post()" class="post-button">
+                <p class="post-label">Post</p>
+              </button>
+            </ion-col>
+          </ion-row>
         </ion-col>
       </ion-row>
 

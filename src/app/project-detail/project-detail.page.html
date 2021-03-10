@@ -136,17 +136,16 @@
           <ion-row class="padding-others">
             <ion-col>
               <ion-button [routerLink]="['/live-feed']" fill="clear" round class="others">  
-                <!-- <ion-icon ios="meccapan-script-text-outline" md="meccapan-script-text-outline" style="color: #4d4d4d" class="shop_icon"></ion-icon> -->
                 <p class="link-label">Live Feed</p>
               </ion-button>
             </ion-col>
             <ion-col>
-              <ion-button (click)="openLink()" fill="clear" round class="others">  
+              <ion-button [routerLink]="['/volunteer-list']" fill="clear" round class="others">  
                 <p class="link-label">Volunteer</p>
               </ion-button>
             </ion-col>
             <ion-col>
-              <ion-button (click)="openLink()" fill="clear" round class="others">  
+              <ion-button [routerLink]="['/task-list']" fill="clear" round class="others">  
                 <p class="link-label">Task</p>
               </ion-button>
             </ion-col>
