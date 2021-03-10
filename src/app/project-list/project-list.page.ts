@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-project-list',
@@ -13,10 +14,20 @@ export class ProjectListPage implements OnInit {
   ]
 
   constructor(
-
+    private router: Router
   ) { }
 
   ngOnInit() {
+  }
+
+  navNextPage(data) {
+    console.log('navNextPage',data)
+    let navigationExtras: NavigationExtras = {
+      state: {
+        user: data
+      }
+    };
+    this.router.navigate(['project-detail'], navigationExtras);
   }
 
 }

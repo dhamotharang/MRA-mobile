@@ -22,3 +22,46 @@
     margin-top: 1rem;
     margin-left: -0.5rem;
 }
+
+.title-box {
+    box-shadow: none;
+    border: solid;
+    border-width: 0.1px;
+    border-color: #8731ba;
+}
+
+.description-box {
+    box-shadow: none;
+    border: solid;
+    border-width: 0.1px;
+    border-color: #8731ba;
+    margin-top: -0.5rem;
+    height: 26rem;
+}
+
+.attach-icon-padding {
+    margin-top: 11rem;
+    padding-right: 9rem;
+    padding-left: 0.5rem;
+}
+
+.attach-icon {
+    position: relative;
+    font-size: 1.3rem;
+    color: black;
+}
+
+.post-button {
+    width: 12rem;
+    height: 1.9rem;
+    margin-top: -3px;
+    margin-left: -0.5rem;
+    background-color: #af71f0;
+    color: white;
+    border-radius: 5px;
+}
+
+.post-label {
+    font-size: 0.9rem;
+    margin-top: 8px;
+}
