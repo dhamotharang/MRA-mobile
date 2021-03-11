@@ -21,19 +21,29 @@ const routes: Routes = [
   },
   {
     path: 'project-list',
-    loadChildren: () => import('./project-list/project-list.module').then( m => m.ProjectListPageModule)
+    loadChildren: () =>
+      import('./project-list/project-list.module').then(
+        (m) => m.ProjectListPageModule
+      ),
   },
   {
     path: 'project-detail',
-    loadChildren: () => import('./project-detail/project-detail.module').then( m => m.ProjectDetailPageModule)
+    loadChildren: () =>
+      import('./project-detail/project-detail.module').then(
+        (m) => m.ProjectDetailPageModule
+      ),
   },
   {
     path: 'live-feed',
-    loadChildren: () => import('./live-feed/live-feed.module').then( m => m.LiveFeedPageModule)
+    loadChildren: () =>
+      import('./live-feed/live-feed.module').then((m) => m.LiveFeedPageModule),
   },
   {
     path: 'create-post',
-    loadChildren: () => import('./create-post/create-post.module').then( m => m.CreatePostPageModule)
+    loadChildren: () =>
+      import('./create-post/create-post.module').then(
+        (m) => m.CreatePostPageModule
+      ),
   },
   {
     path: 'payment-history',
@@ -46,24 +56,54 @@ const routes: Routes = [
     path: 'home-tab',
     loadChildren: () =>
       import('./home/home.module').then((m) => m.HomePageModule),
-  },  {
-    path: 'volunteer-list',
-    loadChildren: () => import('./volunteer-list/volunteer-list.module').then( m => m.VolunteerListPageModule)
   },
   {
     path: 'volunteer-list',
-    loadChildren: () => import('./volunteer-list/volunteer-list.module').then( m => m.VolunteerListPageModule)
+    loadChildren: () =>
+      import('./volunteer-list/volunteer-list.module').then(
+        (m) => m.VolunteerListPageModule
+      ),
   },
   {
     path: 'volunteer-list',
-    loadChildren: () => import('./volunteer-list/volunteer-list.module').then( m => m.VolunteerListPageModule)
+    loadChildren: () =>
+      import('./volunteer-list/volunteer-list.module').then(
+        (m) => m.VolunteerListPageModule
+      ),
+  },
+  {
+    path: 'volunteer-list',
+    loadChildren: () =>
+      import('./volunteer-list/volunteer-list.module').then(
+        (m) => m.VolunteerListPageModule
+      ),
   },
   {
     path: 'task-list',
-    loadChildren: () => import('./task-list/task-list.module').then( m => m.TaskListPageModule)
-  }
-
-
+    loadChildren: () =>
+      import('./task-list/task-list.module').then((m) => m.TaskListPageModule),
+  },
+  {
+    path: 'events-tabbar',
+    loadChildren: () =>
+      import('./events-tabbar/events-tabbar.module').then(
+        (m) => m.EventsTabbarPageModule
+      ),
+  },
+  {
+    path: 'events-tab-explore',
+    loadChildren: () =>
+      import('./events-tab-explore/events-tab-explore.module').then(
+        (m) => m.EventsTabExplorePageModule
+      ),
+  },
+  {
+    path: 'events-tab-hosting',
+    loadChildren: () =>
+      import('./events-tab-hosting/events-tab-hosting.module').then(
+        (m) => m.EventsTabHostingPageModule
+      ),
+  },
 ];
 
 @NgModule({
