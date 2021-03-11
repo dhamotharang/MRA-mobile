@@ -36,32 +36,36 @@
     border-width: 0.1px;
     border-color: #8731ba;
     margin-top: -0.5rem;
-    height: 26rem;
+    height: 21rem;
 }
 
 .attach-icon-padding {
-    margin-top: 11rem;
-    padding-right: 9rem;
+    // margin-top: 11rem;
+    padding-right: 14rem;
     padding-left: 0.5rem;
 }
 
 .attach-icon {
     position: relative;
-    font-size: 1.3rem;
+    font-size: 1.6rem;
     color: black;
+    border: solid;
+    border-width: 1px;
+    border-color: #737373;
+    border-radius: 5px;
+    top: -2px;
 }
 
 .post-button {
-    width: 12rem;
-    height: 1.9rem;
-    margin-top: -3px;
-    margin-left: -0.5rem;
+    width: 100%;
+    margin-top: 0px;
     background-color: #af71f0;
     color: white;
     border-radius: 5px;
+    height: 2.5rem;
 }
 
 .post-label {
     font-size: 0.9rem;
-    margin-top: 8px;
+    // margin-top: 8px;
 }

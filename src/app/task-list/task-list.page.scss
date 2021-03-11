@@ -15,20 +15,20 @@
     padding-bottom: 0px;
 }
 
-.label-feed-title {
+.label-task-title {
     color: #212121;
     font-size: 1rem;
     margin-left: 0rem;
 }
 
-.label-feed-date {
+.label-task-date {
     color: #212121;
     font-size: 0.8rem;
     margin-left: 0rem;
     margin-top: -1rem;
 }
 
-.feed-card {
+.task-card {
     background-color: #d8d8d88a;
     border-radius: 0.5rem;
     height: auto;
@@ -77,46 +77,40 @@
     text-align: center;
 }
 
-ion-scroll.scroll-x .scroll-content {
-    padding-top: 0px;
-}
-
-.fab-button {
-    position: absolute;
-    margin: auto;
-    border: 1px solid;
-    right: 0px;
-    border-radius: 30px;
-    height: 39px;
-}
-
-.alert-icon {
+.comment-item {
     border: solid;
-    border-radius: 20px;
-    margin-top: 2px;
-    background-color: red;
-    color: white;
+    border-color: gray;
+    border-width: 1px;
+    height: 2.5rem;
+    border-left: none;
+    border-right: none;
+    // background-color: gray;
 }
 
-.fab-label {
-    margin-top: 0px;
-}
-
-ion-fab-button[data-desc] {
-    position: relative;
-  }
-  
-  ion-fab-button[data-desc]::after {
-    position: absolute;
-    content: attr(data-desc);
-    z-index: 1;
-    right: 55px;
-    bottom: 4px;
-    padding: 9px;
-    background-color: white;
-    border-radius: 8px;
+.comment {
+    margin-top: 0.3rem;
+    text-align: center;
     color: black;
-    box-shadow: 0 3px 5px -1px rgba(0,0,0,0.2), 0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12);
-  }
+}
 
+.chat-icon {
+    font-size: 1.2rem;
+    position: absolute;
+    margin-left: 6.7rem;
+    margin-top: 0.3rem;
+    color: black;
+}
 
+.comment-card {
+    background-color: #f4f5f8;
+    border-radius: 0.5rem;
+    height: auto;
+    width: auto;
+    box-shadow: none;
+}
+
+.description-date {
+    margin-top: -0.5rem;
+    margin-bottom: 0rem;
+    margin-left: -0.3rem;
+}

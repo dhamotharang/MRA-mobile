@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>task-list</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card *ngFor="let data of taskList" class="task-card">
+    <ion-row>
+      <ion-col size="3">
+        <img class="img-style" [src]="data?.profile_image">
+      </ion-col>
+      <ion-col>
+        <ion-row>
+          <ion-col class='padding_top_bot_zero'>
+            <p class="label-task-title">{{data?.task_title}}</p>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="3">
+            <p class="label-task-date">Today</p>
+          </ion-col>
+          <ion-col size="3">
+            <ion-card class="new-card">
+              <p class="new-label">new</p>          
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="description-row">
+      <ion-col>
+        <p class="description">{{data?.description}}</p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="ion-no-padding">
+        <ion-row>
+          <ion-col class="ion-no-padding center" size="4" *ngFor='let img of data?.task_image'>
+            <img class="attach-img"
+              [src]="[img?.task_images]">
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="comment-item">
+      <ion-col size="12">
+        <ion-icon class="chat-icon" ios="chatbox-ellipses" md="chatbox-ellipses"></ion-icon>
+        <p class="comment">Comment</p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-card class="comment-card">
+          <ion-row>
+            <ion-col size="3">
+              <img class="img-style" [src]="taskList[0]?.profile_image">
+            </ion-col>
+            <ion-col>
+              <p class="description">{{taskList[0]?.description}}</p>
+              <ion-row>
+                <ion-col>
+                  <p class="description-date description">3h</p>                  
+                </ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>    
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+  </ion-card>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [routerLink]="['/create-post']">
+      <ion-icon ios="create" md="create"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>
