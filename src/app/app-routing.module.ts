@@ -103,7 +103,11 @@ const routes: Routes = [
       import('./events-tab-hosting/events-tab-hosting.module').then(
         (m) => m.EventsTabHostingPageModule
       ),
+  },  {
+    path: 'profile',
+    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
   },
+
 ];
 
 @NgModule({
