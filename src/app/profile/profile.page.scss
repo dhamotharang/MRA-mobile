@@ -1,0 +1,50 @@
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatar-container {
+  margin: 20px 0;
+
+  ion-avatar {
+    height: 80px;
+    width: 80px;
+  }
+}
+
+.user-name {
+  margin: 0 0 10px;
+
+  h4 {
+    margin: 0;
+    color: #282828;
+    text-align: center;
+  }
+}
+
+.profile-pill {
+  text-decoration: none;
+  padding: 6px 20px;
+  margin: 10px 0;
+  border: none;
+  font-size: 16px;
+  text-align: center;
+  text-transform: uppercase;
+  border-radius: 999px;
+  box-shadow: 2px 4px 16px 0px rgba(0, 0, 0, 0.12);
+}
+
+.settings-list ion-label h4,
+.legal-list ion-label h4 {
+  font-size: 1.125rem;
+}
+
+.settings-list ion-icon,
+.legal-list ion-icon {
+  font-size: 24px;
+}
+
+ion-icon.chevron {
+  color: #686868;
+}
