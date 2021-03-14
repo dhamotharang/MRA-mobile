@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>sos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-label class="title_margin">
+    <p class="label">SOS Status</p>
+  </ion-label>
+
+  <ion-row class="center">
+    <ion-col size="4">
+      <ion-icon class="icon" md="heart" ios="heart"></ion-icon>
+      <p class="sign-label">Heart Attack</p>   
+    </ion-col>
+    <ion-col size="4">
+      <ion-icon class="icon" md="sad" ios="sad"></ion-icon>
+      <p class="sign-label">Roberry</p>   
+    </ion-col>
+    <ion-col size="4">
+      <ion-icon class="icon" md="flame" ios="flame"></ion-icon>
+      <p class="sign-label">Fire</p>   
+    </ion-col>
+  </ion-row>
+
+  <ion-label class="title_margin">
+    <p class="label">Contacts</p>
+  </ion-label>  
+
+  <ion-list>
+    <ion-item no-padding *ngFor='let data of contactList'>
+      <ion-label no-margin (click)="navNextPage(data)">
+        <ion-row>
+          <ion-col size="8">
+            <p class="volunteer-name">{{data?.contact_name}}</p>
+            <p class="volunteer-name">{{data?.contact}}</p>
+          </ion-col>
+          <ion-col size="2" (click)="callFx()">
+            <ion-icon ios="call" md="call" class="call-icon">
+            </ion-icon>
+          </ion-col>
+          <ion-col size="2">
+            <ion-icon class="delete-icon" md="close-circle" ios="close-circle"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [routerLink]="['/contact-list']">
+      <ion-icon ios="add-outline" md="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

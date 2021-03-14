@@ -59,29 +59,23 @@ const routes: Routes = [
   },
   {
     path: 'volunteer-list',
-    loadChildren: () =>
-      import('./volunteer-list/volunteer-list.module').then(
-        (m) => m.VolunteerListPageModule
-      ),
-  },
-  {
-    path: 'volunteer-list',
-    loadChildren: () =>
-      import('./volunteer-list/volunteer-list.module').then(
-        (m) => m.VolunteerListPageModule
-      ),
-  },
-  {
-    path: 'volunteer-list',
-    loadChildren: () =>
-      import('./volunteer-list/volunteer-list.module').then(
-        (m) => m.VolunteerListPageModule
-      ),
+    loadChildren: () => import('./volunteer-list/volunteer-list.module').then( m => m.VolunteerListPageModule)
   },
   {
     path: 'task-list',
-    loadChildren: () =>
-      import('./task-list/task-list.module').then((m) => m.TaskListPageModule),
+    loadChildren: () => import('./task-list/task-list.module').then( m => m.TaskListPageModule)
+  },
+  {
+    path: 'add-volunteer',
+    loadChildren: () => import('./add-volunteer/add-volunteer.module').then( m => m.AddVolunteerPageModule)
+  },
+  {
+    path: 'sos',
+    loadChildren: () => import('./sos/sos.module').then( m => m.SosPageModule)
+  },
+  {
+    path: 'contact-list',
+    loadChildren: () => import('./contact-list/contact-list.module').then( m => m.ContactListPageModule)
   },
   {
     path: 'events-tabbar',
@@ -103,10 +97,13 @@ const routes: Routes = [
       import('./events-tab-hosting/events-tab-hosting.module').then(
         (m) => m.EventsTabHostingPageModule
       ),
-  },  {
+  },
+  {
     path: 'profile',
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
-  },
+  }
+
+
 
 ];
 
