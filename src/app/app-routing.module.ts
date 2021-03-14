@@ -46,13 +46,6 @@ const routes: Routes = [
     path: 'home-tab',
     loadChildren: () =>
       import('./home/home.module').then((m) => m.HomePageModule),
-  },  {
-    path: 'volunteer-list',
-    loadChildren: () => import('./volunteer-list/volunteer-list.module').then( m => m.VolunteerListPageModule)
-  },
-  {
-    path: 'volunteer-list',
-    loadChildren: () => import('./volunteer-list/volunteer-list.module').then( m => m.VolunteerListPageModule)
   },
   {
     path: 'volunteer-list',
@@ -61,7 +54,19 @@ const routes: Routes = [
   {
     path: 'task-list',
     loadChildren: () => import('./task-list/task-list.module').then( m => m.TaskListPageModule)
+  },
+  {
+    path: 'add-volunteer',
+    loadChildren: () => import('./add-volunteer/add-volunteer.module').then( m => m.AddVolunteerPageModule)
+  },  {
+    path: 'sos',
+    loadChildren: () => import('./sos/sos.module').then( m => m.SosPageModule)
+  },
+  {
+    path: 'contact-list',
+    loadChildren: () => import('./contact-list/contact-list.module').then( m => m.ContactListPageModule)
   }
+
 
 
 ];
