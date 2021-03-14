@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Select Emergency Number</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+    <ion-item no-padding *ngFor='let data of contactList'>
+      <ion-label no-margin (click)="navNextPage(data)">
+        <ion-row>
+          <ion-col size="10">
+            <p class="volunteer-name">{{data?.contact_name}}</p>
+            <p class="volunteer-name">{{data?.contact}}</p>
+          </ion-col>
+          <ion-col size="2">
+            <ion-checkbox color="primary"></ion-checkbox>
+          </ion-col>
+        </ion-row>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-row>
+    <ion-col>
+      <ion-button class="done-button" (click)="navFx()" expand="block" fill="outline">Done</ion-button>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

@@ -1,0 +1,156 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Add Volunteer</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form [formGroup]="volunteerInfoForm">
+
+    <ion-row>
+      <ion-col class="no_paading_x" style="padding-left: 0px;">
+        <ion-row>
+          <ion-col class="align-left no_paading_x" style="padding-left: 0px;">
+            <ion-item class="item_padding">
+              <ion-label class="label_name" stacked>Full Name</ion-label>
+              <ion-input formControlName='full_name' class="input_name" type="text" placeholder="Enter full name">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="no_paading_x" style="padding-left: 0px;">
+        <ion-row>
+          <ion-col class="align-left no_paading_x" style="padding-left: 0px;">
+            <ion-item class="item_padding">
+              <ion-label class="label_name" stacked>IC Number</ion-label>
+              <ion-input formControlName='nric' class="input_name" type="number" placeholder="Enter IC Number">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="no_paading_x" style="padding-left: 0px;">
+        <ion-row>
+          <ion-col class="align-left no_paading_x" style="padding-left: 0px;">
+            <ion-item class="item_padding">
+              <ion-label class="label_name" stacked>Unit Number / House Number</ion-label>
+              <ion-input formControlName='address_unit_no' class="input_name" type="text"
+                placeholder="Enter unit number/house number">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="no_paading_x" style="padding-left: 0px;">
+        <ion-row>
+          <ion-col class="align-left no_paading_x" style="padding-left: 0px;">
+            <ion-item class="item_padding">
+              <ion-label class="label_name" stacked>Street Name</ion-label>
+              <ion-input formControlName='address_street_name_01' class="input_name" type="text"
+                placeholder="Enter street name">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="no_paading_x" style="padding-left: 0px;">
+        <ion-row>
+          <ion-col class="align-left no_paading_x" style="padding-left: 0px;">
+            <ion-item class="item_padding">
+              <ion-label class="label_name" stacked>Postcode</ion-label>
+              <ion-input formControlName='address_postcode' class="input_name" type="number"
+                placeholder="Enter postcode">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="no_paading_x" style="padding-left: 0px;">
+        <ion-row>
+          <ion-col class="align-left no_paading_x" style="padding-left: 0px;">
+            <ion-item class="item_padding">
+              <ion-label class="label_name" stacked>City</ion-label>
+              <ion-input formControlName='address_city' class="input_name" type="text" placeholder="Enter city">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="no_paading_x" style="padding-left: 0px;">
+        <ion-row>
+          <ion-col class="align-left no_paading_x" style="padding-left: 0px;">
+            <ion-item class="item_padding">
+              <ion-label class="label_name" stacked>State</ion-label>
+              <ion-input formControlName='address_state' class="input_name" type="text" placeholder="Enter state">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="no_paading_x" style="padding-left: 0px;">
+        <ion-row>
+          <ion-col class="align-left no_paading_x" style="padding-left: 0px;">
+            <ion-item class="item_padding">
+              <ion-label class="label_name" stacked>Skills</ion-label>
+              <ion-input formControlName='skills' class="input_name" type="text" placeholder="Enter full name">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="no_paading_x" style="padding-left: 0px;">
+        <ion-row>
+          <ion-col class="align-left no_paading_x" style="padding-left: 0px;">
+            <ion-item class="item_padding">
+              <ion-label class="label_name" stacked>Others</ion-label>
+              <ion-input formControlName='other_skills' class="input_name" type="number" placeholder="Enter IC Number">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="no_paading_x" style="padding-left: 0px;">
+        <ion-row>
+          <ion-col class="align-left no_paading_x" style="padding-left: 0px;">
+            <ion-item class="item_padding">
+              <ion-label class="label_name" stacked>Field of Interest</ion-label>
+              <ion-input formControlName='interest' class="input_name" type="number" placeholder="Enter IC Number">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+
+  </form>
+
+</ion-content>
