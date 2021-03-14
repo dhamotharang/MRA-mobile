@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home-tab"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="flex-center avatar-container">
+    <ion-avatar>
+      <img
+        src="https://images.unsplash.com/photo-1497551060073-4c5ab6435f12?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=667&q=80"
+        alt="Placeholder avatar">
+    </ion-avatar>
+  </div>
+  <div class="flex-center user-name">
+    <h4>Nisa Hasin</h4>
+  </div>
+  <div class="flex-center">
+    <p class="profile-pill">My profile</p>
+  </div>
+  <ion-list-header>
+    <ion-label>Settings & Privacy</ion-label>
+  </ion-list-header>
+  <ion-list class="settings-list">
+    <ion-item>
+      <ion-icon slot="start" name="person-circle"></ion-icon>
+      <ion-label>
+        <h4>My account</h4>
+        <p>Manage your personal information</p>
+      </ion-label>
+      <ion-icon slot="end" size="small" name="chevron-forward-outline" class="chevron"></ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-icon slot="start" name="chatbubble-ellipses"></ion-icon>
+      <ion-label>
+        <h4>Language</h4>
+        <p>Change your language</p>
+      </ion-label>
+      <ion-icon slot="end" size="small" name="chevron-forward-outline" class="chevron"></ion-icon>
+    </ion-item>
+  </ion-list>
+  <ion-list-header>
+    <ion-label>Legal & Policies</ion-label>
+  </ion-list-header>
+  <ion-list class="legal-list">
+    <ion-item>
+      <ion-icon slot="start" name="document-text"></ion-icon>
+      <ion-label class="ion-text-capitalize">
+        <h4>Terms of Use</h4>
+      </ion-label>
+      <ion-icon slot="end" size="small" name="chevron-forward-outline" class="chevron"></ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-icon slot="start" name="lock-closed"></ion-icon>
+      <ion-label class="ion-text-capitalize">
+        <h4>Data Policy</h4>
+      </ion-label>
+      <ion-icon slot="end" size="small" name="chevron-forward-outline" class="chevron"></ion-icon>
+    </ion-item>
+  </ion-list>
+</ion-content>

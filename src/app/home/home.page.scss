@@ -6,6 +6,16 @@
   z-index: 5;
   position: relative;
 
+  .profile-icon {
+    font-size: 24px;
+    margin-left: 10px;
+    color: white;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
   .greet-text {
     color: white;
   }

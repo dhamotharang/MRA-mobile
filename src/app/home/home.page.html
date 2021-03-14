@@ -4,6 +4,7 @@
       <ion-col>
         <ion-buttons>
           <ion-back-button defaultHref="launch"></ion-back-button>
+          <ion-icon name="person-circle-outline" class="profile-icon" [routerLink]="['/profile']"></ion-icon>
         </ion-buttons>
       </ion-col>
       <ion-col>
@@ -40,7 +41,7 @@
         QR Code
       </ion-card-content>
     </ion-card>
-    <ion-card class="action-item ion-no-margin">
+    <ion-card class="action-item ion-no-margin" [routerLink]="['/events-tabbar']">
       <ion-icon name="calendar-number-outline"></ion-icon>
       <ion-card-content class="ion-no-padding">
         View Events
