@@ -1,3 +1,15 @@
+ion-toolbar {
+  --background: url(../../assets/navbar-bg.jpg);
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  ion-back-button,
+  ion-title {
+    --color: white;
+  }
+}
+
 .flex-center {
   display: flex;
   justify-content: center;

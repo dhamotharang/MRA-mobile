@@ -6,6 +6,10 @@
   z-index: 5;
   position: relative;
 
+  ion-back-button {
+    --color: white;
+  }
+
   .profile-icon {
     font-size: 24px;
     margin-left: 10px;
