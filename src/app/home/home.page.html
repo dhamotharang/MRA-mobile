@@ -1,6 +1,6 @@
 <ion-content>
   <ion-grid class="header">
-    <ion-row class="ion-justify-content-between ion-align-items-center">
+    <ion-row class="ion-justify-content-between ion-align-items-center margin-top">
       <ion-col>
         <ion-buttons>
           <!-- <ion-back-button defaultHref="launch"></ion-back-button> -->
@@ -23,7 +23,7 @@
     </ion-row>
   </ion-grid>
   <div class="actions-grid">
-    <ion-card class="action-item ion-no-margin">
+    <ion-card class="action-item ion-no-margin" [routerLink]="['/project-list']">
       <ion-icon name="add-outline"></ion-icon>
       <ion-card-content class="ion-no-padding">
         Join Project
@@ -35,7 +35,7 @@
         Inventory
       </ion-card-content>
     </ion-card>
-    <ion-card class="action-item ion-no-margin">
+    <ion-card class="action-item ion-no-margin" [routerLink]="['/scan-qr']">
       <ion-icon name="qr-code-outline"></ion-icon>
       <ion-card-content class="ion-no-padding">
         QR Code
@@ -47,7 +47,7 @@
         View Events
       </ion-card-content>
     </ion-card>
-    <ion-card class="action-item ion-no-margin">
+    <ion-card class="action-item ion-no-margin" [routerLink]="['/payment-history']">
       <ion-icon name="document-text-outline"></ion-icon>
       <ion-card-content class="ion-no-padding">
         Payment History
