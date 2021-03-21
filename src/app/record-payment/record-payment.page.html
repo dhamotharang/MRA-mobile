@@ -18,23 +18,35 @@
       </ion-col>
       <ion-col>
         <ion-row>
-          <ion-col class='padding_top_bot_zero'>
-            <p class="label-feed-title">{{data?.project_name}}</p>
+          <ion-col>
+            <p class="label-project">{{data?.project_name}}</p>
           </ion-col>
         </ion-row>
-        <ion-row>
+        <ion-row class="row-margin">
           <ion-col>
-            <p class="label-feed-date">{{data?.record_name}}</p>
+            <p class="label-record">{{data?.record_name}}</p>
           </ion-col>
         </ion-row>
       </ion-col>
     </ion-row>
 
-    <!-- <ion-row class="description-row">
+    <ion-row class="description-row">
+      <ion-col size="6">
+        <p class="description">Starting on: {{data?.start_date}}</p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="description-row">
       <ion-col>
         <p class="description">{{data?.description}}</p>
       </ion-col>
-    </ion-row> -->
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-button expand="block" color='primary' [routerLink]="['/receipt-form']">Record</ion-button>
+      </ion-col>
+    </ion-row>
 
   </ion-card>
 
