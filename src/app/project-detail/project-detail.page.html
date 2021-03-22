@@ -1,9 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons>
-      <ion-back-button defaultHref="home"></ion-back-button>
+      <ion-back-button defaultHref="tabs"></ion-back-button>
     </ion-buttons>
-    <img slot="secondary" src="assets/mra.png" class="navbar-logo"/>
+    <img slot="secondary" src="assets/mra.png" class="navbar-logo" />
     <ion-title slot="secondary">Project Detail</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -13,7 +13,8 @@
   <ion-grid class="grid-padding">
     <ion-row>
       <ion-col class="ion-no-padding">
-        <img class="banner-image" [src]="[projectDetail?.project_image]" (click)="openImageFx(projectDetail?.projectDetail)">
+        <img class="banner-image" [src]="[projectDetail?.project_image]"
+          (click)="openImageFx(projectDetail?.projectDetail)">
         <!-- <ion-spinner class="spinner-loading" *ngIf='spinnerloading'></ion-spinner> -->
 
         <!-- <ion-slides pager="true" loop=true>
@@ -41,7 +42,7 @@
         <ion-label class="margin-top">
           <ion-row>
             <ion-col size="2">
-              <ion-button (click)="callFx()" fill="clear" round class="selected-button">  
+              <ion-button (click)="callFx()" fill="clear" round class="selected-button">
                 <ion-icon ios="call" md="call" class="call-icon">
                 </ion-icon>
               </ion-button>
@@ -53,7 +54,7 @@
               </ion-button>
             </ion-col>
             <ion-col size="2">
-              <ion-button (click)="composeEmail()" fill="clear" round class="selected-button">  
+              <ion-button (click)="composeEmail()" fill="clear" round class="selected-button">
                 <ion-icon ios="mail" md="mail" class="mail-icon">
                 </ion-icon>
               </ion-button>
@@ -63,7 +64,7 @@
               <ion-card class="active-card">
                 <ion-icon ios="ellipse" md="ellipse" class="active-icon">
                 </ion-icon>
-                <p class="active-label">ACTIVE</p>          
+                <p class="active-label">ACTIVE</p>
               </ion-card>
             </ion-col>
           </ion-row>
@@ -86,7 +87,8 @@
                     <!-- {{projectDetail?.unit_no}}, -->
                     {{projectDetail?.address}},
                     {{projectDetail?.postcode}} {{projectDetail?.city}},
-                    {{projectDetail?.state}}</p>
+                    {{projectDetail?.state}}
+                  </p>
                 </ion-col>
               </ion-row>
 
@@ -127,7 +129,7 @@
             <ion-col>
               <p class="description-text">
                 {{projectDetail?.description}}
-              <!-- <p [innerHtml]="serviceDetailData?.description" class="description_new"> -->
+                <!-- <p [innerHtml]="serviceDetailData?.description" class="description_new"> -->
               </p>
             </ion-col>
           </ion-row>
@@ -139,17 +141,17 @@
         <ion-label class="margin-top">
           <ion-row class="padding-others">
             <ion-col>
-              <ion-button [routerLink]="['/live-feed']" fill="clear" round class="others">  
+              <ion-button [routerLink]="['/live-feed']" fill="clear" round class="others">
                 <p class="link-label">Live Feed</p>
               </ion-button>
             </ion-col>
             <ion-col>
-              <ion-button [routerLink]="['/volunteer-list']" fill="clear" round class="others">  
+              <ion-button [routerLink]="['/volunteer-list']" fill="clear" round class="others">
                 <p class="link-label">Volunteer</p>
               </ion-button>
             </ion-col>
             <ion-col>
-              <ion-button [routerLink]="['/task-list']" fill="clear" round class="others">  
+              <ion-button [routerLink]="['/task-list']" fill="clear" round class="others">
                 <p class="link-label">Task</p>
               </ion-button>
             </ion-col>
