@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <img slot="secondary" src="assets/mra.png" class="navbar-logo"/>
+    <ion-title slot="secondary">Receipt</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label>Payment Type</ion-label>
+        <ion-select placeholder="Select One">
+          <ion-select-option value="cash">Cash</ion-select-option>
+          <ion-select-option value="online">Online Banking</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label>Bank Name</ion-label>
+        <ion-select placeholder="Select One">
+          <ion-select-option value="CIMB">CIMB</ion-select-option>
+          <ion-select-option value="Maybank">Maybank</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label>Receipt Date and Time</ion-label>
+        <ion-datetime displayFormat="D MMM YYYY H:mm" min="1997" max="2010"></ion-datetime>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item lines="none">
+        <ion-label>Description</ion-label>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-textarea class="description_label" rows="10" placeholder="Description" maxlength="1000">
+      </ion-textarea>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+
+  <ion-row>
+    <ion-col>
+      <ion-item lines="none">
+        <ion-label>Proof of Receipt</ion-label>
+      </ion-item>
+    </ion-col>
+    <ion-col size="2" (click)="takePicture()">
+      <ion-icon class="attach-icon" ios="camera" md="camera"></ion-icon>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-button expand="block" color='primary'>Submit</ion-button>
+    </ion-col>
+  </ion-row>
+
+
+
+</ion-content>

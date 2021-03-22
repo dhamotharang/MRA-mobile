@@ -101,9 +101,18 @@ const routes: Routes = [
   {
     path: 'profile',
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
-  },  {
+  },
+  {
     path: 'scan-qr',
     loadChildren: () => import('./scan-qr/scan-qr.module').then( m => m.ScanQrPageModule)
+  },
+  {
+    path: 'record-payment',
+    loadChildren: () => import('./record-payment/record-payment.module').then( m => m.RecordPaymentPageModule)
+  },
+  {
+    path: 'receipt-form',
+    loadChildren: () => import('./receipt-form/receipt-form.module').then( m => m.ReceiptFormPageModule)
   }
 
 
