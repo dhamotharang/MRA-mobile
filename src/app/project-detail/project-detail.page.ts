@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CallNumberProvider } from 'src/providers/call-number.provider';
 import { LaunchNavigatorProvider } from 'src/providers/launch-navigator.provider';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
 
 @Component({
   selector: 'app-project-detail',
@@ -27,7 +29,9 @@ export class ProjectDetailPage implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private callNumberProvider: CallNumberProvider,
-    private launchNavigatorProvider: LaunchNavigatorProvider
+    private launchNavigatorProvider: LaunchNavigatorProvider,
+    private inAppBrowser: InAppBrowser,
+    private emailComposer: EmailComposer,
   ) { }
 
   ngOnInit() {
@@ -48,6 +52,23 @@ export class ProjectDetailPage implements OnInit {
   launchNavigation() {
     let address = 'Serin Residency, Jalan Fauna 1, 63000 Cyberjaya Selangor'
     this.launchNavigatorProvider.launchNavigation(address)
+  }
+
+  launchWhatsapp() {
+    const browser = this.inAppBrowser.create('http://www.wasap.my/60174164546', '_system'); 
+  }
+
+  composeEmail() {
+    let email = {
+      to: 'nisahasin95@gmail.com',
+      cc: '',
+      bcc: ['', ''],
+      attachments: [],
+      subject: 'Asking question about project..',
+      body: '',
+      isHtml: true
+    };
+    this.emailComposer.open(email);
   }
 
 }

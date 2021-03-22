@@ -10,6 +10,8 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
 import { CallNumberProvider } from 'src/providers/call-number.provider';
 import { LaunchNavigatorProvider } from 'src/providers/launch-navigator.provider';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +28,9 @@ import { LaunchNavigatorProvider } from 'src/providers/launch-navigator.provider
     LaunchNavigator,
     Camera,
     CallNumberProvider,
-    LaunchNavigatorProvider
+    LaunchNavigatorProvider,
+    InAppBrowser,
+    EmailComposer
   ],
   bootstrap: [AppComponent],
 })
