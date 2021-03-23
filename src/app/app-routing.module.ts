@@ -53,29 +53,34 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'home-tab',
-    loadChildren: () =>
-      import('./home/home.module').then((m) => m.HomePageModule),
-  },
-  {
     path: 'volunteer-list',
-    loadChildren: () => import('./volunteer-list/volunteer-list.module').then( m => m.VolunteerListPageModule)
+    loadChildren: () =>
+      import('./volunteer-list/volunteer-list.module').then(
+        (m) => m.VolunteerListPageModule
+      ),
   },
   {
     path: 'task-list',
-    loadChildren: () => import('./task-list/task-list.module').then( m => m.TaskListPageModule)
+    loadChildren: () =>
+      import('./task-list/task-list.module').then((m) => m.TaskListPageModule),
   },
   {
     path: 'add-volunteer',
-    loadChildren: () => import('./add-volunteer/add-volunteer.module').then( m => m.AddVolunteerPageModule)
+    loadChildren: () =>
+      import('./add-volunteer/add-volunteer.module').then(
+        (m) => m.AddVolunteerPageModule
+      ),
   },
   {
     path: 'sos',
-    loadChildren: () => import('./sos/sos.module').then( m => m.SosPageModule)
+    loadChildren: () => import('./sos/sos.module').then((m) => m.SosPageModule),
   },
   {
     path: 'contact-list',
-    loadChildren: () => import('./contact-list/contact-list.module').then( m => m.ContactListPageModule)
+    loadChildren: () =>
+      import('./contact-list/contact-list.module').then(
+        (m) => m.ContactListPageModule
+      ),
   },
   {
     path: 'events-tabbar',
@@ -100,24 +105,37 @@ const routes: Routes = [
   },
   {
     path: 'profile',
-    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+    loadChildren: () =>
+      import('./profile/profile.module').then((m) => m.ProfilePageModule),
   },
   {
     path: 'scan-qr',
-    loadChildren: () => import('./scan-qr/scan-qr.module').then( m => m.ScanQrPageModule)
+    loadChildren: () =>
+      import('./scan-qr/scan-qr.module').then((m) => m.ScanQrPageModule),
   },
   {
     path: 'record-payment',
-    loadChildren: () => import('./record-payment/record-payment.module').then( m => m.RecordPaymentPageModule)
+    loadChildren: () =>
+      import('./record-payment/record-payment.module').then(
+        (m) => m.RecordPaymentPageModule
+      ),
   },
   {
     path: 'receipt-form',
-    loadChildren: () => import('./receipt-form/receipt-form.module').then( m => m.ReceiptFormPageModule)
-  }
-
-
-
-
+    loadChildren: () =>
+      import('./receipt-form/receipt-form.module').then(
+        (m) => m.ReceiptFormPageModule
+      ),
+  },
+  {
+    path: 'tabs',
+    loadChildren: () =>
+      import('./tabs/tabs.module').then((m) => m.TabsPageModule),
+  },
+  {
+    path: 'notifications',
+    loadChildren: () => import('./notifications/notifications.module').then( m => m.NotificationsPageModule)
+  },
 ];
 
 @NgModule({

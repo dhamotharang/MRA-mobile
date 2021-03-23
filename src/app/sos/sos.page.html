@@ -1,9 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons>
-      <ion-back-button defaultHref="home"></ion-back-button>
+      <ion-back-button defaultHref="tabs"></ion-back-button>
     </ion-buttons>
-    <img slot="secondary" src="assets/mra.png" class="navbar-logo"/>
+    <img slot="secondary" src="assets/mra.png" class="navbar-logo" />
     <ion-title slot="secondary">SOS</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -17,21 +17,21 @@
   <ion-row class="center">
     <ion-col size="4">
       <ion-icon class="icon" md="heart" ios="heart"></ion-icon>
-      <p class="sign-label">Heart Attack</p>   
+      <p class="sign-label">Heart Attack</p>
     </ion-col>
     <ion-col size="4">
       <ion-icon class="icon" md="sad" ios="sad"></ion-icon>
-      <p class="sign-label">Roberry</p>   
+      <p class="sign-label">Roberry</p>
     </ion-col>
     <ion-col size="4">
       <ion-icon class="icon" md="flame" ios="flame"></ion-icon>
-      <p class="sign-label">Fire</p>   
+      <p class="sign-label">Fire</p>
     </ion-col>
   </ion-row>
 
   <ion-label class="title_margin">
     <p class="label">Contacts</p>
-  </ion-label>  
+  </ion-label>
 
   <ion-list>
     <ion-item no-padding *ngFor='let data of contactList'>
