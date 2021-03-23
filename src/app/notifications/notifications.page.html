@@ -7,4 +7,45 @@
 
 <ion-content>
 
+  <ion-grid>
+    <!-- <ion-row>
+      <ion-col>
+        <h6 class="ion-text-capitalize">Monthly highlights</h6>
+      </ion-col>
+    </ion-row> -->
+    <ion-row class="ion-justify-content-between ion-align-items-center">
+      <ion-col>
+        <ion-slides [options]="option">
+          <ion-slide>
+            <ion-card class="ion-no-margin">
+              <img class="ion-padding" src="../../assets/mra.png" alt="">
+              <ion-item>
+                <ion-icon name="calendar-outline"></ion-icon>
+                <ion-label>Mon, April 10 2021 at 10:00AM</ion-label>
+              </ion-item>
+
+              <ion-card-content class="ion-text-left">
+                Meeting with Masjid BTHO dan BKK BTHO
+              </ion-card-content>
+            </ion-card>
+          </ion-slide>
+
+          <ion-slide>
+            <ion-card class="ion-no-margin">
+              <img class="ion-padding" src="../../assets/mra.png" alt="">
+              <ion-item>
+                <ion-icon name="calendar-outline"></ion-icon>
+                <ion-label>Mon, April 10 2021 at 10:00AM</ion-label>
+              </ion-item>
+
+              <ion-card-content class="ion-text-left">
+                Meeting with Masjid BTHO dan BKK BTHO
+              </ion-card-content>
+            </ion-card>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 </ion-content>
