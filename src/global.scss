@@ -42,3 +42,36 @@ ion-title {
   font-size: 1.2rem;
   text-align: left;
 }
+ion-header ion-toolbar.ios {
+  --background: url(../src/assets/nav-bg.jpg);
+  color: white;
+
+
+}
+
+.navbar-logo.ios {
+  display: inline-block;
+  width: 103px;
+  height: 34px;
+  text-align: right;
+  margin-right:10px;
+  order:1;
+}
+
+ion-title.ios {
+  font-size: 1.2rem;
+  text-align: left;
+  margin-left: 90px;
+}
+.button-inner.ios {
+    display: flex;
+    position: relative;
+    flex-flow: row nowrap;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    margin-left:50px;
+}
