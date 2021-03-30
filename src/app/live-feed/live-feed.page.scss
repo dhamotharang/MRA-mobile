@@ -120,3 +120,16 @@ ion-fab-button[data-desc] {
   }
 
 
+.ios{
+ .title-default{
+  position: absolute;
+  padding-inline: unset;
+  padding-left: 280px;
+}
+ .navbar-logo{
+  position: absolute;
+  display:flex;
+  -webkit-padding-start: 130px;
+  box-sizing: unset;
+}
+}

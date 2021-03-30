@@ -1,4 +1,16 @@
 ion-slides {
     overflow: visible;
 }
-  
+  .ios{
+ .title-default{
+  position: absolute;
+  padding-inline: unset;
+  padding-left: 230px;
+}
+ .navbar-logo{
+  position: absolute;
+  display:flex;
+  -webkit-padding-start: 100px;
+  box-sizing: unset;
+}
+}
