@@ -12,6 +12,8 @@ import { CallNumberProvider } from 'src/providers/call-number.provider';
 import { LaunchNavigatorProvider } from 'src/providers/launch-navigator.provider';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
+import { RestProvider } from 'src/providers/rest/rest';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,7 +21,8 @@ import { EmailComposer } from '@ionic-native/email-composer/ngx';
   imports: [
     BrowserModule, 
     IonicModule.forRoot(), 
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
@@ -30,7 +33,8 @@ import { EmailComposer } from '@ionic-native/email-composer/ngx';
     CallNumberProvider,
     LaunchNavigatorProvider,
     InAppBrowser,
-    EmailComposer
+    EmailComposer,
+    RestProvider
   ],
   bootstrap: [AppComponent],
 })

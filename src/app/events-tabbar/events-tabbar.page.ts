@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RestProvider } from 'src/providers/rest/rest';
 
 @Component({
   selector: 'app-events-tabbar',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EventsTabbarPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private restProvider: RestProvider
+  ) { }
 
   ngOnInit() {
   }
