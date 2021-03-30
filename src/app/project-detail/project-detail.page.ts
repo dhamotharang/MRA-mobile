@@ -4,6 +4,7 @@ import { CallNumberProvider } from 'src/providers/call-number.provider';
 import { LaunchNavigatorProvider } from 'src/providers/launch-navigator.provider';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
+import { RestProvider } from 'src/providers/rest/rest';
 
 @Component({
   selector: 'app-project-detail',
@@ -32,6 +33,7 @@ export class ProjectDetailPage implements OnInit {
     private launchNavigatorProvider: LaunchNavigatorProvider,
     private inAppBrowser: InAppBrowser,
     private emailComposer: EmailComposer,
+    private restProvider: RestProvider
   ) { }
 
   ngOnInit() {
@@ -41,6 +43,7 @@ export class ProjectDetailPage implements OnInit {
         console.log('data',this.data)
       }
     });
+    this.getDetailProject();
   }
 
 
@@ -69,6 +72,24 @@ export class ProjectDetailPage implements OnInit {
       isHtml: true
     };
     this.emailComposer.open(email);
+  }
+
+  getDetailProject() {
+    this.restProvider.getProjectDetail(320).then((result:any) => {
+      console.log('getProjectDetail',result);
+      // this.donateList = result;
+      // to make sure UI view is updatinig
+      // this.zone.run(() => {
+      // for(let i=0; i<result.length; i++){
+      //   this.isDonateShown.push(false);
+      // }
+      // this.loadingProvider.closeLoading();
+      // });
+    }, (err) => {
+      // console.log(err);
+      // this.loadingProvider.closeLoading();
+      // this.showAlert();
+    });
   }
 
 }
