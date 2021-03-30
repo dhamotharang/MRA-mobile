@@ -14,7 +14,7 @@
   <ion-grid class="grid-padding">
     <ion-row>
       <ion-col class="ion-no-padding">
-        <img class="banner-image" [src]="[projectDetail?.project_image]"
+        <img class="banner-image" [src]="[projectDetail?.projectPicture]"
           (click)="openImageFx(projectDetail?.projectDetail)">
         <!-- <ion-spinner class="spinner-loading" *ngIf='spinnerloading'></ion-spinner> -->
 
@@ -35,7 +35,7 @@
 
       <ion-item lines="none">
         <ion-label class="margin-top">
-          <p class="project-name">{{projectDetail?.project_name}}</p>
+          <p class="project-name">{{projectDetail?.projName}}</p>
         </ion-label>
       </ion-item>
 
@@ -86,9 +86,9 @@
                 <ion-col class="ion-margin-start">
                   <p class="label-detail">
                     <!-- {{projectDetail?.unit_no}}, -->
-                    {{projectDetail?.address}},
-                    {{projectDetail?.postcode}} {{projectDetail?.city}},
-                    {{projectDetail?.state}}
+                    {{checkAddress(projectDetail?.address1)}}
+                    {{checkAddress(projectDetail?.postcode)}} {{checkAddress(projectDetail?.city)}}
+                    {{checkAddress(projectDetail?.state)}} {{projectDetail?.countryName}}
                   </p>
                 </ion-col>
               </ion-row>
@@ -98,7 +98,7 @@
                   <ion-icon class="calendar-icon" ios="calendar" md="calendar"></ion-icon>
                 </ion-col>
                 <ion-col class="ion-margin-start">
-                  <span class="label-detail">3/3/2021 - 10/3/2021</span>
+                  <span class="label-detail">{{projectDetail?.projectStart|date: "dd/MM/y"}} - {{projectDetail?.projectEnd|date: "dd/MM/y"}}</span>
                 </ion-col>
               </ion-row>
 
@@ -129,7 +129,7 @@
           <ion-row style="padding-left: 16px;">
             <ion-col>
               <p class="description-text">
-                {{projectDetail?.description}}
+                {{projectDetail?.projObj}}
                 <!-- <p [innerHtml]="serviceDetailData?.description" class="description_new"> -->
               </p>
             </ion-col>
@@ -142,7 +142,7 @@
         <ion-label class="margin-top">
           <ion-row class="padding-others">
             <ion-col>
-              <ion-button [routerLink]="['/live-feed']" fill="clear" round class="others">
+              <ion-button (click)='navNextPage()' fill="clear" round class="others">
                 <p class="link-label">Live Feed</p>
               </ion-button>
             </ion-col>

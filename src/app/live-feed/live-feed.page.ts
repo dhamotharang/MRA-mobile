@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { RestProvider } from 'src/providers/rest/rest';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-live-feed',
@@ -6,15 +8,44 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./live-feed.page.scss'],
 })
 export class LiveFeedPage implements OnInit {
-  feedList = [
-    {feed_name: 'New Order has been placed',profile_image: 'assets/covid-img.jpg', feed_image: [ {feed_images:'assets/covid-img.jpg'},{feed_images:'assets/covid-img.jpg'},{feed_images:'assets/covid-img.jpg'}],description:'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto.'},
-    {feed_name: 'New Order has been placed',profile_image: 'assets/gaza-img.jpg', feed_image: [ {feed_images:'assets/covid-img.jpg'},{feed_images:'assets/covid-img.jpg'},{feed_images:'assets/covid-img.jpg'}],description:'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto.'},
-    {feed_name: 'New Order has been placed',profile_image: 'assets/gaza-img.jpg', feed_image: [ {feed_images:'assets/covid-img.jpg'},{feed_images:'assets/covid-img.jpg'},{feed_images:'assets/covid-img.jpg'}],description:'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto.'}
-  ]
+  private feedList;
+  data: any;
+  navParam: any;
 
-  constructor() { }
+  constructor(
+    private restProvider: RestProvider,
+    private router: Router,
+    private route: ActivatedRoute,
+  ) { }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      if (this.router.getCurrentNavigation().extras.state) {
+        this.data = this.router.getCurrentNavigation().extras.state.user;
+        console.log('data',this.data)
+        this.navParam = this.data
+      }
+    });
+    this.getLiveFeed();
+  }
+
+  getLiveFeed() {
+    this.restProvider.getProjectFeed(this.navParam.projId).then((result:any) => {
+      console.log('getLiveFeed',result);
+      this.feedList = result;
+      // this.donateList = result;
+      // to make sure UI view is updatinig
+      // this.zone.run(() => {
+      // for(let i=0; i<result.length; i++){
+      //   this.isDonateShown.push(false);
+      // }
+      // this.loadingProvider.closeLoading();
+      // });
+    }, (err) => {
+      // console.log(err);
+      // this.loadingProvider.closeLoading();
+      // this.showAlert();
+    });
   }
 
 }
