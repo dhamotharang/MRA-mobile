@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { CallNumberProvider } from 'src/providers/call-number.provider';
 import { LaunchNavigatorProvider } from 'src/providers/launch-navigator.provider';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
@@ -24,6 +24,7 @@ export class ProjectDetailPage implements OnInit {
   }
 
   private data;
+  navParam: any;
   
 
   constructor(
@@ -41,6 +42,7 @@ export class ProjectDetailPage implements OnInit {
       if (this.router.getCurrentNavigation().extras.state) {
         this.data = this.router.getCurrentNavigation().extras.state.user;
         console.log('data',this.data)
+        this.navParam = this.data
       }
     });
     this.getDetailProject();
@@ -75,9 +77,9 @@ export class ProjectDetailPage implements OnInit {
   }
 
   getDetailProject() {
-    this.restProvider.getProjectDetail(320).then((result:any) => {
+    this.restProvider.getProjectDetail(this.navParam.projId).then((result:any) => {
       console.log('getProjectDetail',result);
-      // this.donateList = result;
+      this.projectDetail = result;
       // to make sure UI view is updatinig
       // this.zone.run(() => {
       // for(let i=0; i<result.length; i++){
@@ -90,6 +92,21 @@ export class ProjectDetailPage implements OnInit {
       // this.loadingProvider.closeLoading();
       // this.showAlert();
     });
+  }
+
+  checkAddress(data) {
+    if (data != null) {
+      return data + ','
+    }
+  }
+
+  navNextPage() {
+    let navigationExtras: NavigationExtras = {
+      state: {
+        user: this.projectDetail
+      }
+    };
+    this.router.navigate(['live-feed'], navigationExtras);
   }
 
 }
