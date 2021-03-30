@@ -9,10 +9,7 @@ import { RestProvider } from 'src/providers/rest/rest';
   styleUrls: ['./project-list.page.scss'],
 })
 export class ProjectListPage implements OnInit {
-  private projectList = [
-    {project_name: 'Third Wave Covid-19 Emergency',project_image: 'assets/covid-img.jpg'},
-    {project_name: 'Gaza Winter Warming Aid',project_image: 'assets/gaza-img.jpg'}
-  ]
+  private projectList;
 
   constructor(
     private router: Router,
@@ -36,7 +33,7 @@ export class ProjectListPage implements OnInit {
   getListProjects() {
     this.restProvider.getProjectList(320).then((result:any) => {
       console.log('getListProjects',result);
-      // this.donateList = result;
+      this.projectList = result;
       // to make sure UI view is updatinig
       // this.zone.run(() => {
       // for(let i=0; i<result.length; i++){
