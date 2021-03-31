@@ -61,11 +61,18 @@
               </ion-button>
             </ion-col>
             <ion-col size="2"></ion-col>
-            <ion-col size="4">
+            <ion-col *ngIf="projectDetail?.projectWrap == 'A'" size="4">
               <ion-card class="active-card">
                 <ion-icon ios="ellipse" md="ellipse" class="active-icon">
                 </ion-icon>
                 <p class="active-label">ACTIVE</p>
+              </ion-card>
+            </ion-col>
+            <ion-col *ngIf="projectDetail?.projectWrap != 'A'" size="4">
+              <ion-card class="active-card">
+                <ion-icon ios="ellipse" md="ellipse" class="inactive-icon">
+                </ion-icon>
+                <p class="active-label">INACTIVE</p>
               </ion-card>
             </ion-col>
           </ion-row>
@@ -115,8 +122,10 @@
               Description
             </p>
           </ion-col>
-          <ion-col size="1">
-            <ion-icon class="expand-icon" ios="chevron-down-outline" md="chevron-down-outline">
+          <ion-col (click)="expandFx()"size="1">
+            <ion-icon *ngIf='expand == false' class="expand-icon" ios="chevron-down-outline" md="chevron-down-outline">
+            </ion-icon>
+            <ion-icon *ngIf='expand == true' class="expand-icon" ios="chevron-up-outline" md="chevron-up-outline">
             </ion-icon>
           </ion-col>
         </ion-row>
@@ -124,13 +133,11 @@
       </ion-item-divider>
 
 
-      <ion-item class="ion-no-padding" lines="none">
+      <ion-item *ngIf='expand == true' class="ion-no-padding" lines="none">
         <ion-label class="margin-top">
           <ion-row style="padding-left: 16px;">
             <ion-col>
-              <p class="description-text">
-                {{projectDetail?.projObj}}
-                <!-- <p [innerHtml]="serviceDetailData?.description" class="description_new"> -->
+              <p [innerHtml]="projectDetail?.projObj" class="description-text">  
               </p>
             </ion-col>
           </ion-row>

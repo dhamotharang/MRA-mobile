@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router, NavigationExtras } from '@angular/router';
 import { RestProvider } from 'src/providers/rest/rest';
+import { LoadingProvider } from 'src/providers/loading-provider';
 
 @Component({
   selector: 'app-project-list',
@@ -13,7 +14,8 @@ export class ProjectListPage implements OnInit {
 
   constructor(
     private router: Router,
-    private restProvider: RestProvider
+    private restProvider: RestProvider,
+    private loadingProvider: LoadingProvider
   ) { }
 
   ngOnInit() {
@@ -31,17 +33,13 @@ export class ProjectListPage implements OnInit {
   }
 
   getListProjects() {
+    this.loadingProvider.presentLoading();
     this.restProvider.getProjectList(320).then((result:any) => {
       console.log('getListProjects',result);
       this.projectList = result;
-      // to make sure UI view is updatinig
-      // this.zone.run(() => {
-      // for(let i=0; i<result.length; i++){
-      //   this.isDonateShown.push(false);
-      // }
-      // this.loadingProvider.closeLoading();
-      // });
+      this.loadingProvider.closeLoading();
     }, (err) => {
+      this.loadingProvider.closeLoading();
       // console.log(err);
       // this.loadingProvider.closeLoading();
       // this.showAlert();

@@ -24,7 +24,7 @@
 
   <form [formGroup]="postForm">
 
-      <ion-row>
+      <!-- <ion-row>
         <ion-col>
           <ion-card class="title-box">
             <ion-input formControlName='title' class="input_title" type="text"
@@ -32,7 +32,7 @@
           </ion-input>
           </ion-card>
         </ion-col>
-      </ion-row>
+      </ion-row> -->
 
       <ion-row>
         <ion-col>
@@ -40,7 +40,7 @@
             <ion-row>
               <ion-col>
                 <ion-textarea class="description_label" rows="10" placeholder="What's on your mind"
-                formControlName="description" maxlength="1000">
+                formControlName="formName" maxlength="1000">
               </ion-textarea>
               </ion-col>
             </ion-row>
@@ -58,7 +58,7 @@
           </ion-row>
           <ion-row>
             <ion-col>
-              <button ion-button (click)="post()" class="post-button">
+              <button ion-button (click)="postProjectFeed()" class="post-button">
                 <p class="post-label">Post</p>
               </button>
             </ion-col>

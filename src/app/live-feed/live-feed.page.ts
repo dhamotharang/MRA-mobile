@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RestProvider } from 'src/providers/rest/rest';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
+import { ImageProvider } from 'src/providers/image.provider';
+import { LoadingProvider } from 'src/providers/loading-provider';
 
 @Component({
   selector: 'app-live-feed',
@@ -8,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./live-feed.page.scss'],
 })
 export class LiveFeedPage implements OnInit {
-  private feedList;
+  private feedList=[];
   data: any;
   navParam: any;
 
@@ -16,6 +18,8 @@ export class LiveFeedPage implements OnInit {
     private restProvider: RestProvider,
     private router: Router,
     private route: ActivatedRoute,
+    private imageProvider: ImageProvider,
+    private loadingProvider: LoadingProvider
   ) { }
 
   ngOnInit() {
@@ -29,23 +33,34 @@ export class LiveFeedPage implements OnInit {
     this.getLiveFeed();
   }
 
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter',this.navParam)
+    if (this.navParam) {
+      this.getLiveFeed();
+    }
+  }
+
   getLiveFeed() {
+    this.loadingProvider.presentLoading();
     this.restProvider.getProjectFeed(this.navParam.projId).then((result:any) => {
       console.log('getLiveFeed',result);
       this.feedList = result;
-      // this.donateList = result;
-      // to make sure UI view is updatinig
-      // this.zone.run(() => {
-      // for(let i=0; i<result.length; i++){
-      //   this.isDonateShown.push(false);
-      // }
-      // this.loadingProvider.closeLoading();
-      // });
+      this.loadingProvider.closeLoading();
     }, (err) => {
       // console.log(err);
+      this.loadingProvider.closeLoading();
       // this.loadingProvider.closeLoading();
       // this.showAlert();
     });
+  }
+
+  navNextPage() {
+    let navigationExtras: NavigationExtras = {
+      state: {
+        user: this.navParam
+      }
+    };
+    this.router.navigate(['create-post'], navigationExtras);
   }
 
 }

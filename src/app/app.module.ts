@@ -14,6 +14,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { RestProvider } from 'src/providers/rest/rest';
 import { HttpClientModule } from '@angular/common/http';
+import { ImageProvider } from 'src/providers/image.provider';
+import { LoadingProvider } from 'src/providers/loading-provider';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,7 +36,9 @@ import { HttpClientModule } from '@angular/common/http';
     LaunchNavigatorProvider,
     InAppBrowser,
     EmailComposer,
-    RestProvider
+    RestProvider,
+    ImageProvider,
+    LoadingProvider
   ],
   bootstrap: [AppComponent],
 })
