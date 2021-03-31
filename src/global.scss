@@ -39,6 +39,35 @@ ion-header ion-toolbar {
 }
 
 ion-title {
-  font-size: 1.2rem;
+  font-size: 1.2em;
   text-align: left;
 }
+
+.ios .sc-ion-buttons-ios-h{
+  display: inline;
+  position: absolute;
+  left: 0.5em;
+  top:0.5em;
+}
+
+.ios .navbar-logo{
+  position: absolute;
+  display:flex;
+  -webkit-padding-start: 130px;
+  box-sizing: unset;
+}
+
+.ios .title-default{
+  position: absolute;
+  padding-inline: unset;
+  padding-left: 250px;
+}
+
+.ios app-payment-history .title-default{
+  font-size: 0.9em;
+}
+
+.ios app-scan-qr .title-default{
+  font-size: 1em;
+}
+
