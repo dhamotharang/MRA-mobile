@@ -51,12 +51,12 @@ export class RestProvider {
     }
 
     //http://localhost:8181/hss-project-0.0.1-SNAPSHOT/proj/det/v/{projId}
-    async getProjectDetail(orgId){
+    async getProjectDetail(projId){
         try{
           let app = await this.appConf("PRJL");
         console.log(app);
         return new Promise((resolve, reject) => {
-          this.http.get(app[0].host+app[0].contextPath+"/proj/det/v/"+7,{headers: new HttpHeaders().set('token', this.token)
+          this.http.get(app[0].host+app[0].contextPath+"/proj/det/v/"+projId,{headers: new HttpHeaders().set('token', this.token)
           .set('api-key', app[0].apiKey)
           })
             .subscribe(res => {
@@ -72,9 +72,9 @@ export class RestProvider {
     }
 
     //http://localhost:8181/hss-project-0.0.1-SNAPSHOT/proj/feed/v/{projId}
-    async getProjectFeed(orgId){
+    async getProjectFeed(projId){
         try{
-          let app = await this.appConf("PRJL");
+          let app = await this.appConf("PRJM");
         console.log(app);
         return new Promise((resolve, reject) => {
           this.http.get(app[0].host+app[0].contextPath+"/proj/feed/v/"+7,{headers: new HttpHeaders().set('token', this.token)
