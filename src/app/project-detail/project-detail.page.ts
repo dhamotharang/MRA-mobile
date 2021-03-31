@@ -5,6 +5,8 @@ import { LaunchNavigatorProvider } from 'src/providers/launch-navigator.provider
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { RestProvider } from 'src/providers/rest/rest';
+import { LoadingProvider } from 'src/providers/loading-provider';
+import { ImageProvider } from 'src/providers/image.provider';
 
 @Component({
   selector: 'app-project-detail',
@@ -12,19 +14,11 @@ import { RestProvider } from 'src/providers/rest/rest';
   styleUrls: ['./project-detail.page.scss'],
 })
 export class ProjectDetailPage implements OnInit {
-  private projectDetail = {
-    project_name: 'Third Wave Covid-19 Emergency',
-    project_image: 'assets/covid-img.jpg',
-    description:'The world is facing an unprecedented challenge with communities and economies everywhere affected by the growing COVID-19 pandemic. The world is coming together to combat the COVID-19 pandemic bringing governments, organizations from across industries and sectors and individuals together to help respond to this global outbreak',
-    // unit_no:'Unit 5',
-    address:'Kampung Melayu Subang',
-    city:'Shah Alam',
-    postcode:'35000',
-    state:'Selangor'
-  }
+  private projectDetail;
 
   private data;
   navParam: any;
+  expand: boolean = false;
   
 
   constructor(
@@ -34,7 +28,9 @@ export class ProjectDetailPage implements OnInit {
     private launchNavigatorProvider: LaunchNavigatorProvider,
     private inAppBrowser: InAppBrowser,
     private emailComposer: EmailComposer,
-    private restProvider: RestProvider
+    private restProvider: RestProvider,
+    private loadingProvider: LoadingProvider,
+    private imageProvider: ImageProvider
   ) { }
 
   ngOnInit() {
@@ -55,7 +51,8 @@ export class ProjectDetailPage implements OnInit {
   }
 
   launchNavigation() {
-    let address = 'Serin Residency, Jalan Fauna 1, 63000 Cyberjaya Selangor'
+    // let address = 'Serin Residency, Jalan Fauna 1, 63000 Cyberjaya Selangor'
+    let address = this.projectDetail.address1 + ', ' + this.projectDetail.postcode + ' ' + this.projectDetail.city + ', ' + this.projectDetail.state+ ', ' + this.projectDetail.countryName;
     this.launchNavigatorProvider.launchNavigation(address)
   }
 
@@ -76,20 +73,24 @@ export class ProjectDetailPage implements OnInit {
     this.emailComposer.open(email);
   }
 
+  expandFx() {
+    if (this.expand == false) {
+      this.expand = true;
+    }
+    else {
+      this.expand = false;
+    }
+  }
+
   getDetailProject() {
+    this.loadingProvider.presentLoading();
     this.restProvider.getProjectDetail(this.navParam.projId).then((result:any) => {
       console.log('getProjectDetail',result);
       this.projectDetail = result;
-      // to make sure UI view is updatinig
-      // this.zone.run(() => {
-      // for(let i=0; i<result.length; i++){
-      //   this.isDonateShown.push(false);
-      // }
-      // this.loadingProvider.closeLoading();
-      // });
+      this.loadingProvider.closeLoading();
     }, (err) => {
       // console.log(err);
-      // this.loadingProvider.closeLoading();
+      this.loadingProvider.closeLoading();
       // this.showAlert();
     });
   }

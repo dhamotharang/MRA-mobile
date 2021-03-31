@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import * as moment from 'moment';
 
 
 @Injectable()
@@ -53,7 +54,7 @@ export class RestProvider {
     //http://localhost:8181/hss-project-0.0.1-SNAPSHOT/proj/det/v/{projId}
     async getProjectDetail(projId){
         try{
-          let app = await this.appConf("PRJL");
+          let app = await this.appConf("PRJL");   //no need shortName
         console.log(app);
         return new Promise((resolve, reject) => {
           this.http.get(app[0].host+app[0].contextPath+"/proj/det/v/"+projId,{headers: new HttpHeaders().set('token', this.token)
@@ -77,9 +78,39 @@ export class RestProvider {
           let app = await this.appConf("PRJM");
         console.log(app);
         return new Promise((resolve, reject) => {
-          this.http.get(app[0].host+app[0].contextPath+"/proj/feed/v/"+7,{headers: new HttpHeaders().set('token', this.token)
+          this.http.get(app[0].host+app[0].contextPath+"/proj/feed/v/"+projId,{headers: new HttpHeaders().set('token', this.token)
           .set('api-key', app[0].apiKey)
           })
+            .subscribe(res => {
+              resolve(res);
+            }, (err) => {
+              reject(err);
+            });
+        });
+        }catch(e){
+          console.log(e);
+        }
+    
+    }
+
+
+    //http://localhost:8181/hss-project-0.0.1-SNAPSHOT/proj/feed/u
+    async postProjectFeed(form,detail){
+        try{
+          let app = await this.appConf("PRJM");
+        console.log(app);
+        return new Promise((resolve, reject) => {
+          console.log('form',form)
+            let data = {
+                projId:detail.projId,
+                personId:75187,//personId,
+                enabled:'Y',
+                feedName:form.formName,
+                createdDate: moment().format()
+              };
+              this.http.post('http://192.168.43.221:8181/hss-project-0.0.1-SNAPSHOT/proj/feed/u', JSON.stringify(data),{
+                headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token).set('api-key', app[0].apiKey)
+              })
             .subscribe(res => {
               resolve(res);
             }, (err) => {

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { RestProvider } from 'src/providers/rest/rest';
+import { Router, ActivatedRoute } from '@angular/router';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-create-post',
@@ -20,16 +23,28 @@ export class CreatePostPage implements OnInit {
   }
   private image: string;
   private currentImage: string;
+  data: any;
+  navParam: any;
 
   constructor(
     private formBuilder: FormBuilder,
-    private camera: Camera
+    private camera: Camera,
+    private restProvider: RestProvider,
+    private router: Router,
+    private route: ActivatedRoute,
+    private navCtrl: NavController
   ) { }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      if (this.router.getCurrentNavigation().extras.state) {
+        this.navParam = this.router.getCurrentNavigation().extras.state.user;
+        console.log('data',this.navParam)
+        // this.navParam = this.data
+      }
+    });
     this.postForm = this.formBuilder.group({
-      title: [],
-      description: [],
+      formName: [],
     });
   }
 
@@ -53,6 +68,21 @@ export class CreatePostPage implements OnInit {
     }, (err) => {
       console.log("Camera issue:" + err);
     });
+  }
+
+  postProjectFeed() {
+    this.restProvider.postProjectFeed(this.postForm.value,this.navParam).then((result:any) => {
+      console.log('postProjectFeed',result);
+      this.exitForm();
+    }, (err) => {
+      // console.log(err);
+      // this.loadingProvider.closeLoading();
+      // this.showAlert();
+    });
+  }
+
+  exitForm() {
+    this.navCtrl.back();
   }
 
 }
