@@ -25,7 +25,7 @@
   <ion-row>
     <ion-col>
       <div class="actions-grid">
-        <ion-card class="action-item ion-no-margin" [routerLink]="['/project-list']">
+        <ion-card class="action-item ion-no-margin" (click)="navNextPage('join')">
           <ion-icon name="add-outline"></ion-icon>
           <ion-card-content class="ion-no-padding">
             Join Project
@@ -43,12 +43,12 @@
             QR Code
           </ion-card-content>
         </ion-card>
-        <ion-card class="action-item ion-no-margin" [routerLink]="['/events-tabbar']">
+        <!-- <ion-card class="action-item ion-no-margin" [routerLink]="['/events-tabbar']">
           <ion-icon name="calendar-number-outline"></ion-icon>
           <ion-card-content class="ion-no-padding">
             View Events
           </ion-card-content>
-        </ion-card>
+        </ion-card> -->
       </div>
     </ion-col>
   </ion-row>
@@ -77,12 +77,12 @@
         <ion-col>
           <h5 class="ion-no-margin">Your projects</h5>
         </ion-col>
-        <ion-col *ngIf='projectList.length != 0' [routerLink]="['/project-list']" class="ion-text-right ion-align-self-baseline">
+        <ion-col (click)="navNextPage('view')" class="ion-text-right ion-align-self-baseline">
           View more
           <ion-icon name="arrow-forward-outline"></ion-icon>
         </ion-col>
       </ion-row>
-      <ion-row *ngIf='projectList.length != 0' class="ion-margin-top ion-align-items-start">
+      <ion-row class="ion-margin-top ion-align-items-start">
         <ion-col>
           <ion-slides [options]="option">
             <ion-slide>
@@ -114,13 +114,13 @@
           </ion-slides>
         </ion-col>
       </ion-row>
-      <ion-row *ngIf='projectList.length == 0'>
+      <!-- <ion-row *ngIf='projectList.length == 0'>
         <ion-col>
           <ion-col class="ion-text-center">
             <h5 class="greet-text">You did not join any project yet</h5>
           </ion-col>
         </ion-col>
-      </ion-row>
+      </ion-row> -->
     </ion-grid>
   </div>
 </ion-content>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Router, NavigationExtras } from '@angular/router';
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { RestProvider } from 'src/providers/rest/rest';
 import { LoadingProvider } from 'src/providers/loading-provider';
 
@@ -11,14 +11,22 @@ import { LoadingProvider } from 'src/providers/loading-provider';
 })
 export class ProjectListPage implements OnInit {
   private projectList;
+  navParam: any;
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private restProvider: RestProvider,
     private loadingProvider: LoadingProvider
   ) { }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {      //get data from previous page
+      if (this.router.getCurrentNavigation().extras.state) {
+        this.navParam = this.router.getCurrentNavigation().extras.state.action;
+        console.log('navParam',this.navParam)
+      }
+    });
     this.getListProjects();
   }
 
@@ -26,7 +34,8 @@ export class ProjectListPage implements OnInit {
     console.log('navNextPage',data)
     let navigationExtras: NavigationExtras = {
       state: {
-        user: data
+        user: data,
+        action: this.navParam
       }
     };
     this.router.navigate(['project-detail'], navigationExtras);
