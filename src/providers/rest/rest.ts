@@ -22,7 +22,7 @@ export class RestProvider {
 
     appConf(app) {
         return new Promise((resolve, reject) => {
-            let devplink = 'http://192.168.43.221:8181/hss-start-0.0.1-SNAPSHOT/app/config/r';
+            let devplink = 'http://192.168.0.5:8181/hss-start-0.0.1-SNAPSHOT/app/config/r';  //192.168.0.5 //192.168.43.221
             // let devplink = 'https://www.myjiran.my/myjiran-oas-admin-0.0.1-SNAPSHOT/app/config/r'; 
             this.http.post(devplink, [app], {
                 headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token)
@@ -96,6 +96,36 @@ export class RestProvider {
         }
     
     }
+
+
+  //http://localhost:8181/hss-project-0.0.1-SNAPSHOT/proj/vol/u
+  async requestJoin(form,detail){
+    try{
+      let app = await this.appConf("PRJM");
+    console.log(app);
+    return new Promise((resolve, reject) => {
+      console.log('form',form)
+        let data = {
+            projId:detail.projId,
+            personId:75187,//personId,
+            enabled:'Y',
+            feedName:form.formName,
+            createdDate: moment().format()
+          };
+          this.http.post(app[0].host+app[0].contextPath+"/proj/feed/u", JSON.stringify(data),{
+            headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token).set('api-key', app[0].apiKey)
+          })
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+    }catch(e){
+      console.log(e);
+    }
+
+  }
 
 
   //http://localhost:8181/hss-project-0.0.1-SNAPSHOT/proj/vol/r/{personId}

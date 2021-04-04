@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { LoadingProvider } from 'src/providers/loading-provider';
 import { RestProvider } from 'src/providers/rest/rest';
 import { Storage } from '@ionic/storage-angular';
@@ -53,4 +53,15 @@ export class HomePage implements OnInit {
     });
 
   }
+
+  navNextPage(action) {
+    console.log('navNextPage',action)
+    let navigationExtras: NavigationExtras = {
+      state: {
+        action: action
+      }
+    };
+    this.router.navigate(['project-list'], navigationExtras);
+  }
+
 }

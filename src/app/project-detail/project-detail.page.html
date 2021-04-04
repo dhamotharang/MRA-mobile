@@ -145,7 +145,7 @@
       </ion-item>
 
 
-      <ion-item class="ion-no-padding" lines="none">
+      <ion-item *ngIf='fromPage == "view"' class="ion-no-padding" lines="none">
         <ion-label class="margin-top">
           <ion-row class="padding-others">
             <ion-col>
@@ -166,6 +166,13 @@
           </ion-row>
         </ion-label>
       </ion-item>
+
+    <!-- <button class="standard-float-button" (click)="goAddBooking()" full ion-button>Request Join
+    </button> -->
+
+    <ion-button class="standard-float-button" (click)="requestJoin()" expand="full">Request Join</ion-button>
+
+
 
 
 

@@ -19,6 +19,7 @@ export class ProjectDetailPage implements OnInit {
   private data;
   navParam: any;
   expand: boolean = false;
+  fromPage: any;
   
 
   constructor(
@@ -37,7 +38,8 @@ export class ProjectDetailPage implements OnInit {
     this.route.queryParams.subscribe(params => {      //get data from previous page
       if (this.router.getCurrentNavigation().extras.state) {
         this.data = this.router.getCurrentNavigation().extras.state.user;
-        console.log('data',this.data)
+        this.fromPage = this.router.getCurrentNavigation().extras.state.action;
+        console.log('data',this.data,this.fromPage)
         this.navParam = this.data
       }
     });
@@ -99,6 +101,10 @@ export class ProjectDetailPage implements OnInit {
     if (data != null) {
       return data + ','
     }
+  }
+
+  requestJoin() {
+    
   }
 
   navNextPage() {
