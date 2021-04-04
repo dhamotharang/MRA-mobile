@@ -16,6 +16,9 @@ import { RestProvider } from 'src/providers/rest/rest';
 import { HttpClientModule } from '@angular/common/http';
 import { ImageProvider } from 'src/providers/image.provider';
 import { LoadingProvider } from 'src/providers/loading-provider';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
+import { File } from '@ionic-native/file/ngx';
+import { IonicStorageModule } from '@ionic/storage-angular';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +28,8 @@ import { LoadingProvider } from 'src/providers/loading-provider';
     IonicModule.forRoot(), 
     AppRoutingModule,
     HttpClientModule,
+    IonicStorageModule.forRoot()
+    
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
@@ -38,7 +43,9 @@ import { LoadingProvider } from 'src/providers/loading-provider';
     EmailComposer,
     RestProvider,
     ImageProvider,
-    LoadingProvider
+    LoadingProvider,
+    FileTransfer,
+    File
   ],
   bootstrap: [AppComponent],
 })

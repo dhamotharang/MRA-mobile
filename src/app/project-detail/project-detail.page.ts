@@ -34,7 +34,7 @@ export class ProjectDetailPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe(params => {      //get data from previous page
       if (this.router.getCurrentNavigation().extras.state) {
         this.data = this.router.getCurrentNavigation().extras.state.user;
         console.log('data',this.data)
@@ -108,6 +108,15 @@ export class ProjectDetailPage implements OnInit {
       }
     };
     this.router.navigate(['live-feed'], navigationExtras);
+  }
+
+  navVolunteerPage() {
+    let navigationExtras: NavigationExtras = {
+      state: {
+        user: this.projectDetail
+      }
+    };
+    this.router.navigate(['volunteer-list'], navigationExtras);
   }
 
 }
