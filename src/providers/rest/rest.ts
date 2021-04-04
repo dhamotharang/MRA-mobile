@@ -5,6 +5,9 @@ import * as moment from 'moment';
 
 @Injectable()
 export class RestProvider {
+    getTaskList(arg0: number) {
+      throw new Error('Method not implemented.');
+    }
 
     appConfheaders: any = new HttpHeaders().set('Content-Type', 'application/json');
     token: any = 'sdf2f6c2h5g333431293813113126528162203526172114910252443223363773918181930INTERNAL';
@@ -122,6 +125,49 @@ export class RestProvider {
         }
     
     }
+    //http://localhost:8181/hss-project-0.0.1-SNAPSHOT/proj/task/v/{projId}
+    async getTasksList(projId){
+        try{
+          let app = await this.appConf("PRJM");   
+        console.log(app);
+        return new Promise((resolve, reject) => {
+          this.http.get(app[0].host+app[0].contextPath+"/proj/task/v/"+projId,{headers: new HttpHeaders().set('token', this.token)
+          .set('api-key', app[0].apiKey)
+          })
+            .subscribe(res => {
+              resolve(res);
+            }, (err) => {
+              reject(err);
+            });
+        });
+        }catch(e){
+          console.log(e);
+        }
+    
+    }
+      
+      //http://localhost:8181/hss-organization-admin-0.0.1-SNAPSHOT/gallery/r
+      async getLiveFeed(){
+        try{
+          let app = await this.appConf("GLMG");
+        console.log(app);
+        return new Promise((resolve, reject) => {
+          this.http.get(app[0].host+app[0].contextPath+"/gallery/r/",{headers: new HttpHeaders().set('token', this.token)
+          .set('api-key', app[0].apiKey)
+          })
+            .subscribe(res => {
+              resolve(res);
+            }, (err) => {
+              reject(err);
+            });
+        });
+        }catch(e){
+          console.log(e);
+        }
+    
+    }
+
 
 
 }
+ 
