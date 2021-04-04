@@ -4,6 +4,10 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { RestProvider } from 'src/providers/rest/rest';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
+import { LoadingProvider } from 'src/providers/loading-provider';
+import { DomSanitizer } from '@angular/platform-browser';
+declare var window;
+
 
 @Component({
   selector: 'app-create-post',
@@ -22,9 +26,10 @@ export class CreatePostPage implements OnInit {
     sourceType: 0
   }
   private image: string;
-  private currentImage: string;
+  private currentImage;
   data: any;
   navParam: any;
+  secureURL:any = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -32,7 +37,9 @@ export class CreatePostPage implements OnInit {
     private restProvider: RestProvider,
     private router: Router,
     private route: ActivatedRoute,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private loadingProvider: LoadingProvider,
+    private sanitize: DomSanitizer,
   ) { }
 
   ngOnInit() {
@@ -63,22 +70,90 @@ export class CreatePostPage implements OnInit {
       mediaType: this.camera.MediaType.PICTURE
     };
 
+    // this.camera.getPicture(options).then((imageData) => {
+    //   this.currentImage = 'data:image/jpeg;base64,' + imageData;
+    // }, (err) => {
+    //   console.log("Camera issue:" + err);
+    // });
+
     this.camera.getPicture(options).then((imageData) => {
-      this.currentImage = 'data:image/jpeg;base64,' + imageData;
+      this.sanitize.bypassSecurityTrustUrl(imageData);
+      let x = decodeURIComponent(imageData);
+      let name = x.substring(x.lastIndexOf('/') + 1);
+       this.currentImage = [{
+         name:name,
+         thumbnail: this.sanitize.bypassSecurityTrustUrl(imageData),
+         uri: imageData,
+         type: 'image'
+       }];
+       console.log('this.currentImage',this.currentImage);
+       this.upload();
+     });
+  }
+
+
+  upload(){
+    this.loadingProvider.presentLoading();
+    this.restProvider.cloudinaryUpload(this.currentImage,'feed','proj_pic')
+    .then((res) =>{
+      console.log('res',res);
+        for(let i=0; i < res.length; i++){
+          let x = JSON.parse(res[i]);
+          this.secureURL = x.secure_url;
+        }
+      console.log('secureURL',this.secureURL);
+      // if(this.purpose == "jumaat")
+      // {
+      //   console.log('trigger');
+      //   this.IssueReceipt();
+      // }else{
+      //   console.log('not trigger');
+      //   this.IssueReceiptOther();
+      // }
+      this.loadingProvider.closeLoading();
+
+    }).catch(error => {
+      console.log('uploadError',error);
+      this.loadingProvider.closeLoading();
+      // const alert = this.alertCtrl.create({
+      //   title: 'Cloudinary Server Error!',
+      //   subTitle: 'Please try again later.',
+      //   buttons: ['OK']
+      // });
+      // alert.present();
+    })
+  }
+
+  // checkSize(path): Promise<any>{
+  //   console.log(path);
+  //   return new Promise((resolve,reject) => {
+  //     window.resolveLocalFileSystemURL(path, (fileEntry) => {
+  //         fileEntry.getMetadata((metadata:any) => {
+  //             console.log(metadata);
+  //             let size = (metadata.size*0.000001).toFixed(2);
+  //             console.log(size);
+  //             resolve(size);
+  //         });
+  //     }, (error) => { console.log(error); reject('error') });
+  //   });
+  // }
+  
+
+  postProjectFeed() { //without image
+    this.loadingProvider.presentLoading();
+    this.restProvider.postProjectFeed(this.postForm.value,this.navParam).then((result:any) => {
+      console.log('postProjectFeed',result);
+      this.loadingProvider.closeLoading();
+      this.exitForm();
     }, (err) => {
-      console.log("Camera issue:" + err);
+      console.log(err);
+      this.loadingProvider.closeLoading();
+      // this.showAlert();
     });
   }
 
-  postProjectFeed() {
-    this.restProvider.postProjectFeed(this.postForm.value,this.navParam).then((result:any) => {
-      console.log('postProjectFeed',result);
-      this.exitForm();
-    }, (err) => {
-      // console.log(err);
-      // this.loadingProvider.closeLoading();
-      // this.showAlert();
-    });
+  postProjectFeedImage() {
+
   }
 
   exitForm() {

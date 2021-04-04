@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { LoadingProvider } from 'src/providers/loading-provider';
+import { RestProvider } from 'src/providers/rest/rest';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-home',
@@ -8,9 +11,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class HomePage implements OnInit {
   data: any;
+  projectList = [];
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private loadingProvider: LoadingProvider,
+    private restProvider: RestProvider,
+    private storage: Storage,
   ) {}
 
   option = {
@@ -26,5 +33,24 @@ export class HomePage implements OnInit {
         console.log('data',this.data)
       }
     });
+    this.getProjectInvolved();
+  }
+
+  getProjectInvolved() {
+    this.loadingProvider.presentLoading();
+    this.storage.get('defaultPersonId').then((val:any) => {
+      console.log('defaultPersonId', val);
+      this.restProvider.getProjectList(val).then((result:any) => {
+        console.log('getListProjects',result);
+        this.projectList = result;
+        this.loadingProvider.closeLoading();
+      }, (err) => {
+        this.loadingProvider.closeLoading();
+        // console.log(err);
+        // this.loadingProvider.closeLoading();
+        // this.showAlert();
+      });
+    });
+
   }
 }

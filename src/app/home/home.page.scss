@@ -31,7 +31,16 @@
   gap: 1rem;
   padding: 0 12px;
   position: absolute;
-  top: 150px;
+  top: -2rem;
+}
+
+.bottom-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  padding: 0 70px;
+  position: absolute;
+  top: 5rem;
 }
 
 .action-item {
@@ -44,7 +53,10 @@
   border-radius: 8px;
   background-color: white;
   z-index: 10;
-  box-shadow: 2px 4px 10px rgba(97, 97, 100, 0.12);
+  box-shadow: 2px 4px 10px rgb(97 97 100 / 12%);
+  width: 6.2rem;
+  border: solid;
+  border-width: thin;
 
   ion-icon {
     margin-bottom: 6px;
@@ -61,7 +73,7 @@
   padding: 0 12px;
   margin: 10px 0;
   position: absolute;
-  top: 375px;
+  top: 25rem;
   width: 100%;
 
   ion-slides {

@@ -22,56 +22,67 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <div class="actions-grid">
-    <ion-card class="action-item ion-no-margin" [routerLink]="['/project-list']">
-      <ion-icon name="add-outline"></ion-icon>
-      <ion-card-content class="ion-no-padding">
-        Join Project
-      </ion-card-content>
-    </ion-card>
-    <ion-card class="action-item ion-no-margin">
-      <ion-icon name="archive-outline"></ion-icon>
-      <ion-card-content class="ion-no-padding">
-        Inventory
-      </ion-card-content>
-    </ion-card>
-    <ion-card class="action-item ion-no-margin" [routerLink]="['/scan-qr']">
-      <ion-icon name="qr-code-outline"></ion-icon>
-      <ion-card-content class="ion-no-padding">
-        QR Code
-      </ion-card-content>
-    </ion-card>
-    <ion-card class="action-item ion-no-margin" [routerLink]="['/events-tabbar']">
-      <ion-icon name="calendar-number-outline"></ion-icon>
-      <ion-card-content class="ion-no-padding">
-        View Events
-      </ion-card-content>
-    </ion-card>
-    <ion-card class="action-item ion-no-margin" [routerLink]="['/payment-history']">
-      <ion-icon name="document-text-outline"></ion-icon>
-      <ion-card-content class="ion-no-padding">
-        Payment History
-      </ion-card-content>
-    </ion-card>
-    <ion-card class="action-item ion-no-margin" [routerLink]="['/record-payment']">
-      <ion-icon name="cash-outline"></ion-icon>
-      <ion-card-content class="ion-no-padding">
-        Record Payment
-      </ion-card-content>
-    </ion-card>
-  </div>
+  <ion-row>
+    <ion-col>
+      <div class="actions-grid">
+        <ion-card class="action-item ion-no-margin" [routerLink]="['/project-list']">
+          <ion-icon name="add-outline"></ion-icon>
+          <ion-card-content class="ion-no-padding">
+            Join Project
+          </ion-card-content>
+        </ion-card>
+        <!-- <ion-card class="action-item ion-no-margin">
+          <ion-icon name="archive-outline"></ion-icon>
+          <ion-card-content class="ion-no-padding">
+            Inventory
+          </ion-card-content>
+        </ion-card> -->
+        <ion-card class="action-item ion-no-margin" [routerLink]="['/scan-qr']">
+          <ion-icon name="qr-code-outline"></ion-icon>
+          <ion-card-content class="ion-no-padding">
+            QR Code
+          </ion-card-content>
+        </ion-card>
+        <ion-card class="action-item ion-no-margin" [routerLink]="['/events-tabbar']">
+          <ion-icon name="calendar-number-outline"></ion-icon>
+          <ion-card-content class="ion-no-padding">
+            View Events
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <div class="bottom-grid">
+        <ion-card class="action-item ion-no-margin" [routerLink]="['/payment-history']">
+          <ion-icon name="document-text-outline"></ion-icon>
+          <ion-card-content class="ion-no-padding">
+            Payment History
+          </ion-card-content>
+        </ion-card>
+        <ion-card class="action-item ion-no-margin" [routerLink]="['/record-payment']">
+          <ion-icon name="cash-outline"></ion-icon>
+          <ion-card-content class="ion-no-padding">
+            Record Payment
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </ion-col>
+  </ion-row>
+
   <div class="project-card-container">
     <ion-grid>
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col>
           <h5 class="ion-no-margin">Your projects</h5>
         </ion-col>
-        <ion-col [routerLink]="['/project-list']" class="ion-text-right ion-align-self-baseline">
+        <ion-col *ngIf='projectList.length != 0' [routerLink]="['/project-list']" class="ion-text-right ion-align-self-baseline">
           View more
           <ion-icon name="arrow-forward-outline"></ion-icon>
         </ion-col>
       </ion-row>
-      <ion-row class="ion-margin-top ion-align-items-start">
+      <ion-row *ngIf='projectList.length != 0' class="ion-margin-top ion-align-items-start">
         <ion-col>
           <ion-slides [options]="option">
             <ion-slide>
@@ -101,6 +112,13 @@
               </ion-card>
             </ion-slide>
           </ion-slides>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf='projectList.length == 0'>
+        <ion-col>
+          <ion-col class="ion-text-center">
+            <h5 class="greet-text">You did not join any project yet</h5>
+          </ion-col>
         </ion-col>
       </ion-row>
     </ion-grid>
