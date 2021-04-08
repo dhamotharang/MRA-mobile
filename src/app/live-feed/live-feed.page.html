@@ -15,7 +15,7 @@
 
       <ion-row>
         <ion-col size="3">
-          <img #img1 (error)="img1.src=imageProvider.imageErrorHandle('')" 
+          <img #img1 (error)="img1.src=imageProvider.imageErrorHandle('profile')" 
           class="img-style" [src]="data?.profile_image">
         </ion-col>
         <ion-col>
@@ -26,13 +26,14 @@
           </ion-row>
           <ion-row>
             <ion-col size="3">
-              <p class="label-feed-date">Today</p>
+              <p class="label-feed-date">{{data?.createdDate| date: 'd/M/yy'}}</p>
+              <!-- today -->
             </ion-col>
-            <ion-col size="3">
+            <!-- <ion-col size="3">
               <ion-card class="new-card">
                 <p class="new-label">new</p>
               </ion-card>
-            </ion-col>
+            </ion-col> -->
           </ion-row>
         </ion-col>
       </ion-row>
