@@ -27,9 +27,9 @@
 
 .actions-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
-  padding: 0 70px;
+  padding: 0 10px;
   position: absolute;
   top: -2rem;
 }
@@ -73,7 +73,7 @@
   padding: 0 12px;
   margin: 10px 0;
   position: absolute;
-  top: 25rem;
+  top: 19rem;
   width: 100%;
 
   ion-slides {

@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { RestProvider } from 'src/providers/rest/rest';
 import { LoadingProvider } from 'src/providers/loading-provider';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-project-list',
@@ -17,7 +18,8 @@ export class ProjectListPage implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private restProvider: RestProvider,
-    private loadingProvider: LoadingProvider
+    private loadingProvider: LoadingProvider,
+    private storage: Storage,
   ) { }
 
   ngOnInit() {
@@ -27,7 +29,13 @@ export class ProjectListPage implements OnInit {
         console.log('navParam',this.navParam)
       }
     });
-    this.getListProjects();
+    if (this.navParam == 'join') {
+      this.getListProjects();
+    }
+    else {
+      this.getProjectInvolved();
+    }
+ 
   }
 
   navNextPage(data) {
@@ -43,16 +51,34 @@ export class ProjectListPage implements OnInit {
 
   getListProjects() {
     this.loadingProvider.presentLoading();
-    this.restProvider.getProjectList(320).then((result:any) => {
+    this.storage.get('personOrgs').then((val:any) => {
+    this.restProvider.getProjectList(val.orgId).then((result:any) => {
       console.log('getListProjects',result);
       this.projectList = result;
       this.loadingProvider.closeLoading();
     }, (err) => {
       this.loadingProvider.closeLoading();
-      // console.log(err);
+      console.log('getListProjects err',err);
       // this.loadingProvider.closeLoading();
       // this.showAlert();
     });
+  })
   }
+
+  getProjectInvolved() {
+    this.storage.get('defaultPersonId').then((val:any) => {
+      this.restProvider.getProjectInvolvedList(val).then((result:any) => {
+        console.log('getProjectInvolved',result);
+        this.projectList = result;
+        this.loadingProvider.closeLoading();
+      }, (err) => {
+        this.loadingProvider.closeLoading();
+        console.log('getProjectInvolved err',err);
+        // this.loadingProvider.closeLoading();
+        // this.showAlert();
+      });
+  })
+}
+
 
 }

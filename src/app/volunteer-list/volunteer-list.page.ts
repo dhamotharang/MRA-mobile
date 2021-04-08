@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingProvider } from 'src/providers/loading-provider';
 import { RestProvider } from 'src/providers/rest/rest';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
+import { ImageProvider } from 'src/providers/image.provider';
 
 @Component({
   selector: 'app-volunteer-list',
@@ -9,19 +10,16 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./volunteer-list.page.scss'],
 })
 export class VolunteerListPage implements OnInit {
-  private volunteerList = [
-    {volunteer_name: 'muhammad ali',volunteer_image: 'assets/volunteer.jpg',contact:'012-3456678',job:'Electrician'},
-    {volunteer_name: 'muhammad ali',volunteer_image: 'assets/volunteer.jpg',contact:'012-3456678',job:'Electrician'},
-    {volunteer_name: 'muhammad ali',volunteer_image: 'assets/volunteer.jpg',contact:'012-3456678',job:'Electrician'},
-    {volunteer_name: 'muhammad ali',volunteer_image: 'assets/volunteer.jpg',contact:'012-3456678',job:'Electrician'}
-  ]
+  private volunteerList=[];
   navParam: any;
+  allVolunteerList=[];
 
   constructor(
     private loadingProvider: LoadingProvider,
     private restProvider: RestProvider,
     private router: Router,
     private route: ActivatedRoute,
+    private imageProvider: ImageProvider,
   ) { }
 
   ngOnInit() {
@@ -31,6 +29,10 @@ export class VolunteerListPage implements OnInit {
         console.log('navParam',this.navParam)
       }
     });
+
+  }
+
+  ionViewWillEnter() {
     this.getVolunteerList();
   }
 
@@ -47,5 +49,17 @@ export class VolunteerListPage implements OnInit {
       // this.showAlert();
     });
   }
+
+  navAddVolunteer() {
+    let navigationExtras: NavigationExtras = {
+      state: {
+        user: this.navParam,
+        from: 'volunteer-list'
+      }
+    };
+    this.router.navigate(['add-volunteer'], navigationExtras);
+  }
+
+
 
 }

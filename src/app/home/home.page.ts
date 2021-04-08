@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { LoadingProvider } from 'src/providers/loading-provider';
 import { RestProvider } from 'src/providers/rest/rest';
 import { Storage } from '@ionic/storage-angular';
+import { IonSlides } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -10,6 +11,7 @@ import { Storage } from '@ionic/storage-angular';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
+  @ViewChild('mySlider')  slides: IonSlides;
   data: any;
   projectList = [];
   constructor(
@@ -33,6 +35,17 @@ export class HomePage implements OnInit {
         console.log('data',this.data)
       }
     });
+    // this.getProjectInvolved();
+  }
+
+  ionViewWillEnter() {
+    // this.route.queryParams.subscribe(params => {
+    //   console.log('ngOnInit',params) 
+    //   if (this.router.getCurrentNavigation().extras.state) {
+    //     this.data = this.router.getCurrentNavigation().extras.state.user;
+    //     console.log('data',this.data)
+    //   }
+    // });
     this.getProjectInvolved();
   }
 
@@ -40,7 +53,7 @@ export class HomePage implements OnInit {
     this.loadingProvider.presentLoading();
     this.storage.get('defaultPersonId').then((val:any) => {
       console.log('defaultPersonId', val);
-      this.restProvider.getProjectList(val).then((result:any) => {
+      this.restProvider.getProjectInvolvedList(val).then((result:any) => {
         console.log('getListProjects',result);
         this.projectList = result;
         this.loadingProvider.closeLoading();
@@ -62,6 +75,17 @@ export class HomePage implements OnInit {
       }
     };
     this.router.navigate(['project-list'], navigationExtras);
+  }
+
+  navProjectDetail(data,action) {
+    console.log('navNextPage',data)
+    let navigationExtras: NavigationExtras = {
+      state: {
+        user: data,
+        action: action
+      }
+    };
+    this.router.navigate(['project-detail'], navigationExtras);
   }
 
 }

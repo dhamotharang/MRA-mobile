@@ -135,7 +135,11 @@ const routes: Routes = [
   {
     path: 'notifications',
     loadChildren: () => import('./notifications/notifications.module').then( m => m.NotificationsPageModule)
+  },  {
+    path: 'task-comment',
+    loadChildren: () => import('./task-comment/task-comment.module').then( m => m.TaskCommentPageModule)
   },
+
 ];
 
 @NgModule({

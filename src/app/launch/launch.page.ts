@@ -17,6 +17,7 @@ export class LaunchPage {
     token: "",
     platform:""
   }
+  personOrg: any;
 
 
   constructor(
@@ -28,6 +29,7 @@ export class LaunchPage {
   ) {}
 
   ngOnInit() {
+
   }
 
   loginFx() {
@@ -40,23 +42,23 @@ export class LaunchPage {
   }
 
   getProfile(){
-    this.loadingProvider.presentLoading();
+    // this.loadingProvider.presentLoading();
     this.restProvider.getProfile(this.param).then((result:any) => {
       console.log('getProfile',result);
       if(result.personId == null){
         this.storage.set('isNewUser', true);
-        this.loadingProvider.closeLoading();
+        // this.loadingProvider.closeLoading();
         // this.nav.setRoot(ProfileModal);
       }else{
         this.storage.set('isNewUser', false);
         this.storage.set('defaultProfile', result);
         this.storage.set('defaultPersonId', result.personId);
-        this.loadingProvider.closeLoading();
+        // this.loadingProvider.closeLoading();
         this.getOrg();
       }
     }, (err) => {
       console.log('profilePictUrl',err);
-      this.loadingProvider.closeLoading();
+      // this.loadingProvider.closeLoading();
       // this.showAlert();
     });
   }
@@ -64,11 +66,11 @@ export class LaunchPage {
   getOrg(){
     // this.loadingProvider.presentLoading();
     this.storage.get('defaultPersonId').then((val:any) => {
-      console.log('defaultPersonId', val);
       this.restProvider.getFee(val).then((result:any) => {
-        console.log('check login part',result);
         // this.loadingProvider.closeLoading();
-        this.storage.set('personOrgs', result);
+        // this.storage.set('personOrgs', result);
+        this.personOrg = result;
+        this.filterOrg();
         // this.nav.setRoot(TabsPage, {opentab: 1});
       }, (err) => {
         console.log('getOrg',err);
@@ -77,6 +79,13 @@ export class LaunchPage {
       });
     });
 
+  }
+
+  filterOrg() {
+    let p = this.personOrg.filter(x => x.orgProfile.module.modId == 6 && x.orgProfile.orgId == 320);
+    console.log('p',p)
+    this.storage.set('personOrgs', p[0]);
+    this.navToHome();
   }
   
 

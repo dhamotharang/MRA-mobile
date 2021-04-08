@@ -33,6 +33,9 @@ export class ImageProvider {
         if (type == '') {
             return "assets/mra.png"
         }
+        else if ('profile') {
+            return "https://apache01.oas.my/t1/mra/assets/media/users/blank.png"
+        }
         else {
             //  data  = 
             // return "assets/img/default_picture.jpg"

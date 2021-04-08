@@ -73,8 +73,8 @@ ion-title {
 
 .standard-float-button {
   width: 100%;
-  position: absolute;
-  bottom: -25.6%;
+  position: fixed;
+  bottom: -0.6%;
   z-index: 1000;
   background-image: linear-gradient(
 107deg
