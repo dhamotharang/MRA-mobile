@@ -136,6 +136,24 @@ const routes: Routes = [
     path: 'notifications',
     loadChildren: () => import('./notifications/notifications.module').then( m => m.NotificationsPageModule)
   },
+
+ 
+  {
+    path: 'user-account',
+    loadChildren: () => import('./user-account/user-account.module').then( m => m.UserAccountPageModule)
+  },
+  {
+    path: 'feedback',
+    loadChildren: () => import('./feedback/feedback.module').then( m => m.FeedbackPageModule)
+  },
+  
+  {
+    path: 'about',
+    loadChildren: () => import('./about/about.module').then( m => m.AboutPageModule)
+  },
+
+
+
 ];
 
 @NgModule({

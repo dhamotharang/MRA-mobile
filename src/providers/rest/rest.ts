@@ -6,6 +6,12 @@ import { File } from '@ionic-native/file/ngx';
 
 @Injectable()
 export class RestProvider {
+  getToken(arg0: number, oaid: any) {
+    throw new Error('Method not implemented.');
+  }
+  createFeedback(restParam: any) {
+    throw new Error('Method not implemented.');
+  }
     getTaskList(arg0: number) {
       throw new Error('Method not implemented.');
     }
@@ -22,7 +28,7 @@ export class RestProvider {
 
     appConf(app) {
         return new Promise((resolve, reject) => {
-            let devplink = 'http://192.168.0.5:8181/hss-start-0.0.1-SNAPSHOT/app/config/r';  //192.168.0.5 //192.168.43.221
+            let devplink = 'http://192.168.1.111:8181/hss-start-0.0.1-SNAPSHOT/app/config/r';  //192.168.0.5 //192.168.43.221
             // let devplink = 'https://www.myjiran.my/myjiran-oas-admin-0.0.1-SNAPSHOT/app/config/r'; 
             this.http.post(devplink, [app], {
                 headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token)
@@ -247,7 +253,7 @@ export class RestProvider {
           let app = await this.appConf("GLMG");
         console.log(app);
         return new Promise((resolve, reject) => {
-          this.http.get(app[0].host+app[0].contextPath+"/gallery/r/",{headers: new HttpHeaders().set('token', this.token)
+          this.http.get(app[0].host+app[0].contextPath+"/gallery/r",{headers: new HttpHeaders().set('token', this.token)
           .set('api-key', app[0].apiKey)
           })
             .subscribe(res => {
@@ -332,6 +338,7 @@ export class RestProvider {
         });
       });
     }
+     
 
 
 }
