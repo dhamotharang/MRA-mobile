@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-back-button defaultHref="tabs"></ion-back-button>
+    </ion-buttons>
+    <img slot="secondary" src="assets/mra.png" class="navbar-logo" />
+    <ion-title slot="secondary">Feedback</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!--ion-buttons end>
+    <button ion-button icon-only [disabled]="titleForm.invalid" (click)="post()">
+   Submit
+    </button>
+  </ion-buttons-->
+  <form novalidate [formGroup]="titleForm">
+    <ion-item item-title>
+       <ion-label position="floating">Title</ion-label>
+      <ion-textarea [(ngModel)]="title" > </ion-textarea>
+      <!--ion-textarea [(ngModel)]="title" formControlName="title" [class.error1]="!titleForm.controls.title.valid && titleForm.controls.title.dirty"> </ion-textarea>
+    </ion-item>
+    <ion-item no-lines *ngIf="( titleForm.get('title').hasError('maxlength') || titleForm.get('title').hasError('required') ) && titleForm.get('title').touched">
+      <div class="error" *ngIf="titleForm.get('title').hasError('required') && titleForm.get('title').touched">
+        {{"Please input title"|translate}}
+      </div>
+      <div class="error" *ngIf="titleForm.get('title').hasError('maxlength') && titleForm.get('title').touched">
+        {{"maximum"|translate}} 60 {{"characters"|translate}}
+      </div-->
+      </ion-item>
+    </form>
+    <ion-item>
+      <ion-label position="floating">Describe your issue or share your ideas..</ion-label>
+      <ion-textarea [(ngModel)]="description"> </ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label>Rate this app</ion-label>
+      <ion-select [(ngModel)]="rate" interface="action-sheet">
+        <ion-option *ngFor="let r of rateList" value="{{r.val}}">r.name</ion-option>
+      </ion-select>
+  </ion-item>
+  <!--ng-container *ngIf="mediaList.length > 0"-->
+    <ion-item class="mediaThumbnail">
+      <ion-scroll scrollX="true">
+        <ng-container *ngFor="let m of mediaList">
+          <ion-thumbnail (click)="slide()">
+            <img *ngIf="m.type === 'image'" [src]="m.uri">
+            <img *ngIf="m.type === 'video'" src="./assets/imgs/video-camera.png">
+          </ion-thumbnail>
+        </ng-container>
+      </ion-scroll>
+    </ion-item>
+  <!--/ng-container-->
+  </ion-content>
+  <ion-footer (click)="selectMedia()" class="ann_footer">
+    <ion-toolbar>
+      <p>Add screenshots</p>
+      <ion-buttons end>
+        <button ion-button icon-only clear icon-end style="margin-right:0px;">
+          <ion-icon name="images" style="padding:2px;color:#0040ff;"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-footer>
+  
+
