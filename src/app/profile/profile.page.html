@@ -25,8 +25,9 @@
   <ion-list-header>
     <ion-label>Settings & Privacy</ion-label>
   </ion-list-header>
-  <ion-list class="settings-list">
-    <ion-item>
+  <!--Start Edit-->
+  <ion-list class="settings-list" >
+    <ion-item [routerLink]="['/my-account']" routerDirection="root">
       <ion-icon slot="start" name="person-circle"></ion-icon>
       <ion-label>
         <h4>My account</h4>
@@ -47,7 +48,7 @@
     <ion-label>Legal & Policies</ion-label>
   </ion-list-header>
   <ion-list class="legal-list">
-    <ion-item>
+    <ion-item (click)="terms()">
       <ion-icon slot="start" name="document-text"></ion-icon>
       <ion-label class="ion-text-capitalize">
         <h4>Terms of Use</h4>
