@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-back-button defaultHref="/profile"></ion-back-button>
+    </ion-buttons>
+    <img slot="secondary" src="assets/mra.png" class="navbar-logo" />
+    <ion-title slot="secondary">My Account</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <ion-buttons [routerLink]="['/edit-profile']" routerDirection="root"end>
+      <button outline btn-edit >
+        Edit Account
+      </button>
+    </ion-buttons>
+  </div>
+
+
+  <div class="flex-center avatar-container">
+    <ion-avatar>
+      <img
+        src="https://images.unsplash.com/photo-1497551060073-4c5ab6435f12?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=667&q=80"
+        alt="Placeholder avatar">
+    </ion-avatar>
+  </div>
+  <div class="flex-center nameWeight">
+    <h4>Akmal Shahir</h4>
+  </div>
+  <div class="flex-center">
+    <p class="profile-pill">akmalshahir02@gmail.com</p>
+  </div>
+
+  <ion-list no-lines class= "accountList">
+    <ion-label class="add-bottom-margin">
+      <p>Phone Number</p>
+      <h2>019-2384932</h2>
+    </ion-label>
+    <ion-label>
+      <p>Email Address</p>
+      <h2>nisahasin02@gmail.com</h2>
+    </ion-label>
+  </ion-list>
+</ion-content>

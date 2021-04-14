@@ -139,6 +139,14 @@ const routes: Routes = [
     path: 'task-comment',
     loadChildren: () => import('./task-comment/task-comment.module').then( m => m.TaskCommentPageModule)
   },
+  {
+    path: 'my-account',
+    loadChildren: () => import('./my-account/my-account.module').then( m => m.MyAccountPageModule)
+  },
+  {
+    path: 'edit-profile',
+    loadChildren: () => import('./edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
+  },
 
 ];
 
