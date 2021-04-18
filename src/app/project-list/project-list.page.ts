@@ -24,6 +24,7 @@ export class ProjectListPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    
     this.route.queryParams.subscribe(params => {      //get data from previous page
       if (this.router.getCurrentNavigation().extras.state) {
         this.navParam = this.router.getCurrentNavigation().extras.state.action;

@@ -13,6 +13,8 @@ export class LiveFeedPage implements OnInit {
   private feedList=[];
   data: any;
   navParam: any;
+  private liveFeed= [];
+
 
   constructor(
     private restProvider: RestProvider,
@@ -31,12 +33,15 @@ export class LiveFeedPage implements OnInit {
       }
     });
     this.getLiveFeed();
+    this.getLiveFeeds();
+
   }
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter',this.navParam)
     if (this.navParam) {
       this.getLiveFeed();
+      this.getLiveFeeds();
     }
   }
 
@@ -61,6 +66,20 @@ export class LiveFeedPage implements OnInit {
       }
     };
     this.router.navigate(['create-post'], navigationExtras);
+  }
+  
+  getLiveFeeds() {
+    this.loadingProvider.presentLoading();
+    this.restProvider.getLiveFeed().then((result:any) => {
+      console.log('getLiveFeed',result);
+      this.liveFeed = result;
+      this.loadingProvider.closeLoading();
+    }, (err) => {
+      // console.log(err);
+      this.loadingProvider.closeLoading();
+      // this.loadingProvider.closeLoading();
+      // this.showAlert();
+    });
   }
 
 }

@@ -10,6 +10,12 @@ import { File } from '@ionic-native/file/ngx';
 })
 
 export class RestProvider {
+  getToken(arg0: number, oaid: any) {
+    throw new Error('Method not implemented.');
+  }
+  createFeedback(restParam: any) {
+    throw new Error('Method not implemented.');
+  }
     getTaskList(arg0: number) {
       throw new Error('Method not implemented.');
     }
@@ -429,7 +435,7 @@ export class RestProvider {
           let app = await this.appConf("GLMG");
         console.log(app);
         return new Promise((resolve, reject) => {
-          this.http.get(app[0].host+app[0].contextPath+"/gallery/r/",{headers: new HttpHeaders().set('token', this.token)
+          this.http.get(app[0].host+app[0].contextPath+"/gallery/r",{headers: new HttpHeaders().set('token', this.token)
           .set('api-key', app[0].apiKey)
           })
             .subscribe(res => {
@@ -576,6 +582,7 @@ export class RestProvider {
         });
       });
     }
+     
 
 
 }
