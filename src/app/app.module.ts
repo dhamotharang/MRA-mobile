@@ -19,6 +19,7 @@ import { LoadingProvider } from 'src/providers/loading-provider';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { IonicStorageModule } from '@ionic/storage-angular';
+import { CacheHandlerProvider } from 'src/providers/cache-handler.provider';
 
 @NgModule({
   declarations: [AppComponent],
@@ -45,7 +46,8 @@ import { IonicStorageModule } from '@ionic/storage-angular';
     ImageProvider,
     LoadingProvider,
     FileTransfer,
-    File
+    File,
+    CacheHandlerProvider
   ],
   bootstrap: [AppComponent],
 })

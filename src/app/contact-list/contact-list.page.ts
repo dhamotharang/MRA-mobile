@@ -26,4 +26,8 @@ export class ContactListPage implements OnInit {
     this.navCtrl.navigateBack('/sos');
   }
 
+  addContact(data) {
+    console.log('addContact',data);
+  }
+
 }

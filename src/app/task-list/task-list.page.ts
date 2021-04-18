@@ -13,6 +13,7 @@ export class TaskListPage implements OnInit {
   navParam: any;
   private taskList=[];
   fromPage: any;
+  role: any;
 
   constructor(
     private router: Router,
@@ -27,7 +28,8 @@ export class TaskListPage implements OnInit {
       if (this.router.getCurrentNavigation().extras.state) {
         this.navParam = this.router.getCurrentNavigation().extras.state.user;
         this.fromPage = this.router.getCurrentNavigation().extras.state.from;
-        console.log('navParam',this.navParam,this.fromPage)
+        this.role = this.router.getCurrentNavigation().extras.state.role;
+        console.log('navParam',this.navParam,this.fromPage,this.role)
       }
     });
   }

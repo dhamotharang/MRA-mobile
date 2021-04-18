@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "573630357294",
+    "project_id": "mra-mobile",
+    "storage_bucket": "mra-mobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:573630357294:android:d6243d3166df9398eb24bf",
+        "android_client_info": {
+          "package_name": "com.oas.mramobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "573630357294-1mrn12ck3epl6oc2f0a66nbci326s6u3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.oas.mramobile",
+            "certificate_hash": "3914108948881b9d4106212092d740ee902893b5"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEY_oBQEI1XGqgQSWVeEy8Z8Aac11tyoM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
