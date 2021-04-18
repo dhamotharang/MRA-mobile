@@ -1,0 +1,51 @@
+[btn-edit]{
+  text-transform: capitalize;
+  border-radius: 21px;
+  border-color: #3B3B3B ;
+  color: #3B3B3B ;
+  font-size: 15px;
+  float: right;
+  margin-left: 75%;
+  margin-top: 4%;
+  padding: 2%;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatar-container {
+  margin: 20px 0;
+
+  ion-avatar {
+    height: 80px;
+    width: 80px;
+  }
+}
+.user-name {
+  margin: 0 0 10px;
+  font-size: 100px;
+}
+
+.accountList{
+  padding-left: 25px;
+}
+
+.profile-pill{
+  margin-top: 0px;
+  color: #6e6e6e ;
+}
+
+.nameWeight{
+  h4{
+    font-size: 20px;
+    margin-top: 0%;
+  }
+
+}
+
+.add-bottom-margin{
+  margin-bottom: 50px;
+}

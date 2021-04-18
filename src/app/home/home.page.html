@@ -22,37 +22,53 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-row>
+
+  <ion-row *ngIf='role == "staff"'>
     <ion-col>
       <div class="actions-grid">
-        <ion-card class="action-item ion-no-margin" (click)="navNextPage('join')">
-          <ion-icon name="add-outline"></ion-icon>
-          <ion-card-content class="ion-no-padding">
-            Join Project
-          </ion-card-content>
-        </ion-card>
-        <!-- <ion-card class="action-item ion-no-margin">
-          <ion-icon name="archive-outline"></ion-icon>
-          <ion-card-content class="ion-no-padding">
-            Inventory
-          </ion-card-content>
-        </ion-card> -->
         <ion-card class="action-item ion-no-margin" [routerLink]="['/scan-qr']">
           <ion-icon name="qr-code-outline"></ion-icon>
           <ion-card-content class="ion-no-padding">
             QR Code
           </ion-card-content>
         </ion-card>
-        <!-- <ion-card class="action-item ion-no-margin" [routerLink]="['/events-tabbar']">
-          <ion-icon name="calendar-number-outline"></ion-icon>
+        <ion-card class="action-item ion-no-margin" [routerLink]="['/payment-history']">
+          <ion-icon name="document-text-outline"></ion-icon>
           <ion-card-content class="ion-no-padding">
-            View Events
+            Payment History
           </ion-card-content>
-        </ion-card> -->
+        </ion-card>
+        <ion-card class="action-item ion-no-margin" [routerLink]="['/record-payment']">
+          <ion-icon name="cash-outline"></ion-icon>
+          <ion-card-content class="ion-no-padding">
+            Record Payment
+          </ion-card-content>
+        </ion-card>
       </div>
     </ion-col>
   </ion-row>
-  <ion-row>
+
+  <ion-row *ngIf='role == "volunteer"'>
+    <ion-col>
+      <div class="actions-grid-volunteer">
+        <ion-card class="action-item ion-no-margin" (click)="navNextPage('join')">
+          <ion-icon name="add-outline"></ion-icon>
+          <ion-card-content class="ion-no-padding">
+            Join Project
+          </ion-card-content>
+        </ion-card>
+        <ion-card class="action-item ion-no-margin" [routerLink]="['/scan-qr']">
+          <ion-icon name="qr-code-outline"></ion-icon>
+          <ion-card-content class="ion-no-padding">
+            QR Code
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </ion-col>
+  </ion-row>
+
+
+  <ion-row *ngIf='role == "volunteer"'>
     <ion-col>
       <div class="bottom-grid">
         <ion-card class="action-item ion-no-margin" [routerLink]="['/payment-history']">
@@ -71,56 +87,48 @@
     </ion-col>
   </ion-row>
 
-  <div class="project-card-container">
+  <div class="project-card-container" [ngClass]="{'margin-project-card-container-volunteer': role == 'volunteer'}">
     <ion-grid>
       <ion-row class="ion-justify-content-between ion-align-items-center">
         <ion-col>
           <h5 class="ion-no-margin">Your projects</h5>
         </ion-col>
-        <ion-col (click)="navNextPage('view')" class="ion-text-right ion-align-self-baseline">
+        <ion-col *ngIf='projectList.length != 0' (click)="navNextPage('view')" class="ion-text-right ion-align-self-baseline">
           View more
           <ion-icon name="arrow-forward-outline"></ion-icon>
         </ion-col>
       </ion-row>
-      <ion-row class="ion-margin-top ion-align-items-start">
+      <ion-row *ngIf='projectList.length != 0 && role == "staff"' class="ion-margin-top ion-align-items-start">
         <ion-col>
-          <ion-slides [options]="option">
-            <ion-slide>
-              <ion-card [routerLink]="['/project-detail']" class="ion-no-margin">
-                <img
-                  src="https://images.unsplash.com/photo-1601055283742-8b27e81b5553?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
-                  alt="" />
-                <ion-card-content>Third Wave Covid-19 Emergency</ion-card-content>
-              </ion-card>
-            </ion-slide>
-            <ion-slide>
-              <ion-card class="ion-no-margin">
-                <img
-                  src="https://images.unsplash.com/photo-1563260324-5ebeedc8af7c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1267&q=80"
-                  alt="">
-                <ion-card-content>
-                  Gaza Winter Warming Aid
-                </ion-card-content>
-              </ion-card>
-            </ion-slide>
-            <ion-slide>
-              <ion-card class="ion-no-margin">
-                <img
-                  src="https://assets.theedgemarkets.com/Malaysia-covid-19_reuters_08032021.jpg?MMtZgyw0vLSSDnUTRXvXRA82yb64wWze"
-                  alt="">
-                <ion-card-content>Covid-19 in Malaysia</ion-card-content>
+          <ion-slides pager="false" [options]="option" #mySlider>
+            <ion-slide *ngFor='let data of projectList'>
+              <ion-card (click)="navProjectDetail(data,'view')" class="ion-no-margin">
+                <img [src]="[data?.projectPicture]">
+                <ion-card-content>{{data?.projName}}</ion-card-content>
               </ion-card>
             </ion-slide>
           </ion-slides>
         </ion-col>
       </ion-row>
-      <!-- <ion-row *ngIf='projectList.length == 0'>
+      <ion-row *ngIf='projectList.length != 0 && role == "volunteer"' class="ion-margin-top ion-align-items-start">
+        <ion-col>
+          <ion-slides pager="false" [options]="option" #mySlider>
+            <ion-slide *ngFor='let data of projectList'>
+              <ion-card (click)="navProjectDetail(data,'view')" class="ion-no-margin">
+                <img [src]="[data?.proj?.projectPicture]">
+                <ion-card-content>{{data?.proj?.projName}}</ion-card-content>
+              </ion-card>
+            </ion-slide>
+          </ion-slides>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf='projectList.length == 0'>
         <ion-col>
           <ion-col class="ion-text-center">
             <h5 class="greet-text">You did not join any project yet</h5>
           </ion-col>
         </ion-col>
-      </ion-row> -->
+      </ion-row>
     </ion-grid>
   </div>
 </ion-content>

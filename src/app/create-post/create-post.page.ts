@@ -7,6 +7,7 @@ import { NavController } from '@ionic/angular';
 import { LoadingProvider } from 'src/providers/loading-provider';
 import { DomSanitizer } from '@angular/platform-browser';
 declare var window;
+import { Storage } from '@ionic/storage-angular';
 
 
 @Component({
@@ -27,9 +28,13 @@ export class CreatePostPage implements OnInit {
   }
   private image: string;
   private currentImage;
-  data: any;
-  navParam: any;
-  secureURL:any = [];
+  private data: any;
+  private navParam: any;
+  private secureURL:any = [];
+  private fromPage: any;
+  staffList: any;
+  participant=[]
+  taskDetail: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -40,19 +45,44 @@ export class CreatePostPage implements OnInit {
     private navCtrl: NavController,
     private loadingProvider: LoadingProvider,
     private sanitize: DomSanitizer,
+    private storage: Storage,
   ) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.navParam = this.router.getCurrentNavigation().extras.state.user;
-        console.log('data',this.navParam)
+        this.fromPage = this.router.getCurrentNavigation().extras.state.from||null;
+        this.taskDetail = this.router.getCurrentNavigation().extras.state.data||null;
+        console.log('data',this.navParam,this.fromPage,this.taskDetail)
         // this.navParam = this.data
       }
     });
-    this.postForm = this.formBuilder.group({
-      formName: [],
-    });
+    this.setupPage();
+  }
+
+  setupPage() {
+    if (this.fromPage == 'task') {
+      this.postForm = this.formBuilder.group({
+        taskName: [],
+        description:[],
+        startDate:[],
+        dueDate:[],
+        status:[],
+      });
+    }
+    else if (this.fromPage == 'commentTask') {
+      this.postForm = this.formBuilder.group({
+        taskId:this.taskDetail.taskId,
+        taskComment:[],
+        taskPicture:[],
+      });
+    }
+    else {
+      this.postForm = this.formBuilder.group({
+        formName: [],
+      });
+    }
   }
 
   getImageFx() {
@@ -152,12 +182,40 @@ export class CreatePostPage implements OnInit {
     });
   }
 
-  postProjectFeedImage() {
 
+  postProjectTask() {
+    console.log('this.postForm.value',this.postForm.value);
+    this.loadingProvider.presentLoading();
+    this.storage.get('defaultPersonId').then((val:any) => {
+      this.restProvider.postTaskSingle(this.postForm.value,val,this.navParam.projId).then((result:any) => {
+        this.loadingProvider.closeLoading();
+        this.exitForm();
+      }, (err) => {
+        console.log(err);
+        this.loadingProvider.closeLoading();
+        // this.showAlert();
+      });
+    });
+  }
+
+  postTaskComment() {
+    console.log('this.postForm.value',this.postForm.value);
+    this.loadingProvider.presentLoading();
+    this.storage.get('defaultPersonId').then((val:any) => {
+      this.restProvider.postTaskComment(this.postForm.value,val).then((result:any) => {
+        this.loadingProvider.closeLoading();
+        this.exitForm();
+      }, (err) => {
+        console.log(err);
+        this.loadingProvider.closeLoading();
+        // this.showAlert();
+      });
+    });
   }
 
   exitForm() {
     this.navCtrl.back();
   }
+
 
 }

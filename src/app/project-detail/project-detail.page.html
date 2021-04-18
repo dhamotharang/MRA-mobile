@@ -92,10 +92,10 @@
                 </ion-col>
                 <ion-col class="ion-margin-start">
                   <p class="label-detail">
-                    <!-- {{projectDetail?.unit_no}}, -->
-                    {{checkAddress(projectDetail?.address1)}}
+                    {{projectDetail?.location}},
+                    <!-- {{checkAddress(projectDetail?.address1)}}
                     {{checkAddress(projectDetail?.postcode)}} {{checkAddress(projectDetail?.city)}}
-                    {{checkAddress(projectDetail?.state)}} {{projectDetail?.countryName}}
+                    {{checkAddress(projectDetail?.state)}} {{projectDetail?.countryName}} -->
                   </p>
                 </ion-col>
               </ion-row>
@@ -159,7 +159,7 @@
               </ion-button>
             </ion-col>
             <ion-col>
-              <ion-button [routerLink]="['/task-list']" fill="clear" round class="others">
+              <ion-button (click)="navTaskPage()" fill="clear" round class="others">
                 <p class="link-label">Task</p>
               </ion-button>
             </ion-col>
@@ -170,7 +170,7 @@
     <!-- <button class="standard-float-button" (click)="goAddBooking()" full ion-button>Request Join
     </button> -->
 
-    <ion-button class="standard-float-button" (click)="requestJoin()" expand="full">Request Join</ion-button>
+    <ion-button *ngIf='fromPage == "join"' class="standard-float-button" (click)="requestJoin()" expand="full">Request Join</ion-button>
 
 
 

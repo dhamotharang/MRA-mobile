@@ -17,15 +17,16 @@
 
 .label-task-title {
     color: #212121;
-    font-size: 1rem;
+    font-size: 1.1rem;
     margin-left: 0rem;
+    margin-top: 4px;
 }
 
 .label-task-date {
     color: #212121;
-    font-size: 0.8rem;
+    font-size: 1rem;
     margin-left: 0rem;
-    margin-top: -1rem;
+    margin-top: 0.1rem;
 }
 
 .task-card {
@@ -113,4 +114,30 @@
     margin-top: -0.5rem;
     margin-bottom: 0rem;
     margin-left: -0.3rem;
+}
+
+.no-feed {
+    font-size: 3rem;
+    margin-left: 43%;
+    margin-top: 46%;
+    color: rgba(25, 118, 210, 0.89);
+}
+
+.no-text {
+    text-align: center;
+    white-space: normal;
+    font-size: 1.2rem;
+    margin-top: 12%;
+}
+
+.add-icon {
+    font-size: 1.2rem;
+    color: #804b9b;
+    border: solid;
+    border-width: thin;
+    border-radius: 4px;
+}
+
+.space {
+    margin-top: -1rem;
 }

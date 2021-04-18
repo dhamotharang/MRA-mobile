@@ -14,27 +14,94 @@
     <ion-row>
       <ion-col size="3">
         <img class="img-style"
-        [src]="[project_image]">
+        [src]="[navParam?.projectPicture]">
       </ion-col>
       <ion-col size="8">
-        <p class="project-name">{{project_name}}</p>
+        <p class="project-name">{{navParam?.projName}}</p>
       </ion-col>
     </ion-row>
   </ion-label>
 
   <form [formGroup]="postForm">
 
-      <!-- <ion-row>
+    <div *ngIf='fromPage == "task"'>
+      <ion-row>
         <ion-col>
-          <ion-card class="title-box">
-            <ion-input formControlName='title' class="input_title" type="text"
-            placeholder="Post Title">
+          <ion-item class="item-box">
+            <ion-input formControlName='taskName' class="input_title" type="text"
+            placeholder="Task Title">
           </ion-input>
-          </ion-card>
+          </ion-item>
         </ion-col>
-      </ion-row> -->
+      </ion-row>
+      
+      <ion-row>
+        <ion-col>
+          <ion-item class="item-box">
+            <ion-label class="label-title">Status</ion-label>
+            <ion-select formControlName="status" placeholder="Select One">
+              <ion-select-option class="list-option" value="Urgent">Urgent</ion-select-option>
+              <ion-select-option class="list-option" value="Not Urgent">Not Urgent</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col>
+          <ion-item class="item-box">
+            <ion-label>Start Date</ion-label>
+            <ion-datetime formControlName="startDate" displayFormat="DD/MM/YYYY" placeholder="Select Date"></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
 
       <ion-row>
+        <ion-col>
+          <ion-item class="item-box">
+            <ion-label>Due Date</ion-label>
+            <ion-datetime formControlName="dueDate"  displayFormat="DD/MM/YYYY" placeholder="Select Date"></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>  
+        <ion-col>
+          <ion-card class="description-box">
+            <ion-row>
+              <ion-col>
+                <ion-textarea class="description_label" rows="10" placeholder="Task Description"
+                formControlName="description" maxlength="1000">
+              </ion-textarea>
+              </ion-col>
+            </ion-row>
+          </ion-card>
+          <ion-row class="attach-icon-padding">
+            <ion-col (click)="takePicture()">
+              <ion-icon class="attach-icon" ios="camera" md="camera"></ion-icon>
+            </ion-col>
+            <ion-col (click)="getImageFx()">
+              <ion-icon class="attach-icon" ios="image" md="image"></ion-icon>
+            </ion-col>
+            <ion-col>
+              <ion-icon class="attach-icon" ios="location" md="location"></ion-icon>
+            </ion-col>
+          </ion-row>
+          <!-- <input *ngIf="!platform.is('cordova')" type="file" name="file" id="file"
+          (change)='uploadpictureFx("localthumbnail",$event)' /> -->
+          <ion-row>
+            <ion-col>
+              <button ion-button (click)="postProjectTask()" class="post-button">
+                <p class="post-label">Post</p>
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </div>
+
+
+      <ion-row *ngIf='fromPage != "task" && fromPage != "commentTask"'>  
         <ion-col>
           <ion-card class="description-box">
             <ion-row>
@@ -61,6 +128,40 @@
           <ion-row>
             <ion-col>
               <button ion-button (click)="postProjectFeed()" class="post-button">
+                <p class="post-label">Post</p>
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf='fromPage == "commentTask"'>  
+        <ion-col>
+          <ion-card class="description-box">
+            <ion-row>
+              <ion-col>
+                <ion-textarea class="description_label" rows="10" placeholder="Your comment"
+                formControlName="taskComment" maxlength="1000">
+              </ion-textarea>
+              </ion-col>
+            </ion-row>
+          </ion-card>
+          <ion-row class="attach-icon-padding">
+            <ion-col (click)="takePicture()">
+              <ion-icon class="attach-icon" ios="camera" md="camera"></ion-icon>
+            </ion-col>
+            <ion-col (click)="getImageFx()">
+              <ion-icon class="attach-icon" ios="image" md="image"></ion-icon>
+            </ion-col>
+            <ion-col>
+              <ion-icon class="attach-icon" ios="location" md="location"></ion-icon>
+            </ion-col>
+          </ion-row>
+          <!-- <input *ngIf="!platform.is('cordova')" type="file" name="file" id="file"
+          (change)='uploadpictureFx("localthumbnail",$event)' /> -->
+          <ion-row>
+            <ion-col>
+              <button ion-button (click)="postTaskComment()" class="post-button">
                 <p class="post-label">Post</p>
               </button>
             </ion-col>

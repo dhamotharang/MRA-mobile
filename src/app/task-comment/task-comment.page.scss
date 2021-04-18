@@ -1,0 +1,148 @@
+.img-style {
+    border-radius: 50%;
+    height: 3.5rem;
+    width: 3.5rem;
+    border-width: 1px;
+    border-style: solid;
+    color: #F5F5F5;
+    object-fit: cover;
+    margin-left: 0.5rem;
+    margin-top: 0.5rem;  
+}
+
+.padding_top_bot_zero {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.label-task-title {
+    color: #212121;
+    font-size: 1rem;
+    margin-left: 0rem;
+    margin-top: 4px;
+}
+
+.label-task-date {
+    color: #212121;
+    font-size: 1rem;
+    margin-left: 0rem;
+    margin-top: 0.1rem;
+}
+
+.task-card {
+    background-color: #d8d8d88a;
+    border-radius: 0.5rem;
+    height: auto;
+    width: auto;
+}
+
+.new-card {
+    height: 0.8rem;
+    width: 2rem;
+    border-width: 1px;
+    margin-top: -1rem;
+    margin-left: 0rem;
+    background-color: #96e2cd;
+}
+
+.new-label {
+    font-size: 0.8rem;
+    color: #09913f;
+    text-align: center;
+    margin-top: 0px;
+
+}
+
+.description {
+    color: black;
+    white-space: normal;
+}
+
+.description-row {
+    margin-top: -1.2rem;
+}
+
+.attach-img {
+    border-radius: 17%;
+    border: #9b9999;
+    border-width: 0.1px;
+    height: 5.5rem;
+    width: 5rem;
+    border-style: solid;
+    color: #F5F5F5;
+    object-fit: cover;
+    margin-bottom: 0.5rem;
+}
+
+.center {
+    text-align: center;
+}
+
+.comment-item {
+    border: solid;
+    border-color: gray;
+    border-width: 1px;
+    height: 2.5rem;
+    border-left: none;
+    border-right: none;
+    // background-color: gray;
+}
+
+.comment {
+    margin-top: 0.3rem;
+    text-align: center;
+    color: black;
+}
+
+.chat-icon {
+    font-size: 1.2rem;
+    position: absolute;
+    margin-left: 6.7rem;
+    margin-top: 0.3rem;
+    color: black;
+}
+
+.comment-card {
+    background-color: #f4f5f8;
+    border-radius: 0.5rem;
+    height: auto;
+    width: auto;
+    box-shadow: none;
+}
+
+.description-date {
+    margin-top: -0.5rem;
+    margin-bottom: 0rem;
+    margin-left: -0.3rem;
+}
+
+.no-feed {
+    font-size: 3rem;
+    margin-left: 43%;
+    margin-top: 46%;
+    color: rgba(25, 118, 210, 0.89);
+}
+
+.no-text {
+    text-align: center;
+    white-space: normal;
+    font-size: 1.2rem;
+    margin-top: 12%;
+}
+
+.add-icon {
+    font-size: 1.2rem;
+    color: #804b9b;
+    border: solid;
+    border-width: thin;
+    border-radius: 4px;
+}
+
+.space {
+    margin-top: -1rem;
+}
+
+.person-name {
+    margin-bottom: 2px;
+}
+

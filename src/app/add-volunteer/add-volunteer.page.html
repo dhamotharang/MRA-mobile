@@ -10,7 +10,23 @@
 
 <ion-content>
 
-  <form [formGroup]="volunteerInfoForm">
+  <ion-list *ngIf="fromPage == 'volunteer-list'">
+    <ion-item *ngFor="let data of allVolunteerList">
+      <ion-label>{{data?.name}}</ion-label>
+      <ion-checkbox slot="end" (click)="chooseVolunteer(data)"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="fromPage != 'volunteer-list'">
+    <ion-item *ngFor="let data of allVolunteerList">
+      <ion-label>{{data?.person?.name}}</ion-label>
+      <ion-checkbox slot="end" (click)="chooseVolunteer(data)"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+  <ion-button class="standard-float-button" (click)="addVolunteer()" expand="full">Add</ion-button>
+
+  <!-- <form [formGroup]="volunteerInfoForm">
 
     <ion-row>
       <ion-col class="no_paading_x" style="padding-left: 0px;">
@@ -155,6 +171,6 @@
       </ion-col>
     </ion-row>
 
-  </form>
+  </form> -->
 
 </ion-content>

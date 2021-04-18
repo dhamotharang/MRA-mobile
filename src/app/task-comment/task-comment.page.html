@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <img slot="secondary" src="assets/mra.png" class="navbar-logo"/>
+    <ion-title slot="secondary">Comments</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+  <div *ngIf='taskCommentList.length != 0'>
+    <ion-card *ngFor="let data of taskCommentList" class="task-card">
+      <ion-row>
+        <ion-col size="3">
+          <img #img1 (error)="img1.src=imageProvider.imageErrorHandle('profile')" class="img-style" [src]="data?.person?.profilePicture">
+        </ion-col>
+        <ion-col>
+          <ion-row>
+            <ion-col class='padding_top_bot_zero'>
+              <p class="label-task-title person-name">{{data?.person?.name}}</p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class='padding_top_bot_zero'>
+              <p class="label-task-title">{{data?.taskComment}}</p>
+            </ion-col>
+          </ion-row>
+          <ion-row class="space">
+            <ion-col>
+              <p class="label-task-date">8/4/2021</p>
+              <!-- {{data?.createdDate| date: 'd/M/yy'}} -->
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+  
+  
+      <ion-row *ngIf='data?.taskPicture != null'>
+        <ion-col class="ion-no-padding">
+          <ion-row>
+            <ion-col class="ion-no-padding center" size="4" *ngFor='let img of data?.task_image'>
+              <img class="attach-img"
+                [src]="[data?.taskPicture]">
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+  
+    </ion-card>
+  </div>
+
+  <div *ngIf='taskCommentList.length == 0'>
+    <ion-row>
+      <ion-col>
+        <!-- <ion-icon ios="meccapan-abatanotification" md="meccapan-abatanotification" class="notification"></ion-icon> -->
+        <ion-icon name="newspaper-outline" class="no-feed"></ion-icon>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <p class="no-text">no comment yet </p>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="commentTask()">
+      <ion-icon ios="create" md="create"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

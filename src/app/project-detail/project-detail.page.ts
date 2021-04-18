@@ -7,6 +7,7 @@ import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { RestProvider } from 'src/providers/rest/rest';
 import { LoadingProvider } from 'src/providers/loading-provider';
 import { ImageProvider } from 'src/providers/image.provider';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-project-detail',
@@ -20,6 +21,7 @@ export class ProjectDetailPage implements OnInit {
   navParam: any;
   expand: boolean = false;
   fromPage: any;
+  role: any;
   
 
   constructor(
@@ -31,16 +33,17 @@ export class ProjectDetailPage implements OnInit {
     private emailComposer: EmailComposer,
     private restProvider: RestProvider,
     private loadingProvider: LoadingProvider,
-    private imageProvider: ImageProvider
+    private imageProvider: ImageProvider,
+    private storage: Storage,
   ) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {      //get data from previous page
       if (this.router.getCurrentNavigation().extras.state) {
-        this.data = this.router.getCurrentNavigation().extras.state.user;
+        this.navParam = this.router.getCurrentNavigation().extras.state.user;
         this.fromPage = this.router.getCurrentNavigation().extras.state.action;
-        console.log('data',this.data,this.fromPage)
-        this.navParam = this.data
+        this.role = this.router.getCurrentNavigation().extras.state.role;
+        console.log('navParam',this.navParam,this.fromPage,this.role)
       }
     });
     this.getDetailProject();
@@ -54,12 +57,12 @@ export class ProjectDetailPage implements OnInit {
 
   launchNavigation() {
     // let address = 'Serin Residency, Jalan Fauna 1, 63000 Cyberjaya Selangor'
-    let address = this.projectDetail.address1 + ', ' + this.projectDetail.postcode + ' ' + this.projectDetail.city + ', ' + this.projectDetail.state+ ', ' + this.projectDetail.countryName;
-    this.launchNavigatorProvider.launchNavigation(address)
+    // let address = this.projectDetail.address1 + ', ' + this.projectDetail.postcode + ' ' + this.projectDetail.city + ', ' + this.projectDetail.state+ ', ' + this.projectDetail.countryName;
+    this.launchNavigatorProvider.launchNavigation(this.projectDetail.location)
   }
 
   launchWhatsapp() {
-    const browser = this.inAppBrowser.create('http://www.wasap.my/60174164546', '_system'); 
+    const browser = this.inAppBrowser.create(this.projectDetail.wsLink, '_system'); 
   }
 
   composeEmail() {
@@ -104,13 +107,25 @@ export class ProjectDetailPage implements OnInit {
   }
 
   requestJoin() {
-    
+    this.storage.get('defaultPersonId').then((val:any) => {
+      this.restProvider.requestJoin(val, this.navParam.projId).then((result:any) => {
+        console.log('getProjectDetail',result);
+        this.projectDetail = result;
+        this.loadingProvider.closeLoading();
+      }, (err) => {
+        // console.log(err);
+        this.loadingProvider.closeLoading();
+        // this.showAlert();
+      });
+    });
+
   }
 
   navNextPage() {
     let navigationExtras: NavigationExtras = {
       state: {
-        user: this.projectDetail
+        user: this.projectDetail,
+        from:'feed'
       }
     };
     this.router.navigate(['live-feed'], navigationExtras);
@@ -119,10 +134,23 @@ export class ProjectDetailPage implements OnInit {
   navVolunteerPage() {
     let navigationExtras: NavigationExtras = {
       state: {
-        user: this.projectDetail
+        user: this.projectDetail,
+        from:'volunteer',
+        role: this.role
       }
     };
     this.router.navigate(['volunteer-list'], navigationExtras);
+  }
+
+  navTaskPage() {
+    let navigationExtras: NavigationExtras = {
+      state: {
+        user: this.projectDetail,
+        from:'task',
+        role: this.role
+      }
+    };
+    this.router.navigate(['task-list'], navigationExtras);
   }
 
 }

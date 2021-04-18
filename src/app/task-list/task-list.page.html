@@ -10,78 +10,99 @@
 
 <ion-content>
 
-  <ion-card *ngFor="let data of taskList" class="task-card">
-    <ion-row>
-      <ion-col size="3">
-        <img class="img-style" [src]="data?.profile_image">
-      </ion-col>
-      <ion-col>
-        <ion-row>
-          <ion-col class='padding_top_bot_zero'>
-            <p class="label-task-title">{{data?.task_title}}</p>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col size="3">
-            <p class="label-task-date">Today</p>
-          </ion-col>
-          <ion-col size="3">
-            <ion-card class="new-card">
-              <p class="new-label">new</p>          
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-col>
-    </ion-row>
-
-    <ion-row class="description-row">
-      <ion-col>
-        <p class="description">{{data?.description}}</p>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col class="ion-no-padding">
-        <ion-row>
-          <ion-col class="ion-no-padding center" size="4" *ngFor='let img of data?.task_image'>
-            <img class="attach-img"
-              [src]="[img?.task_images]">
-          </ion-col>
-        </ion-row>
-      </ion-col>
-    </ion-row>
-
-    <ion-row class="comment-item">
-      <ion-col size="12">
-        <ion-icon class="chat-icon" ios="chatbox-ellipses" md="chatbox-ellipses"></ion-icon>
-        <p class="comment">Comment</p>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col>
-        <ion-card class="comment-card">
+  <div *ngIf='taskList.length != 0'>
+    <ion-card *ngFor="let data of taskList" class="task-card">
+      <ion-row>
+        <ion-col size="3">
+          <img #img1 (error)="img1.src=imageProvider.imageErrorHandle('profile')" class="img-style" [src]="data?.person?.profilePicture">
+        </ion-col>
+        <ion-col>
           <ion-row>
-            <ion-col size="3">
-              <img class="img-style" [src]="taskList[0]?.profile_image">
+            <ion-col class='padding_top_bot_zero'>
+              <p class="label-task-title">{{data?.taskName}}</p>
             </ion-col>
+          </ion-row>
+          <ion-row class="space">
             <ion-col>
-              <p class="description">{{taskList[0]?.description}}</p>
-              <ion-row>
-                <ion-col>
-                  <p class="description-date description">3h</p>                  
-                </ion-col>
-              </ion-row>
+              <p class="label-task-date">{{data?.startDate| date: 'd/M/yy'}}-{{data?.dueDate| date: 'd/M/yy'}}</p>
             </ion-col>
-          </ion-row>    
-        </ion-card>
+            <ion-col size="3">
+              <ion-icon (click)="addParticipant(data)" class="add-icon" ios="person-add" md="person-add"></ion-icon>
+            </ion-col>
+            <!-- <ion-col *ngIf='createdDate == todayDate' size="3">
+              <ion-card class="new-card">
+                <p class="new-label">new</p>          
+              </ion-card>
+            </ion-col> -->
+          </ion-row>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row class="description-row">
+        <ion-col>
+          <p class="description">{{data?.description}}</p>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col class="ion-no-padding">
+          <ion-row>
+            <ion-col class="ion-no-padding center" size="4" *ngFor='let img of data?.task_image'>
+              <img class="attach-img"
+                [src]="[img?.task_images]">
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row (click)="commentTask(data)" class="comment-item">
+        <ion-col size="12">
+          <ion-icon class="chat-icon" ios="chatbox-ellipses" md="chatbox-ellipses"></ion-icon>
+          <p class="comment">Comment</p>
+        </ion-col>
+      </ion-row>
+  
+      <!-- <ion-row>
+        <ion-col>
+          <ion-card class="comment-card">
+            <ion-row>
+              <ion-col size="3">
+                <img class="img-style" [src]="taskList[0]?.profile_image">
+              </ion-col>
+              <ion-col>
+                <p class="description">{{taskList[0]?.description}}</p>
+                <ion-row>
+                  <ion-col>
+                    <p class="description-date description">3h</p>                  
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+            </ion-row>    
+          </ion-card>
+        </ion-col>
+      </ion-row> -->
+  
+    </ion-card>
+  </div>
+
+
+  <div *ngIf='taskList.length == 0'>
+    <ion-row>
+      <ion-col>
+        <!-- <ion-icon ios="meccapan-abatanotification" md="meccapan-abatanotification" class="notification"></ion-icon> -->
+        <ion-icon name="newspaper-outline" class="no-feed"></ion-icon>
       </ion-col>
     </ion-row>
+    <ion-row>
+      <ion-col>
+        <p class="no-text">You have no task yet </p>
+      </ion-col>
+    </ion-row>
+  </div>
 
-  </ion-card>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button [routerLink]="['/create-post']">
+  <ion-fab *ngIf='role != "volunteer"' vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="navNextPage()">
       <ion-icon ios="create" md="create"></ion-icon>
     </ion-fab-button>
   </ion-fab>

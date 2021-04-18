@@ -27,9 +27,9 @@
 
 .actions-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
-  padding: 0 70px;
+  padding: 0 10px;
   position: absolute;
   top: -2rem;
 }
@@ -42,6 +42,16 @@
   position: absolute;
   top: 5rem;
 }
+
+.actions-grid-volunteer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  padding: 0 70px;
+  position: absolute;
+  top: -2rem;
+}
+
 
 .action-item {
   display: flex;
@@ -73,8 +83,9 @@
   padding: 0 12px;
   margin: 10px 0;
   position: absolute;
-  top: 25rem;
   width: 100%;
+  top: 19rem;
+  
 
   ion-slides {
     margin-bottom: 20px;
@@ -95,6 +106,10 @@
       text-align: left;
     }
   }
+}
+
+.margin-project-card-container-volunteer {
+  top: 25rem !important
 }
 
 .margin-top {

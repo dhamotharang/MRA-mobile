@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { LoadingProvider } from 'src/providers/loading-provider';
 import { RestProvider } from 'src/providers/rest/rest';
 import { Storage } from '@ionic/storage-angular';
+import { IonSlides } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -10,8 +11,10 @@ import { Storage } from '@ionic/storage-angular';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
+  @ViewChild('mySlider')  slides: IonSlides;
   data: any;
   projectList = [];
+  role: any;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -30,38 +33,102 @@ export class HomePage implements OnInit {
       console.log('ngOnInit',params) 
       if (this.router.getCurrentNavigation().extras.state) {
         this.data = this.router.getCurrentNavigation().extras.state.user;
+        this.role = this.router.getCurrentNavigation().extras.state.role;
         console.log('data',this.data)
+        console.log('role',this.role)
       }
     });
-    this.getProjectInvolved();
+    // this.getProjectInvolved();
   }
 
-  getProjectInvolved() {
+  ionViewWillEnter() {
+    // this.route.queryParams.subscribe(params => {
+    //   console.log('ngOnInit',params) 
+    //   if (this.router.getCurrentNavigation().extras.state) {
+    //     this.data = this.router.getCurrentNavigation().extras.state.user;
+    //     console.log('data',this.data)
+    //   }
+    // });
+    if (this.role == 'staff') {
+      this.getStaffInvolved();
+    }
+    else {
+      this.getVolunteerInvolved();
+    }
+  }
+
+  getStaffInvolved() {
     this.loadingProvider.presentLoading();
     this.storage.get('defaultPersonId').then((val:any) => {
-      console.log('defaultPersonId', val);
-      this.restProvider.getProjectList(val).then((result:any) => {
+      console.log('personOrgs', val);
+      this.restProvider.getStaffProjectList(val).then((result:any) => {
         console.log('getListProjects',result);
         this.projectList = result;
         this.loadingProvider.closeLoading();
       }, (err) => {
         this.loadingProvider.closeLoading();
-        // console.log(err);
+        console.log('getListProjects err',err);
         // this.loadingProvider.closeLoading();
         // this.showAlert();
       });
+
     });
 
+    // this.storage.get('personOrgs').then((val:any) => {
+    //   console.log('personOrgs', val);
+    //   this.restProvider.getProjectList(val.orgId).then((result:any) => {
+    //     console.log('getListProjects',result);
+    //     this.projectList = result;
+    //     this.loadingProvider.closeLoading();
+    //   }, (err) => {
+    //     this.loadingProvider.closeLoading();
+    //     console.log('getListProjects err',err);
+    //     // this.loadingProvider.closeLoading();
+    //     // this.showAlert();
+    //   });
+
+    // });
+
+  }
+
+  getVolunteerInvolved() {
+    this.loadingProvider.presentLoading();
+    this.storage.get('defaultPersonId').then((val:any) => {
+      console.log('personOrgs', val);
+        this.restProvider.getProjectInvolvedList(val).then((result:any) => {
+          console.log('getListProjects',result);
+          this.projectList = result;
+          this.loadingProvider.closeLoading();
+        }, (err) => {
+          this.loadingProvider.closeLoading();
+          // console.log(err);
+          // this.loadingProvider.closeLoading();
+          // this.showAlert();
+        });
+      });
   }
 
   navNextPage(action) {
     console.log('navNextPage',action)
     let navigationExtras: NavigationExtras = {
       state: {
-        action: action
+        action: action,
+        role: this.role
       }
     };
     this.router.navigate(['project-list'], navigationExtras);
+  }
+
+  navProjectDetail(data,action) {
+    console.log('navNextPage',data)
+    let navigationExtras: NavigationExtras = {
+      state: {
+        user: data,
+        action: action,
+        role: this.role
+      }
+    };
+    this.router.navigate(['project-detail'], navigationExtras);
   }
 
 }

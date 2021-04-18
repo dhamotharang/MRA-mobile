@@ -27,7 +27,7 @@
 
 
 
-  <ion-list>
+  <!-- <ion-list *ngIf='navParam == "join"'>
     <ion-item no-padding *ngFor='let data of projectList'>
       <ion-label no-margin (click)="navNextPage(data)">
         <ion-row>
@@ -36,6 +36,23 @@
           </ion-col>
           <ion-col size="9">
             <p class="project-name">{{data?.projName}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-label>
+    </ion-item>
+  </ion-list> -->
+
+  <!-- *ngIf='navParam != "join"' -->
+  
+  <ion-list>
+    <ion-item no-padding *ngFor='let data of projectList'>
+      <ion-label no-margin (click)="navNextPage(data)">
+        <ion-row>
+          <ion-col size="3">
+            <img class="img-style" [src]="[data?.proj?.projectPicture]">
+          </ion-col>
+          <ion-col size="9">
+            <p class="project-name">{{data?.proj?.projName}}</p>
           </ion-col>
         </ion-row>
       </ion-label>

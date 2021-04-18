@@ -15,23 +15,17 @@ const routes: Routes = [
   {
     path: 'quick-login',
     loadChildren: () =>
-      import('./quick-login/quick-login.module').then(
-        (m) => m.QuickLoginPageModule
-      ),
+      import('./quick-login/quick-login.module').then((m) => m.QuickLoginPageModule),
   },
   {
     path: 'project-list',
     loadChildren: () =>
-      import('./project-list/project-list.module').then(
-        (m) => m.ProjectListPageModule
-      ),
+      import('./project-list/project-list.module').then((m) => m.ProjectListPageModule),
   },
   {
     path: 'project-detail',
     loadChildren: () =>
-      import('./project-detail/project-detail.module').then(
-        (m) => m.ProjectDetailPageModule
-      ),
+      import('./project-detail/project-detail.module').then((m) => m.ProjectDetailPageModule),
   },
   {
     path: 'live-feed',
@@ -41,23 +35,17 @@ const routes: Routes = [
   {
     path: 'create-post',
     loadChildren: () =>
-      import('./create-post/create-post.module').then(
-        (m) => m.CreatePostPageModule
-      ),
+      import('./create-post/create-post.module').then((m) => m.CreatePostPageModule),
   },
   {
     path: 'payment-history',
     loadChildren: () =>
-      import('./payment-history/payment-history.module').then(
-        (m) => m.PaymentHistoryPageModule
-      ),
+      import('./payment-history/payment-history.module').then((m) => m.PaymentHistoryPageModule),
   },
   {
     path: 'volunteer-list',
     loadChildren: () =>
-      import('./volunteer-list/volunteer-list.module').then(
-        (m) => m.VolunteerListPageModule
-      ),
+      import('./volunteer-list/volunteer-list.module').then((m) => m.VolunteerListPageModule),
   },
   {
     path: 'task-list',
@@ -67,9 +55,7 @@ const routes: Routes = [
   {
     path: 'add-volunteer',
     loadChildren: () =>
-      import('./add-volunteer/add-volunteer.module').then(
-        (m) => m.AddVolunteerPageModule
-      ),
+      import('./add-volunteer/add-volunteer.module').then((m) => m.AddVolunteerPageModule),
   },
   {
     path: 'sos',
@@ -78,30 +64,22 @@ const routes: Routes = [
   {
     path: 'contact-list',
     loadChildren: () =>
-      import('./contact-list/contact-list.module').then(
-        (m) => m.ContactListPageModule
-      ),
+      import('./contact-list/contact-list.module').then((m) => m.ContactListPageModule),
   },
   {
     path: 'events-tabbar',
     loadChildren: () =>
-      import('./events-tabbar/events-tabbar.module').then(
-        (m) => m.EventsTabbarPageModule
-      ),
+      import('./events-tabbar/events-tabbar.module').then((m) => m.EventsTabbarPageModule),
   },
   {
     path: 'events-tab-explore',
     loadChildren: () =>
-      import('./events-tab-explore/events-tab-explore.module').then(
-        (m) => m.EventsTabExplorePageModule
-      ),
+      import('./events-tab-explore/events-tab-explore.module').then((m) => m.EventsTabExplorePageModule),
   },
   {
     path: 'events-tab-hosting',
     loadChildren: () =>
-      import('./events-tab-hosting/events-tab-hosting.module').then(
-        (m) => m.EventsTabHostingPageModule
-      ),
+      import('./events-tab-hosting/events-tab-hosting.module').then((m) => m.EventsTabHostingPageModule),
   },
   {
     path: 'profile',
@@ -116,16 +94,12 @@ const routes: Routes = [
   {
     path: 'record-payment',
     loadChildren: () =>
-      import('./record-payment/record-payment.module').then(
-        (m) => m.RecordPaymentPageModule
-      ),
+      import('./record-payment/record-payment.module').then((m) => m.RecordPaymentPageModule),
   },
   {
     path: 'receipt-form',
     loadChildren: () =>
-      import('./receipt-form/receipt-form.module').then(
-        (m) => m.ReceiptFormPageModule
-      ),
+      import('./receipt-form/receipt-form.module').then((m) => m.ReceiptFormPageModule),
   },
   {
     path: 'tabs',
@@ -136,8 +110,18 @@ const routes: Routes = [
     path: 'notifications',
     loadChildren: () => import('./notifications/notifications.module').then( m => m.NotificationsPageModule)
   },
-
- 
+  {
+    path: 'task-comment',
+    loadChildren: () => import('./task-comment/task-comment.module').then( m => m.TaskCommentPageModule)
+  },
+  {
+    path: 'my-account',
+    loadChildren: () => import('./my-account/my-account.module').then( m => m.MyAccountPageModule)
+  },
+  {
+    path: 'edit-profile',
+    loadChildren: () => import('./edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
+  },
   {
     path: 'user-account',
     loadChildren: () => import('./user-account/user-account.module').then( m => m.UserAccountPageModule)
@@ -151,8 +135,6 @@ const routes: Routes = [
     path: 'about',
     loadChildren: () => import('./about/about.module').then( m => m.AboutPageModule)
   },
-
-
 
 ];
 

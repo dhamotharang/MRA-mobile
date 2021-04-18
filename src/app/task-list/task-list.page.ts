@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationExtras } from '@angular/router';
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { RestProvider } from 'src/providers/rest/rest';
 import { LoadingProvider } from 'src/providers/loading-provider';
+import { ImageProvider } from 'src/providers/image.provider';
 
 @Component({
   selector: 'app-task-list',
@@ -10,36 +11,37 @@ import { LoadingProvider } from 'src/providers/loading-provider';
 })
 export class TaskListPage implements OnInit {
   navParam: any;
-  private taskList = [
-    {task_title: 'New Order has been placed',profile_image: 'assets/covid-img.jpg', task_image: [ {task_images:'assets/covid-img.jpg'},{task_images:'assets/covid-img.jpg'},{task_images:'assets/covid-img.jpg'}],description:'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto.'},
-    {task_title: 'New Order has been placed',profile_image: 'assets/gaza-img.jpg', task_image: [ {task_images:'assets/covid-img.jpg'},{task_images:'assets/covid-img.jpg'},{task_images:'assets/covid-img.jpg'}],description:'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto.'},
-    {task_title: 'New Order has been placed',profile_image: 'assets/gaza-img.jpg', task_image: [ {task_images:'assets/covid-img.jpg'},{task_images:'assets/covid-img.jpg'},{task_images:'assets/covid-img.jpg'}],description:'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto.'}
-  ]
+  private taskList=[];
+  fromPage: any;
+  role: any;
 
   constructor(
     private router: Router,
     private restProvider: RestProvider,
-    private loadingProvider: LoadingProvider
+    private loadingProvider: LoadingProvider,
+    private route: ActivatedRoute,
+    private imageProvider: ImageProvider,
   ) { }
 
   ngOnInit() {
-    this.getListTasks();
+    this.route.queryParams.subscribe(params => {      //get data from previous page
+      if (this.router.getCurrentNavigation().extras.state) {
+        this.navParam = this.router.getCurrentNavigation().extras.state.user;
+        this.fromPage = this.router.getCurrentNavigation().extras.state.from;
+        this.role = this.router.getCurrentNavigation().extras.state.role;
+        console.log('navParam',this.navParam,this.fromPage,this.role)
+      }
+    });
   }
 
-  navNextPage(data) {
-    console.log('navNextPage',data)
-    let navigationExtras: NavigationExtras = {
-      state: {
-        user: data
-      }
-    };
-    this.router.navigate(['project-detail'], navigationExtras);
+  ionViewWillEnter() {
+    this.getListTasks();
   }
 
 
   getListTasks() {
     this.loadingProvider.presentLoading();
-    this.restProvider.getTasksList(320).then((result:any) => {
+    this.restProvider.getTasksList(this.navParam.projId).then((result:any) => {
       console.log('getListTasks',result);
       this.taskList = result;
       this.loadingProvider.closeLoading();
@@ -50,6 +52,41 @@ export class TaskListPage implements OnInit {
       // this.showAlert();
     });
   }
+
+  navNextPage() {
+    let navigationExtras: NavigationExtras = {
+      state: {
+        user:this.navParam,
+        from:this.fromPage
+      }
+    };
+    this.router.navigate(['create-post'], navigationExtras);
+  }
+
+  addParticipant(data) {
+    console.log('addParticipant',data)
+    let navigationExtras: NavigationExtras = {
+      state: {
+        user:this.navParam,
+        from:this.fromPage,
+        data: data
+      }
+    };
+    this.router.navigate(['add-volunteer'], navigationExtras);
+  }
+
+  commentTask(data) {
+    let navigationExtras: NavigationExtras = {
+      state: {
+        user:this.navParam,
+        from:'commentTask',
+        data:data
+      }
+    };
+    this.router.navigate(['task-comment'], navigationExtras);
+  }
+
+  
 
 
 }

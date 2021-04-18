@@ -35,7 +35,7 @@
     border: solid;
     border-width: 0.1px;
     border-color: #8731ba;
-    margin-top: -0.5rem;
+    margin-top: 0.5rem;
     height: 21rem;
 }
 
@@ -69,3 +69,24 @@
     font-size: 0.9rem;
     // margin-top: 8px;
 }
+
+.item-box {
+    border: solid;
+    border-color: #9a54be;
+    border-width: thin;
+    border-radius: 7px;
+    height: 2.8rem;
+    width: 95%;
+    margin-left: 9px;
+}
+
+ion-select {
+    /* Applies to the value and placeholder color */
+    color: #545ca7;
+    white-space: normal;
+}
+
+// .my-custom-interface .list-option {
+//     --color: #5e3e2c;
+//     --color-hover: #362419;
+// }

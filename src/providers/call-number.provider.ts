@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
+
 export class CallNumberProvider {
 
     constructor(
