@@ -23,7 +23,7 @@ export class SosPage implements OnInit {
 
 
   callFx() {
-    let phoneNumber = '0174164546';
+    let phoneNumber = '0123456678';
     this.callNumberProvider.dialingFx(phoneNumber)
   }
 

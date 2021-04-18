@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">MRA-mobile</string>
     <string name="title_activity_main">MRA-mobile</string>
-    <string name="package_name">io.ionic.starter</string>
-    <string name="custom_url_scheme">io.ionic.starter</string>
+    <string name="package_name">com.oas.mramobile</string>
+    <string name="custom_url_scheme">com.oas.mramobile</string>
+    <string name="server_client_id">573630357294-49sa6d8140ni7o9ttip06a52kv60mmk9.apps.googleusercontent.com</string>
 </resources>
