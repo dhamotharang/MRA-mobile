@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
 
+
 @Injectable({
   providedIn: 'root',
 })
@@ -25,7 +26,7 @@ export class RestProvider {
 
     appConf(app) {
         return new Promise((resolve, reject) => {
-            let devplink = 'http://192.168.0.3:8181/hss-start-0.0.1-SNAPSHOT/app/config/r';  //192.168.0.5 //192.168.43.221  //dev.hss.oas.my
+            let devplink = 'http://192.168.0.8:8181/hss-start-0.0.1-SNAPSHOT/app/config/r';  //192.168.0.5 //192.168.43.221  //dev.hss.oas.my
             // let devplink = 'https://www.myjiran.my/myjiran-oas-admin-0.0.1-SNAPSHOT/app/config/r'; 
             this.http.post(devplink, [app], {
                 headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token)
@@ -38,6 +39,23 @@ export class RestProvider {
                 });
         });
     }
+
+    //https://dev.hss.oas.my/hss-mobile-rest-0.0.1-SNAPSHOT/
+    appConfMobile(app) {
+      return new Promise((resolve, reject) => {
+          let devplink = 'http://192.168.0.8:8181/hss-mobile-rest-0.0.1-SNAPSHOT/app/config/r';  //192.168.0.5 //192.168.43.221  //dev.hss.oas.my
+          // let devplink = 'https://www.myjiran.my/myjiran-oas-admin-0.0.1-SNAPSHOT/app/config/r'; 
+          this.http.post(devplink, [app], {
+              headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token)
+          })
+              .subscribe((res: any) => {
+                  resolve(res);
+              }, (err) => {
+                  console.log(err);
+                  reject(err);
+              });
+      });
+  }
 
 
     async getProfile(data) {
@@ -52,6 +70,45 @@ export class RestProvider {
             }, (err) => {
               reject(err);
             });
+        });
+      } catch (error) {
+        console.log(error);
+      }
+  
+    }
+
+    async checkRole(personId, id){
+      // try {
+      //   let app = await this.appConf("MGRA");
+      //   console.log(app);
+      //   return new Promise((resolve, reject) => {
+      //     let ids = ["1","4","5","9","10"];
+      //     var urlList = [];
+      //     for(let i=0; i < ids.length; i++){
+      //       let url = this.http.get(app[0].host+app[0].url +"/"+ personId +"/"+ ids[i]).map((res:any) => res).catch(e => console.log('error'))
+      //       // console.log(url);
+      //       urlList.push(url);
+      //     }
+      //     forkJoin(urlList).subscribe((val:any) => {
+      //       console.log('rest.ts: '+val);
+      //       resolve(val);
+      //     });
+      //   });
+      // } catch (error) {
+      //   console.log(error);
+      // }
+      try {
+        let app = await this.appConfMobile("MGRA");
+        console.log(app);
+        return new Promise((resolve, reject) => {
+          this.http.get(app[0].host+app[0].url +"/"+ personId +"/"+ id,{headers: new HttpHeaders().set('token', this.token)
+          .set('api-key', app[0].apiKey)
+          }).subscribe(data => {
+            resolve(data);
+          }, err => {
+            console.log(err);
+            reject(err);
+          });
         });
       } catch (error) {
         console.log(error);
@@ -78,6 +135,27 @@ export class RestProvider {
       }
   
     }
+
+    //hss-project-0.0.1-SNAPSHOT/proj/comm/s/{personId} 
+    async getStaffProjectList(personId){
+      try{
+        let app = await this.appConf("PRJL");
+      console.log(app);
+      return new Promise((resolve, reject) => {
+        this.http.get(app[0].host+app[0].contextPath+"/proj/comm/s/"+personId,{headers: new HttpHeaders().set('token', this.token)
+        .set('api-key', app[0].apiKey)
+        })
+          .subscribe(res => {
+            resolve(res);
+          }, (err) => {
+            reject(err);
+          });
+      });
+      }catch(e){
+        console.log(e);
+      }
+  
+  }
 
     //http://localhost:8181/hss-project-0.0.1-SNAPSHOT/proj/project/v/320
     async getProjectList(orgId){
@@ -428,6 +506,27 @@ export class RestProvider {
     }
 
   }  
+
+
+  async createAnnouncement(data){
+    try{
+      let app = await this.appConf("MCAN");
+    return new Promise((resolve, reject) => {
+      this.http.post(app[0].host+app[0].contextPath+'/list/an/add', data,{headers: new HttpHeaders().set('enctype', 'multipart/form-data').set('Accept','application/json').set('token', this.token)
+      .set('api-key', app[0].apiKey)
+      })
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+    }
+    catch(e){
+      console.log(e);
+    }
+
+  }
 
 
     //http://localhost:8181/hss-organization-admin-0.0.1-SNAPSHOT/gallery/c

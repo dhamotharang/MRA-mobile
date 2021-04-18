@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { CacheHandlerProvider } from 'src/providers/cache-handler.provider';
+import { NavController } from '@ionic/angular';
+import { Plugins } from '@capacitor/core';
 
 @Component({
   selector: 'app-profile',
@@ -8,7 +11,11 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 })
 export class ProfilePage implements OnInit {
 
-  constructor(private iab: InAppBrowser) { }
+  constructor(
+    private cacheHandlerProvider: CacheHandlerProvider,
+    private navCtrl: NavController,
+    private iab: InAppBrowser
+  ) { }
 
   ngOnInit() {
   }
@@ -21,6 +28,13 @@ export class ProfilePage implements OnInit {
    });
 
     browser.close();
+  }
+  
+  async Logout() {
+    console.log('Logout');
+    this.cacheHandlerProvider.clearLocalData()
+    this.navCtrl.navigateRoot('/launch');
+    const googleUser = await Plugins.GoogleAuth.signOut();
   }
 
 }
