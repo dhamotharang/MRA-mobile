@@ -1,0 +1,68 @@
+.ann_footer{
+    .toolbar-background {
+      background-color:white;
+    }
+  }
+  .text-input{
+    height: 20vh;
+  }
+  [item-title]{
+    .text-input{
+      height: 10vh;
+    }
+  }
+  .item ion-thumbnail ion-img, .item ion-thumbnail img{
+    width: 30px;
+    height: 30px;
+  }
+  .item ion-thumbnail {
+    min-width: 30px;
+    min-height: 30px;
+  }
+  .mediaThumbnail.item ion-thumbnail{
+    display: inline-block;
+  }
+  .mediaThumbnail.item ion-thumbnail ion-img, .mediaThumbnail.item ion-thumbnail img{
+    width: 60px;
+    height: 60px;
+    margin-right: 5px;
+  }
+  ion-scroll[scrollX] {
+    white-space: nowrap;
+    height: 60px;
+    // overflow: scroll;
+  }
+  /* Hide ion-content scrollbar */
+  ::-webkit-scrollbar{
+    display:none;
+  }
+  .label{
+    margin:0px
+  }
+  .ion-md-close-circle{
+    color: red !important;
+  }
+  .ion-ios-close-circle{
+      color: red !important;
+  }
+  .ion-md-close{
+  color: white !important;
+  }
+  .ion-ios-close{
+    color: white !important;
+  }
+  
+  .label{
+    padding-left: 5px;
+  }
+  .item-md.item-block .item-inner{
+    border-bottom: 0px;
+  }
+  [class*=" icon-"]{
+    line-height: 32px;
+  }
+  
+  .button-default{
+    float:right;
+    margin-right: 16px;
+  }

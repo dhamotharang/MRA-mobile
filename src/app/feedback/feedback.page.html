@@ -1,0 +1,71 @@
+<!--button ion-button icon-only [disabled]="titleForm.invalid" (click)="post()"></button>
+<h2><ion-button icon-only color="light" size="default"  (click)="post()">Submit</ion-button></h2-->
+<ion-header>
+<ion-toolbar>
+<ion-buttons>
+<ion-back-button defaultHref="profile"></ion-back-button>
+</ion-buttons>
+<img slot="secondary" src="assets/mra.png" class="navbar-logo" />
+<ion-title slot="secondary">Feedback</ion-title>
+</ion-toolbar>
+</ion-header>
+<h2><ion-button icon-only color="light" size="default"  (click)="post()">Submit</ion-button></h2>
+<ion-content>
+<div class="ion-padding">
+<form [formGroup]="registrationForm" (ngSubmit)="submit()">
+<ion-list>
+<ion-item>
+<ion-label position="floating">Title</ion-label>
+<ion-input autocapitalize inputmode="text" formControlName="title"></ion-input>
+</ion-item>
+<div *ngFor="let error of errorMessages.title">
+<ng-container *ngIf="title.hasError(error.type) && (title.dirty || title.touched)">
+<small class="error-message">{{error.message}}</small>
+</ng-container>
+</div>
+<ion-item>
+<ion-label position="floating">Describe your issue or share your ideas...</ion-label>
+<ion-textarea inputmode="text" formControlName="description"></ion-textarea>
+</ion-item>
+<div *ngFor="let error of errorMessages.description">
+<ng-container *ngIf="description.hasError(error.type) && (description.dirty || description.touched)">
+<small class="error-message">{{error.message}}</small>
+</ng-container>
+</div>
+<ion-item>
+<ion-label>Rate</ion-label>
+<ion-select value="rate" interface="action-sheet">
+<ion-select-option value="0">Very Poor</ion-select-option>
+<ion-select-option value="2">Poor</ion-select-option>
+<ion-select-option value="4">Fair</ion-select-option>
+<ion-select-option value="6">Good</ion-select-option>
+<ion-select-option value="8">Very Good</ion-select-option>
+<ion-select-option value="10">Excellent</ion-select-option>
+</ion-select>
+</ion-item>  
+</ion-list>  
+</form>
+</div>
+<ng-container *ngIf="mediaList.length ">
+<ion-item class="mediaThumbnail">
+<ion-scroll scrollX="true">
+<ng-container *ngFor="let m of mediaList">
+<ion-thumbnail (click)="slide()">
+<img *ngIf="m.type === 'image'" [src]="m.uri">
+<img *ngIf="m.type === 'video'" src="./assets/imgs/video-camera.png">
+</ion-thumbnail>
+</ng-container></ion-scroll>
+</ion-item>
+</ng-container>
+</ion-content>
+<ion-footer (click)="selectMedia()" class="ann_footer">
+<ion-toolbar>
+<p>Add screenshots</p>
+<ion-buttons end>
+<button ion-button icon-only clear icon-end style="margin-right:0px;">
+<ion-icon name="images" style="padding:2px;color:#0040ff;"></ion-icon>
+</button>
+</ion-buttons>
+</ion-toolbar>
+</ion-footer>    
+         
