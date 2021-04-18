@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-back-button defaultHref="/my-account"></ion-back-button>
+    </ion-buttons>
+    <img slot="secondary" src="assets/mra.png" class="navbar-logo" />
+    <ion-title slot="secondary">Account Update</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <form>
+      <ion-item>
+        <ion-label floating>Name</ion-label>
+        <ion-input type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Identification Number</ion-label>
+        <ion-input type="number"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Gender</ion-label>
+        <ion-select>
+          <ion-select-option value="Female">Female</ion-select-option>
+          <ion-select-option value="Male">Male</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ng-container >
+        <ion-row>
+          <ion-col col-4>
+            <ion-item>
+              <ion-label stacked>Code</ion-label>
+              <ion-input type="number" ></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col col-8>
+            <ion-item>
+              <ion-label floating>Phone Number</ion-label>
+              <ion-input type="number"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ng-container>
+      <ion-item>
+        <ion-label floating>Email Address</ion-label>
+        <ion-input type="text" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Home Address</ion-label>
+        <ion-input type="text" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Postcode</ion-label>
+        <ion-input type="number" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>City</ion-label>
+        <ion-input type="text" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Country</ion-label>
+        <ion-input type="text" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>State</ion-label>
+        <ion-input type="text" ></ion-input>
+      </ion-item>
+    </form>
+  </ion-list>
+
+</ion-content>
+
+<ion-footer >
+    <section >
+      <ion-button expand="block" >Save</ion-button>
+    </section>
+</ion-footer>
