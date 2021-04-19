@@ -16,11 +16,6 @@ export class ProfilePage implements OnInit {
   terms(){
     const browser = this.iab.create('http://www.oas.my/myjiran/termsofuse.html');
 
-    browser.on('loadstop').subscribe(event => {
-      browser.insertCSS({ code: "body{color: red;" });
-   });
-
-    browser.close();
   }
 
 }
