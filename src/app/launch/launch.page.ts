@@ -49,11 +49,11 @@ export class LaunchPage {
     this.storage.set('profilePictUrl', 'https://res.cloudinary.com/myjiran/image/upload/v1541160270/mobile_asset/ion-ios-contact.png');
     this.storage.set('provider', this.param);
     this.storage.set('isLoggedIn', true);
-    if (this.param.providerId == "nisahasin95@gmail.com") {
-      this.getProfile('volunteer');
+    if (this.param.providerId == "annas@oas.my") {
+      this.getProfile('staff');
     }
     else {
-      this.getProfile('staff');
+      this.getProfile('volunteer');
     }
   }
 
