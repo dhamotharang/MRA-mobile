@@ -44,4 +44,11 @@ export class ProfilePage implements OnInit {
     this.router.navigate(['my-account'], navigationExtras);
   }
 
+  // async Logout() {
+  //   console.log('Logout');
+  //   this.cacheHandlerProvider.clearLocalData()
+  //   this.navCtrl.navigateRoot('/launch');
+  //   const googleUser = await Plugins.GoogleAuth.signOut();
+  // }
+
 }
