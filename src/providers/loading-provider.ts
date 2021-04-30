@@ -5,6 +5,18 @@ import { Component } from '@angular/core';
 
 @Injectable()
 export class LoadingProvider {
+    setupSaving() {
+      throw new Error('Method not implemented.');
+    }
+    closeSaving() {
+      throw new Error('Method not implemented.');
+    }
+    closeUpload() {
+      throw new Error('Method not implemented.');
+    }
+    setupUpload() {
+      throw new Error('Method not implemented.');
+    }
     loading;
 
     constructor(

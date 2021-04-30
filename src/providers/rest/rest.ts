@@ -18,15 +18,15 @@ export class RestProvider {
 
     constructor(
         public http: HttpClient,
-        public transfer: FileTransfer, 
+        public transfer: FileTransfer,
         private file: File,
     ) {
     }
-
+    //192.168.0.161:8181
     appConf(app) {
         return new Promise((resolve, reject) => {
-            let devplink = 'http://192.168.0.3:8181/hss-start-0.0.1-SNAPSHOT/app/config/r';  //192.168.0.5 //192.168.43.221  //dev.hss.oas.my
-            // let devplink = 'https://www.myjiran.my/myjiran-oas-admin-0.0.1-SNAPSHOT/app/config/r'; 
+            let devplink = 'https://dev.hss.oas.my/hss-start-0.0.1-SNAPSHOT/app/config/r';  //192.168.0.5 //192.168.43.221  //dev.hss.oas.my
+            // let devplink = 'https://www.myjiran.my/myjiran-oas-admin-0.0.1-SNAPSHOT/app/config/r';
             this.http.post(devplink, [app], {
                 headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token)
             })
@@ -56,7 +56,7 @@ export class RestProvider {
       } catch (error) {
         console.log(error);
       }
-  
+
     }
 
     async getFee(personId){
@@ -76,7 +76,7 @@ export class RestProvider {
       } catch (error) {
         console.log(error);
       }
-  
+
     }
 
     //http://localhost:8181/hss-project-0.0.1-SNAPSHOT/proj/project/v/320
@@ -97,7 +97,7 @@ export class RestProvider {
         }catch(e){
           console.log(e);
         }
-    
+
     }
 
 
@@ -169,7 +169,7 @@ export class RestProvider {
         }catch(e){
           console.log(e);
         }
-    
+
     }
 
     //http://localhost:8181/hss-project-0.0.1-SNAPSHOT/proj/feed/v/{projId}
@@ -190,7 +190,7 @@ export class RestProvider {
         }catch(e){
           console.log(e);
         }
-    
+
     }
 
 
@@ -220,12 +220,12 @@ export class RestProvider {
         }catch(e){
           console.log(e);
         }
-    
+
     }
     //http://localhost:8181/hss-project-0.0.1-SNAPSHOT/proj/task/v/{projId}
     async getTasksList(projId){
         try{
-          let app = await this.appConf("PRJM");   
+          let app = await this.appConf("PRJM");
         console.log(app);
         return new Promise((resolve, reject) => {
           this.http.get(app[0].host+app[0].contextPath+"/proj/task/v/"+projId,{headers: new HttpHeaders().set('token', this.token)
@@ -240,13 +240,13 @@ export class RestProvider {
         }catch(e){
           console.log(e);
         }
-    
+
     }
 
     //http://localhost:8181/hss-project-0.0.1-SNAPSHO/proj/task/k/v/{taskId}
     async getTasksCommentList(taskId){
       try{
-        let app = await this.appConf("PRJM");   
+        let app = await this.appConf("PRJM");
       console.log(app);
       return new Promise((resolve, reject) => {
         this.http.get(app[0].host+app[0].contextPath+"/proj/task/k/v/"+taskId,{headers: new HttpHeaders().set('token', this.token)
@@ -261,7 +261,7 @@ export class RestProvider {
       }catch(e){
         console.log(e);
       }
-  
+
   }
 
 
@@ -325,9 +325,9 @@ export class RestProvider {
     return new Promise((resolve, reject) => {
       console.log('form',form)
           let data = {
-            taskId:form.taskId, 
-            taskComment:form.taskComment, 
-            taskPicture:form.taskPicture, 
+            taskId:form.taskId,
+            taskComment:form.taskComment,
+            taskPicture:form.taskPicture,
             personId:personId
           }
           this.http.post(app[0].host+app[0].contextPath+"/proj/task/k/u", JSON.stringify(data),{
@@ -344,7 +344,7 @@ export class RestProvider {
     }
 
 }
-      
+
       //http://localhost:8181/hss-organization-admin-0.0.1-SNAPSHOT/gallery/r
       async getLiveFeed(){
         try{
@@ -363,7 +363,7 @@ export class RestProvider {
         }catch(e){
           console.log(e);
         }
-    
+
     }
 
 
@@ -385,7 +385,7 @@ export class RestProvider {
       }catch(e){
         console.log(e);
       }
-  } 
+  }
 
 
     //http://localhost:8181/hss-project-0.0.1-SNAPSHOT/proj/vol/v/{projId}
@@ -406,7 +406,7 @@ export class RestProvider {
       }catch(e){
         console.log(e);
       }
-  }   
+  }
 
 
   //http://localhost:8181/hss-project-0.0.1-SNAPSHOT/proj/vol/u
@@ -427,7 +427,7 @@ export class RestProvider {
       console.log(e);
     }
 
-  }  
+  }
 
 
     //http://localhost:8181/hss-organization-admin-0.0.1-SNAPSHOT/gallery/c
@@ -454,9 +454,9 @@ export class RestProvider {
       } catch (error) {
         console.log(error);
       }
-  
+
     }
-  
+
     cloud_upload(uri,url,tag,folder): Promise<any>{
       return new Promise((resolve,reject) => {
         const fileTransfer: FileTransferObject = this.transfer.create();
@@ -478,6 +478,43 @@ export class RestProvider {
       });
     }
 
+    async updateProfile(data){     //guna untuk submit data
+      try {
+        let app = await this.appConf("MUPR");
+        console.log(app);
+        return new Promise((resolve, reject) => {
+          this.http.put(app[0].host+app[0].url, JSON.stringify(data),{
+            headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token).set('api-key',app[0].apiKey)
+          })
+            .subscribe(res => {
+              resolve(res);
+            }, (err) => {
+              reject(err);
+            });
+        });
+      } catch (error) {
+        console.log(error);
+      }
+
+    }
+
+    async getEmergencyList(personid){
+      try {
+        let app = await this.appConf("GSEC");
+        return new Promise((resolve, reject) => {
+          this.http.get(app[0].host+app[0].url+"/"+personid,{headers: new HttpHeaders().set('token', this.token)
+          .set('api-key', app[0].apiKey)
+          }).subscribe(res => {
+              resolve(res);
+            }, (err) => {
+              reject(err);
+            });
+        });
+      } catch (error) {
+        console.log(error);
+      }
+
+    }
+
 
 }
- 
