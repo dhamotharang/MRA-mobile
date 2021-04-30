@@ -8,22 +8,16 @@ ion-footer{
   padding: 0 10px;
 }
 
-page-edit-profile{
-  [footerTheme]{
-    .toolbar-background-md{
-      background: #1FA2FF;
-    }
-    .toolbar-content{
-      .toolbar-title{
-        color:#f2f2f2;
-      }
-    }
-    .bar-button-default-md, .bar-button-clear-md-default, .bar-button-md-default{
-      color: #f2f2f2;
-    }
+.ion-label{
+  ion-label{
+    // font-size: 14px;
+    color: #6e6e6e ;
+  }
+
+  ion-input{
+    font-size: 15px;
   }
 }
-
 
 
 
