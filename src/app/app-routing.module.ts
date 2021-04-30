@@ -135,6 +135,16 @@ const routes: Routes = [
     path: 'about',
     loadChildren: () => import('./about/about.module').then( m => m.AboutPageModule)
   },
+  {
+    path: 'media-modal',
+    loadChildren: () => import('./media-modal/media-modal.module').then( m => m.MediaModalPageModule)
+  },
+  {
+    path: 'org-detail',
+    loadChildren: () => import('./org-detail/org-detail.module').then( m => m.OrgDetailPageModule)
+  },
+
+
 
 ];
 

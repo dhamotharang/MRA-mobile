@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons>
-      <ion-back-button defaultHref="tabs"></ion-back-button>
+      <ion-back-button defaultHref="tabs/home"></ion-back-button>
     </ion-buttons>
     <img slot="secondary" src="assets/mra.png" class="navbar-logo" />
     <ion-title slot="secondary">Profile</ion-title>
@@ -20,7 +20,7 @@
     <h4>Nisa Hasin</h4>
   </div>
   <div class="flex-center">
-    <p class="profile-pill">My profile</p>
+    <p class="profile-pill" (click)="navNextPage()">My profile</p>
   </div>
   <ion-list-header>
     <ion-label>Settings & Privacy</ion-label>
@@ -54,10 +54,36 @@
       </ion-label>
       <ion-icon slot="end" size="small" name="chevron-forward-outline" class="chevron"></ion-icon>
     </ion-item>
-    <ion-item>
+    <ion-item (click)="policy()">
       <ion-icon slot="start" name="lock-closed"></ion-icon>
       <ion-label class="ion-text-capitalize">
         <h4>Data Policy</h4>
+      </ion-label>
+      <ion-icon slot="end" size="small" name="chevron-forward-outline" class="chevron"></ion-icon>
+    </ion-item>
+    <ion-item [routerLink]="['/about']" routerLinkActive="active">
+      <ion-icon slot="start" name="information-circle"></ion-icon>
+      <ion-label class="ion-text-capitalize">
+        <h4>About</h4>
+      </ion-label>
+      <ion-icon slot="end" size="small" name="chevron-forward-outline" class="chevron"></ion-icon>
+    </ion-item>
+  </ion-list>
+  <ion-list-header>
+    <ion-label>Others</ion-label>
+  </ion-list-header>
+  <ion-list class="settings-list">
+    <ion-item [routerLink]="['/feedback']" routerLinkActive="active">
+      <ion-icon slot="start" ion-icon name="create-outline"></ion-icon>
+      <ion-label class="ion-text-capitalize">
+        <h4>Feedback</h4>
+      </ion-label>
+      <ion-icon slot="end" size="small" name="chevron-forward-outline" class="chevron"></ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-icon slot="start" name="log-out"></ion-icon>
+      <ion-label>
+        <h4>Logout</h4>
       </ion-label>
       <ion-icon slot="end" size="small" name="chevron-forward-outline" class="chevron"></ion-icon>
     </ion-item>

@@ -37,9 +37,8 @@
     ::-webkit-scrollbar{
       display:none;
     }
-    .label{
-      margin:0px
-    }
+   
+   
     .ion-md-close-circle{
       color: red !important;
     }
@@ -55,6 +54,8 @@
   
     .label{
       padding-left: 5px;
+      margin-top: 10px;
+      
     }
     .item-md.item-block .item-inner{
       border-bottom: 0px;
@@ -63,9 +64,28 @@
       line-height: 32px;
     }
 
-    .button-default{
-      float:right;
-      margin-right: 16px;
-    }
- 
+    .post-button {
+      width: 100%;
+     
+   
+      background-color: #af71f0;
+      color: white;
+      border-radius: 5px;
+      height: 2.5rem;
+      position: fixed;
+      left: 0;
+      bottom: 10px;
+      right: 0;
+  }
   
+  .post-label {
+      font-size: 0.9rem;
+      // margin-top: 8px;
+  }
+  
+    .error-message {
+      color: var(--ion-color-danger);
+  }
+  ion-item.item-has-focus > ion-label{
+    color:rgb(136, 231, 222) !important;
+  }

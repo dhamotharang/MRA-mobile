@@ -10,18 +10,11 @@ import { File } from '@ionic-native/file/ngx';
 })
 
 export class RestProvider {
-  getToken(arg0: number, oaid: any) {
-    throw new Error('Method not implemented.');
-  }
-  createFeedback(restParam: any) {
-    throw new Error('Method not implemented.');
-  }
-    getTaskList(arg0: number) {
-      throw new Error('Method not implemented.');
-    }
+ 
 
     appConfheaders: any = new HttpHeaders().set('Content-Type', 'application/json');
     token: any = 'sdf2f6c2h5g333431293813113126528162203526172114910252443223363773918181930INTERNAL';
+  
 
     constructor(
         public http: HttpClient,
@@ -511,9 +504,68 @@ export class RestProvider {
       console.log(e);
     }
 
-  }  
+  } 
+  //Rest for Feedback page
+  async createFeedback(data){
+    try {
+      let app = await this.appConfMobile("MCFL");
+    console.log(app);
+    return new Promise((resolve, reject) => {
+      this.http.post(app[0].host+app[0].url, JSON.stringify(data),{
+        headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token)
+        .set('api-key', app[0].apiKey)
+      })
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+    } catch (error) {
+      console.log(error);
+    }
 
+  } 
+   async deleteHosting(acid){
+    try{
+      let app = await this.appConf("MCAN");
+    return new Promise((resolve, reject) => {
+      this.http.get(app[0].host+app[0].contextPath+"/delete/hosted/event/"+acid,{headers: new HttpHeaders().set('token', this.token)
+      .set('api-key', app[0].apiKey)
+      }).subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+    }
+    catch(e){
+      console.log(e);
+    }
 
+  }
+  //user-account page
+  async updateRSVP(eiId,status){
+    try{
+      let app = await this.appConf("MCAN");
+    console.log(app);
+    return new Promise((resolve, reject) => {
+      this.http.get(app[0].host+app[0].contextPath+"/rsvp/update/"+eiId+"/"+status,{headers: new HttpHeaders().set('token', this.token)
+      .set('api-key', app[0].apiKey)
+      }).subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+    }
+    catch(e){
+      console.log(e);
+    }
+
+  }
+
+//user-account page
   async createAnnouncement(data){
     try{
       let app = await this.appConf("MCAN");
@@ -533,6 +585,46 @@ export class RestProvider {
     }
 
   }
+  //user-account page
+  async getOrg(oaId){
+    try {
+      let app = await this.appConf("MBOR");
+    return new Promise((resolve,reject) => {
+      this.http.get(app[0].host+app[0].url+"/"+ oaId,{headers: new HttpHeaders().set('token', this.token)
+      .set('api-key', app[0].apiKey)
+      }).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+        reject(err);
+      });
+    });
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
+  //user-account page
+  async getUserAnnouncement(oaid,counter){
+    try{
+      let app = await this.appConf("MCAN");
+    console.log(app);
+    return new Promise((resolve, reject) => {
+      this.http.get(app[0].host+app[0].contextPath+"/list/an/user/"+oaid+'/page?start='+counter,{headers: new HttpHeaders().set('token', this.token)
+      .set('api-key', app[0].apiKey)
+      }).subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+    }
+    catch(e){
+      console.log(e);
+    }
+
+  }
+
 
 
     //http://localhost:8181/hss-organization-admin-0.0.1-SNAPSHOT/gallery/c

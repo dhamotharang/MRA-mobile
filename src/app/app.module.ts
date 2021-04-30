@@ -21,6 +21,7 @@ import { File } from '@ionic-native/file/ngx';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { CacheHandlerProvider } from 'src/providers/cache-handler.provider';
 
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -47,7 +48,8 @@ import { CacheHandlerProvider } from 'src/providers/cache-handler.provider';
     LoadingProvider,
     FileTransfer,
     File,
-    CacheHandlerProvider
+    CacheHandlerProvider,
+  
   ],
   bootstrap: [AppComponent],
 })

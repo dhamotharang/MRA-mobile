@@ -1,13 +1,15 @@
-//@include settingAnimationHeader;
-//@-webkit-keyframes color-change {
-// 0% {
-//color: theme-colors('mainColors', 'primary');
-//}
-//100% {
-//color: theme-colors('textColors', 'accent') !important;
-// }
-//}
 
+    // @include settingAnimationHeader;
+    // @-webkit-keyframes color-change {
+    //   0% {
+    //     color: theme-colors('mainColors', 'primary');
+    //   }
+  
+    //   100% {
+    //     color: theme-colors('textColors', 'accent') !important;
+    //   }
+    // }
+  
     .toolbar-ios {
       min-height: 64px;
     }
@@ -22,7 +24,6 @@
     ion-card.empty{
       box-shadow: none;
       background-color: white;
-      margin-top: -20px;
     }
   
     .active .back-button,
@@ -54,7 +55,6 @@
         color:grey;
         z-index: 99999;
         position: relative;
-        margin-top: 95px;
       }
   
       [parallax-titlecustom] {
@@ -67,32 +67,27 @@
         //color: color($parallaxPage, parallax-subtitle-basic);
         color:grey;
         z-index: 99999;
-        width: 500px;
-        margin-left: 125px;
-        margin-bottom: 60px;
+        position: relative;
       }
   
       [custom-btn-size] {
       height: 5.6rem!important;
       }
       ion-thumbnail {
-        opacity: 4 !important;
+        opacity: 1 !important;
         z-index: 99999;
-     
+        position: relative;
   
-     img {
-      border-radius: 50% !important;
-      width: 100px;  
-      height: 120px; 
-        margin: 50px auto 0;
-   margin-left: 170px ;
-     margin-top: 10px;
+        img {
+          border-radius: 50% !important;
+          height: 120px;
+          width: 120px;
+          margin: 50px auto 0;
   
         }
       }
     }
-    
-
+  
     [actbtn] {
      background-color: white;
      color: black;
@@ -120,6 +115,11 @@
     -webkit-box-shadow: 2px 2px 19px 0px rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 2px 2px 19px 0px rgba(0, 0, 0, 0.2);
     box-shadow: 2px 2px 19px 0px rgba(0, 0, 0, 0.2);
+  }
+  
+  [communityimgsize]{
+    width:561px;
+    height: 135px;
   }
   
   [btn-an]{
@@ -169,7 +169,8 @@
     box-shadow: 0px 5px 12px 0px rgba(0, 0, 0, 0.2);
   }
   [cardsizetwo]{
-    width: calc(100% - -69px)!important;
+    // width: calc(100% - -69px)!important;
+    width: 150px !important;
     border-radius: 15px!important;
     -webkit-box-shadow: 0px 5px 12px 0px rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 0px 5px 12px 0px rgba(0, 0, 0, 0.2);
@@ -191,10 +192,12 @@
     height: 97%;
   }
   [carouselsizetwo]{
-    //background-color: white!important;
-    width: 287px!important;
+    background-color: transparent!important;
+    // width: 260px!important;
+    width: fit-content;
     height: 97%;
-    margin-right: 80px;
+    // margin-right: -105px;
+    margin-right: -10px;
   }
   [carouselslidesize]{
     height:100%!important;
@@ -263,5 +266,3 @@
     font-size: 0.5rem;
     color: gray;
   }
-
-  

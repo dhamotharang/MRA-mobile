@@ -1,191 +1,219 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons>
-      <ion-back-button defaultHref="tabs"></ion-back-button>
-    </ion-buttons>
-    <img slot="secondary" src="assets/mra.png" class="navbar-logo" />
-    <ion-title slot="secondary">My Profile</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons>
+            <ion-back-button defaultHref="profile"></ion-back-button>
+        </ion-buttons>
+        <img slot="secondary" src="assets/mra.png" class="navbar-logo" />
+        <ion-title slot="secondary">My Profile</ion-title>
+    </ion-toolbar>
 </ion-header>
+
 <!-- Content -->
-<ion-content elastic-header>
-  <div padding background-size id="elastic-header" [ngStyle]="{'background-image': 'url(' + headerImage + ')'}">
-    <ion-thumbnail>
-      <img imgstyle src="{{profilePictUrl}}" />
-    </ion-thumbnail>
-    <!-- Parallx Title -->
-    <h2 text-center parallax-title parallax-titlecustom>{{defaultName}}</h2>
-    <!-- Parallx Subtitle -->
-    <h3 text-center parallax-subtitle style="font-size:15px!important;" (click)="profile()">See More About Me</h3>
-  </div>
-<!-- <ion-grid>
-  <ion-row>
+<ion-content>
+    <div padding background-size id="elastic-header" [ngStyle]="{'background-image': 'url(' + headerImage + ')'}">
+        <ion-thumbnail>
+            <img imgstyle src="{{profilePictUrl}}" />
+        </ion-thumbnail>
+        <!-- Parallx Title -->
+        <h2 class="ion-text-center" parallax-title parallax-titlecustom>{{profile?.name}}</h2>
+        <!-- Parallx Subtitle -->
+        <h3 text-center parallax-subtitle style="font-size:15px!important;" (click)="profile()">See More About Me</h3>
+    </div>
+
+    <!-- <ion-grid>
+    <ion-row>
     <ion-col col-4 col-expand>
     <button ion-button block btn-an (click)="goto(1)">
-      <div>
-           <ion-icon name="megaphone" style="font-size: 230%"></ion-icon>
-           <label style="display:block;">Announcement</label>
-       </div>
+    <div>
+    <ion-icon name="megaphone" style="font-size: 230%"></ion-icon>
+    <label style="display:block;">Announcement</label>
+    </div>
     </button>
     </ion-col>
     <ion-col col-4>
-      <button ion-button block btn-alert (click)="goto(2)">
-        <div>
-             <ion-icon><i class="icon-alert-octagon" style="font-size: 230%"></i></ion-icon>
-             <label style="display:block;">Alert</label>
-         </div>
-      </button>
+    <button ion-button block btn-alert (click)="goto(2)">
+    <div>
+    <ion-icon><i class="icon-alert-octagon" style="font-size: 230%"></i></ion-icon>
+    <label style="display:block;">Alert</label>
+    </div>
+    </button>
     </ion-col>
     <ion-col col-4>
-      <button ion-button block btn-care (click)="goto(3)">
-        <div>
-             <ion-icon><i class="icon-heart" style="font-size: 230%"></i></ion-icon>
-             <label style="display:block;">Care</label>
-         </div>
-      </button>
+    <button ion-button block btn-care (click)="goto(3)">
+    <div>
+    <ion-icon><i class="icon-heart" style="font-size: 230%"></i></ion-icon>
+    <label style="display:block;">Care</label>
+    </div>
+    </button>
     </ion-col>
-  </ion-row>
-</ion-grid> -->
-
-<!--ng-container   *ngIf="noticeList.length < 1"-->
-  <ion-grid style="height: 100%" style="background-color:white;">
-    <ion-row justify-content-center align-items-center style="height: 100%">
-      <ion-card class="empty">
-        <ion-card-content>
-          <p text-center>
-            Hi, there are no announcements available at the moment
-          </p>
-        </ion-card-content>
-      </ion-card>
     </ion-row>
-  </ion-grid>
-<!--/ng-container-->
-<ion-refresher (ionRefresh)="doRefresh($event)">
-  <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
-  </ion-refresher-content>
-</ion-refresher>
-<!--div *ngFor="let n of noticeList; index as i"-->
-<ion-card>
-  <ion-grid no-padding>
-  <ion-row>
-      <!--ion-col col size="12">
-          <ion-badge *ngIf="n.paramType == 'IA'" style="position: initial; float: right; margin-right: 5%; margin-top: 5%; margin-bottom: 2%; background-image: linear-gradient(45deg, #514A9D, #24C6DC);     webkit-box-shadow: 6px 19px 22px 0px rgba(0, 0, 0, 0.3);
-          box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3); font-weight: 400;">{{"Informational Announcement"| translate}}</ion-badge>
-          <ion-badge *ngIf="n.paramType == 'OH'" style="position: initial; float: right; margin-right: 5%; margin-top: 5%; margin-bottom: 2%; background-image: linear-gradient(45deg, #514A9D, #24C6DC);     webkit-box-shadow: 6px 19px 22px 0px rgba(0, 0, 0, 0.3);
-          box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3); font-weight: 400;">{{"Open House"|translate}}</ion-badge>
-          <ion-badge *ngIf="n.paramType == 'DA'" style="position: initial; float: right; margin-right: 5%; margin-top: 5%; margin-bottom: 2%; background-image: linear-gradient(45deg, #514A9D, #24C6DC);     webkit-box-shadow: 6px 19px 22px 0px rgba(0, 0, 0, 0.3);
-          box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3); font-weight: 400;">{{"Obituary Announcement"| translate}}</ion-badge>
-          <ion-badge *ngIf="n.paramType == 'SA'" style="position: initial; float: right; margin-right: 5%; margin-top: 5%; margin-bottom: 2%;     background-image: linear-gradient(45deg, #CB2D3E, #EF473A);     webkit-box-shadow: 6px 19px 22px 0px rgba(0, 0, 0, 0.3);
-          box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3); font-weight: 400;">{{"Security Alert"|translate}}</ion-badge>
-          <ion-badge *ngIf="n.paramType == 'AR'" style="position: initial; float: right; margin-right: 5%; margin-top: 5%; margin-bottom: 2%;     background-image: linear-gradient(45deg, #CB2D3E, #EF473A);     webkit-box-shadow: 6px 19px 22px 0px rgba(0, 0, 0, 0.3);
-          box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3); font-weight: 400;">{{"Accident Reporting"|translate}}</ion-badge>
-          <ion-badge *ngIf="n.paramType == 'IR'" style="position: initial; float: right; margin-right: 5%; margin-top: 5%; margin-bottom: 2%;     background-image: linear-gradient(45deg, #CB2D3E, #EF473A);     webkit-box-shadow: 6px 19px 22px 0px rgba(0, 0, 0, 0.3);
-          box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3); font-weight: 400;">{{"Incident Reporting"|translate}}</ion-badge>
-          <ion-badge *ngIf="n.paramType == 'TI'" style="position: initial; float: right; margin-right: 5%; margin-top: 5%; margin-bottom: 2%;     background-image: linear-gradient(45deg, #CB2D3E, #EF473A);     webkit-box-shadow: 6px 19px 22px 0px rgba(0, 0, 0, 0.3);
-          box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3); font-weight: 400;">{{"Traffic Info"|translate}}</ion-badge>
-          <ion-badge *ngIf="n.paramType == 'RON'" style="position: initial; float: right; margin-right: 5%; margin-top: 5%; margin-bottom: 2%;     background-image: linear-gradient(45deg, #085078, #85D8CE);     webkit-box-shadow: 6px 19px 22px 0px rgba(0, 0, 0, 0.3);
-          box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3); font-weight: 400;">{{"Welfare Outreach"|translate}}</ion-badge>
-          <ion-badge *ngIf="n.paramType == 'CP'" style="position: initial; float: right; margin-right: 5%; margin-top: 5%; margin-bottom: 2%;     background-image: linear-gradient(45deg, #085078, #85D8CE);     webkit-box-shadow: 6px 19px 22px 0px rgba(0, 0, 0, 0.3);
-          box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3); font-weight: 400;">{{"Carpool"|translate}}</ion-badge>
-          <ion-badge *ngIf="n.paramType == 'LT'" style="position: initial; float: right; margin-right: 5%; margin-top: 5%; margin-bottom: 2%;     background-image: linear-gradient(45deg, #085078, #85D8CE);     webkit-box-shadow: 6px 19px 22px 0px rgba(0, 0, 0, 0.3);
-          box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3); font-weight: 400;">{{"Lend a Tool"|translate}}</ion-badge>
-          <ion-badge *ngIf="n.paramType == 'PE'" style="position: initial; float: right; margin-right: 5%; margin-top: 5%; margin-bottom: 2%;     background-image: linear-gradient(45deg, #085078, #85D8CE);     webkit-box-shadow: 6px 19px 22px 0px rgba(0, 0, 0, 0.3);
-          box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3); font-weight: 400;">{{"Program and Event"|translate}}</ion-badge>
-      </ion-col-->
-  </ion-row>
-  <ion-row>
-    <ion-col col style="max-width: 16%;">
-    <img style="z-index:-1; width: 40px; height: 40px; margin-left: 15px; margin-top: 15px; border-radius: 50%;" [src]="profilePictUrl"/>
-    </ion-col>
-   <!-- <ion-col col size="8" style="padding-left:10px;" *ngIf="n.referFrom == null && n.paramType == 'PE'">
-     <span>
-       <h2 style="font-weight:900; margin-top: 1.3rem!important;">{{n.hostName}}</h2>
-       <span style="font-size: 12px;">
-         <span style="color:grey;font-size:12px;">has created this event for</span>
-         <span style="font-weight:600; color:black; font-size:12px;">{{n.hostOrgName}}</span>
-       </span>
-     </span>
-     <br/>
-     <span style="color:grey; font-size: 12px;">{{n.createdDate}} {{"ago"|translate}}</span>
-   </ion-col> -->
-   <ion-col col size="8" style="padding-left:10px;">
-     <span>
-       <h2 style="font-weight:900; margin-top: 1.3rem!important;">n.hostName</h2>
-       <span style="font-size: 12px;">
-         <span style="color:grey;font-size:12px;">has created this post for</span>
-         <span style="font-weight:600; color:black; font-size:12px;">n.hostOrgName</span>
-       </span>
-     </span>
-     <br/>
-     <span style="color:grey; font-size: 12px;">n.createdDateago</span>
-   </ion-col>
-    <ion-col col style="max-width: 16%; padding-right:10px;">
-      <button ion-button round morebtn style="float:right;" (click)="more(i)">
-      <ion-icon class="icon-dots-horizontal" style="font-size: 2.0em;"></ion-icon></button>
-    </ion-col>
-  </ion-row>
-  </ion-grid>
-  <ion-card-content newscardcontent (click)="detail(i)">
-    <ion-card-title style="font-size: 2rem; font-weight:900; margin-bottom: 5px; padding: 0px 0px 0px 0px; color:grey;">
-      n.title
-      </ion-card-title>
-      <!--div>
-        <p *ngIf="n.paramType == 'PE'" style="font-size: 1.3rem"><i class="icon-city"></i> Host by <i class="icon-checkbox-blank-circle"></i> {{n.hostName}}</p>
-        <p *ngIf="n.programStart != null" style="font-size: 1.3rem"><i class="icon-timer"></i> {{n.programStart}} Until <br> {{n.programEnd}}</p>
-        <p *ngIf="n.location != null" style="font-size: 1.3rem"><i class="icon-map-marker"></i> {{n.location}}</p>
-    </div-->
-    <!--p style="font-weight:500; color:grey; padding-bottom:10px;" [innerHTML]="n.notes| linky | nl2br : true | truncate : 300 :'...see more'"></p-->
-  </ion-card-content>
-  <!--div width="auto" *ngIf="n.mtAnnouncementUploadList.length > 0"-->
-    <ion-grid no-padding>
-    <ion-row>
-      <ion-col col size="12">
-        <!--img *ngIf="n.mtAnnouncementUploadList.length == 1" (click)="media(i,0)" style="z-index:-1;width:356px;height:200px;" src="{{n.mtAnnouncementUploadList[0].filepath}}"/>
+    </ion-grid> -->
+
+    <ng-container *ngIf="noticeList.length < 1">
+        <ion-grid style="height: 100%" style="background-color:white;">
+            <ion-row justify-content-center align-items-center style="height: 100%">
+                <ion-card class="empty">
+                    <ion-card-content>
+                        <p text-center>Hi, there are no announcements available at the moment</p>
+                    </ion-card-content>
+                </ion-card>
+            </ion-row>
+        </ion-grid>
+    </ng-container>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+            refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+
+    <div *ngFor="let n of noticeList; index as i">
+        <ion-card>
+            <ion-grid no-padding>
+                <ion-row>
+                    <!--ion-col col size="12">
+    <ion-badge *ngIf="n.paramType == 'IA'" style="position: initial; float: right; margin-right: 5%; margin-top: 5%; margin-bottom: 2%; background-image: linear-gradient(45deg, #514A9D, #24C6DC);     webkit-box-shadow: 6px 19px 22px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3); font-weight: 400;">{{"Informational Announcement"| translate}}</ion-badge>
+    <ion-badge *ngIf="n.paramType == 'OH'" style="position: initial; float: right; margin-right: 5%; margin-top: 5%; margin-bottom: 2%; background-image: linear-gradient(45deg, #514A9D, #24C6DC);     webkit-box-shadow: 6px 19px 22px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3); font-weight: 400;">{{"Open House"|translate}}</ion-badge>
+    <ion-badge *ngIf="n.paramType == 'DA'" style="position: initial; float: right; margin-right: 5%; margin-top: 5%; margin-bottom: 2%; background-image: linear-gradient(45deg, #514A9D, #24C6DC);     webkit-box-shadow: 6px 19px 22px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3); font-weight: 400;">{{"Obituary Announcement"| translate}}</ion-badge>
+    <ion-badge *ngIf="n.paramType == 'SA'" style="position: initial; float: right; margin-right: 5%; margin-top: 5%; margin-bottom: 2%;     background-image: linear-gradient(45deg, #CB2D3E, #EF473A);     webkit-box-shadow: 6px 19px 22px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3); font-weight: 400;">{{"Security Alert"|translate}}</ion-badge>
+    <ion-badge *ngIf="n.paramType == 'AR'" style="position: initial; float: right; margin-right: 5%; margin-top: 5%; margin-bottom: 2%;     background-image: linear-gradient(45deg, #CB2D3E, #EF473A);     webkit-box-shadow: 6px 19px 22px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3); font-weight: 400;">{{"Accident Reporting"|translate}}</ion-badge>
+    <ion-badge *ngIf="n.paramType == 'IR'" style="position: initial; float: right; margin-right: 5%; margin-top: 5%; margin-bottom: 2%;     background-image: linear-gradient(45deg, #CB2D3E, #EF473A);     webkit-box-shadow: 6px 19px 22px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3); font-weight: 400;">{{"Incident Reporting"|translate}}</ion-badge>
+    <ion-badge *ngIf="n.paramType == 'TI'" style="position: initial; float: right; margin-right: 5%; margin-top: 5%; margin-bottom: 2%;     background-image: linear-gradient(45deg, #CB2D3E, #EF473A);     webkit-box-shadow: 6px 19px 22px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3); font-weight: 400;">{{"Traffic Info"|translate}}</ion-badge>
+    <ion-badge *ngIf="n.paramType == 'RON'" style="position: initial; float: right; margin-right: 5%; margin-top: 5%; margin-bottom: 2%;     background-image: linear-gradient(45deg, #085078, #85D8CE);     webkit-box-shadow: 6px 19px 22px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3); font-weight: 400;">{{"Welfare Outreach"|translate}}</ion-badge>
+    <ion-badge *ngIf="n.paramType == 'CP'" style="position: initial; float: right; margin-right: 5%; margin-top: 5%; margin-bottom: 2%;     background-image: linear-gradient(45deg, #085078, #85D8CE);     webkit-box-shadow: 6px 19px 22px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3); font-weight: 400;">{{"Carpool"|translate}}</ion-badge>
+    <ion-badge *ngIf="n.paramType == 'LT'" style="position: initial; float: right; margin-right: 5%; margin-top: 5%; margin-bottom: 2%;     background-image: linear-gradient(45deg, #085078, #85D8CE);     webkit-box-shadow: 6px 19px 22px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3); font-weight: 400;">{{"Lend a Tool"|translate}}</ion-badge>
+    <ion-badge *ngIf="n.paramType == 'PE'" style="position: initial; float: right; margin-right: 5%; margin-top: 5%; margin-bottom: 2%;     background-image: linear-gradient(45deg, #085078, #85D8CE);     webkit-box-shadow: 6px 19px 22px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3); font-weight: 400;">{{"Program and Event"|translate}}</ion-badge>
+    </ion-col-->
+                </ion-row>
+
+                <ion-row>
+                    <ion-col col style="max-width: 16%;">
+                        <img style="z-index:-1; width: 40px; height: 40px; margin-left: 15px; margin-top: 15px; border-radius: 50%;"
+                            [src]="profilePictUrl" />
+                    </ion-col>
+
+                    <!-- Example -->
+                    <!-- <ion-col col size="8" style="padding-left:10px;" *ngIf="n.referFrom == null && n.paramType == 'PE'">
+<span>
+<h2 style="font-weight:900; margin-top: 1.3rem!important;">{{n.hostName}}</h2> 
+<span style="font-size: 12px;">
+<span style="color:grey;font-size:12px;">has created this event for</span>
+<span style="font-weight:600; color:black; font-size:12px;">{{n.hostOrgName}}</span>
+</span>
+</span>
+<br/>
+<span style="color:grey; font-size: 12px;">{{n.createdDate}} {{"ago"|translate}}</span>
+</ion-col> -->
+
+                    <ion-col col size="8" style="padding-left:10px;">
+                        <span>
+                            <h2 style="font-weight:900; margin-top: 1.3rem!important;">{{n.hostName}}</h2>
+                            <span style="font-size: 12px;">
+                                <span style="color:grey;font-size:12px;">has created this post for</span>
+                                <span style="font-weight:600; color:black; font-size:12px;">{{n.hostOrgName}}</span>
+                            </span>
+                        </span>
+                        <br />
+                        <span style="color:grey; font-size: 12px;">{{n.createdDate}} {{ago}}</span>
+                    </ion-col>
+                    <ion-col col style="max-width: 16%; padding-right:10px;">
+                        <button ion-button round morebtn style="float:right;" (click)="more(i)">
+                            <ion-icon class="icon-dots-horizontal" style="font-size: 2.0em;"></ion-icon>
+                        </button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+
+            <ion-card-content newscardcontent (click)="detail(i)">
+                <ion-card-title
+                    style="font-size: 2rem; font-weight:900; margin-bottom: 5px; padding: 0px 0px 0px 0px; color:grey;">
+                    {{n.title}}</ion-card-title>
+                <div>
+                    <!--p *ngIf="n.paramType == 'PE'"></p-->
+                    <p style="font-size: 1.3rem"><i class="icon-city"></i> Host by <i
+                            class="icon-checkbox-blank-circle"></i> {{n.hostName}}</p>
+
+                    <!--p *ngIf="n.programStart != null" style="font-size: 1.3rem"><i class="icon-timer"></i> {{n.programStart}} Until <br> {{n.programEnd}}</p-->
+                    <p style="font-size: 1.3rem"><i class="icon-timer"></i>{{n.programStart}} Until <br>
+                        {{n.programEnd}}</p>
+
+                    <!--p *ngIf="n.location != null" style="font-size: 1.3rem"><i class="icon-map-marker"></i> {{n.location}}</p-->
+                    <p style="font-size: 1.3rem"><i class="icon-map-marker"></i> {{n.location}}</p>
+                </div>
+
+                <!--p style="font-weight:500; color:grey; padding-bottom:10px;" [innerHTML]="n.notes| linky | nl2br : true | truncate : 300 :'...see more'"></p-->
+                <p style="font-weight:500; color:grey; padding-bottom:10px;"></p>
+            </ion-card-content>
+            <!--div width="auto" *ngIf="n.mtAnnouncementUploadList.length > 0"-->
+            <ion-grid no-padding>
+                <ion-row>
+                    <ion-col col size="12">
+                        <!--img *ngIf="n.mtAnnouncementUploadList.length == 1" (click)="media(i,0)" style="z-index:-1;width:356px;height:200px;" src="{{n.mtAnnouncementUploadList[0].filepath}}"/>
         <ion-slides carouselslidesize slidesPerView="auto" *ngIf="n.mtAnnouncementUploadList.length > 1">
-          <ion-slide carouselsizetwo *ngFor="let s of n.mtAnnouncementUploadList; index as x" (click)="media(i,x)">
-            <ion-card cardsizetwo>
-              <div width="auto" *ngIf="s.filetype === 'image'">
-                <img style="z-index:-1;width:356px;height:200px;" src="{{s.filepath}}"/>
-              </div>
-              <div *ngIf="s.filetype === 'video'" style="text-align:center;">
-                <i class="fa fa-play-circle" style="position: absolute;top: 38%;right: 9%;color:white;font-size: 30px;"></i>
-                <img src="{{s.thumbnail}}.jpg" style="z-index: -1;width:356px;height:200px;">
-              </div>
-            </ion-card>
-          </ion-slide>
+        <ion-slide carouselsizetwo *ngFor="let s of n.mtAnnouncementUploadList; index as x" (click)="media(i,x)">
+        <ion-card cardsizetwo>
+        <div width="auto" *ngIf="s.filetype === 'image'">
+        <img style="z-index:-1;width:356px;height:200px;" src="{{s.filepath}}"/>
+        </div>
+
+        <div *ngIf="s.filetype === 'video'" style="text-align:center;">
+        <i class="fa fa-play-circle" style="position: absolute;top: 38%;right: 9%;color:white;font-size: 30px;"></i>
+        <img src="{{s.thumbnail}}.jpg" style="z-index: -1;width:356px;height:200px;">
+        </div>
+        </ion-card>
+        </ion-slide>
         </ion-slides-->
-      </ion-col>
-    </ion-row>
-    </ion-grid>
-  <!--/div-->
-  <ion-grid style="padding-top:0px; padding-bottom:0px;">
-    <ion-row style="margin-bottom: 3px;">
-      <ion-col col style="padding:0px;">
-          <!--button *ngIf="n.attendance == 'N'" (click)="updateRSVP(i)" ion-button block outline textBottom style="background-color:#1fa2ff;color:white;"><i class="icon-calendar-check" style="font-size: 20px;"></i>Join this event</button-->
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <hr/>
-  <ion-grid style="padding-top:0px; padding-bottom:0px;">
-    <ion-row>
-      <!--ion-col col *ngIf="n.paramType == 'PE'">
-        <button (click)="getPermission(i)" ion-button full clear textBottom style="background-color:white; color:grey;"><i class="icon-calendar" style="font-size: 20px;"></i>Mark</button>
-      </ion-col>
-      <ion-col col *ngIf="n.location">
-        <button (click)="launch(n.location)" ion-button full clear textBottom style="background-color:white; color:grey;"><i class="icon-car" style="font-size: 20px;"></i>Navigate</button>
-      </ion-col>
-      <ion-col col *ngIf="n.privateEvent == 'N'">
-        <button (click)="share(i)" ion-button full clear textBottom style="background-color:white; color:grey;"><i class="icon-share" style="font-size: 20px;"></i>share</button>
-      </ion-col-->
-    </ion-row>
-  </ion-grid>
-  </ion-card>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+            <!--/div-->
 
+            <ion-grid style="padding-top:0px; padding-bottom:0px;">
+                <ion-row style="margin-bottom: 3px;">
+                    <ion-col col style="padding:0px;">
+                        <!--button *ngIf="n.attendance == 'N'" (click)="updateRSVP(i)" ion-button block outline textBottom style="background-color:#1fa2ff;color:white;"><i class="icon-calendar-check" style="font-size: 20px;"></i>Join this event</button-->
+                        <button (click)="updateRSVP(i)" ion-button block outline textBottom
+                            style="background-color:#1fa2ff;color:white;"><i class="icon-calendar-check"
+                                style="font-size: 20px;"></i>Join this event</button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+            <hr />
 
-<ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())">
-<ion-infinite-scroll-content>
-loadingSpinner="bubbles"
-loadingText="Loading more data...">
-</ion-infinite-scroll-content>
-</ion-infinite-scroll>
+            <ion-grid style="padding-top:0px; padding-bottom:0px;">
+                <ion-row>
+                    <!--ion-col col *ngIf="n.paramType == 'PE'"-->
+                    <button (click)="getPermission(i)" ion-button full clear textBottom
+                        style="background-color:white; color:grey;"><i class="icon-calendar"
+                            style="font-size: 20px;"></i>Mark</button>
+                    <!--/ion-col-->
+                    <!--ion-col col *ngIf="n.location"-->
+                    <button (click)="launch(n.location)" ion-button full clear textBottom
+                        style="background-color:white; color:grey;"><i class="icon-car"
+                            style="font-size: 20px;"></i>Navigate</button>
+                    <!--/ion-col-->
+                    <!--ion-col col *ngIf="n.privateEvent == 'N'"-->
+                    <button (click)="share(i)" ion-button full clear textBottom
+                        style="background-color:white; color:grey;"><i class="icon-share"
+                            style="font-size: 20px;"></i>share</button>
+                    <!--/ion-col-->
+                </ion-row>
+            </ion-grid>
+        </ion-card>
+    </div>
+    <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
 </ion-content>
