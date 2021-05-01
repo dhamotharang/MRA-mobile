@@ -10,8 +10,8 @@
 
 <ion-content>
   <div>
-    <ion-buttons [routerLink]="['/edit-profile']" routerDirection="root"end>
-      <button outline btn-edit >
+    <ion-buttons (click)="navigateNextPage()">
+      <button btn-edit >
         Edit Account
       </button>
     </ion-buttons>
@@ -25,21 +25,47 @@
         alt="Placeholder avatar">
     </ion-avatar>
   </div>
-  <div class="flex-center nameWeight">
-    <h4>Akmal Shahir</h4>
+  <div  class="flex-center">
+    <h2 parallax-title>{{navParam?.name}}</h2>
   </div>
   <div class="flex-center">
-    <p class="profile-pill">akmalshahir02@gmail.com</p>
+    <p class="profile-pill">{{navParam?.email}}</p>
   </div>
 
-  <ion-list no-lines class= "accountList">
-    <ion-label class="add-bottom-margin">
+  <ion-list class= "accountList">
+    <ion-label>
+      <p>Identification Number</p>
+      <h2>{{navParam?.icNo}}</h2>
+    </ion-label>
+    <ion-label>
+      <p>Gender</p>
+      <h2>{{navParam?.gender}}</h2>
+    </ion-label>
+    <ion-label>
       <p>Phone Number</p>
-      <h2>019-2384932</h2>
+      <h2>+{{navParam?.contactCode}}{{navParam.contactNo}}</h2>
     </ion-label>
     <ion-label>
       <p>Email Address</p>
-      <h2>nisahasin02@gmail.com</h2>
+      <h2>{{navParam?.email}}</h2>
+    </ion-label>
+    <ion-label>
+      <p>Home Address</p>
+      <h2>{{navParam?.address1}}</h2>
+      <h2>{{navParam?.address2}}</h2>
+      <h2>{{navParam?.address3}}</h2>
+    </ion-label>
+    <ion-label>
+      <p>Postcode</p>
+      <h2>{{navParam?.postcode}}</h2>
+    </ion-label>
+    <ion-label>
+      <p>City</p>
+      <h2>{{navParam?.city}}</h2>
+    </ion-label>
+    <ion-label>
+      <p>Country</p>
+      <h2>{{navParam?.country}}</h2>
     </ion-label>
   </ion-list>
 </ion-content>

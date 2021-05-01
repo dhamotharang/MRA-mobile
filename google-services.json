@@ -20,6 +20,14 @@
             "package_name": "com.oas.mramobile",
             "certificate_hash": "3914108948881b9d4106212092d740ee902893b5"
           }
+        },
+        {
+          "client_id": "573630357294-allsf70jk5b0bm6nemq9p6htlqso7rrl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.oas.mramobile",
+            "certificate_hash": "0818999262a9e4fb6bd13bb47dc9cbeb8897a9e2"
+          }
         }
       ],
       "api_key": [
@@ -29,7 +37,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "573630357294-49sa6d8140ni7o9ttip06a52kv60mmk9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

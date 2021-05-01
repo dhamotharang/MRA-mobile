@@ -16,8 +16,8 @@
         alt="Placeholder avatar">
     </ion-avatar>
   </div>
-  <div class="flex-center user-name">
-    <h4>Nisa Hasin</h4>
+  <div class="flex-center user-name" >
+    <h4>{{profile?.name}}</h4>
   </div>
   <div class="flex-center">
     <p class="profile-pill" (click)="navNextPage()">My profile</p>
@@ -26,9 +26,9 @@
     <ion-label>Settings & Privacy</ion-label>
   </ion-list-header>
   <ion-list class="settings-list">
-    <ion-item>
+    <ion-item (click)="navigateNextPage()">
       <ion-icon slot="start" name="person-circle"></ion-icon>
-      <ion-label [routerLink]="['/my-account']" routerLinkActive="active">
+      <ion-label>
         <h4>My account</h4>
         <p>Manage your personal information</p>
       </ion-label>

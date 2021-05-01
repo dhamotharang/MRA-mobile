@@ -8,63 +8,71 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
-    <form>
+<ion-content >
+  <ion-list class="ion-label">
+    <form [formGroup]="profileForm">
       <ion-item>
-        <ion-label floating>Name</ion-label>
-        <ion-input type="text"></ion-input>
+        <ion-label position="floating">Name</ion-label>
+        <ion-input formControlName='name' type="text" placeholder="Name"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label floating>Identification Number</ion-label>
-        <ion-input type="number"></ion-input>
+        <ion-label position="floating">Identification Number</ion-label>
+        <ion-input formControlName='icNo' type="number" placeholder="IC Number"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label floating>Gender</ion-label>
-        <ion-select>
+        <ion-label position="floating">Gender</ion-label>
+        <ion-select formControlName="gender" placeholder="Select one">
           <ion-select-option value="Female">Female</ion-select-option>
           <ion-select-option value="Male">Male</ion-select-option>
         </ion-select>
       </ion-item>
       <ng-container >
         <ion-row>
-          <ion-col col-4>
+          <ion-col >
             <ion-item>
-              <ion-label stacked>Code</ion-label>
-              <ion-input type="number" ></ion-input>
+              <ion-label position="floating">Code</ion-label>
+              <ion-input formControlName='postcode' type="number" placeholder="Postcode"></ion-input>
             </ion-item>
           </ion-col>
-          <ion-col col-8>
+          <ion-col size="8">
             <ion-item>
-              <ion-label floating>Phone Number</ion-label>
-              <ion-input type="number"></ion-input>
+              <ion-label position="floating">Phone Number</ion-label>
+              <ion-input type="number" formControlName='contactNo' placeholder="Contact Number"></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
       </ng-container>
       <ion-item>
-        <ion-label floating>Email Address</ion-label>
-        <ion-input type="text" ></ion-input>
+        <ion-label position="floating" >Email Address</ion-label>
+        <ion-input type="text" formControlName='email' placeholder="Email"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label floating>Home Address</ion-label>
-        <ion-input type="text" ></ion-input>
+        <ion-label position="floating" >Home Address</ion-label>
+        <ion-input type="text" formControlName='address1' placeholder="Home Address"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label floating>Postcode</ion-label>
-        <ion-input type="number" ></ion-input>
+        <ion-label position="floating" >Home Address(optional)</ion-label>
+        <ion-input type="text" formControlName='address2' placeholder="Home Address(optional)"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label floating>City</ion-label>
-        <ion-input type="text" ></ion-input>
+        <ion-label position="floating" >Home Address(optional)</ion-label>
+        <ion-input type="text" formControlName='address3' placeholder="Home Address(optional)"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label floating>Country</ion-label>
-        <ion-input type="text" ></ion-input>
+        <ion-label position="floating" >Postcode</ion-label>
+        <ion-input type="number" formControlName='postcode' placeholder="Postcode"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label floating>State</ion-label>
-        <ion-input type="text" ></ion-input>
+        <ion-label position="floating" >City</ion-label>
+        <ion-input type="text" formControlName='city' placeholder="City"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating" >Country</ion-label>
+        <ion-input type="text" formControlName='country' placeholder="Country"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating" >State</ion-label>
+        <ion-input type="text" formControlName='state' placeholder="State"></ion-input>
       </ion-item>
     </form>
   </ion-list>
@@ -73,6 +81,8 @@
 
 <ion-footer >
     <section >
-      <ion-button expand="block" >Save</ion-button>
+      <ion-button expand="block"  (click)="save()">Save</ion-button>
     </section>
 </ion-footer>
+
+<!--(click)="save()"-->

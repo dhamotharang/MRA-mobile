@@ -3,11 +3,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as moment from 'moment';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
+import { catchError, map } from "rxjs/operators";
+// import { Observable } from 'rxjs';
+import {forkJoin} from 'rxjs';
+// import { HTTP } from '@ionic-native/http/ngx';
 
 
-@Injectable({
-  providedIn: 'root',
-})
+
+@Injectable()
 
 export class RestProvider {
  
@@ -18,6 +21,7 @@ export class RestProvider {
 
     constructor(
         public http: HttpClient,
+        // public http: HTTP,
         public transfer: FileTransfer, 
         private file: File,
     ) {
@@ -25,8 +29,7 @@ export class RestProvider {
 
     appConf(app) {
         return new Promise((resolve, reject) => {
-            let devplink = 'http://192.168.0.8:8181/hss-start-0.0.1-SNAPSHOT/app/config/r';  //192.168.0.5 //192.168.43.221  //dev.hss.oas.my
-            // let devplink = 'https://www.myjiran.my/myjiran-oas-admin-0.0.1-SNAPSHOT/app/config/r'; 
+            let devplink = 'http://192.168.0.5:8181/hss-start-0.0.1-SNAPSHOT/app/config/r';  //192.168.0.5 //192.168.43.221  //dev.hss.oas.my
             this.http.post(devplink, [app], {
                 headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token)
             })
@@ -37,24 +40,8 @@ export class RestProvider {
                     reject(err);
                 });
         });
-    }
 
-    //https://dev.hss.oas.my/hss-mobile-rest-0.0.1-SNAPSHOT/
-    appConfMobile(app) {
-      return new Promise((resolve, reject) => {
-          let devplink = 'http://192.168.0.8:8181/hss-mobile-rest-0.0.1-SNAPSHOT/app/config/r';  //192.168.0.5 //192.168.43.221  //dev.hss.oas.my
-          // let devplink = 'https://www.myjiran.my/myjiran-oas-admin-0.0.1-SNAPSHOT/app/config/r'; 
-          this.http.post(devplink, [app], {
-              headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token)
-          })
-              .subscribe((res: any) => {
-                  resolve(res);
-              }, (err) => {
-                  console.log(err);
-                  reject(err);
-              });
-      });
-  }
+    }
 
 
     async getProfile(data) {
@@ -76,44 +63,6 @@ export class RestProvider {
   
     }
 
-    async checkRole(personId, id){
-      // try {
-      //   let app = await this.appConf("MGRA");
-      //   console.log(app);
-      //   return new Promise((resolve, reject) => {
-      //     let ids = ["1","4","5","9","10"];
-      //     var urlList = [];
-      //     for(let i=0; i < ids.length; i++){
-      //       let url = this.http.get(app[0].host+app[0].url +"/"+ personId +"/"+ ids[i]).map((res:any) => res).catch(e => console.log('error'))
-      //       // console.log(url);
-      //       urlList.push(url);
-      //     }
-      //     forkJoin(urlList).subscribe((val:any) => {
-      //       console.log('rest.ts: '+val);
-      //       resolve(val);
-      //     });
-      //   });
-      // } catch (error) {
-      //   console.log(error);
-      // }
-      try {
-        let app = await this.appConfMobile("MGRA");
-        console.log(app);
-        return new Promise((resolve, reject) => {
-          this.http.get(app[0].host+app[0].url +"/"+ personId +"/"+ id,{headers: new HttpHeaders().set('token', this.token)
-          .set('api-key', app[0].apiKey)
-          }).subscribe(data => {
-            resolve(data);
-          }, err => {
-            console.log(err);
-            reject(err);
-          });
-        });
-      } catch (error) {
-        console.log(error);
-      }
-  
-    }
 
     async getFee(personId){
       try {
@@ -674,8 +623,168 @@ export class RestProvider {
         });
       });
     }
+
+    async updateProfile(data){     //guna untuk submit data
+      try {
+        let app = await this.appConf("MUPR");
+        console.log(app);
+        return new Promise((resolve, reject) => {
+          this.http.put(app[0].host+app[0].url, JSON.stringify(data),{
+            headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token).set('api-key',app[0].apiKey)
+          })
+            .subscribe(res => {
+              resolve(res);
+            }, (err) => {
+              reject(err);
+            });
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    async getEmergencyList(personid){
+      try {
+        let app = await this.appConf("GSEC");
+        return new Promise((resolve, reject) => {
+          this.http.get(app[0].host+app[0].url+"/"+personid,{headers: new HttpHeaders().set('token', this.token)
+          .set('api-key', app[0].apiKey)
+          }).subscribe(res => {
+              resolve(res);
+            }, (err) => {
+              reject(err);
+            });
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+
+
+    
+//----------------------------------------- mobile myjiran rest ------------------------------------
+
+
+async checkRole(personId, id){
+  try {
+    let app = await this.appConf("MGRA");
+    console.log(app);
+    return new Promise((resolve, reject) => {
+      this.http.get(app[0].host+app[0].url +"/"+ personId +"/"+ id,{headers: new HttpHeaders().set('token', this.token)
+      .set('api-key', app[0].apiKey)
+      }).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+        reject(err);
+      });
+    });
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+
+// async checkRole(personId){
+//   try {
+//     let app = await this.appConf("MGRA");
+//     console.log(app);
+//     return new Promise((resolve, reject) => {
+//       let ids = ["1","3","4","5","9"]; 
+//       var urlList = [];
+//       // for(let i=0; i < ids.length; i++){
+//       //   let url = this.http.get(app[0].host+app[0].url +"/"+ personId +"/"+ ids[i])
+//       //   .pipe(map((response: any) => response));
+//       //   urlList.push(url);
+//       // }
+//       // forkJoin(urlList).subscribe((val:any) => {
+//       //   console.log('rest.ts: '+val);
+//       //   resolve(val);
+//       // });
+
+//       for(let i=0; i < ids.length; i++){
+//         let url = this.http.get(app[0].host+app[0].url +"/"+ personId +"/"+ ids[i],{headers: new HttpHeaders().set('token', this.token)
+//         .set('api-key', app[0].apiKey)})
+//         .pipe(map((response: any) => response));
+//         urlList.push(url);
+//       }
+//       return forkJoin(urlList);
+
+//     });
+//   } catch (error) {
+//     console.log(error);
+//   }
+
+// }
+
+
+
+async getTokenNoti(orgId,oaId) {
+  try{
+    let app = await this.appConf("MBTK");
+  console.log(app);
+  return new Promise((resolve, reject) => {
+    let data = {
+      orgId:orgId,
+      oaId:oaId
+    };
+    this.http.post(app[0].host+app[0].url, JSON.stringify(data),{
+      headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token).set('api-key', app[0].apiKey)
+    })
+    .subscribe(res => {
+      resolve(res);
+    }, (err) => {
+      reject(err);
+    });
+  });
+  }
+  catch(e){
+    console.log(e);
+  }
+
+}
+
+sendPush(list,personId) {
+  var urlList = [];
+  console.log(list);
+  console.log(personId);
+  for(let i=0; i < list.length; i++){
+    let r = Math.floor(Math.random() * 100);     // returns a random integer from 0 to 99
+    let n = personId + r; //to produce unique id, so notification is stacking
+    // list[i].data.notId = n;
+    let url = this.http.post('https://fcm.googleapis.com/fcm/send', JSON.stringify(list[i]),{
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+      .set('Authorization', 'key=AAAAhY8Iny4:APA91bF4KHWiYS2trL-hiLzqO0GiBDvJ1UvFy48ii_jWAnphHs_NBdVkVEHwm-s2R3yI_QIJn02KAbSwo-k2RifBVbpP8m63HJkryJK20rltM4JzlagUJvadt9i0_vVdZka4loaWy8BL')
+    })
+    .pipe(map((response: any) => response));
+    urlList.push(url);
+  }
+  return forkJoin(urlList);
+}
+
+
+async getUserDonation(personId){
+  try{
+    let app = await this.appConf("OFEE");
+  console.log(app);
+  return new Promise((resolve, reject) => {
+    this.http.get(app[0].host+app[0].contextPath+"/org/donate/oa/r/"+personId,{headers: new HttpHeaders().set('token', this.token)
+    .set('api-key', app[0].apiKey)
+    })
+      .subscribe(res => {
+        resolve(res);
+      }, (err) => {
+        reject(err);
+      });
+  });
+  }
+  catch(e)
+  {
+    console.log(e);
+  }
+
+}
      
 
 
 }
- 
