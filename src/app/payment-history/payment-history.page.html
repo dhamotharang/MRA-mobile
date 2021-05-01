@@ -15,26 +15,52 @@
         <section>
           <ion-item>
             <ion-label>Select year</ion-label>
-            <ion-select placeholder="Year">
+            <ion-select [(ngModel)]='selectedYear' (ionChange)="yearSelected($event)" placeholder="Year">
               <ion-select-option value="2019">2019</ion-select-option>
               <ion-select-option value="2020">2020</ion-select-option>
+              <ion-select-option value="All">All</ion-select-option>
             </ion-select>
           </ion-item>
         </section>
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row *ngIf='feeList[0]?.fee?.length != 0'>
       <ion-col size="6">
-        <ion-label>Receipt date/number</ion-label>
+        <ion-label class="receipt-label">Receipt date/number</ion-label>
       </ion-col>
       <ion-col size="6">
-        <ion-label>Description/amount</ion-label>
+        <ion-label class="decription-label">Description/amount (RM)</ion-label>
       </ion-col>
     </ion-row>
+
+    <div *ngIf='feeList[0]?.fee?.length != 0'>
+      <ion-row *ngFor='let data of feeListSelected'>
+        <ion-col size="6">
+          <ion-label>{{data?.profileName}}</ion-label>
+        </ion-col>
+        <ion-col size="6">
+          <ion-label class="decription-label">{{data?.feeAmt}}</ion-label>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <div *ngIf='feeList[0]?.fee?.length == 0'>
+      <ion-row>
+        <ion-col>
+          <ion-icon name="newspaper-outline" class="no-feed"></ion-icon>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <p class="no-text">No payment history yet </p>
+        </ion-col>
+      </ion-row>
+    </div>
+
   </ion-grid>
 </ion-content>
 
-<ion-footer>
+<ion-footer *ngIf='feeList[0]?.fee?.length != 0'>
   <ion-toolbar>
     <ion-button expand="full">PDF</ion-button>
   </ion-toolbar>
