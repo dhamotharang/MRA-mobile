@@ -1,0 +1,91 @@
+
+    .ann_footer{
+      .toolbar-background {
+        background-color:white;
+      }
+    }
+    .text-input{
+      height: 20vh;
+    }
+    [item-title]{
+      .text-input{
+        height: 10vh;
+      }
+    }
+    .item ion-thumbnail ion-img, .item ion-thumbnail img{
+      width: 30px;
+      height: 30px;
+    }
+    .item ion-thumbnail {
+      min-width: 30px;
+      min-height: 30px;
+    }
+    .mediaThumbnail.item ion-thumbnail{
+      display: inline-block;
+    }
+    .mediaThumbnail.item ion-thumbnail ion-img, .mediaThumbnail.item ion-thumbnail img{
+      width: 60px;
+      height: 60px;
+      margin-right: 5px;
+    }
+    ion-scroll[scrollX] {
+      white-space: nowrap;
+      height: 60px;
+      // overflow: scroll;
+    }
+    /* Hide ion-content scrollbar */
+    ::-webkit-scrollbar{
+      display:none;
+    }
+   
+   
+    .ion-md-close-circle{
+      color: red !important;
+    }
+    .ion-ios-close-circle{
+        color: red !important;
+    }
+    .ion-md-close{
+    color: white !important;
+    }
+    .ion-ios-close{
+      color: white !important;
+    }
+  
+    .label{
+      padding-left: 5px;
+      margin-top: 10px;
+      
+    }
+    .item-md.item-block .item-inner{
+      border-bottom: 0px;
+    }
+    [class*=" icon-"]{
+      line-height: 32px;
+    }
+
+    .post-button {
+      width: 100%;
+     
+   
+      background-color: #af71f0;
+      color: white;
+      border-radius: 5px;
+      height: 2.5rem;
+      position: fixed;
+      left: 0;
+      bottom: 10px;
+      right: 0;
+  }
+  
+  .post-label {
+      font-size: 0.9rem;
+      // margin-top: 8px;
+  }
+  
+    .error-message {
+      color: var(--ion-color-danger);
+  }
+  ion-item.item-has-focus > ion-label{
+    color:rgb(136, 231, 222) !important;
+  }

@@ -135,7 +135,8 @@ const routes: Routes = [
   {
     path: 'notifications',
     loadChildren: () => import('./notifications/notifications.module').then( m => m.NotificationsPageModule)
-  },  {
+  },
+  {
     path: 'task-comment',
     loadChildren: () => import('./task-comment/task-comment.module').then( m => m.TaskCommentPageModule)
   },
@@ -147,6 +148,31 @@ const routes: Routes = [
     path: 'edit-profile',
     loadChildren: () => import('./edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
   },
+  {
+    path: 'user-account',
+    loadChildren: () => import('./user-account/user-account.module').then( m => m.UserAccountPageModule)
+  },
+  {
+    path: 'feedback',
+    loadChildren: () => import('./feedback/feedback.module').then( m => m.FeedbackPageModule)
+  },
+  
+  {
+    path: 'about',
+    loadChildren: () => import('./about/about.module').then( m => m.AboutPageModule)
+  },
+  {
+    path: 'media-modal',
+    loadChildren: () => import('./media-modal/media-modal.module').then( m => m.MediaModalPageModule)
+  },
+  {
+    path: 'org-detail',
+    loadChildren: () => import('./org-detail/org-detail.module').then( m => m.OrgDetailPageModule)
+  },
+
+
+
+];
 
 ];
 

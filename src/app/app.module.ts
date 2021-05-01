@@ -22,6 +22,7 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import { CacheHandlerProvider } from 'src/providers/cache-handler.provider';
 import { PushNotiProvider } from 'src/providers/push-noti.provider';
 
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
