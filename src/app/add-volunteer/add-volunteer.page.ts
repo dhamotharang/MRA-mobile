@@ -18,6 +18,9 @@ export class AddVolunteerPage implements OnInit {
   navParam: any;
   fromPage: any;
   taskDetail: any;
+  orgId: any;
+  oaId: any;
+  andList: any;
 
 
   constructor(
@@ -31,6 +34,8 @@ export class AddVolunteerPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.storage.get('defaultProfile').then((val:any) => {this.oaId = val.oaId})
+    this.storage.get('personOrgs').then((val:any) => {this.orgId = val})
     this.route.queryParams.subscribe(params => {      //get data from previous page
       if (this.router.getCurrentNavigation().extras.state) {
         this.navParam = this.router.getCurrentNavigation().extras.state.user;
@@ -62,18 +67,16 @@ export class AddVolunteerPage implements OnInit {
 
   getAllVolunteer() {
     this.loadingProvider.presentLoading();
-    this.storage.get('personOrgs').then((val:any) => {
-      this.restProvider.getAllVolunteerList('VOLUNTEER',val.orgId).then((result:any) => {
-        console.log('getVolunteerList',result);
-        this.allVolunteerList = result;
-        this.loadingProvider.closeLoading();
-      }, (err) => {
-        this.loadingProvider.closeLoading();
-        // console.log(err);
-        // this.loadingProvider.closeLoading();
-        // this.showAlert();
-      });
-    })
+    this.restProvider.getAllVolunteerList('VOLUNTEER',this.orgId).then((result:any) => {
+      console.log('getVolunteerList',result);
+      this.allVolunteerList = result;
+      this.loadingProvider.closeLoading();
+    }, (err) => {
+      this.loadingProvider.closeLoading();
+      // console.log(err);
+      // this.loadingProvider.closeLoading();
+      // this.showAlert();
+    });
 
   }
 
@@ -142,6 +145,21 @@ export class AddVolunteerPage implements OnInit {
     });
 
   }
+
+  getToken() {
+    this.restProvider.getTokenNoti(this.orgId, this.oaId).then((res: any) => {
+      console.log(res);
+      this.andList = res.android;
+      // this.iosList = res.ios;
+      // this.sendPush();
+    }).catch(error => {
+      console.log(error);
+      // this.showAlert();
+      // this.loadingProvider.closeSaving();
+    })
+
+  }
+
 
   exitForm() {
     this.navCtrl.back();
