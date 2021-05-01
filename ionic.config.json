@@ -1,7 +1,8 @@
 {
   "name": "MRA-mobile",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular"
 }

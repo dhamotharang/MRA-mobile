@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { RestProvider } from 'src/providers/rest/rest';
+import { Storage } from '@ionic/storage-angular';
+import { ImageProvider } from 'src/providers/image.provider';
 
 @Component({
   selector: 'app-record-payment',
@@ -14,12 +17,21 @@ export class RecordPaymentPage implements OnInit {
 
   private image: string;
   private currentImage: string;
+  profile: any;
+  orgId: any;
+  donationList: any;
 
   constructor(
-    private camera: Camera
+    private camera: Camera,
+    private restProvider: RestProvider,
+    private storage: Storage,
+    private imageProvider: ImageProvider
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.storage.get('defaultProfile').then((val:any) => {this.profile = val })
+    await this.storage.get('personOrgs').then((val:any) => {this.orgId = val})
+    this.getDonation()
   }
 
   takePicture() {
@@ -35,6 +47,28 @@ export class RecordPaymentPage implements OnInit {
     }, (err) => {
       console.log("Camera issue:" + err);
     });
+  }
+
+  getDonation(){
+    // this.loadingProvider.setupLoading();
+    this.restProvider.getUserDonation(this.profile.personId).then((result:any) => {
+      this.donationList = result.filter(x => x.orgId == this.orgId)
+      console.log('getDonation',this.donationList);
+      // this.getOrg()
+      // to make sure UI view is updatinig
+      // this.zone.run(() => {
+      // for(let i=0; i<result.length; i++){
+      //   this.isDonateShown.push(false);
+      //   // this.orgs[i].orgProfile.orgLogo = this.sanitize.bypassSecurityTrustUrl('data:image/jpg;base64,'+ result[i].orgProfile.orgLogo);
+      // }
+      // this.loadingProvider.closeLoading();
+      // });
+    }, (err) => {
+      console.log(err);
+      // this.loadingProvider.closeLoading();
+      // this.showAlert();
+    });
+
   }
 
 }

@@ -4,9 +4,23 @@
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
+  "server": {
+    "allowNavigation": ["dev.hss.oas.my", "*.dev.hss.oas.my"]
+  },
   "plugins": {
     "SplashScreen": {
       "launchShowDuration": 0
+    },
+    "GoogleAuth": {
+      "scopes": [
+        "profile",
+        "email"
+      ],
+      "serverClientId": "573630357294-49sa6d8140ni7o9ttip06a52kv60mmk9.apps.googleusercontent.com",
+      "forceCodeForRefreshToken": true
+    },
+    "PushNotifications": {
+      "presentationOptions": ["badge", "sound", "alert"]
     }
   },
   "cordova": {}

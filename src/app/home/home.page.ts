@@ -14,6 +14,8 @@ export class HomePage implements OnInit {
   @ViewChild('mySlider')  slides: IonSlides;
   data: any;
   projectList = [];
+  role: any;
+  fee: any;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -32,7 +34,10 @@ export class HomePage implements OnInit {
       console.log('ngOnInit',params) 
       if (this.router.getCurrentNavigation().extras.state) {
         this.data = this.router.getCurrentNavigation().extras.state.user;
+        this.role = this.router.getCurrentNavigation().extras.state.role;
+        this.fee = this.router.getCurrentNavigation().extras.state.fee;
         console.log('data',this.data)
+        console.log('role',this.role)
       }
     });
     // this.getProjectInvolved();
@@ -46,32 +51,69 @@ export class HomePage implements OnInit {
     //     console.log('data',this.data)
     //   }
     // });
-    this.getProjectInvolved();
+    if (this.role == 'staff') {
+      this.getStaffInvolved();
+    }
+    else {
+      this.getVolunteerInvolved();
+    }
   }
 
-  getProjectInvolved() {
+  getStaffInvolved() {
     this.loadingProvider.presentLoading();
     this.storage.get('defaultPersonId').then((val:any) => {
-      console.log('defaultPersonId', val);
-      this.restProvider.getProjectInvolvedList(val).then((result:any) => {
+      this.restProvider.getStaffProjectList(val).then((result:any) => {
         console.log('getListProjects',result);
         this.projectList = result;
         this.loadingProvider.closeLoading();
       }, (err) => {
         this.loadingProvider.closeLoading();
-        // console.log(err);
+        console.log('getListProjects err',err);
         // this.loadingProvider.closeLoading();
         // this.showAlert();
       });
+
     });
 
+    // this.storage.get('personOrgs').then((val:any) => {
+    //   console.log('personOrgs', val);
+    //   this.restProvider.getProjectList(val.orgId).then((result:any) => {
+    //     console.log('getListProjects',result);
+    //     this.projectList = result;
+    //     this.loadingProvider.closeLoading();
+    //   }, (err) => {
+    //     this.loadingProvider.closeLoading();
+    //     console.log('getListProjects err',err);
+    //     // this.loadingProvider.closeLoading();
+    //     // this.showAlert();
+    //   });
+
+    // });
+
+  }
+
+  getVolunteerInvolved() {
+    this.loadingProvider.presentLoading();
+    this.storage.get('defaultPersonId').then((val:any) => {
+        this.restProvider.getProjectInvolvedList(val).then((result:any) => {
+          console.log('getListProjects',result);
+          this.projectList = result;
+          this.loadingProvider.closeLoading();
+        }, (err) => {
+          this.loadingProvider.closeLoading();
+          // console.log(err);
+          // this.loadingProvider.closeLoading();
+          // this.showAlert();
+        });
+      });
   }
 
   navNextPage(action) {
     console.log('navNextPage',action)
     let navigationExtras: NavigationExtras = {
       state: {
-        action: action
+        action: action,
+        role: this.role
       }
     };
     this.router.navigate(['project-list'], navigationExtras);
@@ -82,10 +124,20 @@ export class HomePage implements OnInit {
     let navigationExtras: NavigationExtras = {
       state: {
         user: data,
-        action: action
+        action: action,
+        role: this.role
       }
     };
     this.router.navigate(['project-detail'], navigationExtras);
+  }
+
+  navPaymentHistory() {
+    let navigationExtras: NavigationExtras = {
+      state: {
+        fee: this.fee
+      }
+    };
+    this.router.navigate(['payment-history'], navigationExtras);
   }
 
 }

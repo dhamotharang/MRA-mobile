@@ -52,7 +52,7 @@ export class ProjectListPage implements OnInit {
   getListProjects() {
     this.loadingProvider.presentLoading();
     this.storage.get('personOrgs').then((val:any) => {
-    this.restProvider.getProjectList(val.orgId).then((result:any) => {
+    this.restProvider.getProjectList(val).then((result:any) => {
       console.log('getListProjects',result);
       this.projectList = result;
       this.loadingProvider.closeLoading();

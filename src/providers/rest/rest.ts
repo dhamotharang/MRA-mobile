@@ -3,12 +3,22 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as moment from 'moment';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
+import { catchError, map } from "rxjs/operators";
+// import { Observable } from 'rxjs';
+import {forkJoin} from 'rxjs';
+// import { HTTP } from '@ionic-native/http/ngx';
 
-@Injectable({
-  providedIn: 'root',
-})
+
+
+@Injectable()
 
 export class RestProvider {
+  getToken(arg0: number, oaid: any) {
+    throw new Error('Method not implemented.');
+  }
+  createFeedback(restParam: any) {
+    throw new Error('Method not implemented.');
+  }
     getTaskList(arg0: number) {
       throw new Error('Method not implemented.');
     }
@@ -18,15 +28,15 @@ export class RestProvider {
 
     constructor(
         public http: HttpClient,
-        public transfer: FileTransfer,
+        // public http: HTTP,
+        public transfer: FileTransfer, 
         private file: File,
     ) {
     }
-    //192.168.0.161:8181
+
     appConf(app) {
         return new Promise((resolve, reject) => {
-            let devplink = 'https://dev.hss.oas.my/hss-start-0.0.1-SNAPSHOT/app/config/r';  //192.168.0.5 //192.168.43.221  //dev.hss.oas.my
-            // let devplink = 'https://www.myjiran.my/myjiran-oas-admin-0.0.1-SNAPSHOT/app/config/r';
+            let devplink = 'http://192.168.0.5:8181/hss-start-0.0.1-SNAPSHOT/app/config/r';  //192.168.0.5 //192.168.43.221  //dev.hss.oas.my
             this.http.post(devplink, [app], {
                 headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token)
             })
@@ -37,6 +47,7 @@ export class RestProvider {
                     reject(err);
                 });
         });
+
     }
 
 
@@ -56,8 +67,9 @@ export class RestProvider {
       } catch (error) {
         console.log(error);
       }
-
+  
     }
+
 
     async getFee(personId){
       try {
@@ -76,8 +88,29 @@ export class RestProvider {
       } catch (error) {
         console.log(error);
       }
-
+  
     }
+
+    //hss-project-0.0.1-SNAPSHOT/proj/comm/s/{personId} 
+    async getStaffProjectList(personId){
+      try{
+        let app = await this.appConf("PRJL");
+      console.log(app);
+      return new Promise((resolve, reject) => {
+        this.http.get(app[0].host+app[0].contextPath+"/proj/comm/s/"+personId,{headers: new HttpHeaders().set('token', this.token)
+        .set('api-key', app[0].apiKey)
+        })
+          .subscribe(res => {
+            resolve(res);
+          }, (err) => {
+            reject(err);
+          });
+      });
+      }catch(e){
+        console.log(e);
+      }
+  
+  }
 
     //http://localhost:8181/hss-project-0.0.1-SNAPSHOT/proj/project/v/320
     async getProjectList(orgId){
@@ -97,7 +130,7 @@ export class RestProvider {
         }catch(e){
           console.log(e);
         }
-
+    
     }
 
 
@@ -169,7 +202,7 @@ export class RestProvider {
         }catch(e){
           console.log(e);
         }
-
+    
     }
 
     //http://localhost:8181/hss-project-0.0.1-SNAPSHOT/proj/feed/v/{projId}
@@ -190,7 +223,7 @@ export class RestProvider {
         }catch(e){
           console.log(e);
         }
-
+    
     }
 
 
@@ -220,12 +253,12 @@ export class RestProvider {
         }catch(e){
           console.log(e);
         }
-
+    
     }
     //http://localhost:8181/hss-project-0.0.1-SNAPSHOT/proj/task/v/{projId}
     async getTasksList(projId){
         try{
-          let app = await this.appConf("PRJM");
+          let app = await this.appConf("PRJM");   
         console.log(app);
         return new Promise((resolve, reject) => {
           this.http.get(app[0].host+app[0].contextPath+"/proj/task/v/"+projId,{headers: new HttpHeaders().set('token', this.token)
@@ -240,13 +273,13 @@ export class RestProvider {
         }catch(e){
           console.log(e);
         }
-
+    
     }
 
     //http://localhost:8181/hss-project-0.0.1-SNAPSHO/proj/task/k/v/{taskId}
     async getTasksCommentList(taskId){
       try{
-        let app = await this.appConf("PRJM");
+        let app = await this.appConf("PRJM");   
       console.log(app);
       return new Promise((resolve, reject) => {
         this.http.get(app[0].host+app[0].contextPath+"/proj/task/k/v/"+taskId,{headers: new HttpHeaders().set('token', this.token)
@@ -261,7 +294,7 @@ export class RestProvider {
       }catch(e){
         console.log(e);
       }
-
+  
   }
 
 
@@ -325,9 +358,9 @@ export class RestProvider {
     return new Promise((resolve, reject) => {
       console.log('form',form)
           let data = {
-            taskId:form.taskId,
-            taskComment:form.taskComment,
-            taskPicture:form.taskPicture,
+            taskId:form.taskId, 
+            taskComment:form.taskComment, 
+            taskPicture:form.taskPicture, 
             personId:personId
           }
           this.http.post(app[0].host+app[0].contextPath+"/proj/task/k/u", JSON.stringify(data),{
@@ -344,14 +377,14 @@ export class RestProvider {
     }
 
 }
-
+      
       //http://localhost:8181/hss-organization-admin-0.0.1-SNAPSHOT/gallery/r
       async getLiveFeed(){
         try{
           let app = await this.appConf("GLMG");
         console.log(app);
         return new Promise((resolve, reject) => {
-          this.http.get(app[0].host+app[0].contextPath+"/gallery/r/",{headers: new HttpHeaders().set('token', this.token)
+          this.http.get(app[0].host+app[0].contextPath+"/gallery/r",{headers: new HttpHeaders().set('token', this.token)
           .set('api-key', app[0].apiKey)
           })
             .subscribe(res => {
@@ -363,7 +396,7 @@ export class RestProvider {
         }catch(e){
           console.log(e);
         }
-
+    
     }
 
 
@@ -385,7 +418,7 @@ export class RestProvider {
       }catch(e){
         console.log(e);
       }
-  }
+  } 
 
 
     //http://localhost:8181/hss-project-0.0.1-SNAPSHOT/proj/vol/v/{projId}
@@ -406,7 +439,7 @@ export class RestProvider {
       }catch(e){
         console.log(e);
       }
-  }
+  }   
 
 
   //http://localhost:8181/hss-project-0.0.1-SNAPSHOT/proj/vol/u
@@ -424,6 +457,27 @@ export class RestProvider {
         });
     });
     }catch(e){
+      console.log(e);
+    }
+
+  }  
+
+
+  async createAnnouncement(data){
+    try{
+      let app = await this.appConf("MCAN");
+    return new Promise((resolve, reject) => {
+      this.http.post(app[0].host+app[0].contextPath+'/list/an/add', data,{headers: new HttpHeaders().set('enctype', 'multipart/form-data').set('Accept','application/json').set('token', this.token)
+      .set('api-key', app[0].apiKey)
+      })
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+    }
+    catch(e){
       console.log(e);
     }
 
@@ -454,9 +508,9 @@ export class RestProvider {
       } catch (error) {
         console.log(error);
       }
-
+  
     }
-
+  
     cloud_upload(uri,url,tag,folder): Promise<any>{
       return new Promise((resolve,reject) => {
         const fileTransfer: FileTransferObject = this.transfer.create();
@@ -495,9 +549,7 @@ export class RestProvider {
       } catch (error) {
         console.log(error);
       }
-
     }
-
     async getEmergencyList(personid){
       try {
         let app = await this.appConf("GSEC");
@@ -513,8 +565,134 @@ export class RestProvider {
       } catch (error) {
         console.log(error);
       }
-
     }
+
+
+
+    
+//----------------------------------------- mobile myjiran rest ------------------------------------
+
+
+async checkRole(personId, id){
+  try {
+    let app = await this.appConf("MGRA");
+    console.log(app);
+    return new Promise((resolve, reject) => {
+      this.http.get(app[0].host+app[0].url +"/"+ personId +"/"+ id,{headers: new HttpHeaders().set('token', this.token)
+      .set('api-key', app[0].apiKey)
+      }).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+        reject(err);
+      });
+    });
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+
+// async checkRole(personId){
+//   try {
+//     let app = await this.appConf("MGRA");
+//     console.log(app);
+//     return new Promise((resolve, reject) => {
+//       let ids = ["1","3","4","5","9"]; 
+//       var urlList = [];
+//       // for(let i=0; i < ids.length; i++){
+//       //   let url = this.http.get(app[0].host+app[0].url +"/"+ personId +"/"+ ids[i])
+//       //   .pipe(map((response: any) => response));
+//       //   urlList.push(url);
+//       // }
+//       // forkJoin(urlList).subscribe((val:any) => {
+//       //   console.log('rest.ts: '+val);
+//       //   resolve(val);
+//       // });
+
+//       for(let i=0; i < ids.length; i++){
+//         let url = this.http.get(app[0].host+app[0].url +"/"+ personId +"/"+ ids[i],{headers: new HttpHeaders().set('token', this.token)
+//         .set('api-key', app[0].apiKey)})
+//         .pipe(map((response: any) => response));
+//         urlList.push(url);
+//       }
+//       return forkJoin(urlList);
+
+//     });
+//   } catch (error) {
+//     console.log(error);
+//   }
+
+// }
+
+
+
+async getTokenNoti(orgId,oaId) {
+  try{
+    let app = await this.appConf("MBTK");
+  console.log(app);
+  return new Promise((resolve, reject) => {
+    let data = {
+      orgId:orgId,
+      oaId:oaId
+    };
+    this.http.post(app[0].host+app[0].url, JSON.stringify(data),{
+      headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token).set('api-key', app[0].apiKey)
+    })
+    .subscribe(res => {
+      resolve(res);
+    }, (err) => {
+      reject(err);
+    });
+  });
+  }
+  catch(e){
+    console.log(e);
+  }
+
+}
+
+sendPush(list,personId) {
+  var urlList = [];
+  console.log(list);
+  console.log(personId);
+  for(let i=0; i < list.length; i++){
+    let r = Math.floor(Math.random() * 100);     // returns a random integer from 0 to 99
+    let n = personId + r; //to produce unique id, so notification is stacking
+    // list[i].data.notId = n;
+    let url = this.http.post('https://fcm.googleapis.com/fcm/send', JSON.stringify(list[i]),{
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+      .set('Authorization', 'key=AAAAhY8Iny4:APA91bF4KHWiYS2trL-hiLzqO0GiBDvJ1UvFy48ii_jWAnphHs_NBdVkVEHwm-s2R3yI_QIJn02KAbSwo-k2RifBVbpP8m63HJkryJK20rltM4JzlagUJvadt9i0_vVdZka4loaWy8BL')
+    })
+    .pipe(map((response: any) => response));
+    urlList.push(url);
+  }
+  return forkJoin(urlList);
+}
+
+
+async getUserDonation(personId){
+  try{
+    let app = await this.appConf("OFEE");
+  console.log(app);
+  return new Promise((resolve, reject) => {
+    this.http.get(app[0].host+app[0].contextPath+"/org/donate/oa/r/"+personId,{headers: new HttpHeaders().set('token', this.token)
+    .set('api-key', app[0].apiKey)
+    })
+      .subscribe(res => {
+        resolve(res);
+      }, (err) => {
+        reject(err);
+      });
+  });
+  }
+  catch(e)
+  {
+    console.log(e);
+  }
+
+}
+     
 
 
 }
