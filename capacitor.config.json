@@ -1,5 +1,5 @@
 {
-  "appId": "com.oas.mramobile",
+  "appId": "io.ionic.starter",
   "appName": "MRA-mobile",
   "bundledWebRuntime": false,
   "npmClient": "npm",

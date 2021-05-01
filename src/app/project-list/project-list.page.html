@@ -27,7 +27,7 @@
 
 
 
-  <!-- <ion-list *ngIf='navParam == "join"'>
+  <ion-list *ngIf='navParam == "join"'>
     <ion-item no-padding *ngFor='let data of projectList'>
       <ion-label no-margin (click)="navNextPage(data)">
         <ion-row>
@@ -40,11 +40,9 @@
         </ion-row>
       </ion-label>
     </ion-item>
-  </ion-list> -->
+  </ion-list>
 
-  <!-- *ngIf='navParam != "join"' -->
-  
-  <ion-list>
+  <ion-list *ngIf='navParam != "join"'>
     <ion-item no-padding *ngFor='let data of projectList'>
       <ion-label no-margin (click)="navNextPage(data)">
         <ion-row>

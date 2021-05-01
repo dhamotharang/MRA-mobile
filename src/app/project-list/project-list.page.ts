@@ -12,8 +12,7 @@ import { Storage } from '@ionic/storage-angular';
 })
 export class ProjectListPage implements OnInit {
   private projectList;
-  private navParam: any;
-  private role: any;
+  navParam: any;
 
   constructor(
     private router: Router,
@@ -24,25 +23,17 @@ export class ProjectListPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    
     this.route.queryParams.subscribe(params => {      //get data from previous page
       if (this.router.getCurrentNavigation().extras.state) {
         this.navParam = this.router.getCurrentNavigation().extras.state.action;
-        this.role = this.router.getCurrentNavigation().extras.state.role;
-        console.log('navParam',this.navParam,this.role)
+        console.log('navParam',this.navParam)
       }
     });
     if (this.navParam == 'join') {
       this.getListProjects();
     }
     else {
-      if (this.role == 'staff') {
-        this.getListProjects(); //for staff flow
-      }
-      else {
-        this.getVolunteerInvolved();
-      }
-
+      this.getProjectInvolved();
     }
  
   }
@@ -52,8 +43,7 @@ export class ProjectListPage implements OnInit {
     let navigationExtras: NavigationExtras = {
       state: {
         user: data,
-        action: this.navParam,
-        role: this.role
+        action: this.navParam
       }
     };
     this.router.navigate(['project-detail'], navigationExtras);
@@ -75,8 +65,7 @@ export class ProjectListPage implements OnInit {
   })
   }
 
-  getVolunteerInvolved() {
-    this.loadingProvider.presentLoading();
+  getProjectInvolved() {
     this.storage.get('defaultPersonId').then((val:any) => {
       this.restProvider.getProjectInvolvedList(val).then((result:any) => {
         console.log('getProjectInvolved',result);

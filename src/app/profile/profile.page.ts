@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationExtras, Router } from '@angular/router';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-import { CacheHandlerProvider } from 'src/providers/cache-handler.provider';
-import { NavController } from '@ionic/angular';
-import { Plugins } from '@capacitor/core';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-profile',
@@ -10,31 +9,46 @@ import { Plugins } from '@capacitor/core';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
+  profile: any; //first declare
 
   constructor(
-    private cacheHandlerProvider: CacheHandlerProvider,
-    private navCtrl: NavController,
-    private iab: InAppBrowser
+    private iab: InAppBrowser,
+    private storage: Storage,
+    private router: Router
   ) { }
 
   ngOnInit() {
+    this.getOrg()
   }
 
   terms(){
     const browser = this.iab.create('http://www.oas.my/myjiran/termsofuse.html');
 
-    browser.on('loadstop').subscribe(event => {
-      browser.insertCSS({ code: "body{color: red;" });
-   });
+  }
 
-    browser.close();
+  getOrg(){
+    // this.loadingProvider.presentLoading();
+    this.storage.get('defaultProfile').then((val:any) => {   //untuk guna storage
+      console.log("val",val)
+      this.profile= val
+    })
+
   }
-  
-  async Logout() {
-    console.log('Logout');
-    this.cacheHandlerProvider.clearLocalData()
-    this.navCtrl.navigateRoot('/launch');
-    const googleUser = await Plugins.GoogleAuth.signOut();
+
+  navigateNextPage() {     //passing data ke page lain
+    let navigationExtras: NavigationExtras = {
+      state: {
+        user: this.profile
+      }
+    };
+    this.router.navigate(['my-account'], navigationExtras);
   }
+
+  // async Logout() {
+  //   console.log('Logout');
+  //   this.cacheHandlerProvider.clearLocalData()
+  //   this.navCtrl.navigateRoot('/launch');
+  //   const googleUser = await Plugins.GoogleAuth.signOut();
+  // }
 
 }

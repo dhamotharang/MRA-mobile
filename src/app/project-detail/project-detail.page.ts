@@ -21,7 +21,6 @@ export class ProjectDetailPage implements OnInit {
   navParam: any;
   expand: boolean = false;
   fromPage: any;
-  role: any;
   
 
   constructor(
@@ -42,8 +41,7 @@ export class ProjectDetailPage implements OnInit {
       if (this.router.getCurrentNavigation().extras.state) {
         this.navParam = this.router.getCurrentNavigation().extras.state.user;
         this.fromPage = this.router.getCurrentNavigation().extras.state.action;
-        this.role = this.router.getCurrentNavigation().extras.state.role;
-        console.log('navParam',this.navParam,this.fromPage,this.role)
+        console.log('navParam',this.navParam,this.fromPage)
       }
     });
     this.getDetailProject();
@@ -135,8 +133,7 @@ export class ProjectDetailPage implements OnInit {
     let navigationExtras: NavigationExtras = {
       state: {
         user: this.projectDetail,
-        from:'volunteer',
-        role: this.role
+        from:'volunteer'
       }
     };
     this.router.navigate(['volunteer-list'], navigationExtras);
@@ -146,8 +143,7 @@ export class ProjectDetailPage implements OnInit {
     let navigationExtras: NavigationExtras = {
       state: {
         user: this.projectDetail,
-        from:'task',
-        role: this.role
+        from:'task'
       }
     };
     this.router.navigate(['task-list'], navigationExtras);
