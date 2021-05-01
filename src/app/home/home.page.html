@@ -32,7 +32,7 @@
             QR Code
           </ion-card-content>
         </ion-card>
-        <ion-card class="action-item ion-no-margin" [routerLink]="['/payment-history']">
+        <ion-card class="action-item ion-no-margin" (click)="navPaymentHistory()">
           <ion-icon name="document-text-outline"></ion-icon>
           <ion-card-content class="ion-no-padding">
             Payment History
@@ -98,7 +98,7 @@
           <ion-icon name="arrow-forward-outline"></ion-icon>
         </ion-col>
       </ion-row>
-      <ion-row *ngIf='projectList.length != 0 && role == "staff"' class="ion-margin-top ion-align-items-start">
+      <!-- <ion-row *ngIf='projectList.length != 0 && role == "staff"' class="ion-margin-top ion-align-items-start">
         <ion-col>
           <ion-slides pager="false" [options]="option" #mySlider>
             <ion-slide *ngFor='let data of projectList'>
@@ -109,8 +109,8 @@
             </ion-slide>
           </ion-slides>
         </ion-col>
-      </ion-row>
-      <ion-row *ngIf='projectList.length != 0 && role == "volunteer"' class="ion-margin-top ion-align-items-start">
+      </ion-row> -->
+      <ion-row *ngIf='projectList.length != 0' class="ion-margin-top ion-align-items-start">
         <ion-col>
           <ion-slides pager="false" [options]="option" #mySlider>
             <ion-slide *ngFor='let data of projectList'>

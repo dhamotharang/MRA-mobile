@@ -15,6 +15,7 @@ export class HomePage implements OnInit {
   data: any;
   projectList = [];
   role: any;
+  fee: any;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -34,6 +35,7 @@ export class HomePage implements OnInit {
       if (this.router.getCurrentNavigation().extras.state) {
         this.data = this.router.getCurrentNavigation().extras.state.user;
         this.role = this.router.getCurrentNavigation().extras.state.role;
+        this.fee = this.router.getCurrentNavigation().extras.state.fee;
         console.log('data',this.data)
         console.log('role',this.role)
       }
@@ -60,7 +62,6 @@ export class HomePage implements OnInit {
   getStaffInvolved() {
     this.loadingProvider.presentLoading();
     this.storage.get('defaultPersonId').then((val:any) => {
-      console.log('personOrgs', val);
       this.restProvider.getStaffProjectList(val).then((result:any) => {
         console.log('getListProjects',result);
         this.projectList = result;
@@ -94,7 +95,6 @@ export class HomePage implements OnInit {
   getVolunteerInvolved() {
     this.loadingProvider.presentLoading();
     this.storage.get('defaultPersonId').then((val:any) => {
-      console.log('personOrgs', val);
         this.restProvider.getProjectInvolvedList(val).then((result:any) => {
           console.log('getListProjects',result);
           this.projectList = result;
@@ -129,6 +129,15 @@ export class HomePage implements OnInit {
       }
     };
     this.router.navigate(['project-detail'], navigationExtras);
+  }
+
+  navPaymentHistory() {
+    let navigationExtras: NavigationExtras = {
+      state: {
+        fee: this.fee
+      }
+    };
+    this.router.navigate(['payment-history'], navigationExtras);
   }
 
 }

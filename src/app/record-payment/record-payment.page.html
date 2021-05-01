@@ -10,21 +10,21 @@
 
 <ion-content>
 
-  <ion-card *ngFor="let data of recordList" class="feed-card">
+  <ion-card *ngFor="let data of donationList" class="feed-card">
 
     <ion-row>
       <ion-col size="3">
-        <img class="img-style" [src]="data?.project_image">
+        <img #img1 (error)="img1.src=imageProvider.imageErrorHandle('')" class="img-style" [src]="data?.imageUrl">
       </ion-col>
       <ion-col>
         <ion-row>
           <ion-col>
-            <p class="label-project">{{data?.project_name}}</p>
+            <p class="label-project">{{data?.name}}</p>
           </ion-col>
         </ion-row>
         <ion-row class="row-margin">
           <ion-col>
-            <p class="label-record">{{data?.record_name}}</p>
+            <p class="label-record">{{data?.type?.name}}</p>
           </ion-col>
         </ion-row>
       </ion-col>
@@ -32,11 +32,11 @@
 
     <ion-row class="description-row">
       <ion-col size="6">
-        <p class="description">Starting on: {{data?.start_date}}</p>
+        <p class="description">Starting on: {{data?.startDate| date: 'd/M/yy'}}</p>
       </ion-col>
     </ion-row>
 
-    <ion-row class="description-row">
+    <ion-row *ngIf='data?.description != "-"' class="description-row">
       <ion-col>
         <p class="description">{{data?.description}}</p>
       </ion-col>
