@@ -19,7 +19,7 @@ import { LoadingProvider } from 'src/providers/loading-provider';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { IonicStorageModule } from '@ionic/storage-angular';
-import { CacheHandlerProvider } from 'src/providers/cache-handler.provider';
+// import { CacheHandlerProvider } from 'src/providers/cache-handler.provider';
 import { PushNotiProvider } from 'src/providers/push-noti.provider';
 
 
@@ -49,7 +49,7 @@ import { PushNotiProvider } from 'src/providers/push-noti.provider';
     LoadingProvider,
     FileTransfer,
     File,
-    CacheHandlerProvider,
+    // CacheHandlerProvider,
     PushNotiProvider
   ],
   bootstrap: [AppComponent],

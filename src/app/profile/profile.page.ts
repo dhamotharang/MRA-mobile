@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-import { CacheHandlerProvider } from 'src/providers/cache-handler.provider';
+// import { CacheHandlerProvider } from 'src/providers/cache-handler.provider';
 import { NavController } from '@ionic/angular';
 import { Plugins } from '@capacitor/core';
 import { Storage } from '@ionic/storage-angular';
@@ -21,7 +21,7 @@ export class ProfilePage implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private cacheHandlerProvider: CacheHandlerProvider,
+    // private cacheHandlerProvider: CacheHandlerProvider,
     private navCtrl: NavController,
     private iab: InAppBrowser,
     private storage: Storage,

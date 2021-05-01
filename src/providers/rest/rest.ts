@@ -454,10 +454,11 @@ export class RestProvider {
     }
 
   } 
+
   //Rest for Feedback page
   async createFeedback(data){
     try {
-      let app = await this.appConfMobile("MCFL");
+      let app = await this.appConf("MCFL");
     console.log(app);
     return new Promise((resolve, reject) => {
       this.http.post(app[0].host+app[0].url, JSON.stringify(data),{
@@ -475,6 +476,7 @@ export class RestProvider {
     }
 
   } 
+
    async deleteHosting(acid){
     try{
       let app = await this.appConf("MCAN");
