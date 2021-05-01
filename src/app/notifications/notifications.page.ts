@@ -45,25 +45,39 @@ export class NotificationsPage implements OnInit {
 
   }
 
+  acceptJoin() {
+    this.sendPush();
+  }
+
 
   sendPush() {
     let time = new Date().getTime();
     if (this.andList.length > 0) {
       let temp = [];
-      for (let i = 0; i < this.andList.length; i++) {
-        temp.push(this.andList[i].token);
-      }
+      // for (let i = 0; i < this.andList.length; i++) {
+      //   temp.push(this.andList[i].token);
+
+      // }
+      temp.push('fFG4kfP9RpCaMKP-lqs5fw:APA91bETaf1Y-Jl8VPGrUtPvqiVW1XBeconI_wtoCWJWLBGJOqTUppfn9LMxBw-6S4YjlXV1xEWHn7Fe0yBAurqAm8bm1O_TKn7ucHFgX7jl7EHs3pdtPn5JCK87oxOUJzA8qopN895e');
       let pushData = {
-        registration_ids: temp,
-        data: {
-          notId: null, // notId on Android needed to be an int and not a string
-          title: 'Volunteer *** have received your invitation',
-          body: 'test description',
-          // avatar: this.profilePictUrl,
-          // who: 'nisa',
-          // type: "feedback",
-          // created: time
-        }
+        // registration_ids: temp,
+        // data: {
+        //   notId: null, // notId on Android needed to be an int and not a string
+        //   title: 'Volunteer *** have received your invitation',
+        //   body: 'test description',
+        //   // avatar: this.profilePictUrl,
+        //   // who: 'nisa',
+        //   // type: "feedback",
+        //   // created: time
+        // },
+          notification:{
+            "title":"Volunteer *** have received your invitation",
+            "body":"test description",
+             "click_action":"FCM_PLUGIN_ACTIVITY"
+          },
+         to:"fFG4kfP9RpCaMKP-lqs5fw:APA91bETaf1Y-Jl8VPGrUtPvqiVW1XBeconI_wtoCWJWLBGJOqTUppfn9LMxBw-6S4YjlXV1xEWHn7Fe0yBAurqAm8bm1O_TKn7ucHFgX7jl7EHs3pdtPn5JCK87oxOUJzA8qopN895e",
+            "priority":"high",
+            "restricted_package_name":""
       }
       this.pushList.push(pushData);
     }
@@ -90,10 +104,10 @@ export class NotificationsPage implements OnInit {
     //   this.pushList.push(pushData);
     // }
 
-    // this.restProvider.sendPush(this.pushList,this.profile.personId).subscribe((result:any) => {
-    //   console.log('here');
-    //   console.log(result);
-    // });
+    this.restProvider.sendPush(this.pushList,this.profile.personId).subscribe((result:any) => {
+      console.log('here');
+      console.log(result);
+    });
   }
 
 
