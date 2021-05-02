@@ -217,7 +217,7 @@ async post(){
 //     }
 
 // create(){
-//     this.loadingProvider.setupSaving();
+//     //this.loadingProvider.setupSaving();
 //     if(this.platform.is('ios')) {
 //     this.plt = "ios";
 //     }else if(this.platform.is('android')){

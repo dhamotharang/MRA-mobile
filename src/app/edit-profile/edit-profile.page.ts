@@ -88,7 +88,7 @@ export class EditProfilePage implements OnInit {
   }
 
   save(){
-    //this.loadingProvider.setupSaving();
+    ////this.loadingProvider.setupSaving();
     console.log('update param  '+ JSON.stringify(this.profileForm.value));
     this.restProvider.updateProfile(this.profile).then((result) => {
       console.log(result);
