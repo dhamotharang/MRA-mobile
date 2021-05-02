@@ -33,36 +33,24 @@ export class AddVolunteerPage implements OnInit {
     private navCtrl: NavController,
   ) { }
 
-  ngOnInit() {
-    this.storage.get('defaultProfile').then((val:any) => {this.oaId = val.oaId})
-    this.storage.get('personOrgs').then((val:any) => {this.orgId = val})
+  async ngOnInit() {
+    await this.storage.get('defaultProfile').then((val:any) => {this.oaId = val.oaId})
+    await this.storage.get('personOrgs').then((val:any) => {console.log('personOrgs',val);this.orgId = val})
     this.route.queryParams.subscribe(params => {      //get data from previous page
       if (this.router.getCurrentNavigation().extras.state) {
         this.navParam = this.router.getCurrentNavigation().extras.state.user;
         this.fromPage = this.router.getCurrentNavigation().extras.state.from;
-        this.taskDetail = this.router.getCurrentNavigation().extras.state.data;
-        console.log('navParam',this.navParam)
+        console.log('navParam',this.navParam,this.fromPage)
+        if (this.fromPage == 'volunteer-list') {
+          this.getAllVolunteer();
+        }
+        else {
+          this.taskDetail = this.router.getCurrentNavigation().extras.state.data;
+          this.getAllParticipant();
+        }
       }
     });
-    if (this.fromPage == 'volunteer-list') {
-      this.getAllVolunteer();
-    }
-    else {
-      this.getAllParticipant();
-    }
 
-    // this.volunteerInfoForm = this.formBuilder.group({
-    //   full_name: [],
-    //   nric: [],
-    //   address_unit_no: [],
-    //   address_street_name_01: [],
-    //   address_postcode: [],
-    //   address_city: [],    
-    //   address_state: [],   
-    //   skills: [],
-    //   other_skills: [],    
-    //   interest: [],   
-    // });
   }
 
   getAllVolunteer() {
@@ -108,7 +96,7 @@ export class AddVolunteerPage implements OnInit {
         // this.showAlert();
       });
     }
-    else {
+    else {  //from task (for add participant in task)
       let body = []
       for (let i = 0; i < this.chosenVolunteer.length; i++) {
         let data = {

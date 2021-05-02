@@ -169,7 +169,7 @@ export class UserAccountPage implements OnInit {
     }
   }
   async pdf(i) {
-    this.loadingProvider.setupLoading();
+    //this.loadingProvider.setupLoading();
     try {
       let app = await this.restProvider.appConf("MBEA");
       var url = app[0].host + "/" + app[0].url + "?ac_id=" + this.noticeList[i].acId;
@@ -268,7 +268,7 @@ export class UserAccountPage implements OnInit {
     }
   }
   delete(id) {
-    this.loadingProvider.setupLoading();
+    //this.loadingProvider.setupLoading();
     this.restProvider.deleteHosting(id).then((result: any) => {
       console.log(result);
       this.loadingProvider.closeLoading();
@@ -280,7 +280,7 @@ export class UserAccountPage implements OnInit {
   }
 
   getUserAnnouncement() {
-    this.loadingProvider.setupLoading();
+    //this.loadingProvider.setupLoading();
     this.counter = 0;
     this.restProvider.getUserAnnouncement(this.oaid, this.counter).then((result: any) => {
       console.log(result);
@@ -487,7 +487,7 @@ export class UserAccountPage implements OnInit {
     });
   }
   updateRSVP(i) {
-    this.loadingProvider.setupLoading();
+    //this.loadingProvider.setupLoading();
     this.restProvider.updateRSVP(this.noticeList[i].eiId, 'Y').then((result: any) => {
       console.log(result);
       this.noticeList[i].attendance = result.status;
@@ -537,7 +537,7 @@ export class UserAccountPage implements OnInit {
       console.log("val", val)
       this.profilePictUrl = val
     })
-    this.loadingProvider.setupLoading();
+    //this.loadingProvider.setupLoading();
     this.restProvider.getOrg(this.oaid).then((result: any) => {
       console.log(result);
       this.orgs = result;
@@ -576,7 +576,7 @@ export class UserAccountPage implements OnInit {
   }
   //Note that a lot of apps support sharing multiple files, but Twitter just doesn't accept more that one file.
   twitterShare(i) {
-    this.loadingProvider.setupRedirect();
+    //this.loadingProvider.setupRedirect();
     var img = null;
     if (this.noticeList[i].mtAnnouncementUploadList.length > 0) {
       img = this.noticeList[i].mtAnnouncementUploadList[0].filepath;
@@ -599,11 +599,11 @@ export class UserAccountPage implements OnInit {
     this.socialSharing.shareViaTwitter(msg, img, null)
       .then((result) => {
         console.log("Share Success", result);
-        this.loadingProvider.closeRedirect();
+        //this.loadingProvider.closeRedirect();
       })
       .catch((err) => {
         console.log("Share Fail", JSON.stringify(err));
-        this.loadingProvider.closeRedirect();
+        //this.loadingProvider.closeRedirect();
         const alert = this.alertCtrl.create({
           title: 'Share Fail!',
           subTitle: 'Please download Twitter App to use this feature.',
@@ -614,7 +614,7 @@ export class UserAccountPage implements OnInit {
   }
   //you can prompt the user to paste the message you've passed to the plugin because we're adding it to the clipboard for you.
   facebookShare(i) {
-    this.loadingProvider.setupRedirect();
+    //this.loadingProvider.setupRedirect();
     var img = null;
     if (this.noticeList[i].mtAnnouncementUploadList.length > 0) {
       img = this.noticeList[i].mtAnnouncementUploadList[0].filepath;
@@ -639,11 +639,11 @@ export class UserAccountPage implements OnInit {
     this.socialSharing.shareViaFacebookWithPasteMessageHint(msg, img, null, 'Please paste message from your cilpboard')
       .then((result) => {
         console.log("Share Success", result);
-        this.loadingProvider.closeRedirect();
+        //this.loadingProvider.closeRedirect();
       })
       .catch((err) => {
         console.log("Share Fail", JSON.stringify(err));
-        this.loadingProvider.closeRedirect();
+        //this.loadingProvider.closeRedirect();
         const alert = this.alertCtrl.create({
           title: 'Share Fail!',
           subTitle: 'Please download Facebook App to use this feature.',
@@ -653,7 +653,7 @@ export class UserAccountPage implements OnInit {
       });
   }
   whatsapp(i) {
-    this.loadingProvider.setupRedirect();
+    //this.loadingProvider.setupRedirect();
     var img = null;
     if (this.noticeList[i].mtAnnouncementUploadList.length > 0) {
       img = this.noticeList[i].mtAnnouncementUploadList[0].filepath;
@@ -678,11 +678,11 @@ export class UserAccountPage implements OnInit {
     this.socialSharing.shareViaWhatsApp(msg, img, null)
       .then((result) => {
         console.log("Share Success", result);
-        this.loadingProvider.closeRedirect();
+        //this.loadingProvider.closeRedirect();
       })
       .catch((err) => {
         console.log("Share Fail", JSON.stringify(err));
-        this.loadingProvider.closeRedirect();
+        //this.loadingProvider.closeRedirect();
         const alert = this.alertCtrl.create({
           Headers: 'Share Fail!',
           subHeader: 'Please download WhatsApp to use this feature.',
@@ -733,7 +733,7 @@ export class UserAccountPage implements OnInit {
     });
   }
   initCalendar(i) {
-    this.loadingProvider.setupSaving();
+    //this.loadingProvider.setupSaving();
     var start = this.calendarDate(this.noticeList[i].programStart);
     var end = this.calendarDate(this.noticeList[i].programEnd);
 
@@ -766,7 +766,7 @@ export class UserAccountPage implements OnInit {
     });
   }
   shareAnnouncement(i, org) {
-    this.loadingProvider.setupSharing();
+    //this.loadingProvider.setupSharing();
     this.secureURL = [];
     if (this.noticeList[i].mtAnnouncementUploadList.length > 0) {
       for (let x = 0; x < this.noticeList[i].mtAnnouncementUploadList.length; x++) {
@@ -821,11 +821,11 @@ export class UserAccountPage implements OnInit {
     }));
     this.restProvider.createAnnouncement(this.restParam).then((result: any) => {
       console.log('getAnnouncementcreate', result);
-      this.loadingProvider.closeSharing();
+      //this.loadingProvider.closeSharing();
     }, (err) => {
       this.loadingProvider.closeLoading();
       console.log(err);
-      this.loadingProvider.closeSharing();
+      //this.loadingProvider.closeSharing();
       this.showAlert();
     });
   }

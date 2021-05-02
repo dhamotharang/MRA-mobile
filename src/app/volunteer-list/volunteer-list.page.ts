@@ -13,6 +13,7 @@ export class VolunteerListPage implements OnInit {
   private volunteerList=[];
   navParam: any;
   allVolunteerList=[];
+  role: any;
 
   constructor(
     private loadingProvider: LoadingProvider,
@@ -26,7 +27,8 @@ export class VolunteerListPage implements OnInit {
     this.route.queryParams.subscribe(params => {      //get data from previous page
       if (this.router.getCurrentNavigation().extras.state) {
         this.navParam = this.router.getCurrentNavigation().extras.state.user;
-        console.log('navParam',this.navParam)
+        this.role = this.router.getCurrentNavigation().extras.state.role;
+        console.log('navParam',this.navParam,this.role)
       }
     });
 

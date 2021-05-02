@@ -50,7 +50,7 @@ export class RecordPaymentPage implements OnInit {
   }
 
   getDonation(){
-    // this.loadingProvider.setupLoading();
+    // //this.loadingProvider.setupLoading();
     this.restProvider.getUserDonation(this.profile.personId).then((result:any) => {
       this.donationList = result.filter(x => x.orgId == this.orgId)
       console.log('getDonation',this.donationList);
