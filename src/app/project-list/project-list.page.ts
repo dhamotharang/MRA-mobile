@@ -67,7 +67,6 @@ export class ProjectListPage implements OnInit {
 
 
   getStaffInvolved() {
-    console.log('getStaffInvolved',this.personId)
     this.loadingProvider.presentLoading();
     this.storage.get('defaultPersonId').then((val:any) => {
       this.restProvider.getStaffProjectList(val).then((result:any) => {
