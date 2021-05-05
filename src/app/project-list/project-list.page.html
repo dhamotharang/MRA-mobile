@@ -27,7 +27,7 @@
 
 
 
-  <ion-list *ngIf='(role == "volunteer" && navParam != "view") || role == "staff"'>
+  <ion-list *ngIf='role == "volunteer" && navParam != "view"'>
     <ion-item no-padding *ngFor='let data of projectList'>
       <ion-label no-margin (click)="navNextPage(data)">
         <ion-row>
@@ -44,7 +44,7 @@
 
   <!-- *ngIf='navParam != "join"' -->
   
-  <ion-list *ngIf='role == "volunteer" && navParam == "view"'>
+  <ion-list *ngIf='(role == "volunteer" && navParam == "view") || role == "staff"'>
     <ion-item no-padding *ngFor='let data of projectList'>
       <ion-label no-margin (click)="navNextPage(data)">
         <ion-row>
