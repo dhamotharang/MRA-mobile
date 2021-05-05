@@ -56,7 +56,8 @@ export class VolunteerListPage implements OnInit {
     let navigationExtras: NavigationExtras = {
       state: {
         user: this.navParam,
-        from: 'volunteer-list'
+        from: 'volunteer-list',
+        data: null
       }
     };
     this.router.navigate(['add-volunteer'], navigationExtras);

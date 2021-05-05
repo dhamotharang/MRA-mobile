@@ -14,6 +14,7 @@ export class ProjectListPage implements OnInit {
   private projectList;
   private navParam: any;
   private role: any;
+  personId: any;
 
   constructor(
     private router: Router,
@@ -21,30 +22,36 @@ export class ProjectListPage implements OnInit {
     private restProvider: RestProvider,
     private loadingProvider: LoadingProvider,
     private storage: Storage,
-  ) { }
+  ) {
+
+    this.storage.get('defaultPersonId').then((val:any) => {this.personId = val; console.log('personId',val)})
+
+   }
 
   ngOnInit() {
-    
     this.route.queryParams.subscribe(params => {      //get data from previous page
       if (this.router.getCurrentNavigation().extras.state) {
         this.navParam = this.router.getCurrentNavigation().extras.state.action;
         this.role = this.router.getCurrentNavigation().extras.state.role;
         console.log('navParam',this.navParam,this.role)
+        this.displayBasedRole()
       }
     });
+  }
+
+  displayBasedRole() {
     if (this.navParam == 'join') {
       this.getListProjects();
     }
     else {
       if (this.role == 'staff') {
-        this.getListProjects(); //for staff flow
+        this.getStaffInvolved(); //for staff flow
       }
       else {
         this.getVolunteerInvolved();
       }
 
     }
- 
   }
 
   navNextPage(data) {
@@ -59,10 +66,12 @@ export class ProjectListPage implements OnInit {
     this.router.navigate(['project-detail'], navigationExtras);
   }
 
-  getListProjects() {
+
+
+  getStaffInvolved() {
+    console.log('getStaffInvolved',this.personId)
     this.loadingProvider.presentLoading();
-    this.storage.get('personOrgs').then((val:any) => {
-    this.restProvider.getProjectList(val).then((result:any) => {
+    this.restProvider.getStaffProjectList(this.personId).then((result:any) => {
       console.log('getListProjects',result);
       this.projectList = result;
       this.loadingProvider.closeLoading();
@@ -72,24 +81,39 @@ export class ProjectListPage implements OnInit {
       // this.loadingProvider.closeLoading();
       // this.showAlert();
     });
-  })
+
   }
 
-  getVolunteerInvolved() {
-    this.loadingProvider.presentLoading();
-    this.storage.get('defaultPersonId').then((val:any) => {
-      this.restProvider.getProjectInvolvedList(val).then((result:any) => {
-        console.log('getProjectInvolved',result);
+
+  getListProjects() {
+      this.loadingProvider.presentLoading();
+      this.storage.get('personOrgs').then((val:any) => {
+      this.restProvider.getProjectList(val).then((result:any) => {
+        console.log('getListProjects',result);
         this.projectList = result;
         this.loadingProvider.closeLoading();
       }, (err) => {
         this.loadingProvider.closeLoading();
-        console.log('getProjectInvolved err',err);
+        console.log('getListProjects err',err);
         // this.loadingProvider.closeLoading();
         // this.showAlert();
       });
-  })
-}
+    })
+  }
+
+  getVolunteerInvolved() {
+    this.loadingProvider.presentLoading();
+    this.restProvider.getProjectInvolvedList(this.personId).then((result:any) => {
+      console.log('getProjectInvolved',result);
+      this.projectList = result;
+      this.loadingProvider.closeLoading();
+    }, (err) => {
+      this.loadingProvider.closeLoading();
+      console.log('getProjectInvolved err',err);
+      // this.loadingProvider.closeLoading();
+      // this.showAlert();
+    });
+  }
 
 
 }

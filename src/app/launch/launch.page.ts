@@ -104,7 +104,7 @@ export class LaunchPage {
 
   async checkRole() {
     let result = [];
-    let ids = ["1","3","4","5","9"]; 
+    let ids = ["1","4","5","9"]; 
     // this.loadingProvider.presentLoading();
     for (let i = 0; i < ids.length; i++) {
       await this.restProvider.checkRole(this.profile.personId, ids[i]).then((data:any) => {

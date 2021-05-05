@@ -14,6 +14,8 @@ export class NotificationsPage implements OnInit {
   pushList: any = [];
   orgId: any;
   profile: any;
+  restParam: any;
+  mediaList:any = [];
 
   constructor(
     private restProvider: RestProvider,
@@ -23,8 +25,60 @@ export class NotificationsPage implements OnInit {
   async ngOnInit() {
     await this.storage.get('defaultProfile').then((val:any) => {this.profile = val })
     await this.storage.get('personOrgs').then((val:any) => {this.orgId = val})
+    
     this.getToken()
     // this.pushProvider.getToken()
+  }
+
+  createAnnouncement() {
+    this.restParam = [{
+      personId : this.profile.personId,
+      hostId : this.profile.personId,
+      profilePictUrl: '',
+      referFrom : null,
+      orgId : 320,
+      title : 'test push noti',
+      notes : 'test push notiiii',
+      programStart: new Date(),
+      programEnd: new Date(),
+      location : 'Selangor',
+      duration : 7,
+      subModule: 'AN',
+      paramType : 'OH',
+      privateEvent: false,
+      orgName : 'Malaysian Relief Agency',
+      orgLogo : 'https://res.cloudinary.com/myjiran/image/upload/v1612149843/org_logo/gzr4ptrq3gaavfqqytmg.png'
+    }];
+    this.callApi();
+  }
+
+  async callApi(){
+    // this.loadingProvider.setupSaving();
+    let formData = await this.processData();
+    this.restProvider.createAnnouncement(formData).then((result:any) => {
+      console.log(result);
+      // this.loadingProvider.closeSaving();
+      // this.nav.setRoot(TabsPage,{tabIndex: 0});
+      // this.navCtrl.pop();
+    }, (err) => {
+      console.log(err);
+      // this.loadingProvider.closeSaving();
+      // this.showAlert();
+    });
+  }
+
+  processData(){
+    const formData: FormData = new FormData();
+    for (let i = 0; i < this.mediaList.length; i++) {
+      console.log('blob array ');
+      if(this.mediaList[i].blob != null){
+        formData.append('file', this.mediaList[i].blob, this.mediaList[i].type);
+      }
+    }
+    formData.append('params', new Blob([JSON.stringify(this.restParam)], {
+                type: "application/json"
+            }));
+    return formData;
   }
 
 
@@ -32,7 +86,7 @@ export class NotificationsPage implements OnInit {
 
 
   getToken() {
-    this.restProvider.getTokenNoti(this.orgId, this.profile.oaId).then((res: any) => {
+    this.restProvider.getTokenNoti(this.profile.personId).then((res: any) => {
       console.log(res);
       this.andList = res.android;
       // this.iosList = res.ios;
@@ -46,7 +100,8 @@ export class NotificationsPage implements OnInit {
   }
 
   acceptJoin() {
-    this.sendPush();
+    this.createAnnouncement()
+    // this.sendPush();
   }
 
 

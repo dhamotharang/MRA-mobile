@@ -8,6 +8,7 @@ import { RestProvider } from 'src/providers/rest/rest';
 import { LoadingProvider } from 'src/providers/loading-provider';
 import { ImageProvider } from 'src/providers/image.provider';
 import { Storage } from '@ionic/storage-angular';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-project-detail',
@@ -35,6 +36,7 @@ export class ProjectDetailPage implements OnInit {
     private loadingProvider: LoadingProvider,
     private imageProvider: ImageProvider,
     private storage: Storage,
+    private navCtrl: NavController
   ) { }
 
   ngOnInit() {
@@ -112,6 +114,7 @@ export class ProjectDetailPage implements OnInit {
         console.log('getProjectDetail',result);
         this.projectDetail = result;
         this.loadingProvider.closeLoading();
+        this.navCtrl.back();
       }, (err) => {
         // console.log(err);
         this.loadingProvider.closeLoading();
