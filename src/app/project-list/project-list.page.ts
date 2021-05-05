@@ -24,8 +24,6 @@ export class ProjectListPage implements OnInit {
     private storage: Storage,
   ) {
 
-    this.storage.get('defaultPersonId').then((val:any) => {this.personId = val; console.log('personId',val)})
-
    }
 
   ngOnInit() {
@@ -71,16 +69,19 @@ export class ProjectListPage implements OnInit {
   getStaffInvolved() {
     console.log('getStaffInvolved',this.personId)
     this.loadingProvider.presentLoading();
-    this.restProvider.getStaffProjectList(this.personId).then((result:any) => {
-      console.log('getListProjects',result);
-      this.projectList = result;
-      this.loadingProvider.closeLoading();
-    }, (err) => {
-      this.loadingProvider.closeLoading();
-      console.log('getListProjects err',err);
-      // this.loadingProvider.closeLoading();
-      // this.showAlert();
-    });
+    this.storage.get('defaultPersonId').then((val:any) => {
+      this.restProvider.getStaffProjectList(val).then((result:any) => {
+        console.log('getListProjects',result);
+        this.projectList = result;
+        this.loadingProvider.closeLoading();
+      }, (err) => {
+        this.loadingProvider.closeLoading();
+        console.log('getListProjects err',err);
+        // this.loadingProvider.closeLoading();
+        // this.showAlert();
+      });
+    })
+
 
   }
 
@@ -103,7 +104,8 @@ export class ProjectListPage implements OnInit {
 
   getVolunteerInvolved() {
     this.loadingProvider.presentLoading();
-    this.restProvider.getProjectInvolvedList(this.personId).then((result:any) => {
+    this.storage.get('defaultPersonId').then((val:any) => {
+    this.restProvider.getProjectInvolvedList(val).then((result:any) => {
       console.log('getProjectInvolved',result);
       this.projectList = result;
       this.loadingProvider.closeLoading();
@@ -113,6 +115,7 @@ export class ProjectListPage implements OnInit {
       // this.loadingProvider.closeLoading();
       // this.showAlert();
     });
+    })
   }
 
 
