@@ -29,7 +29,7 @@ export class RestProvider {
 
     appConf(app) {
         return new Promise((resolve, reject) => {
-            let devplink = 'http://192.168.0.5:8181/hss-start-0.0.1-SNAPSHOT/app/config/r';  //192.168.0.5 //192.168.43.221  //dev.hss.oas.my
+            let devplink = 'http://192.168.0.139:8181/hss-start-0.0.1-SNAPSHOT/app/config/r';  //192.168.0.5 //192.168.43.221  //dev.hss.oas.my
             this.http.post(devplink, [app], {
                 headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token)
             })
@@ -138,7 +138,8 @@ export class RestProvider {
             personId:personId,
             enabled:'Y',
             createdDate: moment().format(),
-            voidStatus: "A"
+            voidStatus: "A",
+            joinStatus: "R"
           };
           this.http.post(app[0].host+app[0].contextPath+"/proj/vol/join", JSON.stringify(data),{
             headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token).set('api-key', app[0].apiKey)
@@ -518,6 +519,7 @@ export class RestProvider {
 
 //user-account page
   async createAnnouncement(data){
+    console.log(data);
     try{
       let app = await this.appConf("MCAN");
     return new Promise((resolve, reject) => {
@@ -536,6 +538,8 @@ export class RestProvider {
     }
 
   }
+
+
   //user-account page
   async getOrg(oaId){
     try {
@@ -720,28 +724,48 @@ async checkRole(personId, id){
 // }
 
 
+//Token/u{projid}
+// async getTokenNoti(orgId,oaId) {
+//   try{
+//     let app = await this.appConf("MBTK");
+//   console.log(app);
+//   return new Promise((resolve, reject) => {
+//     let data = {
+//       orgId:orgId,
+//       oaId:oaId
+//     };
+//     this.http.post(app[0].host+app[0].url, JSON.stringify(data),{
+//       headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token).set('api-key', app[0].apiKey)
+//     })
+//     .subscribe(res => {
+//       resolve(res);
+//     }, (err) => {
+//       reject(err);
+//     });
+//   });
+//   }
+//   catch(e){
+//     console.log(e);
+//   }
 
-async getTokenNoti(orgId,oaId) {
-  try{
+// }
+
+async getTokenNoti(projectId){
+  try {
     let app = await this.appConf("MBTK");
-  console.log(app);
-  return new Promise((resolve, reject) => {
-    let data = {
-      orgId:orgId,
-      oaId:oaId
-    };
-    this.http.post(app[0].host+app[0].url, JSON.stringify(data),{
-      headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token).set('api-key', app[0].apiKey)
-    })
-    .subscribe(res => {
-      resolve(res);
-    }, (err) => {
-      reject(err);
+    console.log(app);
+    return new Promise((resolve, reject) => {
+      this.http.get(app[0].host+app[0].url +"/"+ projectId,{headers: new HttpHeaders().set('token', this.token)
+      .set('api-key', app[0].apiKey)
+      }).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+        reject(err);
+      });
     });
-  });
-  }
-  catch(e){
-    console.log(e);
+  } catch (error) {
+    console.log(error);
   }
 
 }
@@ -786,6 +810,9 @@ async getUserDonation(personId){
   }
 
 }
+
+//
+
      
 
 

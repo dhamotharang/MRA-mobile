@@ -40,12 +40,12 @@ export class AddVolunteerPage implements OnInit {
       if (this.router.getCurrentNavigation().extras.state) {
         this.navParam = this.router.getCurrentNavigation().extras.state.user;
         this.fromPage = this.router.getCurrentNavigation().extras.state.from;
+        this.taskDetail = this.router.getCurrentNavigation().extras.state.data;
         console.log('navParam',this.navParam,this.fromPage)
         if (this.fromPage == 'volunteer-list') {
           this.getAllVolunteer();
         }
         else {
-          this.taskDetail = this.router.getCurrentNavigation().extras.state.data;
           this.getAllParticipant();
         }
       }
@@ -135,16 +135,16 @@ export class AddVolunteerPage implements OnInit {
   }
 
   getToken() {
-    this.restProvider.getTokenNoti(this.orgId, this.oaId).then((res: any) => {
-      console.log(res);
-      this.andList = res.android;
-      // this.iosList = res.ios;
-      // this.sendPush();
-    }).catch(error => {
-      console.log(error);
-      // this.showAlert();
-      // this.loadingProvider.closeSaving();
-    })
+    // this.restProvider.getTokenNoti(this.orgId, this.oaId).then((res: any) => {
+    //   console.log(res);
+    //   this.andList = res.android;
+    //   // this.iosList = res.ios;
+    //   // this.sendPush();
+    // }).catch(error => {
+    //   console.log(error);
+    //   // this.showAlert();
+    //   // this.loadingProvider.closeSaving();
+    // })
 
   }
 

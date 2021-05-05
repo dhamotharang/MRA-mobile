@@ -16,6 +16,8 @@ export class HomePage implements OnInit {
   projectList = [];
   role: any;
   fee: any;
+  profile: any;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -30,6 +32,7 @@ export class HomePage implements OnInit {
   };
 
   ngOnInit() {   
+    this.storage.get('defaultProfile').then((val:any) => {this.profile = val})
     this.route.queryParams.subscribe(params => {
       console.log('ngOnInit',params) 
       if (this.router.getCurrentNavigation().extras.state) {

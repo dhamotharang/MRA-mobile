@@ -65,6 +65,7 @@ export class TaskListPage implements OnInit {
 
   addParticipant(data) {
     console.log('addParticipant',data)
+    console.log('navParam',this.navParam,this.fromPage,this.role)
     let navigationExtras: NavigationExtras = {
       state: {
         user:this.navParam,
