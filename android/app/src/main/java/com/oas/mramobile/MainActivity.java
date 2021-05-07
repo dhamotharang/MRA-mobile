@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package com.oas.mramobile;
 
 import android.os.Bundle;
 
