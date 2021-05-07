@@ -16,6 +16,7 @@ export class NotificationsPage implements OnInit {
   profile: any;
   restParam: any;
   mediaList:any = [];
+  listNoti: any;
 
   constructor(
     private restProvider: RestProvider,
@@ -23,8 +24,9 @@ export class NotificationsPage implements OnInit {
   ) { }
 
   async ngOnInit() {
-    await this.storage.get('defaultProfile').then((val:any) => {this.profile = val })
+    await this.storage.get('defaultProfile').then((val:any) => {this.profile = val; this.getListNoti() })
     await this.storage.get('personOrgs').then((val:any) => {this.orgId = val})
+
     
     this.getToken()
     // this.pushProvider.getToken()
@@ -79,6 +81,20 @@ export class NotificationsPage implements OnInit {
                 type: "application/json"
             }));
     return formData;
+  }
+
+
+  getListNoti() {
+    this.restProvider.getListNoti(this.profile.personId).then((res: any) => {
+      console.log(res);
+      this.listNoti = res
+      // this.sendPush();
+    }).catch(error => {
+      console.log(error);
+      // this.showAlert();
+      // this.loadingProvider.closeSaving();
+    })
+
   }
 
 

@@ -21,6 +21,9 @@ import { File } from '@ionic-native/file/ngx';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { CacheHandlerProvider } from 'src/providers/cache-handler.provider';
 import { PushNotiProvider } from 'src/providers/push-noti.provider';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
+import { HTTP } from '@ionic-native/http/ngx';
 
 
 @NgModule({
@@ -50,7 +53,10 @@ import { PushNotiProvider } from 'src/providers/push-noti.provider';
     FileTransfer,
     File,
     CacheHandlerProvider,
-    PushNotiProvider
+    PushNotiProvider,
+    Geolocation,
+    NativeGeocoder,
+    HTTP
   ],
   bootstrap: [AppComponent],
 })

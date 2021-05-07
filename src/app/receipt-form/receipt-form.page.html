@@ -10,56 +10,58 @@
 
 <ion-content>
 
-  <ion-row>
-    <ion-col>
-      <ion-item>
-        <ion-label>Payment Type</ion-label>
-        <ion-select placeholder="Select One">
-          <ion-select-option value="cash">Cash</ion-select-option>
-          <ion-select-option value="online">Online Banking</ion-select-option>
-        </ion-select>
-      </ion-item>
-    </ion-col>
-  </ion-row>
+  <form [formGroup]="receiptForm"> 
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label>Payment Type</ion-label>
+          <ion-select formControlName='paymentType' placeholder="Select One">
+            <ion-select-option value="310">CDM/ATM/Counter</ion-select-option>
+            <ion-select-option value="312">Online Banking</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label>Bank Name</ion-label>
+          <ion-select formControlName='BankName' placeholder="Select One">
+            <ion-select-option *ngFor="let b of bankList" [value]="b.cbId">{{b.bankName}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label>Receipt Date and Time</ion-label>
+          <ion-datetime formControlName='receiptDate' displayFormat="D MMM YYYY H:mm" min="1997" max="2010"></ion-datetime>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  
+    <ion-row>
+      <ion-col>
+        <ion-item lines="none">
+          <ion-label>Description</ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-textarea formControlName='description' class="description_label" rows="10" placeholder="Description" maxlength="1000">
+        </ion-textarea>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  
 
-  <ion-row>
-    <ion-col>
-      <ion-item>
-        <ion-label>Bank Name</ion-label>
-        <ion-select placeholder="Select One">
-          <ion-select-option value="CIMB">CIMB</ion-select-option>
-          <ion-select-option value="Maybank">Maybank</ion-select-option>
-        </ion-select>
-      </ion-item>
-    </ion-col>
-  </ion-row>
-
-  <ion-row>
-    <ion-col>
-      <ion-item>
-        <ion-label>Receipt Date and Time</ion-label>
-        <ion-datetime displayFormat="D MMM YYYY H:mm" min="1997" max="2010"></ion-datetime>
-      </ion-item>
-    </ion-col>
-  </ion-row>
-
-  <ion-row>
-    <ion-col>
-      <ion-item lines="none">
-        <ion-label>Description</ion-label>
-      </ion-item>
-    </ion-col>
-  </ion-row>
-
-  <ion-row>
-    <ion-col>
-      <ion-item>
-        <ion-textarea class="description_label" rows="10" placeholder="Description" maxlength="1000">
-      </ion-textarea>
-      </ion-item>
-    </ion-col>
-  </ion-row>
-
+  </form>
 
   <ion-row>
     <ion-col>
@@ -71,6 +73,7 @@
       <ion-icon class="attach-icon" ios="camera" md="camera"></ion-icon>
     </ion-col>
   </ion-row>
+
 
   <ion-row>
     <ion-col>

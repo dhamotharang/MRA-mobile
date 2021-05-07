@@ -17,6 +17,7 @@ export class EditProfilePage implements OnInit {
   profile: any;
   profileForm: FormGroup;  //declare
   alertCtrl: AlertController;
+  provider: any;
 
   constructor(
     private router: Router,
@@ -43,12 +44,9 @@ export class EditProfilePage implements OnInit {
   }
 
   async getOrg(){
-    await this.storage.get('defaultProfile').then((val:any) => {   //untuk guna storage
-      console.log("val",val)
-      this.profile= val
-      //this.setupForm()
-    })
-    this.updateForm()        //trigger update formm .
+    await this.storage.get('defaultProfile').then((val:any) => {this.profile=val})
+    await this.storage.get('provider').then((val:any) => { this.provider= val; console.log('provider',val)})
+    this.updateForm() 
   }
 
   updateForm(){
@@ -88,8 +86,23 @@ export class EditProfilePage implements OnInit {
   }
 
   save(){
+    this.profile.name = this.profileForm.controls.name.value;
+    this.profile.icNo = this.profileForm.controls.icNo.value;
+    this.profile.gender = this.profileForm.controls.gender.value;
+    this.profile.contactCode = this.profileForm.controls.contactCode.value;
+    this.profile.contactNo = this.profileForm.controls.contactNo.value;
+    this.profile.email = this.profileForm.controls.email.value;
+    this.profile.address1 = this.profileForm.controls.address1.value;
+    this.profile.address2 = this.profileForm.controls.address2.value;
+    this.profile.address3 = this.profileForm.controls.address3.value;
+    this.profile.postcode = this.profileForm.controls.postcode.value;
+    this.profile.country = this.profileForm.controls.country.value;
+    this.profile.state = this.profileForm.controls.state.value;
+    this.profile.orgId = 320;
+    this.profile.providerCode = this.provider.providerCode
+    this.profile.providerId = this.provider.providerId
+    console.log('getProfile',this.profile)
     ////this.loadingProvider.setupSaving();
-    console.log('update param  '+ JSON.stringify(this.profileForm.value));
     this.restProvider.updateProfile(this.profile).then((result) => {
       console.log(result);
       this.getProfile();
@@ -101,9 +114,7 @@ export class EditProfilePage implements OnInit {
   }
 
   getProfile() {
-    console.log("getProfile data:"+this.profile);
     this.restProvider.getProfile(this.profile).then((result) => {    //get data from REST
-      console.log("result untuk simpan"+ result);
       this.storage.set('defaultProfile', result);   //update ke storage
       //this.loadingProvider.closeSaving();    loading ui
       //this.navCtrl.pop();          pergi back ke previous page

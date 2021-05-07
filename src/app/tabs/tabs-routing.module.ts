@@ -19,10 +19,10 @@ const routes: Routes = [
           import('../home/home.module').then((m) => m.HomePageModule),
       },
       {
-        path: 'live-feed',
+        path: 'all-feed',
         loadChildren: () =>
-          import('../live-feed/live-feed.module').then(
-            (m) => m.LiveFeedPageModule
+          import('../all-feed/all-feed.module').then(
+            (m) => m.AllFeedPageModule
           ),
       },
       {

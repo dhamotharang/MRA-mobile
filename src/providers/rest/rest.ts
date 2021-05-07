@@ -6,7 +6,7 @@ import { File } from '@ionic-native/file/ngx';
 import { catchError, map } from "rxjs/operators";
 // import { Observable } from 'rxjs';
 import {forkJoin} from 'rxjs';
-// import { HTTP } from '@ionic-native/http/ngx';
+import _ from 'lodash';
 
 
 
@@ -21,7 +21,7 @@ export class RestProvider {
 
     constructor(
         public http: HttpClient,
-        // public http: HTTP,
+        // public HTTP: HTTP,
         public transfer: FileTransfer, 
         private file: File,
     ) {
@@ -29,7 +29,7 @@ export class RestProvider {
 
     appConf(app) {
         return new Promise((resolve, reject) => {
-            let devplink = 'http://192.168.0.139:8181/hss-start-0.0.1-SNAPSHOT/app/config/r';  //192.168.0.5 //192.168.43.221  //dev.hss.oas.my
+            let devplink = 'http://192.168.0.5:8181/hss-start-0.0.1-SNAPSHOT/app/config/r';  //192.168.0.5 //192.168.43.221  //dev.hss.oas.my
             this.http.post(devplink, [app], {
                 headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token)
             })
@@ -42,6 +42,35 @@ export class RestProvider {
         });
 
     }
+
+  //   appConfHttp(app) {
+  //     return new Promise((resolve, reject) => {
+  //         let devplink = 'http://192.168.0.139:8181/hss-start-0.0.1-SNAPSHOT/app/config/r';  //192.168.0.5 //192.168.43.221  //dev.hss.oas.my
+  //         this.HTTP.post(devplink, [app], {
+  //             headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token)
+  //         })
+  //             .then((res: any) => {
+  //                 resolve(res);
+  //             }, (err) => {
+  //                 console.log(err);
+  //                 reject(err);
+  //             });
+              
+  //     });
+
+  // }
+
+  // appConfHttp(url: string, params: any, options: any): Promise<any> {
+  //   console.log('POST ', url, params, options)
+  //   if (options.headers) {
+  //     _.forEach(options.headers, (value, key) => {
+  //       this.HTTP.setHeader('*', String(key), String(value))
+  //     });
+  //   }
+
+  //   return this.HTTP.post(url, params, null)
+  //     .then(resp => options.responseType == 'text' ? resp.data : JSON.parse(resp.data));
+  // }
 
 
     async getProfile(data) {
@@ -724,32 +753,31 @@ async checkRole(personId, id){
 // }
 
 
+//http://localhost:8181/hss-mobile-rest-0.0.1-SNAPSHOT/annoucement/v/{personId}
+async getListNoti(personId){
+  try {
+    let app = await this.appConf("MGAN");
+    console.log(app);
+    return new Promise((resolve, reject) => {
+      this.http.get(app[0].host+app[0].url +"/"+ personId,{headers: new HttpHeaders().set('token', this.token)
+      .set('api-key', app[0].apiKey)
+      }).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+        reject(err);
+      });
+    });
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+
+
+
+
 //Token/u{projid}
-// async getTokenNoti(orgId,oaId) {
-//   try{
-//     let app = await this.appConf("MBTK");
-//   console.log(app);
-//   return new Promise((resolve, reject) => {
-//     let data = {
-//       orgId:orgId,
-//       oaId:oaId
-//     };
-//     this.http.post(app[0].host+app[0].url, JSON.stringify(data),{
-//       headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token).set('api-key', app[0].apiKey)
-//     })
-//     .subscribe(res => {
-//       resolve(res);
-//     }, (err) => {
-//       reject(err);
-//     });
-//   });
-//   }
-//   catch(e){
-//     console.log(e);
-//   }
-
-// }
-
 async getTokenNoti(projectId){
   try {
     let app = await this.appConf("MBTK");
@@ -811,9 +839,53 @@ async getUserDonation(personId){
 
 }
 
-//
+///proj/vol/upd
+async acceptJoin(personId,detail){
+  try{
+    let app = await this.appConf("PRJM");
+  console.log('requestJoin',detail);
+  return new Promise((resolve, reject) => {
+      let data = {
+          projId:detail,
+          personId:personId,
+          enabled:'Y',
+          createdDate: moment().format(),
+          voidStatus: "A",
+          joinStatus: "A"
+        };
+        this.http.post(app[0].host+app[0].contextPath+"/proj/vol/upd", JSON.stringify(data),{
+          headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token).set('api-key', app[0].apiKey)
+        })
+      .subscribe(res => {
+        resolve(res);
+      }, (err) => {
+        reject(err);
+      });
+  });
+  }catch(e){
+    console.log(e);
+  }
+    
+}
 
-     
+async getBank(){
+  try {
+    let app = await this.appConf("COLN");
+  console.log(app);
+  return new Promise((resolve, reject) => {
+    this.http.get(app[0].host+app[0].url +"/b/"+ 320,{headers: new HttpHeaders().set('token', this.token)
+    .set('api-key', app[0].apiKey)
+    }).subscribe(data => {
+      resolve(data);
+    }, err => {
+      console.log(err);
+      reject(err);
+    });
+  });
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 
 }

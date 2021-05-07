@@ -142,7 +142,11 @@ const routes: Routes = [
   {
     path: 'org-detail',
     loadChildren: () => import('./org-detail/org-detail.module').then( m => m.OrgDetailPageModule)
+  },  {
+    path: 'all-feed',
+    loadChildren: () => import('./all-feed/all-feed.module').then( m => m.AllFeedPageModule)
   },
+
 
 
 ];

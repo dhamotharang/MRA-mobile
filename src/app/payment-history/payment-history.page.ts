@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { RestProvider } from 'src/providers/rest/rest';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-payment-history',
@@ -8,30 +10,33 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class PaymentHistoryPage implements OnInit {
   fee: any;
-  feeList: any;
+  feeList = [];
   selectedYear: any = 'All';
   feeListSelected: any;
+  profile: any;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private restProvider: RestProvider,
+    private storage: Storage
   ) { }
 
   ngOnInit() {   
-    this.route.queryParams.subscribe(params => {
-      console.log('ngOnInit',params) 
-      if (this.router.getCurrentNavigation().extras.state) {
-        this.fee = this.router.getCurrentNavigation().extras.state.fee;
-        this.filterFee();
-      }
-    });
-  }
-
-  filterFee() {
-    this.feeList = this.fee.filter(x => x.orgId == 320)
-    console.log('this.feeList',this.feeList)
-    this.feeListSelected = this.feeList[0].fee;
-    console.log('feeListSelected',this.feeListSelected)
+    this.storage.get('defaultProfile').then((val:any) => {
+      this.profile = val;
+      this.restProvider.getFee(this.profile.personId).then((result:any) => {
+        // this.loadingProvider.closeLoading();
+        this.feeList = result.filter(x => x.orgProfile.orgId == 320)
+        console.log('this.feeList',this.feeList)
+        this.feeListSelected = this.feeList[0].fee;
+  
+      }, (err) => {
+        console.log('getOrg err',err);
+        // this.loadingProvider.closeLoading();
+        // this.showAlert();
+      });
+    })
 
   }
 
