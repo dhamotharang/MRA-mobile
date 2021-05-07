@@ -4,9 +4,6 @@
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
-  "server": {
-    "allowNavigation": ["dev.hss.oas.my", "*.dev.hss.oas.my"]
-  },
   "plugins": {
     "SplashScreen": {
       "launchShowDuration": 0
