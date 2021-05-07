@@ -18,11 +18,11 @@ export class LaunchPage {
     providerId: "",
     token: "",
     platform:""
-  }
-  personOrg: any;
+  } //pass this value
+  personOrg: any;   //pass this value
   userInfo: any;
   profile: any;
-  role: string;
+  role: string;   //pass this value
 
 
   constructor(
@@ -85,7 +85,7 @@ export class LaunchPage {
     });
 
   }
-  
+
 
   filterOrg() {//hardcoded
     let p = this.personOrg.filter(x => x.orgProfile.module.modId == 6 && x.orgProfile.orgId == 320)
@@ -104,7 +104,7 @@ export class LaunchPage {
 
   async checkRole() {
     let result = [];
-    let ids = ["1","3","4","5","9"]; 
+    let ids = ["1","3","4","5","9"];
     // this.loadingProvider.presentLoading();
     for (let i = 0; i < ids.length; i++) {
       await this.restProvider.checkRole(this.profile.personId, ids[i]).then((data:any) => {
@@ -127,9 +127,9 @@ export class LaunchPage {
   }
 
 
-  
 
-  navToHome() {
+
+  navToHome() {         //pass data to home.page
     let navigationExtras: NavigationExtras = {
       state: {
         user: this.param,
@@ -140,7 +140,7 @@ export class LaunchPage {
     this.router.navigate(['tabs'], navigationExtras);
   }
 
-  
+
 }
 
 

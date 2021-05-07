@@ -17,6 +17,7 @@
           <ion-col size="10">
             <p class="volunteer-name">{{data?.contact_name}}</p>
             <p class="volunteer-name">{{data?.contact}}</p>
+            <p class="volunteer-name">Hello</p>
           </ion-col>
           <ion-col size="2">
             <ion-checkbox color="primary"></ion-checkbox>
@@ -26,10 +27,16 @@
     </ion-item>
   </ion-list>
 
-  <ion-row>
+  <!-- <ion-row>
     <ion-col>
       <ion-button class="done-button" (click)="navFx()" expand="block" fill="outline">Done</ion-button>
     </ion-col>
-  </ion-row>
+  </ion-row> -->
 
 </ion-content>
+
+<ion-footer >
+  <section >
+    <ion-button class="done-button" (click)="navFx()" expand="block" fill="outline">Done</ion-button>
+  </section>
+</ion-footer>

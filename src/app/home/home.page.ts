@@ -12,10 +12,10 @@ import { IonSlides } from '@ionic/angular';
 })
 export class HomePage implements OnInit {
   @ViewChild('mySlider')  slides: IonSlides;
-  data: any;
+  data: any;     //store value from previous page
   projectList = [];
-  role: any;
-  fee: any;
+  role: any;  //store value from previous page
+  fee: any;   //store value from previous page
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -29,9 +29,9 @@ export class HomePage implements OnInit {
     spaceBetween: 10,
   };
 
-  ngOnInit() {   
+  ngOnInit() {     //take data from previous page
     this.route.queryParams.subscribe(params => {
-      console.log('ngOnInit',params) 
+      console.log('ngOnInit',params)
       if (this.router.getCurrentNavigation().extras.state) {
         this.data = this.router.getCurrentNavigation().extras.state.user;
         this.role = this.router.getCurrentNavigation().extras.state.role;
@@ -45,7 +45,7 @@ export class HomePage implements OnInit {
 
   ionViewWillEnter() {
     // this.route.queryParams.subscribe(params => {
-    //   console.log('ngOnInit',params) 
+    //   console.log('ngOnInit',params)
     //   if (this.router.getCurrentNavigation().extras.state) {
     //     this.data = this.router.getCurrentNavigation().extras.state.user;
     //     console.log('data',this.data)
@@ -138,6 +138,14 @@ export class HomePage implements OnInit {
       }
     };
     this.router.navigate(['payment-history'], navigationExtras);
+  }
+
+  navSOS() {
+    let navigationExtras: NavigationExtras = {
+      state: {
+      }
+    };
+    this.router.navigate(['sos'], navigationExtras);
   }
 
 }

@@ -5,6 +5,28 @@ import { Component } from '@angular/core';
 
 @Injectable()
 export class LoadingProvider {
+    //         content: "Please wait..."
+    //     });
+    //     this.loading.present();
+    // }
+    setupSearching() {
+      throw new Error('Method not implemented.');
+    }
+    //     this.loading.present();
+    // }
+    // setupLoadingDynamicOption(message) {
+    //     switch (message) {
+    //         case ('addToCartLoading'):
+    //             return {
+    //                 content: 'Adding To Cart'
+    //             }
+    //         default:
+    //             break;
+    //     }
+    // }
+    closeSearching() {
+      throw new Error('Method not implemented.');
+    }
     setupSaving() {
       throw new Error('Method not implemented.');
     }
@@ -15,6 +37,9 @@ export class LoadingProvider {
       throw new Error('Method not implemented.');
     }
     setupUpload() {
+      throw new Error('Method not implemented.');
+    }
+    setupLoading() {
       throw new Error('Method not implemented.');
     }
     loading;
