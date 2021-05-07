@@ -1,0 +1,136 @@
+.img-style {
+    border-radius: 50%;
+    height: 3.5rem;
+    width: 3.5rem;
+    border-width: 1px;
+    border-style: solid;
+    color: #F5F5F5;
+    object-fit: cover;
+    margin-left: 0.5rem;
+    margin-top: 0.5rem;  
+}
+
+.padding_top_bot_zero {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.label-feed-title {
+    color: #212121;
+    font-size: 1rem;
+    margin-left: 0rem;
+}
+
+.label-feed-date {
+    color: #212121;
+    font-size: 0.8rem;
+    margin-left: 0rem;
+    margin-top: -1rem;
+}
+
+.feed-card {
+    background-color: #d8d8d88a;
+    border-radius: 0.5rem;
+    height: auto;
+    width: auto;
+}
+
+.new-card {
+    height: 0.8rem;
+    width: 2rem;
+    border-width: 1px;
+    margin-top: -1rem;
+    margin-left: 0rem;
+    background-color: #96e2cd;
+}
+
+.new-label {
+    font-size: 0.8rem;
+    color: #09913f;
+    text-align: center;
+    margin-top: 0px;
+
+}
+
+.description {
+    color: black;
+    white-space: normal;
+}
+
+.description-row {
+    margin-top: -1.2rem;
+}
+
+.attach-img {
+    border-radius: 17%;
+    border: #9b9999;
+    border-width: 0.1px;
+    height: 5.5rem;
+    width: 5rem;
+    border-style: solid;
+    color: #F5F5F5;
+    object-fit: cover;
+    margin-bottom: 0.5rem;
+}
+
+.center {
+    text-align: center;
+}
+
+ion-scroll.scroll-x .scroll-content {
+    padding-top: 0px;
+}
+
+.fab-button {
+    position: absolute;
+    margin: auto;
+    border: 1px solid;
+    right: 0px;
+    border-radius: 30px;
+    height: 39px;
+}
+
+.alert-icon {
+    border: solid;
+    border-radius: 20px;
+    margin-top: 2px;
+    background-color: red;
+    color: white;
+}
+
+.no-feed {
+    font-size: 3rem;
+    margin-left: 43%;
+    margin-top: 46%;
+    color: rgba(25, 118, 210, 0.89);
+}
+
+.no-text {
+    text-align: center;
+    white-space: normal;
+    font-size: 1.2rem;
+    margin-top: 12%;
+}
+
+.fab-label {
+    margin-top: 0px;
+}
+
+ion-fab-button[data-desc] {
+    position: relative;
+  }
+  
+  ion-fab-button[data-desc]::after {
+    position: absolute;
+    content: attr(data-desc);
+    z-index: 1;
+    right: 55px;
+    bottom: 4px;
+    padding: 9px;
+    background-color: white;
+    border-radius: 8px;
+    color: black;
+    box-shadow: 0 3px 5px -1px rgba(0,0,0,0.2), 0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12);
+  }
+
+

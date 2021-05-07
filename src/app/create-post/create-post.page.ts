@@ -8,6 +8,9 @@ import { LoadingProvider } from 'src/providers/loading-provider';
 import { DomSanitizer } from '@angular/platform-browser';
 declare var window;
 import { Storage } from '@ionic/storage-angular';
+import { NativeGeocoderOptions, NativeGeocoder, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+declare var google;
 
 
 @Component({
@@ -35,6 +38,15 @@ export class CreatePostPage implements OnInit {
   staffList: any;
   participant=[]
   taskDetail: any;
+  address: string;
+  latitude: number;
+  longitude: number;
+  accuracy: number;
+  geoencoderOptions: NativeGeocoderOptions = {
+    useLocale: true,
+    maxResults: 5
+  };
+  latLng: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -46,6 +58,8 @@ export class CreatePostPage implements OnInit {
     private loadingProvider: LoadingProvider,
     private sanitize: DomSanitizer,
     private storage: Storage,
+    private geolocation: Geolocation,
+    private nativeGeocoder: NativeGeocoder
   ) { }
 
   ngOnInit() {
@@ -58,6 +72,7 @@ export class CreatePostPage implements OnInit {
         // this.navParam = this.data
       }
     });
+    // this.getGeolocation();
     this.setupPage();
   }
 
@@ -215,6 +230,62 @@ export class CreatePostPage implements OnInit {
 
   exitForm() {
     this.navCtrl.back();
+  }
+
+  attachGeolocation() {
+    this.near()
+  }
+
+    //Get current coordinates of device
+  getGeolocation() {
+    this.geolocation.getCurrentPosition().then((resp) => {
+
+      this.latitude = resp.coords.latitude;
+      this.longitude = resp.coords.longitude;
+      this.accuracy = resp.coords.accuracy;
+
+      // this.getGeoencoder(resp.coords.latitude, resp.coords.longitude);
+      this.latLng = new google.maps.LatLng(resp.coords.latitude,resp.coords.longitude);
+      console.log('getGeolocation',this.latLng)
+
+    }).catch((error) => {
+      alert('Error getting location' + JSON.stringify(error));
+    });
+  }
+
+
+  near(){
+    var service = new google.maps.places.PlacesService();
+    let request = {
+        location : this.latLng,
+        radius : '500' ,
+        // types: ["restaurant"]
+    };
+    return new Promise((resolve,reject)=>{
+        service.nearbySearch(request,function(results,status){
+            if(status === google.maps.places.PlacesServiceStatus.OK)
+            {
+              for (let i = 0; i < results.length; i++) {
+                let con = {
+                  name : results[i].name,
+                  vicinity : results[i].vicinity,
+                  lat: results[i].geometry.location.lat(),
+                  lng: results[i].geometry.location.lng(),
+                }
+                this.zone.run(() => {// to make sure UI view is updatinig
+                  this.nearbyList.push(con);
+                });
+                console.log('nearbyList',this.nearbyList)
+              }
+                // resolve(results);  
+                  
+            }else
+            {
+                reject(status);
+            }
+
+        }); 
+    });
   }
 
 

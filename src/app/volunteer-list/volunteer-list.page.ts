@@ -29,20 +29,25 @@ export class VolunteerListPage implements OnInit {
         this.navParam = this.router.getCurrentNavigation().extras.state.user;
         this.role = this.router.getCurrentNavigation().extras.state.role;
         console.log('navParam',this.navParam,this.role)
+        this.getVolunteerList();
       }
     });
 
   }
 
   ionViewWillEnter() {
-    this.getVolunteerList();
+    if (this.navParam.projId) {
+      this.getVolunteerList();
+    }
+
   }
 
   getVolunteerList() {
     this.loadingProvider.presentLoading();
     this.restProvider.getVolunteerList(this.navParam.projId).then((result:any) => {
       console.log('getVolunteerList',result);
-      this.volunteerList = result;
+      let p = result.filter(x => x.joinStatus == 'A')
+      this.volunteerList = p;
       this.loadingProvider.closeLoading();
     }, (err) => {
       this.loadingProvider.closeLoading();
@@ -60,6 +65,7 @@ export class VolunteerListPage implements OnInit {
         data: null
       }
     };
+    console.log('navigationExtras',navigationExtras)
     this.router.navigate(['add-volunteer'], navigationExtras);
   }
 

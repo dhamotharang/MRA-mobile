@@ -67,6 +67,7 @@ export class HomePage implements OnInit {
     this.storage.get('defaultPersonId').then((val:any) => {
       this.restProvider.getStaffProjectList(val).then((result:any) => {
         console.log('getListProjects',result);
+        // let p = result.filter(x => x.joinStatus == 'A')
         this.projectList = result;
         this.loadingProvider.closeLoading();
       }, (err) => {
@@ -100,7 +101,8 @@ export class HomePage implements OnInit {
     this.storage.get('defaultPersonId').then((val:any) => {
         this.restProvider.getProjectInvolvedList(val).then((result:any) => {
           console.log('getListProjects',result);
-          this.projectList = result;
+          let p = result.filter(x => x.joinStatus == 'A')
+          this.projectList = p;
           this.loadingProvider.closeLoading();
         }, (err) => {
           this.loadingProvider.closeLoading();

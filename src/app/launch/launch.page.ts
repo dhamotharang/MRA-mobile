@@ -34,7 +34,7 @@ export class LaunchPage {
   ) {}
 
   ngOnInit() {
-// this.restProvider.appConf1("MBOA")
+    // this.restProvider.appConfHttp("MGPR")
   }
 
   async googleSignup() {
@@ -51,6 +51,15 @@ export class LaunchPage {
     this.storage.set('provider', this.param);
     this.storage.set('isLoggedIn', true);
     this.getProfile()
+  }
+
+    staff() {
+    this.param.providerCode = "google";
+    this.param.providerId = "annas@oas.my";
+    this.storage.set('profilePictUrl', 'https://res.cloudinary.com/myjiran/image/upload/v1541160270/mobile_asset/ion-ios-contact.png');
+    this.storage.set('provider', this.param);
+    this.storage.set('isLoggedIn', true);
+    this.getProfile();
   }
 
   getProfile(){
@@ -89,6 +98,7 @@ export class LaunchPage {
 
   filterOrg() {//hardcoded
     let p = this.personOrg.filter(x => x.orgProfile.module.modId == 6 && x.orgProfile.orgId == 320)
+    console.log('p',p)
     if (p.length == 0) {  //for now vol
       this.storage.set('defaultPersonId', this.profile.personId);
       this.storage.set('personOrgs', 320)
@@ -123,6 +133,7 @@ export class LaunchPage {
     else {
       this.role = 'volunteer'
     }
+    this.storage.set('role', this.role);
     this.navToHome();
   }
 
@@ -140,20 +151,22 @@ export class LaunchPage {
     this.router.navigate(['tabs'], navigationExtras);
   }
 
+  volunteer() {
+    this.param.providerCode = "google";
+    this.param.providerId = "sitivolunteer@gmail.com";
+    this.storage.set('profilePictUrl', 'https://res.cloudinary.com/myjiran/image/upload/v1541160270/mobile_asset/ion-ios-contact.png');
+    this.storage.set('provider', this.param);
+    this.storage.set('isLoggedIn', true);
+    this.getProfile();
+  }
+
   
 }
 
 
 
 
-  // volunteer() {
-  //   this.param.providerCode = "google";
-  //   this.param.providerId = "nisahasin95@gmail.com";
-  //   this.storage.set('profilePictUrl', 'https://res.cloudinary.com/myjiran/image/upload/v1541160270/mobile_asset/ion-ios-contact.png');
-  //   this.storage.set('provider', this.param);
-  //   this.storage.set('isLoggedIn', true);
-  //   this.getProfile('volunteer');
-  // }
+
 
   // staff() {
   //   this.param.providerCode = "google";

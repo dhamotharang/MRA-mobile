@@ -1,10 +1,10 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons>
+    <!-- <ion-buttons>
       <ion-back-button defaultHref="tabs"></ion-back-button>
-    </ion-buttons>
+    </ion-buttons> -->
     <img slot="secondary" src="assets/mra.png" class="navbar-logo" />
-    <ion-title slot="secondary">Feed</ion-title>
+    <ion-title slot="secondary">Your Feed</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -77,42 +77,5 @@
       </ion-col>
     </ion-row>
   </div>
-
-
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button>
-      <ion-icon ios="create" md="create"></ion-icon>
-    </ion-fab-button>
-    <ion-fab-list side="top">
-      <!-- <ion-item class="fab-button">
-      <ion-icon name="alert" class="alert-icon"></ion-icon>
-      <ion-label class="fab-label">Alert</ion-label>
-    </ion-item>
-    <ion-item class="fab-button">
-      <ion-icon slot="end" name="megaphone" class="alert-icon"></ion-icon>
-      <ion-label class="fab-label">Announcement</ion-label>
-    </ion-item>
-    <ion-item class="fab-button">
-      <ion-icon slot="end" name="heart" class="alert-icon"></ion-icon>
-      <ion-label class="fab-label">Care</ion-label>
-    </ion-item>
-    <ion-item class="fab-button">
-      <ion-icon slot="end" name="newspaper-outline" class="alert-icon"></ion-icon>
-      <ion-label class="fab-label">Feed</ion-label>
-    </ion-item> -->
-      <!-- <ion-fab-button color="danger" [routerLink]="['/create-post']" data-desc="Alert">
-        <ion-icon name="alert"></ion-icon>
-      </ion-fab-button>
-      <ion-fab-button color="danger" [routerLink]="['/create-post']" data-desc="Announcement">
-        <ion-icon name="megaphone"></ion-icon>
-      </ion-fab-button>
-      <ion-fab-button color="danger" [routerLink]="['/create-post']" data-desc="Care">
-        <ion-icon name="heart"></ion-icon>
-      </ion-fab-button> -->
-      <ion-fab-button color="danger" (click)="navNextPage()" data-desc="Feed">
-        <ion-icon name="newspaper-outline"></ion-icon>
-      </ion-fab-button>
-    </ion-fab-list>
-  </ion-fab>
 
 </ion-content>

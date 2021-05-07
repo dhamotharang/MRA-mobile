@@ -3,6 +3,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { RestProvider } from 'src/providers/rest/rest';
 import { Storage } from '@ionic/storage-angular';
 import { ImageProvider } from 'src/providers/image.provider';
+import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-record-payment',
@@ -25,7 +26,9 @@ export class RecordPaymentPage implements OnInit {
     private camera: Camera,
     private restProvider: RestProvider,
     private storage: Storage,
-    private imageProvider: ImageProvider
+    private imageProvider: ImageProvider,
+    private router: Router,
+    private route: ActivatedRoute,
   ) { }
 
   async ngOnInit() {
@@ -69,6 +72,21 @@ export class RecordPaymentPage implements OnInit {
       // this.showAlert();
     });
 
+  }
+
+  createReceipt(data) {
+    let navigationExtras: NavigationExtras = {
+      state: {
+        role:'user',
+        code:data.type.cbctId,
+        collectCode:data.cbcId,
+        org: this.orgId,
+        personId: data.personProfile.personId,
+        personName: data.personProfile.name,
+        donateData:data
+      }
+    };
+    this.router.navigate(['receipt-form'], navigationExtras);
   }
 
 }

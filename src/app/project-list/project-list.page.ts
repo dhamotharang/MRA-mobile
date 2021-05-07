@@ -27,12 +27,15 @@ export class ProjectListPage implements OnInit {
    }
 
   ngOnInit() {
+    this.storage.get('defaultPersonId').then((val:any) => {
+      this.personId = val
+      this.displayBasedRole()
+    })
     this.route.queryParams.subscribe(params => {      //get data from previous page
       if (this.router.getCurrentNavigation().extras.state) {
         this.navParam = this.router.getCurrentNavigation().extras.state.action;
         this.role = this.router.getCurrentNavigation().extras.state.role;
         console.log('navParam',this.navParam,this.role)
-        this.displayBasedRole()
       }
     });
   }
@@ -68,20 +71,14 @@ export class ProjectListPage implements OnInit {
 
   getStaffInvolved() {
     this.loadingProvider.presentLoading();
-    this.storage.get('defaultPersonId').then((val:any) => {
-      this.restProvider.getStaffProjectList(val).then((result:any) => {
-        console.log('getListProjects',result);
-        this.projectList = result;
-        this.loadingProvider.closeLoading();
-      }, (err) => {
-        this.loadingProvider.closeLoading();
-        console.log('getListProjects err',err);
-        // this.loadingProvider.closeLoading();
-        // this.showAlert();
-      });
-    })
-
-
+    this.restProvider.getStaffProjectList(this.personId).then((result:any) => {
+      this.projectList = result;
+      this.loadingProvider.closeLoading();
+    }, (err) => {
+      this.loadingProvider.closeLoading();
+      // this.loadingProvider.closeLoading();
+      // this.showAlert();
+    });
   }
 
 
@@ -89,12 +86,10 @@ export class ProjectListPage implements OnInit {
       this.loadingProvider.presentLoading();
       this.storage.get('personOrgs').then((val:any) => {
       this.restProvider.getProjectList(val).then((result:any) => {
-        console.log('getListProjects',result);
         this.projectList = result;
         this.loadingProvider.closeLoading();
       }, (err) => {
         this.loadingProvider.closeLoading();
-        console.log('getListProjects err',err);
         // this.loadingProvider.closeLoading();
         // this.showAlert();
       });
@@ -103,18 +98,14 @@ export class ProjectListPage implements OnInit {
 
   getVolunteerInvolved() {
     this.loadingProvider.presentLoading();
-    this.storage.get('defaultPersonId').then((val:any) => {
-    this.restProvider.getProjectInvolvedList(val).then((result:any) => {
-      console.log('getProjectInvolved',result);
+    this.restProvider.getProjectInvolvedList(this.personId).then((result:any) => {
       this.projectList = result;
       this.loadingProvider.closeLoading();
     }, (err) => {
       this.loadingProvider.closeLoading();
-      console.log('getProjectInvolved err',err);
       // this.loadingProvider.closeLoading();
       // this.showAlert();
     });
-    })
   }
 
 

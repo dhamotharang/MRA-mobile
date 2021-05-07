@@ -20,7 +20,10 @@ export class AddVolunteerPage implements OnInit {
   taskDetail: any;
   orgId: any;
   oaId: any;
+  restParam: any;
   andList: any;
+  profile: any;
+  mediaList=[];
 
 
   constructor(
@@ -33,20 +36,22 @@ export class AddVolunteerPage implements OnInit {
     private navCtrl: NavController,
   ) { }
 
-  async ngOnInit() {
-    await this.storage.get('defaultProfile').then((val:any) => {this.oaId = val.oaId})
-    await this.storage.get('personOrgs').then((val:any) => {console.log('personOrgs',val);this.orgId = val})
+  ngOnInit() {
+    this.storage.get('defaultProfile').then((val:any) => {this.profile = val})
     this.route.queryParams.subscribe(params => {      //get data from previous page
       if (this.router.getCurrentNavigation().extras.state) {
         this.navParam = this.router.getCurrentNavigation().extras.state.user;
         this.fromPage = this.router.getCurrentNavigation().extras.state.from;
         this.taskDetail = this.router.getCurrentNavigation().extras.state.data;
         console.log('navParam',this.navParam,this.fromPage)
-        if (this.fromPage == 'volunteer-list') {
-          this.getAllVolunteer();
+        if (this.fromPage == 'volunteer-list') {  //include not involve volunteer
+          this.storage.get('personOrgs').then((val:any) => {
+            this.orgId = val;
+            this.getAllVolunteer();
+          })
         }
         else {
-          this.getAllParticipant();
+          this.getAllParticipant(); //volunteer that involve only
         }
       }
     });
@@ -56,8 +61,9 @@ export class AddVolunteerPage implements OnInit {
   getAllVolunteer() {
     this.loadingProvider.presentLoading();
     this.restProvider.getAllVolunteerList('VOLUNTEER',this.orgId).then((result:any) => {
-      console.log('getVolunteerList',result);
-      this.allVolunteerList = result;
+      let p = result.filter(x => x.voidStatus == 'A')
+      console.log('getVolunteerList',p);
+      this.allVolunteerList = p;
       this.loadingProvider.closeLoading();
     }, (err) => {
       this.loadingProvider.closeLoading();
@@ -83,13 +89,15 @@ export class AddVolunteerPage implements OnInit {
           projId:this.navParam.projId,
           personId:this.chosenVolunteer[i].personId,
           enabled:'Y',
-          voidStatus: "A"
+          voidStatus: "A",
+          joinStatus: "I"
         }
         body.push(data);
       }
       this.restProvider.addVolunteer(body).then((result:any) => {
         this.loadingProvider.closeLoading();
         this.exitForm();
+        this.createAnnouncement();
       }, (err) => {
         // console.log(err);
         this.loadingProvider.closeLoading();
@@ -120,7 +128,64 @@ export class AddVolunteerPage implements OnInit {
 
   }
 
+  createAnnouncement() {  //send announcement to volunteer that were invite
+    console.log('createAnnouncement')
+    for (let i = 0; i < this.chosenVolunteer.length; i++) {
+      this.restParam = [{
+        personId : this.chosenVolunteer[i].personId,
+        hostId : this.profile.personId,
+        profilePictUrl: this.chosenVolunteer[i].profilePicture,
+        referFrom : null,
+        orgId : this.orgId,
+        title : 'You have been invited to join project' + '' + this.navParam.projName,
+        notes : 'You have been invited to join project' + '' + this.navParam.projName,
+        programStart: this.navParam.projectStart,
+        programEnd: this.navParam.projectEnd,
+        location : this.navParam.location,
+        duration : 7,
+        subModule: 'AN',
+        paramType : 'I',
+        privateEvent: false,
+        orgName : 'Malaysian Relief Agency',
+        orgLogo : 'https://res.cloudinary.com/myjiran/image/upload/v1612149843/org_logo/gzr4ptrq3gaavfqqytmg.png'
+      }];
+    }
+    this.submitAnnouncement()
+  }
+
+  async submitAnnouncement(){
+    // this.loadingProvider.setupSaving();
+    let formData = await this.processData();
+    this.restProvider.createAnnouncement(formData).then((result:any) => {
+      console.log(result);
+      // this.loadingProvider.closeSaving();
+      // this.nav.setRoot(TabsPage,{tabIndex: 0});
+      // this.navCtrl.pop();
+    }, (err) => {
+      console.log(err);
+      // this.loadingProvider.closeSaving();
+      // this.showAlert();
+    });
+  }
+
+
+  processData(){
+    const formData: FormData = new FormData();
+    for (let i = 0; i < this.mediaList.length; i++) {
+      console.log('blob array ');
+      if(this.mediaList[i].blob != null){
+        formData.append('file', this.mediaList[i].blob, this.mediaList[i].type);
+      }
+    }
+    formData.append('params', new Blob([JSON.stringify(this.restParam)], {
+                type: "application/json"
+            }));
+    return formData;
+  }
+
+  
   getAllParticipant() {
+    console.log('getAllParticipant',this.navParam.projId)
     this.loadingProvider.presentLoading();
     this.restProvider.getVolunteerList(this.navParam.projId).then((result:any) => {
       this.allVolunteerList = result;

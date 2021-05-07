@@ -1,8 +1,8 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons>
+    <!-- <ion-buttons>
       <ion-back-button defaultHref="tabs"></ion-back-button>
-    </ion-buttons>
+    </ion-buttons> -->
     <img slot="secondary" src="assets/mra.png" class="navbar-logo" />
     <ion-title slot="secondary">Notifications</ion-title>
   </ion-toolbar>
@@ -19,7 +19,7 @@
     <ion-row class="ion-justify-content-between ion-align-items-center">
       <ion-col>
         <ion-slides [options]="option">
-          <ion-slide>
+          <ion-slide  *ngFor='let data of notiList'>
             <ion-card class="ion-no-margin">
               <img class="ion-padding" src="../../assets/mra.png" alt="">
               <!-- <ion-item>
@@ -28,12 +28,12 @@
               </ion-item> -->
 
               <ion-card-content class="ion-text-left card-content">
-                You have received invitation to join project : Gaza Warming Aid
-                <ion-row style="text-align: center;">
-                  <ion-col (click)="acceptJoin()">
+                {{data?.title}}
+                <ion-row *ngIf='data?.paramType == "I"' style="text-align: center;">
+                  <ion-col (click)="acceptJoin(data)">
                     <ion-button color="primary">Accept</ion-button>
                   </ion-col>
-                  <ion-col>
+                  <ion-col (click)="rejectJoin()">
                     <ion-button color="danger">Reject</ion-button>
                   </ion-col>
                 </ion-row>
@@ -41,13 +41,9 @@
             </ion-card>
           </ion-slide>
 
-          <ion-slide>
+          <!-- <ion-slide>
             <ion-card class="ion-no-margin">
               <img class="ion-padding" src="../../assets/mra.png" alt="">
-              <!-- <ion-item>
-                <ion-icon name="calendar-outline"></ion-icon>
-                <ion-label>Mon, April 10 2021 at 10:00AM</ion-label>
-              </ion-item> -->
 
               <ion-card-content class="ion-text-left card-content">
                 You have received invitation to join project: Qurban Kemboja
@@ -61,15 +57,11 @@
                 </ion-row>
               </ion-card-content>
             </ion-card>
-          </ion-slide>
+          </ion-slide> -->
 
-          <ion-slide>
+          <!-- <ion-slide>
             <ion-card class="ion-no-margin">
               <img class="ion-padding" src="../../assets/mra.png" alt="">
-              <!-- <ion-item>
-                <ion-icon name="calendar-outline"></ion-icon>
-                <ion-label>Mon, April 10 2021 at 10:00AM</ion-label>
-              </ion-item> -->
 
               <ion-card-content class="ion-text-left card-content">
                 You have received invitation to join project: Banjir Pahang
@@ -83,7 +75,7 @@
                 </ion-row>
               </ion-card-content>
             </ion-card>
-          </ion-slide>
+          </ion-slide> -->
 
         </ion-slides>
       </ion-col>
