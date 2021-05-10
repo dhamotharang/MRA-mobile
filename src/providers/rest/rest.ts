@@ -13,23 +13,23 @@ import _ from 'lodash';
 @Injectable()
 
 export class RestProvider {
- 
+
 
     appConfheaders: any = new HttpHeaders().set('Content-Type', 'application/json');
     token: any = 'sdf2f6c2h5g333431293813113126528162203526172114910252443223363773918181930INTERNAL';
-  
+
 
     constructor(
         public http: HttpClient,
         // public HTTP: HTTP,
-        public transfer: FileTransfer, 
+        public transfer: FileTransfer,
         private file: File,
     ) {
     }
 
     appConf(app) {
         return new Promise((resolve, reject) => {
-            let devplink = 'http://192.168.0.5:8181/hss-start-0.0.1-SNAPSHOT/app/config/r';  //192.168.0.5 //192.168.43.221  //dev.hss.oas.my
+            let devplink = 'http://192.168.0.161:8181/hss-start-0.0.1-SNAPSHOT/app/config/r';  //192.168.0.5 //192.168.43.221  //dev.hss.oas.my
             this.http.post(devplink, [app], {
                 headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token)
             })
@@ -55,7 +55,7 @@ export class RestProvider {
   //                 console.log(err);
   //                 reject(err);
   //             });
-              
+
   //     });
 
   // }
@@ -89,7 +89,7 @@ export class RestProvider {
       } catch (error) {
         console.log(error);
       }
-  
+
     }
 
 
@@ -110,10 +110,10 @@ export class RestProvider {
       } catch (error) {
         console.log(error);
       }
-  
+
     }
 
-    //hss-project-0.0.1-SNAPSHOT/proj/comm/s/{personId} 
+    //hss-project-0.0.1-SNAPSHOT/proj/comm/s/{personId}
     async getStaffProjectList(personId){
       try{
         let app = await this.appConf("PRJL");
@@ -131,7 +131,7 @@ export class RestProvider {
       }catch(e){
         console.log(e);
       }
-  
+
   }
 
     //http://localhost:8181/hss-project-0.0.1-SNAPSHOT/proj/project/v/320
@@ -152,7 +152,7 @@ export class RestProvider {
         }catch(e){
           console.log(e);
         }
-    
+
     }
 
 
@@ -225,7 +225,7 @@ export class RestProvider {
         }catch(e){
           console.log(e);
         }
-    
+
     }
 
     //http://localhost:8181/hss-project-0.0.1-SNAPSHOT/proj/feed/v/{projId}
@@ -246,7 +246,7 @@ export class RestProvider {
         }catch(e){
           console.log(e);
         }
-    
+
     }
 
 
@@ -276,12 +276,12 @@ export class RestProvider {
         }catch(e){
           console.log(e);
         }
-    
+
     }
     //http://localhost:8181/hss-project-0.0.1-SNAPSHOT/proj/task/v/{projId}
     async getTasksList(projId){
         try{
-          let app = await this.appConf("PRJM");   
+          let app = await this.appConf("PRJM");
         console.log(app);
         return new Promise((resolve, reject) => {
           this.http.get(app[0].host+app[0].contextPath+"/proj/task/v/"+projId,{headers: new HttpHeaders().set('token', this.token)
@@ -296,13 +296,13 @@ export class RestProvider {
         }catch(e){
           console.log(e);
         }
-    
+
     }
 
     //http://localhost:8181/hss-project-0.0.1-SNAPSHO/proj/task/k/v/{taskId}
     async getTasksCommentList(taskId){
       try{
-        let app = await this.appConf("PRJM");   
+        let app = await this.appConf("PRJM");
       console.log(app);
       return new Promise((resolve, reject) => {
         this.http.get(app[0].host+app[0].contextPath+"/proj/task/k/v/"+taskId,{headers: new HttpHeaders().set('token', this.token)
@@ -317,7 +317,7 @@ export class RestProvider {
       }catch(e){
         console.log(e);
       }
-  
+
   }
 
 
@@ -381,9 +381,9 @@ export class RestProvider {
     return new Promise((resolve, reject) => {
       console.log('form',form)
           let data = {
-            taskId:form.taskId, 
-            taskComment:form.taskComment, 
-            taskPicture:form.taskPicture, 
+            taskId:form.taskId,
+            taskComment:form.taskComment,
+            taskPicture:form.taskPicture,
             personId:personId
           }
           this.http.post(app[0].host+app[0].contextPath+"/proj/task/k/u", JSON.stringify(data),{
@@ -400,7 +400,7 @@ export class RestProvider {
     }
 
 }
-      
+
       //http://localhost:8181/hss-organization-admin-0.0.1-SNAPSHOT/gallery/r
       async getLiveFeed(){
         try{
@@ -419,7 +419,7 @@ export class RestProvider {
         }catch(e){
           console.log(e);
         }
-    
+
     }
 
 
@@ -441,7 +441,7 @@ export class RestProvider {
       }catch(e){
         console.log(e);
       }
-  } 
+  }
 
 
     //http://localhost:8181/hss-project-0.0.1-SNAPSHOT/proj/vol/v/{projId}
@@ -462,7 +462,7 @@ export class RestProvider {
       }catch(e){
         console.log(e);
       }
-  }   
+  }
 
 
   //http://localhost:8181/hss-project-0.0.1-SNAPSHOT/proj/vol/u
@@ -483,7 +483,7 @@ export class RestProvider {
       console.log(e);
     }
 
-  }  
+  }
 
   //Rest for Feedback page
   async createFeedback(data){
@@ -505,7 +505,7 @@ export class RestProvider {
       console.log(error);
     }
 
-  } 
+  }
 
    async deleteHosting(acid){
     try{
@@ -635,9 +635,9 @@ export class RestProvider {
       } catch (error) {
         console.log(error);
       }
-  
+
     }
-  
+
     cloud_upload(uri,url,tag,folder): Promise<any>{
       return new Promise((resolve,reject) => {
         const fileTransfer: FileTransferObject = this.transfer.create();
@@ -696,7 +696,7 @@ export class RestProvider {
 
 
 
-    
+
 //----------------------------------------- mobile myjiran rest ------------------------------------
 
 
@@ -725,7 +725,7 @@ async checkRole(personId, id){
 //     let app = await this.appConf("MGRA");
 //     console.log(app);
 //     return new Promise((resolve, reject) => {
-//       let ids = ["1","3","4","5","9"]; 
+//       let ids = ["1","3","4","5","9"];
 //       var urlList = [];
 //       // for(let i=0; i < ids.length; i++){
 //       //   let url = this.http.get(app[0].host+app[0].url +"/"+ personId +"/"+ ids[i])
@@ -865,7 +865,7 @@ async acceptJoin(personId,detail){
   }catch(e){
     console.log(e);
   }
-    
+
 }
 
 async getBank(){
@@ -886,7 +886,24 @@ async getBank(){
     console.log(error);
   }
 }
+async getContactCounter(orgid,counter){
+  try {
+    let app = await this.appConf("GECL");
+  return new Promise((resolve, reject) => {
+    this.http.get(app[0].host+app[0].url+"/"+orgid+'?start='+counter,{headers: new HttpHeaders().set('token', this.token)
+    .set('api-key', app[0].apiKey)
+    }).subscribe(res => {
+        resolve(res);
+      }, (err) => {
+        reject(err);
+      });
+  });
+  } catch (error) {
+    console.log(error);
+  }
+
+}
 
 
 }
- 
+
