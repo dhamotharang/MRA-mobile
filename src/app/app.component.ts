@@ -34,4 +34,26 @@ export class AppComponent {
     });
   }
 
+  checkingLogin() {
+    this.storage.get('isLoggedIn').then((val:any) => {
+      console.log('log? ', val);
+      if(val == true){
+        this.storage.get('isNewUser').then((res:any) => {
+          console.log(res);
+          if(res == false){
+            // this.getOrg();
+            // this.splashScreen.hide();
+            // this.nav.setRoot(TabsPage, {condition:'main',opentab: 1});
+          }else{
+            // this.splashScreen.hide();
+            // this.nav.setRoot(ProfileModal);
+          }
+        });
+      }else{
+        // this.splashScreen.hide();
+        // this.nav.setRoot("HomePage");
+      }
+    });
+  }
+
 }

@@ -147,7 +147,8 @@ export class AddVolunteerPage implements OnInit {
         paramType : 'I',
         privateEvent: false,
         orgName : 'Malaysian Relief Agency',
-        orgLogo : 'https://res.cloudinary.com/myjiran/image/upload/v1612149843/org_logo/gzr4ptrq3gaavfqqytmg.png'
+        orgLogo : 'https://res.cloudinary.com/myjiran/image/upload/v1612149843/org_logo/gzr4ptrq3gaavfqqytmg.png',
+        projectId : this.navParam.projId
       }];
     }
     this.submitAnnouncement()
