@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { RestProvider } from 'src/providers/rest/rest';
-import { NavController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { Router, NavigationExtras } from '@angular/router';
 import { Storage } from '@ionic/storage-angular';
 import { LoadingProvider } from 'src/providers/loading-provider';
-import '@codetrix-studio/capacitor-google-auth';
-import { Plugins } from '@capacitor/core';
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-home',
@@ -30,7 +30,9 @@ export class LaunchPage {
     private navCtrl: NavController,
     private router: Router,
     private storage: Storage,
-    private loadingProvider: LoadingProvider
+    private loadingProvider: LoadingProvider,
+    private googlePlus: GooglePlus,
+    private alertCtrl: AlertController
   ) {}
 
   ngOnInit() {
@@ -38,9 +40,29 @@ export class LaunchPage {
   }
 
   async googleSignup() {
-    const googleUser = await Plugins.GoogleAuth.signIn();
-    console.log('my user: ', googleUser);
-    this.loginFx(googleUser)
+    if (Capacitor.platform !== 'web') {
+      this.googlePlus.login({}).then((result:any) => {
+        console.log('googleSignup',result)
+        alert(result)
+        this.loginFx(result)
+      })
+      .catch(err => console.error(err));
+    }
+    else {
+      this.presentLoginForm()
+    }
+  }
+
+  async presentLoginForm() {
+    const alert = await this.alertCtrl.create({
+      message: 'Login',
+      // subHeader: '10% of battery remaining',
+      inputs: [{
+        name: 'Email',
+      }],
+      buttons: ['OK']
+     });
+     await alert.present(); 
   }
 
   loginFx(data) {

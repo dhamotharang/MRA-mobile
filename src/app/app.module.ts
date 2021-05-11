@@ -24,6 +24,7 @@ import { PushNotiProvider } from 'src/providers/push-noti.provider';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { HTTP } from '@ionic-native/http/ngx';
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { HTTP } from '@ionic-native/http/ngx';
     PushNotiProvider,
     Geolocation,
     NativeGeocoder,
-    HTTP
+    HTTP,
+    GooglePlus
   ],
   bootstrap: [AppComponent],
 })
