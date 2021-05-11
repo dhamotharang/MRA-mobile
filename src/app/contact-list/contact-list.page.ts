@@ -40,17 +40,24 @@ export class ContactListPage implements OnInit {
 
   ionViewWillEnter(){
     this.getContact();
+    console.log("Value from ionViewWillEnter");
+
   }
 
   ionViewDidEnter(){
     console.log('exist list from sos-org', this.contactList);
-    this.storage.get('defaultPersonId').then((val:any) => {
+    this.storage.get('defaultProfile').then((val:any) => {
+      console.log("val from ionViewDidEnter",val)
       this.personid = val;
       this.getList();
     });
+    this.storage.get('defaultPersonId').then((val:any) => {
+      console.log("val from defaultPersonId",val)
+    });
   }
 
-  ngOnInit() {    //take data fromm previous page
+  ngOnInit() {
+  //take data fromm previous page
   //   this.route.queryParams.subscribe(params => {
   //   console.log('ngOnInit',params)
   //   if (this.router.getCurrentNavigation().extras.state) {
@@ -67,32 +74,32 @@ export class ContactListPage implements OnInit {
   getOrg(){
     // this.loadingProvider.presentLoading();
     this.storage.get('defaultProfile').then((val:any) => {   //untuk guna storage
-      console.log("val",val)
+      console.log("val from getOrg",val)
       this.profile= val
     })
 
   }
 
-
-  // navFx() {
-  //   this.navCtrl.navigateBack('/sos');
-  // }
-
   getList(){
-    //this.loadingProvider.setupSearching();
-    this.counter = 0;
-    this.restProvider.getContactCounter(this.profile.orgId,this.counter).then((result:any) => {
-      console.log('return data ',result);
-      console.log('Print something', "Kotak hati");
-      this.contactList = result;
-      this.checkList();
-      //this.loadingProvider.closeSearching();
-    }, (err) => {
-      console.log(err);
-      this.showAlert();
-      //this.loadingProvider.closeSearching();
+
+    this.storage.get('personOrgs').then((val:any) => {
+      console.log('personOrgs value is', val);
+      this.counter = 1;
+      console.log("orgId",val);
+      this.restProvider.getContactCounter(val,this.counter).then((result:any) => {
+        console.log('return data ',result);
+        this.contactList = result;
+        this.checkList();
+        //this.loadingProvider.closeSearching();
+      }, (err) => {
+        console.log(err);
+        this.showAlert();
+        //this.loadingProvider.closeSearching();
+      });
+
     });
   }
+
   showAlert() {
     throw new Error('Method not implemented.');
   }
@@ -145,23 +152,41 @@ export class ContactListPage implements OnInit {
 
   getContact(){               //to get list of contact
     //this.loadingProvider.setupLoading();
-    this.restProvider.getEmergencyList(this.personid).then((result:any) => {
-      console.log(result);
-      if(result == null){
-        this.contactList = [];
-      }else{
-        this.contactList = result;  //give value to contactList from result
-      }
-      //this.loadingProvider.closeLoading();
-    }, (err) => {
-      console.log(err);
-      //this.loadingProvider.closeLoading();
-      this.showAlert();
-    });
-  }
+    // this.restProvider.getEmergencyList(66384).then((result:any) => {
+    //   console.log("this is result value",result);
+    //   console.log("this.personid",this.profile);
+    //   if(result == null){
+    //     this.contactList = [];
+    //   }else{
+    //     this.contactList = result;  //give value to contactList from result
+    //   }
+    //   console.log(result);
+    //   //this.loadingProvider.closeLoading();
+    // }, (err) => {
+    //   console.log(err);
+    //   //this.loadingProvider.closeLoading();
+    //   this.showAlert();
+    // });
 
-  // addContact(){
-  //   this.navCtrl.push("SosOrg", {existList: this.contactList, callback: this.myCallbackFunction});    //existList first declaration
-  // }
+    this.storage.get('defaultProfile').then((val:any) => {   //untuk guna storage
+      console.log("val from getOrg",val)
+      this.profile= val
+      this.restProvider.getEmergencyList(this.profile.personId).then((result:any) => {
+        //console.log("this is result value",result);
+        console.log("this.personid",this.profile.personId);
+        if(result == null){
+          this.contactList = [];
+        }else{
+          this.contactList = result;  //give value to contactList from result
+        }
+        console.log(result);
+        //this.loadingProvider.closeLoading();
+      }, (err) => {
+        console.log(err);
+        //this.loadingProvider.closeLoading();
+        this.showAlert();
+      });
+    })
+  }
 
 }

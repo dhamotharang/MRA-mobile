@@ -15,7 +15,7 @@
       <ion-label no-margin (click)="navNextPage(data)">
         <ion-row>
           <ion-col size="10">
-            <p class="volunteer-name">{{data?.contact_name}}</p>
+            <p class="volunteer-name">{{data?.name}}</p>
             <p class="volunteer-name">{{data?.contact}}</p>
           </ion-col>
           <ion-col size="2">
@@ -26,10 +26,10 @@
     </ion-item>
   </ion-list>
 
-  <ion-row>
-    <ion-col>
-      <ion-button class="done-button" (click)="navFx()" expand="block" fill="outline">Done</ion-button>
-    </ion-col>
-  </ion-row>
-
 </ion-content>
+
+<ion-footer>
+  <ion-col>
+    <ion-button (click)="navFx()" expand="block" fill="outline">Done</ion-button>
+  </ion-col>
+</ion-footer>
