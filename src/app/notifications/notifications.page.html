@@ -18,14 +18,47 @@
     </ion-row> -->
     <ion-row class="ion-justify-content-between ion-align-items-center">
       <ion-col>
-        <ion-slides [options]="option">
-          <ion-slide  *ngFor='let data of notiList'>
+        
+        <ion-card *ngFor="let data of notiList" class="task-card">
+          <ion-row>
+            <ion-col size="3">
+              <img #img1 (error)="img1.src=imageProvider.imageErrorHandle('profile')" class="img-style" [src]="data?.orgLogo">
+            </ion-col>
+            <ion-col>
+              <ion-row class="space">
+                <ion-col>
+                  <p class="label-task-date">{{data?.createdDate| date: 'EEEE, dd MMMM yyyy'}}</p>
+                </ion-col>
+              </ion-row>
+              <ion-row class="space">
+                <ion-col>
+                  <p class="description">{{data?.title}}</p>
+                </ion-col>
+              </ion-row>
+              <ion-row *ngIf='notAccept(data) == true' style="text-align: center;">
+                <ion-col (click)="acceptJoin(data)">
+                  <ion-button class="accept-button" color="primary">Accept</ion-button>
+                </ion-col>
+                <ion-col (click)="rejectJoin()">
+                  <ion-button class="rej-button" color="gray">Reject</ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+
+      
+          <!-- <ion-row class="description-row">
+            <ion-col>
+              <p class="description">{{data?.title}}</p>
+            </ion-col>
+          </ion-row> -->
+
+        </ion-card>
+        <!-- <ion-slides [options]="option"> -->
+
+          <!-- <ion-slide  *ngFor='let data of notiList'>
             <ion-card class="ion-no-margin">
-              <img class="ion-padding" src="../../assets/mra.png" alt="">
-              <!-- <ion-item>
-                <ion-icon name="calendar-outline"></ion-icon>
-                <ion-label>Mon, April 10 2021 at 10:00AM</ion-label>
-              </ion-item> -->
+              <img class="ion-padding" [src]="[data?.orgLogo]" alt="">
 
               <ion-card-content class="ion-text-left card-content">
                 {{data?.title}}
@@ -39,9 +72,9 @@
                 </ion-row>
               </ion-card-content>
             </ion-card>
-          </ion-slide>
+          </ion-slide> -->
 
-          <ion-slide>
+          <!-- <ion-slide>
             <ion-card class="ion-no-margin">
               <img class="ion-padding" src="../../assets/mra.png" alt="">
 
@@ -57,7 +90,7 @@
                 </ion-row>
               </ion-card-content>
             </ion-card>
-          </ion-slide>
+          </ion-slide> -->
 
           <!-- <ion-slide>
             <ion-card class="ion-no-margin">
@@ -77,7 +110,7 @@
             </ion-card>
           </ion-slide> -->
 
-        </ion-slides>
+        <!-- </ion-slides> -->
       </ion-col>
     </ion-row>
   </ion-grid>

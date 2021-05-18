@@ -22,15 +22,35 @@ export class AllFeedPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.storage.get('role').then((val:any) => {
-      this.role = val
-      if (this.role == 'staff') {
-        this.getStaffInvolved();
-      }
-      else {
-        this.getVolunteerInvolved();
-      }
-    })
+    this.getAllProjectFeed();
+    // this.storage.get('role').then((val:any) => {
+    //   this.role = val
+    //   if (this.role == 'staff') {
+    //     this.getStaffInvolved();
+    //   }
+    //   else {
+    //     this.getVolunteerInvolved();
+    //   }
+    // })
+  }
+
+  getAllProjectFeed() {
+    this.loadingProvider.presentLoading();
+    this.storage.get('defaultPersonId').then((val:any) => {
+      this.restProvider.getAllProjectFeed(val).then((result:any) => {
+        console.log('getListProjects',result);
+        this.feedList = result;
+        // this.getLiveFeed();
+        this.loadingProvider.closeLoading();
+      }, (err) => {
+        this.loadingProvider.closeLoading();
+        console.log('getListProjects err',err);
+        // this.loadingProvider.closeLoading();
+        // this.showAlert();
+      });
+
+    });
+
   }
 
   getStaffInvolved() {
