@@ -47,6 +47,7 @@ export class CreatePostPage implements OnInit {
     maxResults: 5
   };
   latLng: any;
+  personId: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -72,6 +73,7 @@ export class CreatePostPage implements OnInit {
         // this.navParam = this.data
       }
     });
+    this.storage.get('defaultPersonId').then((val:any) => {this.personId = val})
     // this.getGeolocation();
     this.setupPage();
   }
@@ -182,11 +184,28 @@ export class CreatePostPage implements OnInit {
   //     }, (error) => { console.log(error); reject('error') });
   //   });
   // }
-  
+
+  uploadpictureFx(datalocal) {
+    // console.log('uploadpictureFx', this.merchantDetail.status_name)
+    let reader = new FileReader();
+    reader.readAsDataURL(datalocal.target.files[0])
+    reader.onload = (event: any) => { // called once readAsDataURL is completed
+      // this.frontIC = event.target.result;  // for bind
+      // this.postClientPictureFx(this.frontIC, description, order)
+      this.currentImage = [{
+        name:name,
+        thumbnail: this.sanitize.bypassSecurityTrustUrl(event.target.result),
+        uri: event.target.result,
+        type: 'image'
+      }];
+      console.log('this.currentImage',this.currentImage);
+      this.upload();
+    }
+  }
 
   postProjectFeed() { //without image
     this.loadingProvider.presentLoading();
-    this.restProvider.postProjectFeed(this.postForm.value,this.navParam).then((result:any) => {
+    this.restProvider.postProjectFeed(this.postForm.value,this.navParam,this.personId).then((result:any) => {
       console.log('postProjectFeed',result);
       this.loadingProvider.closeLoading();
       this.exitForm();
@@ -201,30 +220,26 @@ export class CreatePostPage implements OnInit {
   postProjectTask() {
     console.log('this.postForm.value',this.postForm.value);
     this.loadingProvider.presentLoading();
-    this.storage.get('defaultPersonId').then((val:any) => {
-      this.restProvider.postTaskSingle(this.postForm.value,val,this.navParam.projId).then((result:any) => {
-        this.loadingProvider.closeLoading();
-        this.exitForm();
-      }, (err) => {
-        console.log(err);
-        this.loadingProvider.closeLoading();
-        // this.showAlert();
-      });
+    this.restProvider.postTaskSingle(this.postForm.value,this.personId,this.navParam.projId).then((result:any) => {
+      this.loadingProvider.closeLoading();
+      this.exitForm();
+    }, (err) => {
+      console.log(err);
+      this.loadingProvider.closeLoading();
+      // this.showAlert();
     });
   }
 
   postTaskComment() {
     console.log('this.postForm.value',this.postForm.value);
     this.loadingProvider.presentLoading();
-    this.storage.get('defaultPersonId').then((val:any) => {
-      this.restProvider.postTaskComment(this.postForm.value,val).then((result:any) => {
-        this.loadingProvider.closeLoading();
-        this.exitForm();
-      }, (err) => {
-        console.log(err);
-        this.loadingProvider.closeLoading();
-        // this.showAlert();
-      });
+    this.restProvider.postTaskComment(this.postForm.value,this.personId).then((result:any) => {
+      this.loadingProvider.closeLoading();
+      this.exitForm();
+    }, (err) => {
+      console.log(err);
+      this.loadingProvider.closeLoading();
+      // this.showAlert();
     });
   }
 

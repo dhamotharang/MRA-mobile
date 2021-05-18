@@ -137,7 +137,7 @@ export class AddVolunteerPage implements OnInit {
         profilePictUrl: this.chosenVolunteer[i].profilePicture,
         referFrom : null,
         orgId : this.orgId,
-        title : 'You have been invited to join project' + '' + this.navParam.projName,
+        title : 'invitation to join project' + '' + this.navParam.projName,
         notes : 'You have been invited to join project' + '' + this.navParam.projName,
         programStart: this.navParam.projectStart,
         programEnd: this.navParam.projectEnd,

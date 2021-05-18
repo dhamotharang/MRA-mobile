@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RestProvider } from 'src/providers/rest/rest';
 import { Storage } from '@ionic/storage-angular';
+import * as moment from 'moment';
 
 
 @Component({
@@ -16,7 +17,8 @@ export class NotificationsPage implements OnInit {
   profile: any;
   restParam: any;
   mediaList:any = [];
-  listNoti: any;
+  notiList: any = [];
+  profilePictUrl: any;
 
   constructor(
     private restProvider: RestProvider,
@@ -26,39 +28,41 @@ export class NotificationsPage implements OnInit {
   async ngOnInit() {
     await this.storage.get('defaultProfile').then((val:any) => {this.profile = val; this.getListNoti() })
     await this.storage.get('personOrgs').then((val:any) => {this.orgId = val})
-
-    
+    await this.storage.get('profilePictUrl').then((val:any) => { this.profilePictUrl = val});
     this.getToken()
     // this.pushProvider.getToken()
   }
 
-  createAnnouncement() {
+  createAnnouncementAccept(data) {
     this.restParam = [{
       personId : this.profile.personId,
-      hostId : this.profile.personId,
+      hostId : data.hostId,
       profilePictUrl: '',
       referFrom : null,
-      orgId : 320,
-      title : 'test push noti',
-      notes : 'test push notiiii',
-      programStart: new Date(),
-      programEnd: new Date(),
-      location : 'Selangor',
+      orgId : data.orgId,
+      title : this.profile.name+''+'accept your'+data.title,
+      notes : this.profile.name+''+'accept your'+data.title,
+      programStart: data.programStart,
+      programEnd: data.programEnd,
+      location : data.location,
       duration : 7,
       subModule: 'AN',
-      paramType : 'OH',
+      paramType : 'A',
       privateEvent: false,
       orgName : 'Malaysian Relief Agency',
-      orgLogo : 'https://res.cloudinary.com/myjiran/image/upload/v1612149843/org_logo/gzr4ptrq3gaavfqqytmg.png'
+      orgLogo : data.orgLogo,
+      projectId : data.projectId
     }];
-    this.callApi();
+    console.log('restParam',this.restParam)
+    this.submitAnnouncement();
   }
 
-  async callApi(){
+  async submitAnnouncement(){
     // this.loadingProvider.setupSaving();
     let formData = await this.processData();
-    this.restProvider.createAnnouncement(formData).then((result:any) => {
+    await this.restProvider.createAnnouncement(formData).then((result:any) => {
       console.log(result);
+      this.getListNoti();
       // this.loadingProvider.closeSaving();
       // this.nav.setRoot(TabsPage,{tabIndex: 0});
       // this.navCtrl.pop();
@@ -87,7 +91,8 @@ export class NotificationsPage implements OnInit {
   getListNoti() {
     this.restProvider.getListNoti(this.profile.personId).then((res: any) => {
       console.log(res);
-      this.listNoti = res
+      // this.notiList = res
+      this.notiList = res.sort((a, b) => b.createdDate - a.createdDate)
       // this.sendPush();
     }).catch(error => {
       console.log(error);
@@ -102,7 +107,7 @@ export class NotificationsPage implements OnInit {
 
 
   getToken() {
-    this.restProvider.getTokenNoti(this.profile.personId).then((res: any) => {
+    this.restProvider.getTokenNoti(this.orgId).then((res: any) => {
       console.log(res);
       this.andList = res.android;
       // this.iosList = res.ios;
@@ -115,11 +120,68 @@ export class NotificationsPage implements OnInit {
 
   }
 
-  acceptJoin() {
-    this.createAnnouncement()
+  acceptJoin(data) {
+    let param = {
+      projId:data.projectId,
+      personId:this.profile.personId,
+      enabled:'Y',
+      createdDate: moment().format(),
+      voidStatus: "A",
+      joinStatus: "A"
+    };
+    this.createAnnouncementAccept(data)
+    // this.restProvider.acceptJoin(param).then((result:any) => {
+    //   // this.loadingProvider.closeLoading();
+    //   // this.exitForm();
+    //   this.createAnnouncementAccept(data)
+    // }, (err) => {
+    //   // console.log(err);
+    //   // this.loadingProvider.closeLoading();
+    //   // this.showAlert();
+    // });
+
     // this.sendPush();
   }
 
+
+  rejectJoin(data) {
+    let param = {
+      projId:data.projectId,
+      personId:this.profile.personId,
+      enabled:'Y',
+      createdDate: moment().format(),
+      voidStatus: "A",
+      joinStatus: "D"
+    };
+    this.restProvider.acceptJoin(param).then((result:any) => {
+      // this.loadingProvider.closeLoading();
+      // this.exitForm();
+      this.createAnnouncementAccept(data)
+    }, (err) => {
+      // console.log(err);
+      // this.loadingProvider.closeLoading();
+      // this.showAlert();
+    });
+
+    // this.sendPush();
+  }
+
+  //check if project already accept/not. to hide accept/reject button
+  notAccept(data) {
+    let p = [];
+    p = this.notiList.filter(x => x.paramType == 'A' && x.projectId == data.projectId)
+    // console.log('p',p)
+    if (p.length != 0) {
+      // console.log('notAccept',data,'false')
+      return false
+    }
+    else {
+      // console.log('notAccept',data,'true')
+      return true
+    }
+
+
+  }
 
   sendPush() {
     let time = new Date().getTime();
