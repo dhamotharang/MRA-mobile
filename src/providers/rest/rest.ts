@@ -31,7 +31,7 @@ export class RestProvider {
         return new Promise((resolve, reject) => {
             let devplink = 'http://192.168.0.161:8181/hss-start-0.0.1-SNAPSHOT/app/config/r';  //192.168.0.5 //192.168.43.221  //dev.hss.oas.my
             this.http.post(devplink, [app], {
-                headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token)
+                headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token).set('api-key','eIsyynm35y3j5dDTp2RGyS1QR1gxYvSYPZB2MBHpnZUa5BeEs6Xl97cFx0004P4cWhoa12ceefOWMZ7CAJv9l30pUTpqSq9cj0mP3emB5Z7pWGGK8M0LO8fmO962h52O')
             })
                 .subscribe((res: any) => {
                     resolve(res);
@@ -91,6 +91,26 @@ export class RestProvider {
       }
 
     }
+
+    //http://localhost:8181/hss-project-0.0.1-SNAPSHOT//proj/feed/s/{personId}
+  async getAllProjectFeed(personId){
+    try{
+      let app = await this.appConf("PRJM");
+    console.log(app);
+    return new Promise((resolve, reject) => {
+      this.http.get(app[0].host+app[0].contextPath+"/proj/feed/s/"+personId,{headers: new HttpHeaders().set('token', this.token)
+      .set('api-key', app[0].apiKey)
+      })
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+    }catch(e){
+      console.log(e);
+      }
+  }
 
 
     async getFee(personId){
@@ -166,7 +186,7 @@ export class RestProvider {
             projId:detail,
             personId:personId,
             enabled:'Y',
-            createdDate: moment().format(),
+            createdDate: new Date(),
             voidStatus: "A",
             joinStatus: "R"
           };
@@ -251,7 +271,7 @@ export class RestProvider {
 
 
     //http://localhost:8181/hss-project-0.0.1-SNAPSHOT/proj/feed/u
-    async postProjectFeed(form,detail){
+    async postProjectFeed(form,detail,personId){
         try{
           let app = await this.appConf("PRJM");
         console.log(app);
@@ -259,10 +279,10 @@ export class RestProvider {
           console.log('form',form)
             let data = {
                 projId:detail.projId,
-                personId:75187,//personId,
+                personId:personId,
                 enabled:'Y',
                 feedName:form.formName,
-                createdDate: moment().format()
+                createdDate: new Date()
               };
               this.http.post(app[0].host+app[0].contextPath+"/proj/feed/u", JSON.stringify(data),{
                 headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token).set('api-key', app[0].apiKey)
@@ -777,13 +797,13 @@ async getListNoti(personId){
 
 
 
-//Token/u{projid}
-async getTokenNoti(projectId){
+//Token/u{orgId}
+async getTokenNoti(orgId){
   try {
     let app = await this.appConf("MBTK");
     console.log(app);
     return new Promise((resolve, reject) => {
-      this.http.get(app[0].host+app[0].url +"/"+ projectId,{headers: new HttpHeaders().set('token', this.token)
+      this.http.get(app[0].host+app[0].url +"/"+ orgId,{headers: new HttpHeaders().set('token', this.token)
       .set('api-key', app[0].apiKey)
       }).subscribe(data => {
         resolve(data);
@@ -840,19 +860,12 @@ async getUserDonation(personId){
 }
 
 ///proj/vol/upd
-async acceptJoin(personId,detail){
+async acceptJoin(data){
   try{
     let app = await this.appConf("PRJM");
-  console.log('requestJoin',detail);
+  console.log('requestJoin',data);
   return new Promise((resolve, reject) => {
-      let data = {
-          projId:detail,
-          personId:personId,
-          enabled:'Y',
-          createdDate: moment().format(),
-          voidStatus: "A",
-          joinStatus: "A"
-        };
+
         this.http.post(app[0].host+app[0].contextPath+"/proj/vol/upd", JSON.stringify(data),{
           headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token).set('api-key', app[0].apiKey)
         })

@@ -18,6 +18,12 @@ export class EditProfilePage implements OnInit {
   profileForm: FormGroup;  //declare
   alertCtrl: AlertController;
   provider: any;
+  param = {
+    providerCode: "",
+    providerId: "",
+    token: "",
+    platform:""
+  }
 
   constructor(
     private router: Router,
@@ -46,6 +52,7 @@ export class EditProfilePage implements OnInit {
   async getOrg(){
     await this.storage.get('defaultProfile').then((val:any) => {this.profile=val})
     await this.storage.get('provider').then((val:any) => { this.provider= val; console.log('provider',val)})
+    await this.storage.get('provider').then((val:any) => { this.param= val; console.log('provider',val)})
     this.updateForm() 
   }
 
@@ -114,7 +121,7 @@ export class EditProfilePage implements OnInit {
   }
 
   getProfile() {
-    this.restProvider.getProfile(this.profile).then((result) => {    //get data from REST
+    this.restProvider.getProfile(this.param).then((result) => {    //get data from REST
       this.storage.set('defaultProfile', result);   //update ke storage
       //this.loadingProvider.closeSaving();    loading ui
       //this.navCtrl.pop();          pergi back ke previous page
