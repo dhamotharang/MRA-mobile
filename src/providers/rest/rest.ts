@@ -904,6 +904,44 @@ async getContactCounter(orgid,counter){
 
 }
 
+async createEmergencyContact(data){
+  try {
+    let app = await this.appConf("CECL");
+  return new Promise((resolve, reject) => {
+    this.http.post(app[0].host+app[0].url, JSON.stringify(data),{
+      headers: new HttpHeaders().set('Content-Type', 'application/json').set('token',this.token).set('api-key', app[0].apiKey)
+    })
+      .subscribe(res => {
+        resolve(res);
+      }, (err) => {
+        reject(err);
+      });
+  });
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+
+async deleteEmergency(smecId){
+  try {
+    let app = await this.appConf("MDEC");
+  return new Promise((resolve, reject) => {
+    this.http.delete(app[0].host+app[0].url+"/"+smecId,{headers: new HttpHeaders()
+      .set('token', this.token)
+      .set('api-key', app[0].apiKey)
+    }).subscribe(res => {
+        resolve(res);
+      }, (err) => {
+        reject(err);
+      });
+  });
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+
 
 }
 
