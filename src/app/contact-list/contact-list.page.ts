@@ -5,7 +5,7 @@ import { LoadingProvider } from  './../../providers/loading-provider';
 import { Storage } from '@ionic/storage';
 import { NavigationExtras, Router } from '@angular/router';
 
-//import * as $ from "jquery";
+import * as $ from "jquery";
 
 
 
@@ -29,8 +29,10 @@ export class ContactListPage implements OnInit {
   // createList: any;
   private createList=[];
   contactList:any = [];
+  private addedContactList=[];
   personid:any;
   profile: any;
+  $: any;
   //ModalController: any;
 
 
@@ -91,6 +93,7 @@ export class ContactListPage implements OnInit {
     this.storage.get('personOrgs').then((val:any) => {
       //console.log('personOrgs value is', val);
       this.counter = 1;
+
       //console.log("orgId",val);
       this.restProvider.getContactCounter(val,this.counter).then((result:any) => {
         console.log('return data ',result);
@@ -145,14 +148,17 @@ export class ContactListPage implements OnInit {
           }
         }
       }
+      console.log('filtered_2', filtered_2.length);
     }
     if(filtered_2.length == 0){
-      //$( ".checkboxes" ).prop( "checked", false);//uncheck all
+      $( '.checkboxes' ).prop( 'checked', false);//uncheck all
+      console.log('filtered_2 if', filtered_2.length);
     }else{
       for(let i=0; i<filtered_2.length; i++){
         let index = filtered_2[i];
         this.selectedBox[index] = true;
       }
+      console.log('filtered_2 else', filtered_2.length);
     }
     console.log('selectedBox',this.selectedBox)
     //this.loadingProvider.closeSearching();
@@ -161,17 +167,13 @@ export class ContactListPage implements OnInit {
   getContact(){               //to get list of contact
 
     this.storage.get('defaultProfile').then((val:any) => {   //untuk guna storage
-      //console.log("val from getOrg",val)
       this.profile= val
       this.restProvider.getEmergencyList(this.profile.personId).then((result:any) => {
-        //console.log("this is result value",result);
-        //console.log("this.personid",this.profile.personId);
         if(result == null){
           this.contactList = [];
         }else{
           this.contactList = result;  //give value to contactList from result
         }
-        console.log("getContact result",result);
         //this.loadingProvider.closeLoading();
       }, (err) => {
         console.log(err);
@@ -211,10 +213,8 @@ export class ContactListPage implements OnInit {
       console.log("this.createList",this.createList);
       //this.loadingProvider.setupSaving();
       this.restProvider.createEmergencyContact(this.createList).then((result:any) => {
-        console.log("addContact result 2",result);
         console.log("After clicking done");
         this.getContact();
-        console.log("else");
       }, (err) => {
         console.log(err);
         //this.loadingProvider.closeSaving();
@@ -223,9 +223,7 @@ export class ContactListPage implements OnInit {
     }
 
     let navigationExtras: NavigationExtras = {
-      state: {
-        selectedEmergencyContactList: this.createList
-      }
+
     };
     this.router.navigate(['sos'], navigationExtras);
   }
@@ -236,8 +234,6 @@ export class ContactListPage implements OnInit {
       let c = {
         "personId": this.profile.personId,
         "ice": this.contactList[i].id,   //id orang yg dia choose
-        "emergencyContactNumber": this.contactList[i].contact,
-        "emergencyName": this.contactList[i].name
       };
       this.createList.push(c);
       console.log('updated create list ',this.createList);

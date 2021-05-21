@@ -34,12 +34,12 @@
   </ion-label>
 
   <ion-list>
-    <ion-item no-padding *ngFor="let data of selectedEmergencyContactList; index as i">
+    <ion-item no-padding *ngFor="let data of contactList; index as i">
       <ion-label no-margin>
         <ion-row>
           <ion-col size="8">
-            <p class="volunteer-name">{{data?.emergencyName}}</p>
-            <p class="volunteer-name">{{data?.emergencyContactNumber}}</p>
+            <p class="volunteer-name">{{data?.contactName}}</p>
+            <p class="volunteer-name">+{{data?.contactCode}}{{data?.contactNo}}</p>
           </ion-col>
           <ion-col size="2" (click)="callFx()">
             <ion-icon ios="call" md="call" class="call-icon">

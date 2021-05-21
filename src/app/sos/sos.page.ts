@@ -11,14 +11,15 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./sos.page.scss'],
 })
 export class SosPage implements OnInit {
-  private contactList = [
-    {contact_name: 'muhammad ali',contact:'012-3456678'},
-    {contact_name: 'muhammad ali',contact:'012-3456678'},
-    {contact_name: 'muhammad ali',contact:'012-3456678'},
-    {contact_name: 'muhammad ali',contact:'012-3456678'}
-  ]
+  // private contactList = [
+  //   {contact_name: 'muhammad ali',contact:'012-3456678'},
+  //   {contact_name: 'muhammad ali',contact:'012-3456678'},
+  //   {contact_name: 'muhammad ali',contact:'012-3456678'},
+  //   {contact_name: 'muhammad ali',contact:'012-3456678'}
+  // ]
   selectedEmergencyContactList: any;
   profile: any;
+  contactList: any[];
 
 
   constructor(
@@ -69,6 +70,7 @@ export class SosPage implements OnInit {
           this.contactList = [];
         }else{
           this.contactList = result;  //give value to contactList from result
+          console.log("getContactSos",this.contactList);
         }
         //this.loadingProvider.closeLoading();
       }, (err) => {
@@ -104,7 +106,7 @@ export class SosPage implements OnInit {
 
   delete(i){
     //this.loadingProvider.setupDelete();
-    this.restProvider.deleteEmergency(this.selectedEmergencyContactList[i].smecId).then((result) => {
+    this.restProvider.deleteEmergency(this.contactList[i].smecId).then((result) => {
       console.log("Result after call delete emergency contact",result);
       //this.loadingProvider.closeDelete();
       this.getContact();
