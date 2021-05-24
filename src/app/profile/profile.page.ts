@@ -5,6 +5,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { NavController } from '@ionic/angular';
 import { Plugins } from '@capacitor/core';
 import { Storage } from '@ionic/storage-angular';
+import { ImageProvider } from 'src/providers/image.provider';
 
 @Component({
   selector: 'app-profile',
@@ -25,6 +26,7 @@ export class ProfilePage implements OnInit {
     private navCtrl: NavController,
     private iab: InAppBrowser,
     private storage: Storage,
+    private imageProvider: ImageProvider,
   ) { }
 
   ngOnInit() {
@@ -39,15 +41,15 @@ export class ProfilePage implements OnInit {
 
     
   } 
-  navNextPage() {
-    let navigationExtras: NavigationExtras = {
-      state: {
-     user:this.navParam,
-     from:this.fromPage
-      }
-    };
-    this.router.navigate(['user-account'], navigationExtras);
-  }
+  // navNextPage() {
+  //   let navigationExtras: NavigationExtras = {
+  //     state: {
+  //    user:this.navParam,
+  //    from:this.fromPage
+  //     }
+  //   };
+  //   this.router.navigate(['user-account'], navigationExtras);
+  // }
  
   
   async Logout() {

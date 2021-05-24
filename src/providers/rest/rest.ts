@@ -31,7 +31,7 @@ export class RestProvider {
         return new Promise((resolve, reject) => {
             let devplink = 'http://192.168.0.161:8181/hss-start-0.0.1-SNAPSHOT/app/config/r';  //192.168.0.5 //192.168.43.221  //dev.hss.oas.my
             this.http.post(devplink, [app], {
-                headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token).set('api-key','eIsyynm35y3j5dDTp2RGyS1QR1gxYvSYPZB2MBHpnZUa5BeEs6Xl97cFx0004P4cWhoa12ceefOWMZ7CAJv9l30pUTpqSq9cj0mP3emB5Z7pWGGK8M0LO8fmO962h52O')
+                headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token)//.set('api-key','eIsyynm35y3j5dDTp2RGyS1QR1gxYvSYPZB2MBHpnZUa5BeEs6Xl97cFx0004P4cWhoa12ceefOWMZ7CAJv9l30pUTpqSq9cj0mP3emB5Z7pWGGK8M0LO8fmO962h52O')
             })
                 .subscribe((res: any) => {
                     resolve(res);
@@ -42,36 +42,6 @@ export class RestProvider {
         });
 
     }
-
-  //   appConfHttp(app) {
-  //     return new Promise((resolve, reject) => {
-  //         let devplink = 'http://192.168.0.139:8181/hss-start-0.0.1-SNAPSHOT/app/config/r';  //192.168.0.5 //192.168.43.221  //dev.hss.oas.my
-  //         this.HTTP.post(devplink, [app], {
-  //             headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token)
-  //         })
-  //             .then((res: any) => {
-  //                 resolve(res);
-  //             }, (err) => {
-  //                 console.log(err);
-  //                 reject(err);
-  //             });
-
-  //     });
-
-  // }
-
-  // appConfHttp(url: string, params: any, options: any): Promise<any> {
-  //   console.log('POST ', url, params, options)
-  //   if (options.headers) {
-  //     _.forEach(options.headers, (value, key) => {
-  //       this.HTTP.setHeader('*', String(key), String(value))
-  //     });
-  //   }
-
-  //   return this.HTTP.post(url, params, null)
-  //     .then(resp => options.responseType == 'text' ? resp.data : JSON.parse(resp.data));
-  // }
-
 
     async getProfile(data) {
       try {
@@ -204,6 +174,35 @@ export class RestProvider {
     }
 
   }
+
+    //http://localhost:8181/hss-project-0.0.1-SNAPSHOT/proj/vol/join
+    async attendProject(personId,detail){
+      try{
+        let app = await this.appConf("PRJM");
+      console.log('requestJoin',detail);
+      return new Promise((resolve, reject) => {
+          let data = {
+              projId:detail,
+              personId:personId,
+              enabled:'Y',
+              createdDate: new Date(),
+              voidStatus: "A",
+              joinStatus: "Q"
+            };
+            this.http.post(app[0].host+app[0].contextPath+"/proj/vol/join", JSON.stringify(data),{
+              headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token).set('api-key', app[0].apiKey)
+            })
+          .subscribe(res => {
+            resolve(res);
+          }, (err) => {
+            reject(err);
+          });
+      });
+      }catch(e){
+        console.log(e);
+      }
+  
+    }
 
 
   //http://localhost:8181/hss-project-0.0.1-SNAPSHOT/proj/vol/s/{personId}

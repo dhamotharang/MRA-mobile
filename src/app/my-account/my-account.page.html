@@ -9,7 +9,7 @@
 </ion-header>
 
 <ion-content>
-  <div>
+  <div *ngIf='isNewUser == false'>
     <ion-buttons (click)="navigateNextPage()">
       <button btn-edit >
         Edit Account
@@ -20,8 +20,8 @@
 
   <div class="flex-center avatar-container">
     <ion-avatar>
-      <img
-        src="https://images.unsplash.com/photo-1497551060073-4c5ab6435f12?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=667&q=80"
+      <img #img1 (error)="img1.src=imageProvider.imageErrorHandle('profile')"
+        [src]="[navParam?.profilePicture]"
         alt="Placeholder avatar">
     </ion-avatar>
   </div>
