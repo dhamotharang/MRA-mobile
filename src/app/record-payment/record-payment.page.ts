@@ -21,6 +21,7 @@ export class RecordPaymentPage implements OnInit {
   profile: any;
   orgId: any;
   donationList: any;
+  orgs: any;
 
   constructor(
     private camera: Camera,
@@ -57,7 +58,7 @@ export class RecordPaymentPage implements OnInit {
     this.restProvider.getUserDonation(this.profile.personId).then((result:any) => {
       this.donationList = result.filter(x => x.orgId == this.orgId)
       console.log('getDonation',this.donationList);
-      // this.getOrg()
+      this.getOrg()
       // to make sure UI view is updatinig
       // this.zone.run(() => {
       // for(let i=0; i<result.length; i++){
@@ -74,16 +75,36 @@ export class RecordPaymentPage implements OnInit {
 
   }
 
-  createReceipt(data) {
+  getOrg(){
+    this.restProvider.getFee(this.profile.personId).then((result:any) => {
+      console.log(result);
+      this.orgs = result;
+      // this.loadingProvider.closeLoading();
+    }, (err) => {
+      console.log(err);
+      // this.loadingProvider.closeLoading();
+      // this.showAlert();
+    });
+  }
+
+  createReceipt(i) {
+    let org
+    for(let j = 0; j < this.orgs.length; j++)
+    {
+      if(this.orgs[j].orgId == this.donationList[i].orgId)
+      {
+        org = this.orgs[i];
+      }
+    }
     let navigationExtras: NavigationExtras = {
       state: {
         role:'user',
-        code:data.type.cbctId,
-        collectCode:data.cbcId,
-        org: this.orgId,
-        personId: data.personProfile.personId,
-        personName: data.personProfile.name,
-        donateData:data
+        code:this.donationList[i].type.cbctId,
+        collectCode:this.donationList[i].cbcId,
+        org: org,
+        personId: this.donationList[i].personProfile.personId,//cik burhan x return
+        personName: this.donationList[i].personProfile.name,//cik burhan x return
+        donateData:this.donationList[i]
       }
     };
     this.router.navigate(['receipt-form'], navigationExtras);

@@ -119,6 +119,7 @@ export class AddVolunteerPage implements OnInit {
       this.restProvider.addParticipantTask(body).then((result:any) => {
         this.loadingProvider.closeLoading();
         this.exitForm();
+        this.createAnnouncement();
       }, (err) => {
         // console.log(err);
         this.loadingProvider.closeLoading();
@@ -130,26 +131,51 @@ export class AddVolunteerPage implements OnInit {
 
   createAnnouncement() {  //send announcement to volunteer that were invite
     console.log('createAnnouncement')
-    for (let i = 0; i < this.chosenVolunteer.length; i++) {
-      this.restParam = [{
-        personId : this.chosenVolunteer[i].personId,
-        hostId : this.profile.personId,
-        profilePictUrl: this.chosenVolunteer[i].profilePicture,
-        referFrom : null,
-        orgId : this.orgId,
-        title : 'invitation to join project' + '' + this.navParam.projName,
-        notes : 'You have been invited to join project' + '' + this.navParam.projName,
-        programStart: this.navParam.projectStart,
-        programEnd: this.navParam.projectEnd,
-        location : this.navParam.location,
-        duration : 7,
-        subModule: 'AN',
-        paramType : 'I',
-        privateEvent: false,
-        orgName : 'Malaysian Relief Agency',
-        orgLogo : 'https://res.cloudinary.com/myjiran/image/upload/v1612149843/org_logo/gzr4ptrq3gaavfqqytmg.png',
-        projectId : this.navParam.projId
-      }];
+    if (this.fromPage == 'volunteer-list') { 
+      for (let i = 0; i < this.chosenVolunteer.length; i++) {
+        this.restParam = [{
+          personId : this.chosenVolunteer[i].personId,
+          hostId : this.profile.personId,
+          profilePictUrl: this.chosenVolunteer[i].profilePicture,
+          referFrom : null,
+          orgId : this.orgId,
+          title : 'invitation to join' + ' ' + this.navParam.projName,
+          notes : 'You have been invited to join' + ' ' + this.navParam.projName,
+          programStart: this.navParam.projectStart,
+          programEnd: this.navParam.projectEnd,
+          location : this.navParam.location,
+          duration : 7,
+          subModule: 'AN',
+          paramType : 'I',
+          privateEvent: false,
+          orgName : 'Malaysian Relief Agency',
+          orgLogo : 'https://res.cloudinary.com/myjiran/image/upload/v1612149843/org_logo/gzr4ptrq3gaavfqqytmg.png',
+          projectId : this.navParam.projId
+        }];
+      }
+    }
+    else {
+      for (let i = 0; i < this.chosenVolunteer.length; i++) {
+        this.restParam = [{
+          personId : this.chosenVolunteer[i].personId,
+          hostId : this.profile.personId,
+          profilePictUrl: this.chosenVolunteer[i].profilePicture,
+          referFrom : null,
+          orgId : this.orgId,
+          title : 'Assigned for :' + ' ' + this.taskDetail.taskName + ' ' + 'in:' + ' ' + this.navParam.projName,
+          notes : 'You have been assigned for :' + '' + this.taskDetail.taskName + ' ' + 'in:' + ' ' + this.navParam.projName,
+          programStart: this.navParam.projectStart,
+          programEnd: this.navParam.projectEnd,
+          location : this.navParam.location,
+          duration : 7,
+          subModule: 'AN',
+          paramType : 'I',
+          privateEvent: false,
+          orgName : 'Malaysian Relief Agency',
+          orgLogo : 'https://res.cloudinary.com/myjiran/image/upload/v1612149843/org_logo/gzr4ptrq3gaavfqqytmg.png',
+          projectId : this.navParam.projId
+        }];
+      }
     }
     this.submitAnnouncement()
   }

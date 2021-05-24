@@ -26,6 +26,7 @@ export class LaunchPage {
   profile: any;
   role: string;
   private secureURL:any = [];
+  andList=[]
 
   private image: string;
   private currentImage;
@@ -106,9 +107,12 @@ export class LaunchPage {
       // this.loadingProvider.closeLoading();
       if(result.personId == null){
         this.storage.set('isNewUser', true);
+        this.router.navigate(['profile']);
+
       }else{
         this.storage.set('isNewUser', false);
         this.storage.set('defaultProfile', result);
+        this.storage.set('nonOrgPersonId', result.personId);  //personId not for org
         this.getOrg();
       }
     }, (err) => {
@@ -116,6 +120,7 @@ export class LaunchPage {
       // this.loadingProvider.closeLoading();
     });
   }
+
 
   getOrg(){ //get org using get fee rest
     // this.loadingProvider.presentLoading();
@@ -128,6 +133,74 @@ export class LaunchPage {
       // this.loadingProvider.closeLoading();
       // this.showAlert();
     });
+
+  }
+
+  checkingToken() {
+    let p = []
+    this.restProvider.getTokenNoti(320).then((res: any) => {
+      console.log(res);
+      p = res.filter(x => x.id == this.profile.personId)
+      console.log(p.length);
+      if (p.length != 0) {
+        this.updateToken();
+      }
+      else {
+        this.createToken();
+      }
+    }).catch(error => {
+      console.log(error);
+      // this.showAlert();
+      // this.loadingProvider.closeSaving();
+    })
+  }
+
+  updateToken() {
+    this.storage.get('fcmToken').then((val:any) => {
+      console.log('createToken',val)
+      let data = {
+        platform: 'android',
+        oaId: this.profile.oaId,
+        token: val,
+        personId: this.profile.personId
+      }
+      this.restProvider.createToken(data).then((result:any) => {
+        // console.log('token',result);
+        // this.projectDetail = result;
+        // this.loadingProvider.closeLoading();
+        // this.createAnnouncement();
+        this.navCtrl.back();
+      }, (err) => {
+        // console.log(err);
+        // this.loadingProvider.closeLoading();
+        // this.showAlert();
+      });
+    });
+
+  }
+
+  createToken() {
+    this.storage.get('fcmToken').then((val:any) => {
+      console.log('createToken',val)
+      let data = {
+        platform: 'android',
+        oaId: this.profile.oaId,
+        token: val,
+        personId: this.profile.personId
+      }
+      this.restProvider.createToken(data).then((result:any) => {
+        // console.log('token',result);
+        // this.projectDetail = result;
+        // this.loadingProvider.closeLoading();
+        // this.createAnnouncement();
+        this.navCtrl.back();
+      }, (err) => {
+        // console.log(err);
+        // this.loadingProvider.closeLoading();
+        // this.showAlert();
+      });
+    });
+
 
   }
   
@@ -148,9 +221,11 @@ export class LaunchPage {
       val.personId = this.profile.personId
       this.storage.set('defaultProfile', val)
     })
+    this.checkingToken();
     this.checkRole();
-
   }
+
+  
 
   async checkRole() {
     let result = [];
@@ -193,7 +268,7 @@ export class LaunchPage {
 
   volunteer() {
     this.param.providerCode = "google";
-    this.param.providerId = "sitivolunteer95@gmail.com";  //sitivolunteer@gmail.com
+    this.param.providerId = "sitivolunteer@gmail.com";  //sitivolunteer@gmail.com
     this.storage.set('profilePictUrl', 'https://res.cloudinary.com/myjiran/image/upload/v1541160270/mobile_asset/ion-ios-contact.png');
     this.storage.set('provider', this.param);
     this.storage.set('isLoggedIn', true);
