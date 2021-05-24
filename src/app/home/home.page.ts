@@ -145,4 +145,13 @@ export class HomePage implements OnInit {
     this.router.navigate(['payment-history'], navigationExtras);
   }
 
+  navQRCode() {
+    let navigationExtras: NavigationExtras = {
+      state: {
+        projectInvolved: this.projectList
+      }
+    };
+    this.router.navigate(['scan-qr'], navigationExtras);
+  }
+
 }

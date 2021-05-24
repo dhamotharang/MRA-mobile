@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Plugins, PushNotification, PushNotificationToken, PushNotificationActionPerformed, Capacitor} from '@capacitor/core';
 import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage-angular';
  
 const { PushNotifications } = Plugins;
 
@@ -10,7 +11,8 @@ export class PushNotiProvider {
 
 
     constructor(
-        private router: Router
+        private router: Router,
+        private storage: Storage,
     ) {
     }
 
@@ -29,6 +31,9 @@ export class PushNotiProvider {
         'registration',
         (token: PushNotificationToken) => {
           console.log('My token: ' + JSON.stringify(token));
+          let fcmToken = token.value
+          this.updateTokenStorage(fcmToken)
+
     });
 
 
@@ -53,6 +58,11 @@ export class PushNotiProvider {
           }
         });
 
+    }
+
+    updateTokenStorage(token) {  //update token in local storage
+      console.log('updateTokenStorage',token)
+      this.storage.set('fcmToken', token);
     }
 
     

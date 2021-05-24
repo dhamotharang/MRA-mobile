@@ -24,6 +24,7 @@ export class EditProfilePage implements OnInit {
     token: "",
     platform:""
   }
+  profilePersonId: any;
 
   constructor(
     private router: Router,
@@ -50,9 +51,14 @@ export class EditProfilePage implements OnInit {
   }
 
   async getOrg(){
-    await this.storage.get('defaultProfile').then((val:any) => {this.profile=val})
+    await this.storage.get('nonOrgPersonId').then((val:any) => {this.profilePersonId=val; console.log('profilePersonId',val)})
     await this.storage.get('provider').then((val:any) => { this.provider= val; console.log('provider',val)})
     await this.storage.get('provider').then((val:any) => { this.param= val; console.log('provider',val)})
+    await this.storage.get('defaultProfile').then((val:any) => {
+      this.profile=val; 
+      this.profile.personId = this.profilePersonId; 
+      console.log('profile',this.profile)
+    })
     this.updateForm() 
   }
 

@@ -16,7 +16,7 @@
         <h6 class="ion-text-capitalize">Monthly highlights</h6>
       </ion-col>
     </ion-row> -->
-    <ion-row class="ion-justify-content-between ion-align-items-center">
+    <ion-row *ngIf='notiList?.length != 0' class="ion-justify-content-between ion-align-items-center">
       <ion-col>
         
         <ion-card *ngFor="let data of notiList" class="task-card">

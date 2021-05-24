@@ -23,6 +23,10 @@ export class ProjectDetailPage implements OnInit {
   expand: boolean = false;
   fromPage: any;
   role: any;
+  restParam: { personId: any; hostId: any; profilePictUrl: any; referFrom: any; orgId: any; title: string; notes: string; programStart: any; programEnd: any; location: any; duration: number; subModule: string; paramType: string; privateEvent: boolean; orgName: string; orgLogo: string; projectId: any; }[];
+  profile: any;
+  orgId: any;
+  mediaList=[];
   
 
   constructor(
@@ -40,6 +44,8 @@ export class ProjectDetailPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.storage.get('defaultProfile').then((val:any) => {this.profile = val})
+    this.storage.get('personOrgs').then((val:any) => {this.orgId = val})
     this.route.queryParams.subscribe(params => {      //get data from previous page
       if (this.router.getCurrentNavigation().extras.state) {
         this.navParam = this.router.getCurrentNavigation().extras.state.user;
@@ -48,6 +54,7 @@ export class ProjectDetailPage implements OnInit {
         console.log('navParam',this.navParam,this.fromPage,this.role)
       }
     });
+
     this.getDetailProject();
   }
 
@@ -109,20 +116,74 @@ export class ProjectDetailPage implements OnInit {
   }
 
   requestJoin() {
-    this.storage.get('defaultPersonId').then((val:any) => {
-      this.restProvider.requestJoin(val, this.navParam.projId).then((result:any) => {
-        console.log('getProjectDetail',result);
-        this.projectDetail = result;
-        this.loadingProvider.closeLoading();
-        this.navCtrl.back();
-      }, (err) => {
-        // console.log(err);
-        this.loadingProvider.closeLoading();
-        // this.showAlert();
-      });
-    });
+    this.createAnnouncement();
+    // this.storage.get('defaultPersonId').then((val:any) => {
+    //   this.restProvider.requestJoin(val, this.navParam.projId).then((result:any) => {
+    //     console.log('getProjectDetail',result);
+    //     this.loadingProvider.closeLoading();
+    //     this.createAnnouncement();
+    //     this.navCtrl.back();
+    //   }, (err) => {
+    //     // console.log(err);
+    //     this.loadingProvider.closeLoading();
+    //     // this.showAlert();
+    //   });
+    // });
 
   }
+
+  createAnnouncement() {
+    this.restParam = [{
+      personId : this.profile.personId,
+      hostId : this.profile.personId,
+      profilePictUrl: this.profile.profilePicture,
+      referFrom : null,
+      orgId : this.orgId,
+      title : 'request to join' + ' ' + this.projectDetail.projName,
+      notes : this.profile.name + ' ' + 'request to join' + ' ' + this.projectDetail.projName,
+      programStart: this.projectDetail.projectStart,
+      programEnd: this.projectDetail.projectEnd,
+      location : this.projectDetail.location,
+      duration : 7,
+      subModule: 'AN',
+      paramType : 'R',
+      privateEvent: false,
+      orgName : 'Malaysian Relief Agency',
+      orgLogo : 'https://res.cloudinary.com/myjiran/image/upload/v1612149843/org_logo/gzr4ptrq3gaavfqqytmg.png',
+      projectId : this.projectDetail.projId
+    }];
+    this.submitAnnouncement()
+  }
+
+  async submitAnnouncement(){
+    // this.loadingProvider.setupSaving();
+    let formData = await this.processData();
+    this.restProvider.createAnnouncement(formData).then((result:any) => {
+      console.log(result);
+      // this.loadingProvider.closeSaving();
+      // this.nav.setRoot(TabsPage,{tabIndex: 0});
+      // this.navCtrl.pop();
+    }, (err) => {
+      console.log(err);
+      // this.loadingProvider.closeSaving();
+      // this.showAlert();
+    });
+  }
+
+  processData(){
+    const formData: FormData = new FormData();
+    for (let i = 0; i < this.mediaList.length; i++) {
+      console.log('blob array ');
+      if(this.mediaList[i].blob != null){
+        formData.append('file', this.mediaList[i].blob, this.mediaList[i].type);
+      }
+    }
+    formData.append('params', new Blob([JSON.stringify(this.restParam)], {
+                type: "application/json"
+            }));
+    return formData;
+  }
+
 
   navNextPage() {
     let navigationExtras: NavigationExtras = {

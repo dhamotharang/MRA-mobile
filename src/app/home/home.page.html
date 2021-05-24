@@ -26,7 +26,7 @@
   <ion-row *ngIf='role == "staff"'>
     <ion-col>
       <div class="actions-grid">
-        <ion-card class="action-item ion-no-margin" [routerLink]="['/scan-qr']">
+        <ion-card class="action-item ion-no-margin" (click)="navQRCode()">
           <ion-icon name="qr-code-outline"></ion-icon>
           <ion-card-content class="ion-no-padding">
             QR Code
@@ -57,7 +57,7 @@
             Join Project
           </ion-card-content>
         </ion-card>
-        <ion-card class="action-item ion-no-margin" [routerLink]="['/scan-qr']">
+        <ion-card class="action-item ion-no-margin" (click)="navQRCode()">
           <ion-icon name="qr-code-outline"></ion-icon>
           <ion-card-content class="ion-no-padding">
             QR Code
