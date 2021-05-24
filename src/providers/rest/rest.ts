@@ -29,7 +29,7 @@ export class RestProvider {
 
     appConf(app) {
         return new Promise((resolve, reject) => {
-            let devplink = 'http://192.168.0.105:8181/hss-start-0.0.1-SNAPSHOT/app/config/r';  //192.168.0.5 //192.168.43.221  //dev.hss.oas.my
+            let devplink = 'http://192.168.0.161:8181/hss-start-0.0.1-SNAPSHOT/app/config/r';  //192.168.0.5 //192.168.43.221  //dev.hss.oas.my
             this.http.post(devplink, [app], {
                 headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token)//.set('api-key','eIsyynm35y3j5dDTp2RGyS1QR1gxYvSYPZB2MBHpnZUa5BeEs6Xl97cFx0004P4cWhoa12ceefOWMZ7CAJv9l30pUTpqSq9cj0mP3emB5Z7pWGGK8M0LO8fmO962h52O')
             })
@@ -894,7 +894,45 @@ async getContactCounter(orgid,counter){
 
 }
 
-// /token/add
+async createEmergencyContact(data){
+  try {
+    let app = await this.appConf("CECL");
+  return new Promise((resolve, reject) => {
+    this.http.post(app[0].host+app[0].url, JSON.stringify(data),{
+      headers: new HttpHeaders().set('Content-Type', 'application/json').set('token',this.token).set('api-key', app[0].apiKey)
+    })
+      .subscribe(res => {
+        resolve(res);
+      }, (err) => {
+        reject(err);
+      });
+  });
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+
+async deleteEmergency(smecId){
+  try {
+    let app = await this.appConf("MDEC");
+  return new Promise((resolve, reject) => {
+    this.http.delete(app[0].host+app[0].url+"/"+smecId,{headers: new HttpHeaders()
+      .set('token', this.token)
+      .set('api-key', app[0].apiKey)
+    }).subscribe(res => {
+        resolve(res);
+      }, (err) => {
+        reject(err);
+      });
+  });
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+  
+  // /token/add
 // /token/upd
  async createToken(data) {
   try{
@@ -1080,6 +1118,8 @@ async PendingReceipt (data){
     console.log(error);
   }
 }
+
+
 
 }
 
