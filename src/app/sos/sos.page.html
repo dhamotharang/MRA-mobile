@@ -34,19 +34,21 @@
   </ion-label>
 
   <ion-list>
-    <ion-item no-padding *ngFor='let data of contactList'>
-      <ion-label no-margin (click)="navNextPage(data)">
+    <ion-item no-padding *ngFor="let data of contactList; index as i">
+      <ion-label no-margin>
         <ion-row>
           <ion-col size="8">
-            <p class="volunteer-name">{{data?.contact_name}}</p>
-            <p class="volunteer-name">{{data?.contact}}</p>
+            <p class="volunteer-name">{{data?.contactName}}</p>
+            <p class="volunteer-name">+{{data?.contactCode}}{{data?.contactNo}}</p>
           </ion-col>
           <ion-col size="2" (click)="callFx()">
             <ion-icon ios="call" md="call" class="call-icon">
             </ion-icon>
           </ion-col>
-          <ion-col size="2">
-            <ion-icon class="delete-icon" md="close-circle" ios="close-circle"></ion-icon>
+          <ion-col size="2" >
+            <button (click)="deleteConfirm(i)">
+              <ion-icon class="delete-icon" md="close-circle" ios="close-circle"></ion-icon>
+            </button>
           </ion-col>
         </ion-row>
       </ion-label>

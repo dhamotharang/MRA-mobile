@@ -916,55 +916,12 @@ async getContactCounter(orgid,counter){
 
 }
 
-// /token/add
-// /token/upd
- async createToken(data) {
-  try{
-    let app = await this.appConf("MGAN");
-    console.log('requestJoin',data);
-    return new Promise((resolve, reject) => {
-        this.http.post(app[0].host+app[0].contextPath+"/token/add", JSON.stringify(data),{
-          headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token).set('api-key', app[0].apiKey)
-        })
-      .subscribe(res => {
-        resolve(res);
-      }, (err) => {
-        reject(err);
-      });
-  });
-  }catch(e){
-    console.log(e);
-  }
- }
-
- async updateToken(data) {
-  try{
-    let app = await this.appConf("MGAN");
-    console.log('requestJoin',data);
-    return new Promise((resolve, reject) => {
-        this.http.post(app[0].host+app[0].contextPath+"/token/upd", JSON.stringify(data),{
-          headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token).set('api-key', app[0].apiKey)
-        })
-      .subscribe(res => {
-        resolve(res);
-      }, (err) => {
-        reject(err);
-      });
-  });
-  }catch(e){
-    console.log(e);
-  }
- }
-
- //------------------------------ receipt form
- async getMember(counter,input,orgId){
-  try{
-    let app = await this.appConf("OMEM");
-  var url = app[0].host+app[0].contextPath+"/mbl/member/org?start="+counter+"&term="+input+"&orgId="+orgId;
-  console.log(url);
+async createEmergencyContact(data){
+  try {
+    let app = await this.appConf("CECL");
   return new Promise((resolve, reject) => {
-    this.http.get(url,{headers: new HttpHeaders().set('token', this.token)
-    .set('api-key', app[0].apiKey)
+    this.http.post(app[0].host+app[0].url, JSON.stringify(data),{
+      headers: new HttpHeaders().set('Content-Type', 'application/json').set('token',this.token).set('api-key', app[0].apiKey)
     })
       .subscribe(res => {
         resolve(res);
@@ -972,81 +929,20 @@ async getContactCounter(orgid,counter){
         reject(err);
       });
   });
+  } catch (error) {
+    console.log(error);
   }
-  catch(e){
-    console.log(e);
-  }
+
 }
 
-async getPaymentMedium(orgId){
+async deleteEmergency(smecId){
   try {
-    let app = await this.appConf("COLN");
-    console.log(app);
-    return new Promise((resolve, reject) => {
-      this.http.get(app[0].host+app[0].url +"/pm/"+ orgId,{headers: new HttpHeaders().set('token', this.token)
+    let app = await this.appConf("MDEC");
+  return new Promise((resolve, reject) => {
+    this.http.delete(app[0].host+app[0].url+"/"+smecId,{headers: new HttpHeaders()
+      .set('token', this.token)
       .set('api-key', app[0].apiKey)
-      }).subscribe(data => {
-        resolve(data);
-      }, err => {
-        console.log(err);
-        reject(err);
-      });
-    });
-  } catch (error) {
-    console.log(error);
-  }
-
-}
-
-async getBankOrg(orgId){
-  try {
-    let app = await this.appConf("COLN");
-  console.log(app);
-  return new Promise((resolve, reject) => {
-    this.http.get(app[0].host+app[0].url +"/b/"+ orgId,{headers: new HttpHeaders().set('token', this.token)
-    .set('api-key', app[0].apiKey)
-    }).subscribe(data => {
-      resolve(data);
-    }, err => {
-      console.log(err);
-      reject(err);
-    });
-  });
-  } catch (error) {
-    console.log(error);
-  }
-
-}
-
-async getBankAbbrev(){
-  try {
-    let app = await this.appConf("COLN");
-  console.log(app);
-  return new Promise((resolve, reject) => {
-    this.http.get(app[0].host+app[0].url +"/b",{headers: new HttpHeaders().set('token', this.token)
-    .set('api-key', app[0].apiKey)
-    }).subscribe(data => {
-      resolve(data);
-    }, err => {
-      console.log(err);
-      reject(err);
-    });
-  });
-  } catch (error) {
-    console.log(error);
-  }
-
-}
-
-async PendingReceipt (data){
-  try {
-    let app = await this.appConf("CFPR");
-  console.log(app);
-  return new Promise((resolve, reject) => {
-    this.http.post(app[0].host+app[0].url+"/n", JSON.stringify(data),{
-      headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token).set('api-key', app[0].apiKey)
-    })
-      .subscribe(res => {
+    }).subscribe(res => {
         resolve(res);
       }, (err) => {
         reject(err);
@@ -1055,7 +951,9 @@ async PendingReceipt (data){
   } catch (error) {
     console.log(error);
   }
+
 }
+
 
 }
 
