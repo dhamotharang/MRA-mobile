@@ -795,28 +795,6 @@ async getListNoti(personId){
 
 
 
-
-//Token/u{orgId}
-async getTokenNoti(orgId){
-  try {
-    let app = await this.appConf("MBTK");
-    console.log(app);
-    return new Promise((resolve, reject) => {
-      this.http.get(app[0].host+app[0].url +"/"+ orgId,{headers: new HttpHeaders().set('token', this.token)
-      .set('api-key', app[0].apiKey)
-      }).subscribe(data => {
-        resolve(data);
-      }, err => {
-        console.log(err);
-        reject(err);
-      });
-    });
-  } catch (error) {
-    console.log(error);
-  }
-
-}
-
 sendPush(list,personId) {
   var urlList = [];
   console.log(list);
@@ -953,6 +931,194 @@ async deleteEmergency(smecId){
   }
 
 }
+  
+  // /token/add
+// /token/upd
+ async createToken(data) {
+  try{
+    let app = await this.appConf("MGAN");
+    console.log('requestJoin',data);
+    return new Promise((resolve, reject) => {
+        this.http.post(app[0].host+app[0].contextPath+"/token/add", JSON.stringify(data),{
+          headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token).set('api-key', app[0].apiKey)
+        })
+      .subscribe(res => {
+        resolve(res);
+      }, (err) => {
+        reject(err);
+      });
+  });
+  }catch(e){
+    console.log(e);
+  }
+ }
+
+ async updateToken(data) {
+  try{
+    let app = await this.appConf("MGAN");
+    console.log('requestJoin',data);
+    return new Promise((resolve, reject) => {
+        this.http.post(app[0].host+app[0].contextPath+"/token/upd", JSON.stringify(data),{
+          headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token).set('api-key', app[0].apiKey)
+        })
+      .subscribe(res => {
+        resolve(res);
+      }, (err) => {
+        reject(err);
+      });
+  });
+  }catch(e){
+    console.log(e);
+  }
+ }
+
+ ///token/c/{rnum}
+ async getTokenStaff(orgId){  //get token staff
+  try {
+    let app = await this.appConf("MBTK");
+    console.log(app);
+    return new Promise((resolve, reject) => {
+      this.http.get(app[0].host+app[0].contextPath +"/"+ "token/c/" + orgId,{headers: new HttpHeaders().set('token', this.token)
+      .set('api-key', app[0].apiKey)
+      }).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+        reject(err);
+      });
+    });
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+
+
+
+
+ //Token/v{orgId}
+async getTokenNoti(orgId){  //get token volunteer
+  try {
+    let app = await this.appConf("MBTK");
+    console.log(app);
+    return new Promise((resolve, reject) => {
+      this.http.get(app[0].host+app[0].url +"/"+ orgId,{headers: new HttpHeaders().set('token', this.token)
+      .set('api-key', app[0].apiKey)
+      }).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+        reject(err);
+      });
+    });
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+
+
+ //------------------------------ receipt form
+ async getMember(counter,input,orgId){
+  try{
+    let app = await this.appConf("OMEM");
+  var url = app[0].host+app[0].contextPath+"/mbl/member/org?start="+counter+"&term="+input+"&orgId="+orgId;
+  console.log(url);
+  return new Promise((resolve, reject) => {
+    this.http.get(url,{headers: new HttpHeaders().set('token', this.token)
+    .set('api-key', app[0].apiKey)
+    })
+      .subscribe(res => {
+        resolve(res);
+      }, (err) => {
+        reject(err);
+      });
+  });
+  }
+  catch(e){
+    console.log(e);
+  }
+}
+
+async getPaymentMedium(orgId){
+  try {
+    let app = await this.appConf("COLN");
+    console.log(app);
+    return new Promise((resolve, reject) => {
+      this.http.get(app[0].host+app[0].url +"/pm/"+ orgId,{headers: new HttpHeaders().set('token', this.token)
+      .set('api-key', app[0].apiKey)
+      }).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+        reject(err);
+      });
+    });
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+
+async getBankOrg(orgId){
+  try {
+    let app = await this.appConf("COLN");
+  console.log(app);
+  return new Promise((resolve, reject) => {
+    this.http.get(app[0].host+app[0].url +"/b/"+ orgId,{headers: new HttpHeaders().set('token', this.token)
+    .set('api-key', app[0].apiKey)
+    }).subscribe(data => {
+      resolve(data);
+    }, err => {
+      console.log(err);
+      reject(err);
+    });
+  });
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+
+async getBankAbbrev(){
+  try {
+    let app = await this.appConf("COLN");
+  console.log(app);
+  return new Promise((resolve, reject) => {
+    this.http.get(app[0].host+app[0].url +"/b",{headers: new HttpHeaders().set('token', this.token)
+    .set('api-key', app[0].apiKey)
+    }).subscribe(data => {
+      resolve(data);
+    }, err => {
+      console.log(err);
+      reject(err);
+    });
+  });
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+
+async PendingReceipt (data){
+  try {
+    let app = await this.appConf("CFPR");
+  console.log(app);
+  return new Promise((resolve, reject) => {
+    this.http.post(app[0].host+app[0].url+"/n", JSON.stringify(data),{
+      headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token).set('api-key', app[0].apiKey)
+    })
+      .subscribe(res => {
+        resolve(res);
+      }, (err) => {
+        reject(err);
+      });
+  });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 
 
 }

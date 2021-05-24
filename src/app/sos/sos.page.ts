@@ -115,6 +115,5 @@ export class SosPage implements OnInit {
       //this.loadingProvider.closeDelete();
     });
   }
-
 }
 

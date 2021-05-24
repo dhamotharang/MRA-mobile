@@ -56,9 +56,11 @@ export class HomePage implements OnInit {
     // });
     if (this.role == 'staff') {
       this.getStaffInvolved();
+      this.checkUpdTokenStaff();
     }
     else {
       this.getVolunteerInvolved();
+      this.checkUpdTokenVol();
     }
   }
 
@@ -152,6 +154,94 @@ export class HomePage implements OnInit {
       }
     };
     this.router.navigate(['scan-qr'], navigationExtras);
+  }
+
+  checkUpdTokenStaff() {
+    let p = []
+    this.restProvider.getTokenStaff(320).then((res: any) => {
+      console.log('checkUpdTokenStaff',res);
+      p = res.filter(x => x.id == this.profile.personId)
+      console.log(p.length);
+      if (p.length != 0) {
+        this.updateToken(p[0]);
+      }
+      else {
+        this.createToken();
+      }
+    }).catch(error => {
+      console.log(error);
+      // this.showAlert();
+      // this.loadingProvider.closeSaving();
+    })
+  }
+
+  checkUpdTokenVol() {
+    let p = []
+    this.restProvider.getTokenNoti(320).then((res: any) => {
+      console.log('checkUpdTokenVol',res);
+      p = res.filter(x => x.id == this.profile.personId)
+      console.log(p.length);
+      if (p.length != 0) {
+        this.updateToken(p[0]);
+      }
+      else {
+        this.createToken();
+      }
+    }).catch(error => {
+      console.log(error);
+      // this.showAlert();
+      // this.loadingProvider.closeSaving();
+    })
+  }
+
+  updateToken(data) {
+    this.storage.get('fcmToken').then((val:any) => {
+      console.log('createToken',val)
+      let param = {
+        platform: 'android',
+        oaId: this.profile.oaId,
+        token: val,
+        // id: data.id,
+        // personId: this.profile.personId
+      }
+      this.restProvider.updateToken(param).then((result:any) => {
+        console.log('updateToken',result);
+        // this.projectDetail = result;
+        // this.loadingProvider.closeLoading();
+        // this.createAnnouncement();
+        // this.navCtrl.back();
+      }, (err) => {
+        // console.log(err);
+        // this.loadingProvider.closeLoading();
+        // this.showAlert();
+      });
+    });
+
+  }
+
+  createToken() {
+    this.storage.get('fcmToken').then((val:any) => {
+      console.log('createToken',val)
+      let data = {
+        platform: 'android',
+        oaId: this.profile.oaId,
+        token: val,
+        personId: this.profile.personId
+      }
+      this.restProvider.createToken(data).then((result:any) => {
+        console.log('createToken',result);
+        // this.projectDetail = result;
+        // this.loadingProvider.closeLoading();
+        // this.createAnnouncement();
+        // this.navCtrl.back();
+      }, (err) => {
+        // console.log(err);
+        // this.loadingProvider.closeLoading();
+        // this.showAlert();
+      });
+    });
+
+
   }
 
 }
