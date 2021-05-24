@@ -795,28 +795,6 @@ async getListNoti(personId){
 
 
 
-
-//Token/u{orgId}
-async getTokenNoti(orgId){
-  try {
-    let app = await this.appConf("MBTK");
-    console.log(app);
-    return new Promise((resolve, reject) => {
-      this.http.get(app[0].host+app[0].url +"/"+ orgId,{headers: new HttpHeaders().set('token', this.token)
-      .set('api-key', app[0].apiKey)
-      }).subscribe(data => {
-        resolve(data);
-      }, err => {
-        console.log(err);
-        reject(err);
-      });
-    });
-  } catch (error) {
-    console.log(error);
-  }
-
-}
-
 sendPush(list,personId) {
   var urlList = [];
   console.log(list);
@@ -916,7 +894,45 @@ async getContactCounter(orgid,counter){
 
 }
 
-// /token/add
+async createEmergencyContact(data){
+  try {
+    let app = await this.appConf("CECL");
+  return new Promise((resolve, reject) => {
+    this.http.post(app[0].host+app[0].url, JSON.stringify(data),{
+      headers: new HttpHeaders().set('Content-Type', 'application/json').set('token',this.token).set('api-key', app[0].apiKey)
+    })
+      .subscribe(res => {
+        resolve(res);
+      }, (err) => {
+        reject(err);
+      });
+  });
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+
+async deleteEmergency(smecId){
+  try {
+    let app = await this.appConf("MDEC");
+  return new Promise((resolve, reject) => {
+    this.http.delete(app[0].host+app[0].url+"/"+smecId,{headers: new HttpHeaders()
+      .set('token', this.token)
+      .set('api-key', app[0].apiKey)
+    }).subscribe(res => {
+        resolve(res);
+      }, (err) => {
+        reject(err);
+      });
+  });
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+  
+  // /token/add
 // /token/upd
  async createToken(data) {
   try{
@@ -955,6 +971,52 @@ async getContactCounter(orgid,counter){
     console.log(e);
   }
  }
+
+ ///token/c/{rnum}
+ async getTokenStaff(orgId){  //get token staff
+  try {
+    let app = await this.appConf("MBTK");
+    console.log(app);
+    return new Promise((resolve, reject) => {
+      this.http.get(app[0].host+app[0].contextPath +"/"+ "token/c/" + orgId,{headers: new HttpHeaders().set('token', this.token)
+      .set('api-key', app[0].apiKey)
+      }).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+        reject(err);
+      });
+    });
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+
+
+
+
+ //Token/v{orgId}
+async getTokenNoti(orgId){  //get token volunteer
+  try {
+    let app = await this.appConf("MBTK");
+    console.log(app);
+    return new Promise((resolve, reject) => {
+      this.http.get(app[0].host+app[0].url +"/"+ orgId,{headers: new HttpHeaders().set('token', this.token)
+      .set('api-key', app[0].apiKey)
+      }).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+        reject(err);
+      });
+    });
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+
 
  //------------------------------ receipt form
  async getMember(counter,input,orgId){
@@ -1056,6 +1118,8 @@ async PendingReceipt (data){
     console.log(error);
   }
 }
+
+
 
 }
 

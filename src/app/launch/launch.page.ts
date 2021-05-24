@@ -136,73 +136,6 @@ export class LaunchPage {
 
   }
 
-  checkingToken() {
-    let p = []
-    this.restProvider.getTokenNoti(320).then((res: any) => {
-      console.log(res);
-      p = res.filter(x => x.id == this.profile.personId)
-      console.log(p.length);
-      if (p.length != 0) {
-        this.updateToken();
-      }
-      else {
-        this.createToken();
-      }
-    }).catch(error => {
-      console.log(error);
-      // this.showAlert();
-      // this.loadingProvider.closeSaving();
-    })
-  }
-
-  updateToken() {
-    this.storage.get('fcmToken').then((val:any) => {
-      console.log('createToken',val)
-      let data = {
-        platform: 'android',
-        oaId: this.profile.oaId,
-        token: val,
-        personId: this.profile.personId
-      }
-      this.restProvider.createToken(data).then((result:any) => {
-        // console.log('token',result);
-        // this.projectDetail = result;
-        // this.loadingProvider.closeLoading();
-        // this.createAnnouncement();
-        this.navCtrl.back();
-      }, (err) => {
-        // console.log(err);
-        // this.loadingProvider.closeLoading();
-        // this.showAlert();
-      });
-    });
-
-  }
-
-  createToken() {
-    this.storage.get('fcmToken').then((val:any) => {
-      console.log('createToken',val)
-      let data = {
-        platform: 'android',
-        oaId: this.profile.oaId,
-        token: val,
-        personId: this.profile.personId
-      }
-      this.restProvider.createToken(data).then((result:any) => {
-        // console.log('token',result);
-        // this.projectDetail = result;
-        // this.loadingProvider.closeLoading();
-        // this.createAnnouncement();
-        this.navCtrl.back();
-      }, (err) => {
-        // console.log(err);
-        // this.loadingProvider.closeLoading();
-        // this.showAlert();
-      });
-    });
-
-
-  }
   
 
   filterOrg() {//hardcoded
@@ -221,7 +154,6 @@ export class LaunchPage {
       val.personId = this.profile.personId
       this.storage.set('defaultProfile', val)
     })
-    this.checkingToken();
     this.checkRole();
   }
 
