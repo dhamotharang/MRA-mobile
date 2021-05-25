@@ -4,7 +4,6 @@ import { RestProvider } from 'src/providers/rest/rest';
 import { LoadingProvider } from  './../../providers/loading-provider';
 import { Storage } from '@ionic/storage';
 import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';
-
 import * as $ from "jquery";
 
 
@@ -50,13 +49,6 @@ export class ContactListPage implements OnInit {
 
   ionViewWillEnter(){
     this.getContact();
-    // this.route.queryParams.subscribe(params => {
-    //   console.log('ngOnInit',params)
-    //   if (this.router.getCurrentNavigation().extras.state) {
-    //     this.existList = this.router.getCurrentNavigation().extras.state.contactList;
-    //     console.log('Selected Emergency Contact List',this.existList)
-    //   }
-    // });
     console.log("Value from ionViewWillEnter");
 
   }
@@ -164,6 +156,7 @@ export class ContactListPage implements OnInit {
           }
         }
       }
+      console.log('filtered_2', filtered_2.length);
     }
     if(filtered_2.length == 0){
       $( ".checkboxes" ).prop( "checked", false);//uncheck all
@@ -172,6 +165,7 @@ export class ContactListPage implements OnInit {
         let index = filtered_2[i];
         this.selectedBox[index] = true;
       }
+      console.log('filtered_2 else', filtered_2.length);
     }
     // this.loadingProvider.closeSearching();
   }

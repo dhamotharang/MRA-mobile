@@ -36,7 +36,7 @@ import * as $ from 'jquery';
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
-    IonicStorageModule.forRoot(),
+    IonicStorageModule.forRoot()
 
   ],
   providers: [

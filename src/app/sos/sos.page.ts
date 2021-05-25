@@ -60,8 +60,8 @@ export class SosPage implements OnInit {
     this.router.navigate(['contact-list'], navigationExtras);  //navigate ke page lain
   }
 
-  async getContact(){               //to get list of contact
-    await this.storage.get('defaultProfile').then((val:any) => {   //untuk guna storage
+  getContact(){               //to get list of contact
+    this.storage.get('defaultProfile').then((val:any) => {   //untuk guna storage
       //console.log("val from getOrg",val)
       this.profile= val
       this.restProvider.getEmergencyList(this.profile.personId).then((result:any) => {
