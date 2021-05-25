@@ -48,6 +48,7 @@ export class CreatePostPage implements OnInit {
   };
   latLng: any;
   personId: any;
+  param: { upload_preset: string; folder: string; file: string; };
 
   constructor(
     private formBuilder: FormBuilder,
@@ -103,13 +104,20 @@ export class CreatePostPage implements OnInit {
   }
 
   getImageFx() {
+    this.image = null;
     this.camera.getPicture(this.cameraOptions).then(data => {
       this.image = 'data:image/jpeg;base64,' + data;
-      console.log('image:',this.image);
+      this.param = {
+        'upload_preset': 'c4gf0qoq',
+        'folder': 'mra/gallery',
+        'file':this.image,
+      };
+    this.upload();
     }, error => console.log(error, "errorGetImage"))
   }
 
   takePicture() {
+    this.image = null;
     const options: CameraOptions = {
       quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
@@ -123,53 +131,48 @@ export class CreatePostPage implements OnInit {
     //   console.log("Camera issue:" + err);
     // });
 
-    this.camera.getPicture(options).then((imageData) => {
-      this.sanitize.bypassSecurityTrustUrl(imageData);
-      let x = decodeURIComponent(imageData);
-      let name = x.substring(x.lastIndexOf('/') + 1);
-       this.currentImage = [{
-         name:name,
-         thumbnail: this.sanitize.bypassSecurityTrustUrl(imageData),
-         uri: imageData,
-         type: 'image'
-       }];
-       console.log('this.currentImage',this.currentImage);
-       this.upload();
+    // this.camera.getPicture(options).then((imageData) => {
+    //   this.sanitize.bypassSecurityTrustUrl(imageData);
+    //   let x = decodeURIComponent(imageData);
+    //   let name = x.substring(x.lastIndexOf('/') + 1);
+    //    this.currentImage = [{
+    //      name:name,
+    //      thumbnail: this.sanitize.bypassSecurityTrustUrl(imageData),
+    //      uri: imageData,
+    //      type: 'image'
+    //    }];
+    //    console.log('this.currentImage',this.currentImage);
+    //    this.upload();
+    //  });
+    this.camera.getPicture(this.cameraOptions).then((mediaData) => {
+      console.log(mediaData);
+      this.image = 'data:image/jpeg;base64,' + mediaData;
+      this.param = {
+           'upload_preset': 'c4gf0qoq',
+           'folder': 'mra/gallery',
+           'file':this.image,
+         };
+      this.upload();
+     }, (err) => {
+       console.log(err);
      });
   }
 
 
-  upload(){
-    this.loadingProvider.presentLoading();
-    this.restProvider.cloudinaryUpload(this.currentImage,'feed','proj_pic')
-    .then((res) =>{
-      console.log('res',res);
-        for(let i=0; i < res.length; i++){
-          let x = JSON.parse(res[i]);
-          this.secureURL = x.secure_url;
-        }
-      console.log('secureURL',this.secureURL);
-      // if(this.purpose == "jumaat")
-      // {
-      //   console.log('trigger');
-      //   this.IssueReceipt();
-      // }else{
-      //   console.log('not trigger');
-      //   this.IssueReceiptOther();
-      // }
-      this.loadingProvider.closeLoading();
 
-    }).catch(error => {
-      console.log('uploadError',error);
-      this.loadingProvider.closeLoading();
-      // const alert = this.alertCtrl.create({
-      //   title: 'Cloudinary Server Error!',
-      //   subTitle: 'Please try again later.',
-      //   buttons: ['OK']
-      // });
-      // alert.present();
-    })
+  upload(){
+    // this.loadingProvider.presentLoading();
+    this.restProvider.imageUpload(this.param).then((result:any) => {
+      console.log('upload',result);
+      console.log('upload',result.secureURL);
+      this.secureURL = result.secureURL
+      // this.exitForm();
+    }, (err) => {
+      console.log(err);
+      // this.showAlert();
+    });
   }
+  
 
   // checkSize(path): Promise<any>{
   //   console.log(path);
@@ -185,35 +188,34 @@ export class CreatePostPage implements OnInit {
   //   });
   // }
 
-  uploadpictureFx(datalocal) {
-    // console.log('uploadpictureFx', this.merchantDetail.status_name)
-    let reader = new FileReader();
-    reader.readAsDataURL(datalocal.target.files[0])
-    reader.onload = (event: any) => { // called once readAsDataURL is completed
-      // this.frontIC = event.target.result;  // for bind
-      // this.postClientPictureFx(this.frontIC, description, order)
-      this.currentImage = [{
-        name:name,
-        thumbnail: this.sanitize.bypassSecurityTrustUrl(event.target.result),
-        uri: event.target.result,
-        type: 'image'
-      }];
-      console.log('this.currentImage',this.currentImage);
-      this.upload();
-    }
-  }
-
   postProjectFeed() { //without image
     this.loadingProvider.presentLoading();
     this.restProvider.postProjectFeed(this.postForm.value,this.navParam,this.personId).then((result:any) => {
       console.log('postProjectFeed',result);
-      this.loadingProvider.closeLoading();
-      this.exitForm();
+      // this.loadingProvider.closeLoading();
+      this.postImage(result)
     }, (err) => {
       console.log(err);
       this.loadingProvider.closeLoading();
       // this.showAlert();
     });
+  }
+
+  postImage(result) {
+    if (this.image != null) {
+      this.restProvider.postFeedImage(result.feedId,this.navParam,this.secureURL).then((result:any) => {
+        console.log('postProjectFeed',result);
+        this.loadingProvider.closeLoading();
+        this.exitForm();
+      }, (err) => {
+        console.log(err);
+        this.loadingProvider.closeLoading();
+        // this.showAlert();
+      });
+    }
+    else {
+      this.exitForm();
+    }
   }
 
 

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams } from '@ionic/angular';
+import { NavController, NavParams, ModalController, AlertController} from '@ionic/angular';
 import { RestProvider } from 'src/providers/rest/rest';
 import { LoadingProvider } from  './../../providers/loading-provider';
 import { Storage } from '@ionic/storage';
+import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';
 
-// import * as $ from "jquery";
+import * as $ from "jquery";
 
 
 
@@ -24,11 +25,16 @@ export class ContactListPage implements OnInit {
   counter:any = 0;
   // orgId:any = this.navParams.get('orgId');
   // existList:any = this.navParams.get('existList');
-  selectedBox: any[];
-  createList: any;
+  selectedBox:any = [];
+  // createList: any;
+  private createList=[];
   contactList:any = [];
+  private addedContactList=[];
   personid:any;
   profile: any;
+  existList:any;
+  $: any;
+  //ModalController: any;
 
 
   constructor(
@@ -36,21 +42,39 @@ export class ContactListPage implements OnInit {
     private storage: Storage,
     public loadingProvider: LoadingProvider,
     public  restProvider: RestProvider,
+    public modalCtrl: ModalController,
+    private alertCtrl: AlertController,
+    private router: Router,
+    private route: ActivatedRoute,
   ) { }
 
   ionViewWillEnter(){
     this.getContact();
+    // this.route.queryParams.subscribe(params => {
+    //   console.log('ngOnInit',params)
+    //   if (this.router.getCurrentNavigation().extras.state) {
+    //     this.existList = this.router.getCurrentNavigation().extras.state.contactList;
+    //     console.log('Selected Emergency Contact List',this.existList)
+    //   }
+    // });
+    console.log("Value from ionViewWillEnter");
+
   }
 
   ionViewDidEnter(){
-    console.log('exist list from sos-org', this.contactList);
-    this.storage.get('defaultPersonId').then((val:any) => {
+    console.log('exist list from sos-org', this.existList);
+    this.storage.get('defaultProfile').then((val:any) => {
+      //console.log("val from ionViewDidEnter",val)
       this.personid = val;
       this.getList();
     });
+    this.storage.get('defaultPersonId').then((val:any) => {
+      //console.log("val from defaultPersonId",val)
+    });
   }
 
-  ngOnInit() {    //take data fromm previous page
+  ngOnInit() {
+  //take data fromm previous page
   //   this.route.queryParams.subscribe(params => {
   //   console.log('ngOnInit',params)
   //   if (this.router.getCurrentNavigation().extras.state) {
@@ -61,54 +85,63 @@ export class ContactListPage implements OnInit {
   //     console.log('role',this.role)
   //   }
   // });
+  this.route.queryParams.subscribe(params => {
+    console.log('ngOnInit',params)
+    if (this.router.getCurrentNavigation().extras.state) {
+      this.existList = this.router.getCurrentNavigation().extras.state.contactList;
+      console.log('Selected Emergency Contact List',this.existList)
+    }
+  });
     this.getOrg()
   }
 
   getOrg(){
     // this.loadingProvider.presentLoading();
     this.storage.get('defaultProfile').then((val:any) => {   //untuk guna storage
-      console.log("val",val)
+      //console.log("val from getOrg",val)
       this.profile= val
     })
 
   }
 
-
-  // navFx() {
-  //   this.navCtrl.navigateBack('/sos');
-  // }
-
   getList(){
-    //this.loadingProvider.setupSearching();
-    this.counter = 0;
-    this.restProvider.getContactCounter(this.profile.orgId,this.counter).then((result:any) => {
-      console.log('return data ',result);
-      console.log('Print something', "Kotak hati");
-      this.contactList = result;
-      this.checkList();
-      //this.loadingProvider.closeSearching();
-    }, (err) => {
-      console.log(err);
-      this.showAlert();
-      //this.loadingProvider.closeSearching();
+
+    this.storage.get('personOrgs').then((val:any) => {
+      //console.log('personOrgs value is', val);
+      this.counter = 1;
+
+      //console.log("orgId",val);
+      this.restProvider.getContactCounter(val,this.counter).then((result:any) => {
+        console.log('return data ',result);
+        this.contactList = result;
+        console.log("getContactCounter", this.contactList);
+        this.checkList();
+        //this.loadingProvider.closeSearching();
+      }, (err) => {
+        console.log(err);
+        this.showAlert();
+        //this.loadingProvider.closeSearching();
+      });
+
     });
   }
+
   showAlert() {
     throw new Error('Method not implemented.');
   }
 
   checkList(){
-    console.log('exis list in checklist', this.contactList); //
+    console.log('exis list in checklist', this.existList);
     this.selectedBox = [];
     for(let i = 0; i < this.contactList.length; i++) {
       this.selectedBox.push(false);
     }
-    if(this.contactList.length > 0){
+    if(this.existList.length > 0){
       // let filtered = [];
-      for(let i=0; i<this.contactList.length; i++){ //
+      for(let i=0; i<this.existList.length; i++){
         for(let x=0; x<this.contactList.length; x++){
           var a = JSON.stringify(this.contactList[x].id);
-          var b = JSON.stringify(this.contactList[i].ice);
+          var b = JSON.stringify(this.existList[i].ice);
           if( a == b ){
             console.log("if sama the splice");
             this.contactList.splice(x,1);
@@ -124,7 +157,7 @@ export class ContactListPage implements OnInit {
       for(let x=0; x<this.contactList.length; x++){
         for(let i=0; i<this.createList.length; i++){
           var a = JSON.stringify(this.contactList[x].id);
-          var b = JSON.stringify(this.createList[i].ice);
+          var b = JSON.stringify(this.createList[i].personId);
           if( a == b ){
             console.log("sama");
             filtered_2.push(x);
@@ -133,35 +166,151 @@ export class ContactListPage implements OnInit {
       }
     }
     if(filtered_2.length == 0){
-      //$( ".checkboxes" ).prop( "checked", false);//uncheck all
+      $( ".checkboxes" ).prop( "checked", false);//uncheck all
     }else{
       for(let i=0; i<filtered_2.length; i++){
         let index = filtered_2[i];
         this.selectedBox[index] = true;
       }
     }
-    //this.loadingProvider.closeSearching();
+    // this.loadingProvider.closeSearching();
   }
 
   getContact(){               //to get list of contact
-    //this.loadingProvider.setupLoading();
-    this.restProvider.getEmergencyList(this.personid).then((result:any) => {
-      console.log(result);
-      if(result == null){
-        this.contactList = [];
-      }else{
-        this.contactList = result;  //give value to contactList from result
-      }
-      //this.loadingProvider.closeLoading();
-    }, (err) => {
-      console.log(err);
-      //this.loadingProvider.closeLoading();
-      this.showAlert();
-    });
+
+    this.storage.get('defaultProfile').then((val:any) => {   //untuk guna storage
+      this.profile= val
+      this.restProvider.getEmergencyList(this.profile.personId).then((result:any) => {
+        if(result == null){
+          this.contactList = [];
+        }else{
+          this.contactList = result;  //give value to contactList from result
+        }
+        //this.loadingProvider.closeLoading();
+      }, (err) => {
+        console.log(err);
+        //this.loadingProvider.closeLoading();
+        this.showAlert();
+      });
+    })
   }
 
-  // addContact(){
-  //   this.navCtrl.push("SosOrg", {existList: this.contactList, callback: this.myCallbackFunction});    //existList first declaration
-  // }
+  async addContact(){
+    // let totalLength = this.contactList.length + this.createList.length;
+    // console.log('total length',totalLength);
+    // console.log('exist length',this.contactList.length);
+    // console.log('create length',this.createList.length);
+    // if(this.createList.length < 1){
+    //   //this.modalCtrl.dismiss({data:this.contactList});
+    //   console.log(this.createList);
+    //   //this.loadingProvider.setupSaving();
+    //   this.restProvider.createEmergencyContact(this.createList).then((result:any) => {
+    //     console.log("Addcontact result",result);
+    //     console.log("After clicking done");
+    //     this.getContact();
+    //   }, (err) => {
+    //     console.log(err);
+    //     //this.loadingProvider.closeSaving();
+    //     //this.showAlert();
+    //   });
+    //   console.log("The first if");
+    // }else if(totalLength > 20){
+    //   const alert = this.alertCtrl.create({
+    //     header: 'Info',
+    //     subHeader: 'Only 10 trusted contacts are allowed. Please reduce selected contacts.',
+    //     buttons: ['OK']
+    //   });
+    //   (await alert).present();
+    // }else{
+    //   console.log("this.createList",this.createList);
+    //   //this.loadingProvider.setupSaving();
+    //   this.restProvider.createEmergencyContact(this.createList).then((result:any) => {
+    //     console.log("After clicking done");
+    //     this.getContact();
+    //   }, (err) => {
+    //     console.log(err);
+    //     //this.loadingProvider.closeSaving();
+    //     //this.showAlert();
+    //   });
+    // }
+
+    let totalLength = this.existList.length + this.createList.length;
+    console.log('exist length',this.existList.length);
+    console.log('create length',this.createList.length);
+    if(this.createList.length < 1){
+      // this.viewCtrl.dismiss({data:this.existList});
+    }else if(totalLength > 10){
+      const alert = this.alertCtrl.create({
+        header: 'Info',
+        subHeader: 'Only 10 trusted contacts are allowed. Please reduce selected contacts.',
+        buttons: ['OK']
+      });
+      (await alert).present()
+    }else{
+      console.log(this.createList);
+      // this.loadingProvider.setupSaving();
+      this.restProvider.createEmergencyContact(this.createList).then((result:any) => {
+        console.log(result);
+        this.getContact();
+      }, (err) => {
+        console.log(err);
+        // this.loadingProvider.closeSaving();
+        this.showAlert();
+      });
+    }
+
+    let navigationExtras: NavigationExtras = {
+
+    };
+    this.router.navigate(['sos'], navigationExtras);
+  }
+
+  changed(i){
+    // console.log('changed data',data)
+    // if(this.selectedBox[i] == true){
+    //   let c = {
+    //     "personId": this.profile.personId,
+    //     "ice": this.contactList[i].id,   //id orang yg dia choose
+    //   };
+    //   this.createList.push(c);
+    //   console.log('updated create list ',this.createList);
+    // }else{
+    //   let b = this.contactList[i].id;
+    //   console.log("B",b);
+    //   let arr = this.createList;
+    //   let filtered = arr.filter(function(item) {
+    //         let a = JSON.stringify(item.ice);
+    //         let c = JSON.stringify(b);
+    //         if( a != c ){
+    //           console.log("not");
+    //           return item;
+    //         }
+    //   })
+    //   console.log('updated create list ', filtered);
+    //   this.createList = filtered;
+    // }
+    if(this.selectedBox[i] == true){
+      let c = {
+        "personId": this.profile.personId,
+        "ice": this.contactList[i].personId
+      };
+      this.createList.push(c);
+      console.log('updated create list ',this.createList);
+    }else{
+      let b = this.contactList[i].personId;
+      console.log(b);
+      let arr = this.createList;
+      let filtered = arr.filter(function(item) {
+            let a = JSON.stringify(item.personId);
+            let c = JSON.stringify(b);
+            if( a != c ){
+              console.log("not");
+              return item;
+            }
+      })
+      console.log('updated create list ', filtered);
+      this.createList = filtered;
+    }
+  }
 
 }

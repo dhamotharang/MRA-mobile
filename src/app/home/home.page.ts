@@ -160,7 +160,7 @@ export class HomePage implements OnInit {
     let p = []
     this.restProvider.getTokenStaff(320).then((res: any) => {
       console.log('checkUpdTokenStaff',res);
-      p = res.filter(x => x.id == this.profile.personId)
+      p = res.filter(x => x.personId == this.profile.personId)
       console.log(p.length);
       if (p.length != 0) {
         this.updateToken(p[0]);
@@ -179,7 +179,7 @@ export class HomePage implements OnInit {
     let p = []
     this.restProvider.getTokenNoti(320).then((res: any) => {
       console.log('checkUpdTokenVol',res);
-      p = res.filter(x => x.id == this.profile.personId)
+      p = res.filter(x => x.personId == this.profile.personId)
       console.log(p.length);
       if (p.length != 0) {
         this.updateToken(p[0]);
@@ -201,7 +201,7 @@ export class HomePage implements OnInit {
         platform: 'android',
         oaId: this.profile.oaId,
         token: val,
-        // id: data.id,
+        id: data.id,
         // personId: this.profile.personId
       }
       this.restProvider.updateToken(param).then((result:any) => {

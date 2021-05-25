@@ -29,7 +29,7 @@ export class RestProvider {
 
     appConf(app) {
         return new Promise((resolve, reject) => {
-            let devplink = 'http://192.168.0.105:8181/hss-start-0.0.1-SNAPSHOT/app/config/r';  //192.168.0.5 //192.168.43.221  //dev.hss.oas.my
+            let devplink = 'http://192.168.0.100:8181/hss-start-0.0.1-SNAPSHOT/app/config/r';  //192.168.0.105 //192.168.43.221  //dev.hss.oas.my
             this.http.post(devplink, [app], {
                 headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token)//.set('api-key','eIsyynm35y3j5dDTp2RGyS1QR1gxYvSYPZB2MBHpnZUa5BeEs6Xl97cFx0004P4cWhoa12ceefOWMZ7CAJv9l30pUTpqSq9cj0mP3emB5Z7pWGGK8M0LO8fmO962h52O')
             })
@@ -68,7 +68,8 @@ export class RestProvider {
       let app = await this.appConf("PRJM");
     console.log(app);
     return new Promise((resolve, reject) => {
-      this.http.get(app[0].host+app[0].contextPath+"/proj/feed/s/"+personId,{headers: new HttpHeaders().set('token', this.token)
+      console.log(app)
+      this.http.get(app[0].host+"hss-project-0.0.1-SNAPSHOT"+"/proj/feed/s/"+personId,{headers: new HttpHeaders().set('token', this.token)
       .set('api-key', app[0].apiKey)
       })
         .subscribe(res => {
@@ -297,6 +298,36 @@ export class RestProvider {
         }
 
     }
+
+    //http://localhost:8181/hss-organization-admin-0.0.1-SNAPSHOT/gallery/c
+    async postFeedImage(feed_id,detail,image){
+      try{
+        let app = await this.appConf("PRJM");
+      console.log(app);
+      return new Promise((resolve, reject) => {
+        console.log('form',feed_id)
+          let data = {
+              feed_id: feed_id,
+              project_id: detail.projId,
+              image_url:image
+            };
+            this.http.post(app[0].host+"/hss-organization-admin-0.0.1-SNAPSHOT/gallery/c", JSON.stringify(data),{
+              headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token).set('api-key', app[0].apiKey)
+            })
+          .subscribe(res => {
+            resolve(res);
+          }, (err) => {
+            reject(err);
+          });
+      });
+      }catch(e){
+        console.log(e);
+      }
+
+  }
+
+
+
     //http://localhost:8181/hss-project-0.0.1-SNAPSHOT/proj/task/v/{projId}
     async getTasksList(projId){
         try{
@@ -483,6 +514,26 @@ export class RestProvider {
       }
   }
 
+      //http://localhost:8181/hss-project-0.0.1-SNAPSHOT/proj/comm/v/{rnum}
+      async getStaffList(projId){ //volunteer list in a project
+        try{
+          let app = await this.appConf("PRJM");
+        console.log(app);
+        return new Promise((resolve, reject) => {
+          this.http.get(app[0].host+app[0].contextPath+"/proj/comm/v/"+projId,{headers: new HttpHeaders().set('token', this.token)
+          .set('api-key', app[0].apiKey)
+          })
+            .subscribe(res => {
+              resolve(res);
+            }, (err) => {
+              reject(err);
+            });
+        });
+        }catch(e){
+          console.log(e);
+        }
+    }
+
 
   //http://localhost:8181/hss-project-0.0.1-SNAPSHOT/proj/vol/u
   async addVolunteer(data){  //add volunteer to a project
@@ -566,26 +617,25 @@ export class RestProvider {
   }
 
 //user-account page
-  async createAnnouncement(data){
-    console.log(data);
-    try{
-      let app = await this.appConf("MCAN");
-    return new Promise((resolve, reject) => {
-      this.http.post(app[0].host+app[0].contextPath+'/list/an/add', data,{headers: new HttpHeaders().set('enctype', 'multipart/form-data').set('Accept','application/json').set('token', this.token)
-      .set('api-key', app[0].apiKey)
-      })
-        .subscribe(res => {
-          resolve(res);
-        }, (err) => {
-          reject(err);
-        });
-    });
-    }
-    catch(e){
-      console.log(e);
-    }
-
+async createAnnouncement(data){
+  try{
+    let app = await this.appConf("MCAN");
+  return new Promise((resolve, reject) => {
+    this.http.post(app[0].host+app[0].contextPath+'/list/an/add', data,{headers: new HttpHeaders().set('enctype', 'multipart/form-data').set('Accept','application/json').set('token', this.token)
+    .set('api-key', app[0].apiKey)
+    })
+      .subscribe(res => {
+        resolve(res);
+      }, (err) => {
+        reject(err);
+      });
+  });
   }
+  catch(e){
+    console.log(e);
+  }
+
+}
 
 
   //user-account page
@@ -633,41 +683,85 @@ export class RestProvider {
     //http://localhost:8181/hss-organization-admin-0.0.1-SNAPSHOT/gallery/c
     //https://res.cloudinary.com/myjiran/image/upload/v1614407863/proj_pic/apmdiyr3pbtx9mjwqhov.png
     //http://192.168.43.221:8181/0.0.1-SNAPSHOT/myjiran
-    async cloudinaryUpload(data,tag,folder):Promise<any>{
-      try {
-        let app = await this.appConf("SOLO");
-        var returnData = [];
-        var l = data.length;
-        for(let i=0; i< data.length;i++) {
-          if(data[i].type == 'pdf' || data[i].type == undefined){
-            var url = app[0].host+"/"+app[0].version+"/myjiran/auto/upload";
-          }else{
-            var url = app[0].host+"/"+app[0].version+"/"+"myjiran/"+ data[i].type +'/upload';
-          }
-          let result = await this.cloud_upload(data[i].uri,url,tag,folder);
-          console.log('No issues, I will wait until promise is resolved..');
-          console.log('await finish  '+ result);
-          returnData.push(result);
-          console.log(returnData);
-        };
-        return(returnData);
-      } catch (error) {
-        console.log(error);
-      }
+    // async cloudinaryUpload(data,tag,folder):Promise<any>{
+    //   try {
+    //     let app = await this.appConf("SOLO");
+    //     var returnData = [];
+    //     var l = data.length;
+    //     for(let i=0; i< data.length;i++) {
+    //       if(data[i].type == 'pdf' || data[i].type == undefined){
+    //         var url = app[0].host+"/"+app[0].version+"/myjiran/auto/upload";
+    //       }else{
+    //         var url = app[0].host+"/"+app[0].version+"/"+"myjiran/"+ data[i].type +'/upload';
+    //       }
+    //       let result = await this.cloud_upload(data[i].uri,url,tag,folder);
+    //       console.log('No issues, I will wait until promise is resolved..');
+    //       console.log('await finish  '+ result);
+    //       returnData.push(result);
+    //       console.log(returnData);
+    //     };
+    //     return(returnData);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
 
-    }
+    // }
 
-    cloud_upload(uri,url,tag,folder): Promise<any>{
+    // cloud_upload(uri,url,tag,folder): Promise<any>{
+    //   return new Promise((resolve,reject) => {
+    //     const fileTransfer: FileTransferObject = this.transfer.create();
+    //     let options: FileUploadOptions = {
+    //       params : {
+    //         'upload_preset': 'c4gf0qoq',
+    //         'tags': tag,
+    //         'folder': folder,
+    //       }
+    //     }
+    //     fileTransfer.upload(uri, url, options).then(data => {
+    //       console.log("await process = "+ data.response);
+    //       resolve(data.response);
+    //     })
+    //     .catch(err => {
+    //       console.log(err);
+    //       reject(err);
+    //     });
+    //   });
+    // }
+
+    // async imageUpload(data):Promise<any>{
+    //   console.log('check ni',data);
+    //   return new Promise((resolve,reject) => {
+    //     const fileTransfer: FileTransferObject = this.transfer.create();
+    //     let options: FileUploadOptions = {
+    //       params : {
+    //         'upload_preset': 'c4gf0qoq',
+    //         'folder': 'mra/gallery',
+    //       }
+    //     }
+    //     fileTransfer.upload(data.file,'https://api.cloudinary.com/v1_1/myjiran/image/upload', options).then(data => {
+    //       console.log("await process = "+ data.response);
+    //       resolve(data.response);
+    //     })
+    //     .catch(err => {
+    //       console.log(err);
+    //       reject(err);
+    //     });
+    //   });
+
+    // }
+
+    async imageUpload(data):Promise<any>{
       return new Promise((resolve,reject) => {
         const fileTransfer: FileTransferObject = this.transfer.create();
         let options: FileUploadOptions = {
           params : {
             'upload_preset': 'c4gf0qoq',
-            'tags': tag,
-            'folder': folder,
+            'folder': 'mra/gallery',
+            'file': data.file,
           }
         }
-        fileTransfer.upload(uri, url, options).then(data => {
+        console.log('check ni',data);
+        fileTransfer.upload(data.file,'https://api.cloudinary.com/v1_1/myjiran/image/upload', options).then(data => {
           console.log("await process = "+ data.response);
           resolve(data.response);
         })
@@ -676,8 +770,10 @@ export class RestProvider {
           reject(err);
         });
       });
+
     }
 
+    
     async updateProfile(data){     //guna untuk submit data
       try {
         let app = await this.appConf("MUPR");
@@ -813,6 +909,24 @@ sendPush(list,personId) {
   return forkJoin(urlList);
 }
 
+pushNoti(list,personId) {
+  var urlList = [];
+  console.log(list);
+  console.log(personId);
+  for(let i=0; i < list.length; i++){
+    let r = Math.floor(Math.random() * 100);     // returns a random integer from 0 to 99
+    let n = personId + r; //to produce unique id, so notification is stacking
+    // list[i].data.notId = n;
+    let url = this.http.post('https://fcm.googleapis.com/fcm/send', JSON.stringify(list[i]),{
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+      .set('Authorization', 'key=AAAAhY8Iny4:APA91bF4KHWiYS2trL-hiLzqO0GiBDvJ1UvFy48ii_jWAnphHs_NBdVkVEHwm-s2R3yI_QIJn02KAbSwo-k2RifBVbpP8m63HJkryJK20rltM4JzlagUJvadt9i0_vVdZka4loaWy8BL')
+    })
+    .pipe(map((response: any) => response));
+    urlList.push(url);
+  }
+  return forkJoin(urlList);
+}
+
 
 async getUserDonation(personId){
   try{
@@ -894,7 +1008,45 @@ async getContactCounter(orgid,counter){
 
 }
 
-// /token/add
+async createEmergencyContact(data){
+  try {
+    let app = await this.appConf("CECL");
+  return new Promise((resolve, reject) => {
+    this.http.post(app[0].host+app[0].url, JSON.stringify(data),{
+      headers: new HttpHeaders().set('Content-Type', 'application/json').set('token',this.token).set('api-key', app[0].apiKey)
+    })
+      .subscribe(res => {
+        resolve(res);
+      }, (err) => {
+        reject(err);
+      });
+  });
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+
+async deleteEmergency(smecId){
+  try {
+    let app = await this.appConf("MDEC");
+  return new Promise((resolve, reject) => {
+    this.http.delete(app[0].host+app[0].url+"/"+smecId,{headers: new HttpHeaders()
+      .set('token', this.token)
+      .set('api-key', app[0].apiKey)
+    }).subscribe(res => {
+        resolve(res);
+      }, (err) => {
+        reject(err);
+      });
+  });
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+  
+  // /token/add
 // /token/upd
  async createToken(data) {
   try{
@@ -1080,6 +1232,8 @@ async PendingReceipt (data){
     console.log(error);
   }
 }
+
+
 
 }
 
