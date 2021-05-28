@@ -4,6 +4,8 @@ import { CallNumberProvider } from 'src/providers/call-number.provider';
 import { RestProvider } from 'src/providers/rest/rest';
 import { Storage } from '@ionic/storage-angular';
 import { AlertController } from '@ionic/angular';
+import { LoadingProvider } from  './../../providers/loading-provider';
+
 
 @Component({
   selector: 'app-sos',
@@ -28,7 +30,8 @@ export class SosPage implements OnInit {
     private route: ActivatedRoute,
     public  restProvider: RestProvider,
     private storage: Storage,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    public loadingProvider: LoadingProvider
   ) { }
 
   ngOnInit() {
@@ -72,10 +75,10 @@ export class SosPage implements OnInit {
           this.contactList = result;  //give value to contactList from result
           console.log("getContactSos",this.contactList);
         }
-        //this.loadingProvider.closeLoading();
+        this.loadingProvider.closeLoading();
       }, (err) => {
         console.log(err);
-        //this.loadingProvider.closeLoading();
+        this.loadingProvider.closeLoading();
         //this.showAlert();
       });
     })
@@ -108,11 +111,11 @@ export class SosPage implements OnInit {
     //this.loadingProvider.setupDelete();
     this.restProvider.deleteEmergency(this.contactList[i].smecId).then((result) => {
       console.log("Result after call delete emergency contact",result);
-      //this.loadingProvider.closeDelete();
+      this.loadingProvider.closeSaving();
       this.getContact();
     }, (err) => {
       console.log(err);
-      //this.loadingProvider.closeDelete();
+      this.loadingProvider.closeSaving();
     });
   }
 
