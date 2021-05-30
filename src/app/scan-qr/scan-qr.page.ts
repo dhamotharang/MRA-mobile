@@ -4,6 +4,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { RestProvider } from 'src/providers/rest/rest';
 import { LoadingProvider } from 'src/providers/loading-provider';
 import { NavController } from '@ionic/angular';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-scan-qr',
@@ -58,11 +59,11 @@ export class ScanQrPage implements OnInit {
       this.restProvider.attendProject(val, this.projId).then((result:any) => {
         console.log('sendAttendance',result);
         // this.projectDetail = result;
-        this.loadingProvider.closeLoading();
+        // this.loadingProvider.closeLoading();
         // this.navCtrl.back();
       }, (err) => {
         // console.log(err);
-        this.loadingProvider.closeLoading();
+        // this.loadingProvider.closeLoading();
         // this.showAlert();
       });
     });
