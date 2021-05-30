@@ -58,7 +58,7 @@ export class LaunchPage {
     if (Capacitor.platform !== 'web') {
       this.googlePlus.login({}).then((result:any) => {
         console.log('googleSignup',result)
-        alert(result)
+        // alert(result)
         this.loginFx(result)
       })
       .catch(err => console.error(err));

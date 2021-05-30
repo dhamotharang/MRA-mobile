@@ -50,11 +50,11 @@
         </ion-col>
       </ion-row> -->
   
-      <ion-row>
+      <ion-row  *ngIf='data?.feedImg != null'>
         <ion-col class="ion-no-padding">
           <ion-row>
-            <ion-col class="ion-no-padding center" size="4" *ngFor='let img of data?.feed_image'>
-              <img class="attach-img" [src]="[img?.feed_images]">
+            <ion-col class="ion-no-padding center" size="4" *ngFor='let img of data?.feedImg'>
+              <img class="attach-img" [src]="img?.imageUrl">
             </ion-col>
           </ion-row>
         </ion-col>
