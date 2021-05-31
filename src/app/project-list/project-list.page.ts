@@ -15,6 +15,7 @@ export class ProjectListPage implements OnInit {
   private navParam: any;
   private role: any;
   personId: any;
+  filterTerm: string;
 
   constructor(
     private router: Router,
