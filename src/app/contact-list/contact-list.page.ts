@@ -108,11 +108,11 @@ export class ContactListPage implements OnInit {
         this.contactList = result;
         console.log("getContactCounter", this.contactList);
         this.checkList();
-        //this.loadingProvider.closeSearching();
+        //this.loadingProvider.closeLoading();
       }, (err) => {
         console.log(err);
         this.showAlert();
-        //this.loadingProvider.closeSearching();
+        //this.loadingProvider.closeLoading();
       });
 
     });
@@ -180,10 +180,10 @@ export class ContactListPage implements OnInit {
         }else{
           this.contactList = result;  //give value to contactList from result
         }
-        //this.loadingProvider.closeLoading();
+        this.loadingProvider.closeLoading();
       }, (err) => {
         console.log(err);
-        //this.loadingProvider.closeLoading();
+        this.loadingProvider.closeLoading();
         this.showAlert();
       });
     })
@@ -242,13 +242,13 @@ export class ContactListPage implements OnInit {
       (await alert).present()
     }else{
       console.log(this.createList);
-      // this.loadingProvider.setupSaving();
+      this.loadingProvider.closeSaving();
       this.restProvider.createEmergencyContact(this.createList).then((result:any) => {
         console.log(result);
         this.getContact();
       }, (err) => {
         console.log(err);
-        // this.loadingProvider.closeSaving();
+        this.loadingProvider.closeSaving();
         this.showAlert();
       });
     }

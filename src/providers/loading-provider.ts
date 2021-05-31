@@ -5,12 +5,19 @@ import { Component } from '@angular/core';
 
 @Injectable()
 export class LoadingProvider {
-    setupSaving() {
-      throw new Error('Method not implemented.');
+
+    async closeSaving() {
+      this.loading = await this.loadingCtrl.create({
+        cssClass: 'my-custom-class',
+        message: 'Saving...',
+        duration: 2000
+        });
+        await this.loading.present();
+
+        const { role, data } = await this.loading.onDidDismiss();
+        console.log('Loading dismissed!');
     }
-    closeSaving() {
-      throw new Error('Method not implemented.');
-    }
+
     closeUpload() {
       throw new Error('Method not implemented.');
     }
@@ -44,9 +51,19 @@ export class LoadingProvider {
     //     this.loading.present();
     // }
 
-    closeLoading() {
+    async closeLoading() {
         this.loading.dismiss()
+        this.loading = await this.loadingCtrl.create({
+          cssClass: 'my-custom-class',
+          message: 'Please wait...',
+          duration: 2000
+          });
+          await this.loading.present();
+
+          const { role, data } = await this.loading.onDidDismiss();
+          console.log('closeLoading');
     }
+
 
     // setupLoadingDynamic(option) {
     //     this.loading = this.loadingCtrl.create(this.setupLoadingDynamicOption(option));
