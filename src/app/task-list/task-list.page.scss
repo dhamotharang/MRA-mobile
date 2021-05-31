@@ -30,7 +30,8 @@
 }
 
 .task-card {
-    background-color: #d8d8d88a;
+    background-color: white;
+    border: 1px solid #8731ba;
     border-radius: 0.5rem;
     height: auto;
     width: auto;
@@ -39,6 +40,7 @@
 .new-card {
     height: 0.8rem;
     width: 2rem;
+    border: 1px solid #8731ba;
     border-width: 1px;
     margin-top: -1rem;
     margin-left: 0rem;
@@ -51,15 +53,18 @@
     text-align: center;
     margin-top: 0px;
 
+
 }
 
 .description {
     color: black;
     white-space: normal;
+    
 }
 
 .description-row {
     margin-top: -1.2rem;
+  
 }
 
 .attach-img {
@@ -72,15 +77,16 @@
     color: #F5F5F5;
     object-fit: cover;
     margin-bottom: 0.5rem;
+
 }
 
 .center {
     text-align: center;
 }
 
+
 .comment-item {
-    border: solid;
-    border-color: gray;
+    border: 1px solid #8731ba;
     border-width: 1px;
     height: 2.5rem;
     border-left: none;
@@ -92,6 +98,7 @@
     margin-top: 0.3rem;
     text-align: center;
     color: black;
+    
 }
 
 .chat-icon {

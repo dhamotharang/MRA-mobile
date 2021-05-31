@@ -27,7 +27,7 @@
               <p class="label-task-date">{{data?.startDate| date: 'd/M/yy'}}-{{data?.dueDate| date: 'd/M/yy'}}</p>
             </ion-col>
             <ion-col *ngIf='role != "volunteer"' size="3">
-              <ion-icon (click)="addParticipant(data)" class="add-icon" ios="person-add" md="person-add"></ion-icon>
+              <ion-icon (click)="addParticipant(data)" class="add-icon" ios="people" md="people"></ion-icon>
             </ion-col>
             <!-- <ion-col *ngIf='createdDate == todayDate' size="3">
               <ion-card class="new-card">
@@ -108,4 +108,3 @@
   </ion-fab>
 
 </ion-content>
-
