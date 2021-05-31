@@ -10,6 +10,7 @@ declare var window;
 import { Storage } from '@ionic/storage-angular';
 import { NativeGeocoderOptions, NativeGeocoder, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { AlertProvider } from 'src/providers/alert-provider';
 declare var google;
 
 
@@ -48,6 +49,8 @@ export class CreatePostPage implements OnInit {
   };
   latLng: any;
   personId: any;
+  param: { upload_preset: string; folder: string; file: string; };
+  imgList = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -60,7 +63,8 @@ export class CreatePostPage implements OnInit {
     private sanitize: DomSanitizer,
     private storage: Storage,
     private geolocation: Geolocation,
-    private nativeGeocoder: NativeGeocoder
+    private nativeGeocoder: NativeGeocoder,
+    private alertProvider: AlertProvider
   ) { }
 
   ngOnInit() {
@@ -141,34 +145,26 @@ export class CreatePostPage implements OnInit {
 
   upload(){
     this.loadingProvider.presentLoading();
-    this.restProvider.cloudinaryUpload(this.currentImage,'feed','proj_pic')
-    .then((res) =>{
-      console.log('res',res);
-        for(let i=0; i < res.length; i++){
-          let x = JSON.parse(res[i]);
-          this.secureURL = x.secure_url;
-        }
-      console.log('secureURL',this.secureURL);
-      // if(this.purpose == "jumaat")
-      // {
-      //   console.log('trigger');
-      //   this.IssueReceipt();
-      // }else{
-      //   console.log('not trigger');
-      //   this.IssueReceiptOther();
-      // }
-      this.loadingProvider.closeLoading();
-
-    }).catch(error => {
-      console.log('uploadError',error);
-      this.loadingProvider.closeLoading();
-      // const alert = this.alertCtrl.create({
-      //   title: 'Cloudinary Server Error!',
-      //   subTitle: 'Please try again later.',
-      //   buttons: ['OK']
-      // });
-      // alert.present();
-    })
+    this.restProvider.imageUpload(this.param)
+      .then((res) => {
+        this.secureURL = null
+        // this.loadingProvider.closeSaving();
+        let result = JSON.parse(res)
+        this.secureURL = result.eager[0].secure_url
+        console.log('this.secureURL',this.secureURL);
+        this.loadingProvider.closeLoading();
+        this.imgList.push(this.secureURL)
+        // this.IssueReceipt();
+      }).catch(error => {
+        console.log(error);
+        this.loadingProvider.closeLoading();
+        // const alert = this.alertCtrl.create({
+        //   title: 'Cloudinary Server Error!',
+        //   subTitle: 'Please try again later.',
+        //   buttons: ['OK']
+        // });
+        // alert.present();
+      })
   }
 
   // checkSize(path): Promise<any>{
@@ -216,6 +212,26 @@ export class CreatePostPage implements OnInit {
     });
   }
 
+  postImage(result) {
+    if (this.image != null) {
+      this.restProvider.postFeedImage(result.feedId,this.navParam,this.secureURL).then((result:any) => {
+        console.log('postProjectFeed',result);
+        this.loadingProvider.closeLoading();
+        this.exitForm();
+        this.alertProvider.successAlert()
+      }, (err) => {
+        console.log(err);
+        this.loadingProvider.closeLoading();
+        // this.showAlert();
+      });
+    }
+    else {
+      this.exitForm();
+      this.alertProvider.successAlert()
+    }
+  }
+
+
 
   postProjectTask() {
     console.log('this.postForm.value',this.postForm.value);
@@ -247,61 +263,71 @@ export class CreatePostPage implements OnInit {
     this.navCtrl.back();
   }
 
-  attachGeolocation() {
-    this.near()
-  }
-
-    //Get current coordinates of device
-  getGeolocation() {
-    this.geolocation.getCurrentPosition().then((resp) => {
-
-      this.latitude = resp.coords.latitude;
-      this.longitude = resp.coords.longitude;
-      this.accuracy = resp.coords.accuracy;
-
-      // this.getGeoencoder(resp.coords.latitude, resp.coords.longitude);
-      this.latLng = new google.maps.LatLng(resp.coords.latitude,resp.coords.longitude);
-      console.log('getGeolocation',this.latLng)
-
-    }).catch((error) => {
-      alert('Error getting location' + JSON.stringify(error));
-    });
-  }
 
 
-  near(){
-    var service = new google.maps.places.PlacesService();
-    let request = {
-        location : this.latLng,
-        radius : '500' ,
-        // types: ["restaurant"]
-    };
-    return new Promise((resolve,reject)=>{
-        service.nearbySearch(request,function(results,status){
-            if(status === google.maps.places.PlacesServiceStatus.OK)
-            {
-              for (let i = 0; i < results.length; i++) {
-                let con = {
-                  name : results[i].name,
-                  vicinity : results[i].vicinity,
-                  lat: results[i].geometry.location.lat(),
-                  lng: results[i].geometry.location.lng(),
-                }
-                this.zone.run(() => {// to make sure UI view is updatinig
-                  this.nearbyList.push(con);
-                });
-                console.log('nearbyList',this.nearbyList)
-              }
-                // resolve(results);  
-                  
-            }else
-            {
-                reject(status);
-            }
 
-        }); 
-    });
-  }
 
 
 }
+
+
+
+  //   //Get current coordinates of device
+  // getGeolocation() {
+  //   this.geolocation.getCurrentPosition().then((resp) => {
+
+  //     this.latitude = resp.coords.latitude;
+  //     this.longitude = resp.coords.longitude;
+  //     this.accuracy = resp.coords.accuracy;
+
+  //     // this.getGeoencoder(resp.coords.latitude, resp.coords.longitude);
+  //     this.latLng = new google.maps.LatLng(resp.coords.latitude,resp.coords.longitude);
+  //     console.log('getGeolocation',this.latLng)
+
+  //   }).catch((error) => {
+  //     alert('Error getting location' + JSON.stringify(error));
+  //   });
+  // }
+
+
+
+
+
+  // attachGeolocation() {
+  //   this.near()
+  // }
+
+
+  // near(){
+  //   var service = new google.maps.places.PlacesService();
+  //   let request = {
+  //       location : this.latLng,
+  //       radius : '500' ,
+  //       // types: ["restaurant"]
+  //   };
+  //   return new Promise((resolve,reject)=>{
+  //       service.nearbySearch(request,function(results,status){
+  //           if(status === google.maps.places.PlacesServiceStatus.OK)
+  //           {
+  //             for (let i = 0; i < results.length; i++) {
+  //               let con = {
+  //                 name : results[i].name,
+  //                 vicinity : results[i].vicinity,
+  //                 lat: results[i].geometry.location.lat(),
+  //                 lng: results[i].geometry.location.lng(),
+  //               }
+  //               this.zone.run(() => {// to make sure UI view is updatinig
+  //                 this.nearbyList.push(con);
+  //               });
+  //               console.log('nearbyList',this.nearbyList)
+  //             }
+  //               // resolve(results);  
+                  
+  //           }else
+  //           {
+  //               reject(status);
+  //           }
+
+  //       }); 
+  //   });
+  // }

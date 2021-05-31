@@ -29,7 +29,7 @@ export class RestProvider {
 
     appConf(app) {
         return new Promise((resolve, reject) => {
-            let devplink = 'http://192.168.0.161:8181/hss-start-0.0.1-SNAPSHOT/app/config/r';  //192.168.0.5 //192.168.43.221  //dev.hss.oas.my
+            let devplink = 'http://192.168.0.114:8181/hss-start-0.0.1-SNAPSHOT/app/config/r';  //192.168.0.105 //192.168.43.221  //dev.hss.oas.my
             this.http.post(devplink, [app], {
                 headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token)//.set('api-key','eIsyynm35y3j5dDTp2RGyS1QR1gxYvSYPZB2MBHpnZUa5BeEs6Xl97cFx0004P4cWhoa12ceefOWMZ7CAJv9l30pUTpqSq9cj0mP3emB5Z7pWGGK8M0LO8fmO962h52O')
             })
@@ -297,6 +297,34 @@ export class RestProvider {
         }
 
     }
+
+    //http://localhost:8181/hss-organization-admin-0.0.1-SNAPSHOT/gallery/c
+    async postFeedImage(feed_id,detail,image){
+      try{
+        let app = await this.appConf("PRJM");
+      console.log(app);
+      return new Promise((resolve, reject) => {
+        console.log('form',feed_id)
+          let data = {
+              feedId: feed_id,
+              projectId: detail.projId,
+              imageUrl:image
+            };
+            this.http.post(app[0].host+"/hss-organization-admin-0.0.1-SNAPSHOT/gallery/c", JSON.stringify(data),{
+              headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token).set('api-key', app[0].apiKey)
+            })
+          .subscribe(res => {
+            resolve(res);
+          }, (err) => {
+            reject(err);
+          });
+      });
+      }catch(e){
+        console.log(e);
+      }
+
+  }
+
     //http://localhost:8181/hss-project-0.0.1-SNAPSHOT/proj/task/v/{projId}
     async getTasksList(projId){
         try{
@@ -421,7 +449,7 @@ export class RestProvider {
 }
 
       //http://localhost:8181/hss-organization-admin-0.0.1-SNAPSHOT/gallery/r
-      async getLiveFeed(){
+      async geFeedImg(){
         try{
           let app = await this.appConf("GLMG");
         console.log(app);
