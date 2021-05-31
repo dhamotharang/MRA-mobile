@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { AddVolunteerPageRoutingModule } from './add-volunteer-routing.module';
 
 import { AddVolunteerPage } from './add-volunteer.page';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   imports: [
@@ -15,8 +14,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     FormsModule,
     IonicModule,
     AddVolunteerPageRoutingModule,
-    ReactiveFormsModule,
-    Ng2SearchPipeModule
+    ReactiveFormsModule
   ],
   declarations: [AddVolunteerPage]
 })

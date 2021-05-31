@@ -24,9 +24,6 @@ export class AddVolunteerPage implements OnInit {
   andList: any;
   profile: any;
   mediaList=[];
-  filterTerm: string;
-  allCommiteeList: any;
-  chosenParticipate: any[];
 
 
   constructor(
@@ -78,40 +75,7 @@ export class AddVolunteerPage implements OnInit {
   }
 
   chooseVolunteer(data) {
-    if (this.fromPage != 'volunteer-list') {
-      let p = [];
-      p = this.chosenVolunteer.filter(x => x.person.personId == data.person.personId)
-      if (p.length != 0) {
-        let index = this.chosenVolunteer.findIndex(x => x.person.personId === data.person.personId);
-        console.log('isLargeNumber',index)
-        this.chosenVolunteer.splice(index)
-        console.log('chooseVolunteer',this.chosenVolunteer)
-        // console.log('chosenParticipate',this.chosenParticipate)
-      }
-      else {
-        this.chosenVolunteer.push(data)
-        console.log('chooseVolunteer',this.chosenVolunteer)
-        // console.log('chosenParticipate',this.chosenParticipate)
-      }
-    }
-    else {
-      let p = [];
-      p = this.chosenVolunteer.filter(x => x.personId == data.personId)
-      if (p.length != 0) {
-        let index = this.chosenVolunteer.findIndex(x => x.personId === data.personId);
-        console.log('isLargeNumber',index)
-        this.chosenVolunteer.splice(index)
-        console.log('chooseVolunteer',this.chosenVolunteer)
-        // console.log('chosenParticipate',this.chosenParticipate)
-      }
-      else {
-        this.chosenVolunteer.push(data)
-        console.log('chooseVolunteer',this.chosenVolunteer)
-        // console.log('chosenParticipate',this.chosenParticipate)
-      }
-    }
-
-
+    this.chosenVolunteer.push(data)
  
   }
 
@@ -251,10 +215,10 @@ export class AddVolunteerPage implements OnInit {
   }
 
   
-  async getAllParticipant() {
-    // console.log('getAllParticipant',this.navParam.projId)
+  getAllParticipant() {
+    console.log('getAllParticipant',this.navParam.projId)
     this.loadingProvider.presentLoading();
-    await this.restProvider.getVolunteerList(this.navParam.projId).then((result:any) => {
+    this.restProvider.getVolunteerList(this.navParam.projId).then((result:any) => {
       this.allVolunteerList = result;
       this.loadingProvider.closeLoading();
     }, (err) => {
@@ -264,33 +228,7 @@ export class AddVolunteerPage implements OnInit {
       // this.showAlert();
     });
 
-    await this.restProvider.getStaffList(this.navParam.projId).then((result:any) => {
-      this.allCommiteeList = result;
-      this.loadingProvider.closeLoading();
-    }, (err) => {
-      this.loadingProvider.closeLoading();
-      // console.log(err);
-      // this.loadingProvider.closeLoading();
-      // this.showAlert();
-    });
-
-    this.allVolunteerList = this.allVolunteerList.concat(this.allCommiteeList)
-    console.log('getAllParticipant',this.allVolunteerList)
   }
-
-  checkingJoinStatus(data) {
-    if (data.joinStatus == 'A' || data.joinStatus == 'Q') {
-      return true
-    }
-    else if (data.volunteerId == undefined || data.joinStatus == undefined) {
-      return true
-    }
-    else {
-      return false
-    }
-  }
-
-
 
   getToken() {
     // this.restProvider.getTokenNoti(this.orgId, this.oaId).then((res: any) => {
