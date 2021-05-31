@@ -20,7 +20,7 @@ export class AddVolunteerPage implements OnInit {
   taskDetail: any;
   orgId: any;
   oaId: any;
-  restParam: any;
+  restParam: any = [];
   andList: any;
   profile: any;
   mediaList=[];
@@ -169,8 +169,8 @@ export class AddVolunteerPage implements OnInit {
     console.log('createAnnouncement')
     if (this.fromPage == 'volunteer-list') { 
       for (let i = 0; i < this.chosenVolunteer.length; i++) {
-        this.restParam = 
-        [{
+        //this.restParam
+        let param = {
           personId : this.chosenVolunteer[i].personId,
           hostId : this.profile.personId,
           profilePictUrl: this.chosenVolunteer[i].profilePicture,
@@ -188,12 +188,14 @@ export class AddVolunteerPage implements OnInit {
           orgName : 'Malaysian Relief Agency',
           orgLogo : 'https://res.cloudinary.com/myjiran/image/upload/v1612149843/org_logo/gzr4ptrq3gaavfqqytmg.png',
           projectId : this.navParam.projId
-        }];
+        };
+        this.restParam.push(param)
       }
     }
     else {
       for (let i = 0; i < this.chosenVolunteer.length; i++) {
-        this.restParam = [{
+        //this.restParam
+        let param = {
           personId : this.chosenVolunteer[i].personId,
           hostId : this.profile.personId,
           profilePictUrl: this.chosenVolunteer[i].profilePicture,
@@ -211,7 +213,8 @@ export class AddVolunteerPage implements OnInit {
           orgName : 'Malaysian Relief Agency',
           orgLogo : 'https://res.cloudinary.com/myjiran/image/upload/v1612149843/org_logo/gzr4ptrq3gaavfqqytmg.png',
           projectId : this.navParam.projId
-        }];
+        };
+        this.restParam.push(param)
       }
     }
     this.submitAnnouncement()

@@ -4,6 +4,8 @@ import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { ImageProvider } from 'src/providers/image.provider';
 import { LoadingProvider } from 'src/providers/loading-provider';
 
+// import 'sweetalert2/src/sweetalert2.scss'
+
 @Component({
   selector: 'app-live-feed',
   templateUrl: './live-feed.page.html',
@@ -13,7 +15,9 @@ export class LiveFeedPage implements OnInit {
   private feedList=[];
   data: any;
   navParam: any;
-  private liveFeed= [];
+  // private liveFeed= [];
+  res: any[];
+  feedCategorizedItem = [];
 
 
   constructor(
@@ -33,7 +37,7 @@ export class LiveFeedPage implements OnInit {
       }
     });
     this.getLiveFeed();
-    this.getLiveFeeds();
+    this.geFeedImg();
 
   }
 
@@ -41,7 +45,7 @@ export class LiveFeedPage implements OnInit {
     console.log('ionViewWillEnter',this.navParam)
     if (this.navParam) {
       this.getLiveFeed();
-      this.getLiveFeeds();
+      this.geFeedImg();
     }
   }
 
@@ -59,6 +63,7 @@ export class LiveFeedPage implements OnInit {
     });
   }
 
+
   navNextPage() {
     let navigationExtras: NavigationExtras = {
       state: {
@@ -68,11 +73,11 @@ export class LiveFeedPage implements OnInit {
     this.router.navigate(['create-post'], navigationExtras);
   }
   
-  getLiveFeeds() {
+  geFeedImg() {
     this.loadingProvider.presentLoading();
-    this.restProvider.getLiveFeed().then((result:any) => {
-      console.log('getLiveFeed',result);
-      this.liveFeed = result;
+    this.restProvider.geFeedImg().then((result:any) => {
+      let p = result.filter(x => x.projectId == this.navParam.projId)
+     this.categorizedFeed(p)
       this.loadingProvider.closeLoading();
     }, (err) => {
       // console.log(err);
@@ -82,4 +87,22 @@ export class LiveFeedPage implements OnInit {
     });
   }
 
+  categorizedFeed(p) {
+    let res = [];
+    for(let i=0; i < this.feedList.length; i++){
+      res = p.filter(x => x.feedId == this.feedList[i].feedId)
+      if (res.length != 0) {
+        let imgList= []
+        imgList = imgList.concat(res)
+        this.feedList[i]['feedImg'] = imgList;
+      }
+      else {
+        this.feedList[i]['feedImg'] = null;
+      }
+    }
+    console.log('feedList',this.feedList);
+  }
+
+
+  
 }
