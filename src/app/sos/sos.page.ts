@@ -57,6 +57,7 @@ export class SosPage implements OnInit {
   navigateNextPage() {     //passing data ke page lain
     let navigationExtras: NavigationExtras = {
       state: {
+        contactList:this.contactList
       }
     };
     this.router.navigate(['contact-list'], navigationExtras);  //navigate ke page lain
