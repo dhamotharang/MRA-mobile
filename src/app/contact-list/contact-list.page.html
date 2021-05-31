@@ -10,7 +10,7 @@
 
 <ion-content>
 
-  <ion-list>
+  <ion-list class="padding-list">
     <ion-item no-padding *ngFor="let data of contactList; index as i">
       <ion-label no-margin >
         <ion-row>
@@ -19,7 +19,7 @@
             <p class="volunteer-name">{{data?.contact}}</p>
           </ion-col>
           <ion-col size="2">
-            <ion-checkbox color="primary" [(ngModel)]="selectedBox[i]"  (ngModelChange)="changed(data,i)"></ion-checkbox>
+            <ion-checkbox color="primary" [(ngModel)]="selectedBox[i]"  (ngModelChange)="changed(i)"></ion-checkbox>
           </ion-col>
         </ion-row>
       </ion-label>
@@ -30,6 +30,6 @@
 
 <ion-footer>
   <ion-col>
-    <ion-button (click)="addContact()" expand="block" fill="outline">Done</ion-button>
+    <ion-button (click)="addContact()" expand="block" class="standard-float-button">Add</ion-button>
   </ion-col>
 </ion-footer>

@@ -4,24 +4,37 @@
       <ion-back-button defaultHref="home"></ion-back-button>
     </ion-buttons>
     <img slot="secondary" src="assets/mra.png" class="navbar-logo"/>
-    <ion-title slot="secondary">Add Volunteer</ion-title>
+    <ion-title  *ngIf="fromPage == 'volunteer-list'" slot="secondary">Add Volunteer</ion-title>
+    <ion-title  *ngIf="fromPage != 'volunteer-list'" slot="secondary">Add Participant</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <ion-list *ngIf="fromPage == 'volunteer-list'">
-    <ion-item *ngFor="let data of allVolunteerList">
+  <ion-row justify-content-center>
+    <ion-col no-padding>
+      <ion-row style="width: 100%;">
+        <ion-searchbar  class="input-search" placeholder="Search here" [(ngModel)]="filterTerm" animated="true"></ion-searchbar>
+      </ion-row>
+    </ion-col>
+  </ion-row>
+
+  <ion-list class="padding-list" *ngIf="fromPage == 'volunteer-list'">
+    <ion-item *ngFor="let data of allVolunteerList | filter:filterTerm">
       <ion-label>{{data?.name}}</ion-label>
       <ion-checkbox slot="end" (click)="chooseVolunteer(data)"></ion-checkbox>
     </ion-item>
   </ion-list>
 
-  <ion-list *ngIf="fromPage != 'volunteer-list'">
-    <ion-item *ngFor="let data of allVolunteerList">
-      <ion-label>{{data?.person?.name}}</ion-label>
-      <ion-checkbox slot="end" (click)="chooseVolunteer(data)"></ion-checkbox>
-    </ion-item>
+  <ion-list class="padding-list" *ngIf="fromPage != 'volunteer-list'">
+    <div *ngFor="let data of allVolunteerList | filter:filterTerm">
+      <!-- *ngIf="checkingJoinStatus(data) == true" -->
+      <ion-item>
+        <ion-label>{{data?.person?.name}}</ion-label>
+        <ion-checkbox slot="end" (click)="chooseVolunteer(data)"></ion-checkbox>
+      </ion-item>
+    </div>
+
   </ion-list>
 
   <ion-button class="standard-float-button" (click)="addVolunteer()" expand="full">Add</ion-button>
