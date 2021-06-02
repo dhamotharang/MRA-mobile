@@ -64,24 +64,14 @@ export class LaunchPage {
       .catch(err => console.error(err));
     }
     else {
-      this.presentLoginForm()
+      this.staff()
     }
   }
 
-  async presentLoginForm() {
-    const alert = await this.alertCtrl.create({
-      message: 'Login',
-      // subHeader: '10% of battery remaining',
-      inputs: [{
-        name: 'Email',
-      }],
-      buttons: ['OK']
-     });
-     await alert.present(); 
-  }
 
   loginFx(data) {
     console.log('loginFx',data)
+    this.loadingProvider.presentLoading()
     this.param.providerCode = "google";
     this.param.providerId = data.email;
     this.storage.set('profilePictUrl', 'https://res.cloudinary.com/myjiran/image/upload/v1541160270/mobile_asset/ion-ios-contact.png');
@@ -91,6 +81,7 @@ export class LaunchPage {
   }
 
   staff() {
+    this.loadingProvider.presentLoading()
     this.param.providerCode = "google";
     this.param.providerId = "annas@oas.my";
     this.storage.set('profilePictUrl', 'https://res.cloudinary.com/myjiran/image/upload/v1541160270/mobile_asset/ion-ios-contact.png');
@@ -180,6 +171,7 @@ export class LaunchPage {
     else {
       this.role = 'volunteer'
     }
+    this.loadingProvider.closeLoading()
     this.storage.set('role', this.role);
     this.navToHome();
   }
@@ -200,7 +192,7 @@ export class LaunchPage {
 
   volunteer() {
     this.param.providerCode = "google";
-    this.param.providerId = "sitivolunteer@gmail.com";  //sitivolunteer@gmail.com
+    this.param.providerId = "nisahasin95@gmail.com";  //sitivolunteer@gmail.com
     this.storage.set('profilePictUrl', 'https://res.cloudinary.com/myjiran/image/upload/v1541160270/mobile_asset/ion-ios-contact.png');
     this.storage.set('provider', this.param);
     this.storage.set('isLoggedIn', true);

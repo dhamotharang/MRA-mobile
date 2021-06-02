@@ -5,26 +5,8 @@ import { Component } from '@angular/core';
 
 @Injectable()
 export class LoadingProvider {
-
-    async closeSaving() {
-      this.loading = await this.loadingCtrl.create({
-        cssClass: 'my-custom-class',
-        message: 'Saving...',
-        duration: 2000
-        });
-        await this.loading.present();
-
-        const { role, data } = await this.loading.onDidDismiss();
-        console.log('Loading dismissed!');
-    }
-
-    closeUpload() {
-      throw new Error('Method not implemented.');
-    }
-    setupUpload() {
-      throw new Error('Method not implemented.');
-    }
-    loading;
+  loading;
+  public loadingPresent: boolean = false;
 
     constructor(
         public platform: Platform,
@@ -33,36 +15,73 @@ export class LoadingProvider {
         ) { }
 
     async presentLoading() {
+      this.loadingPresent = true
         this.loading = await this.loadingCtrl.create({
-        cssClass: 'my-custom-class',
-        message: 'Please wait...',
-        duration: 2000
+          message: "Please wait...",
+          cssClass: 'my-custom-class'
         });
         await this.loading.present();
-
-        const { role, data } = await this.loading.onDidDismiss();
-        console.log('Loading dismissed!');
     }
-
-    // setupLoading() {
-    //     this.loading = this.loadingCtrl.create({
-    //         content: "Please wait..."
-    //     });
-    //     this.loading.present();
-    // }
 
     async closeLoading() {
-        this.loading.dismiss()
-        this.loading = await this.loadingCtrl.create({
-          cssClass: 'my-custom-class',
-          message: 'Please wait...',
-          duration: 2000
-          });
-          await this.loading.present();
-
-          const { role, data } = await this.loading.onDidDismiss();
-          console.log('closeLoading');
+      if (this.loadingPresent) {
+        this.loadingPresent = false
+        await this.loading.dismiss();
+      }
     }
+
+    async presentSaving() {
+      this.loadingPresent = true
+        this.loading = await this.loadingCtrl.create({
+          message: "Please wait...",
+          cssClass: 'my-custom-class'
+        });
+        await this.loading.present();
+    }
+
+
+    async closeSaving() {
+      if (this.loadingPresent) {
+        this.loadingPresent = false
+        await this.loading.dismiss();
+      }
+    }
+
+
+    closeUpload() {
+      throw new Error('Method not implemented.');
+    }
+
+
+    setupUpload() {
+      throw new Error('Method not implemented.');
+    }
+
+
+  //   async presentLoading() {
+  //     this.loading = await this.loadingCtrl.create({
+  //     cssClass: 'my-custom-class',
+  //     message: 'Please wait...',
+  //     duration: 2000
+  //     });
+  //     await this.loading.present();
+
+  //     const { role, data } = await this.loading.onDidDismiss();
+  //     console.log('Loading dismissed!');
+  // }
+
+
+  // async closeLoading() {
+  //   await this.loading.dismiss()
+  //     this.loading = await this.loadingCtrl.create({
+  //       cssClass: 'my-custom-class',
+  //       message: 'Please wait...',
+  //       duration: 2000
+  //       });
+  //       await this.loading.present();
+  //       const { role, data } = await this.loading.onDidDismiss();
+  //       console.log('closeLoading');
+  // }
 
 
     // setupLoadingDynamic(option) {
