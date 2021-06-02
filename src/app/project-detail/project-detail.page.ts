@@ -9,6 +9,7 @@ import { LoadingProvider } from 'src/providers/loading-provider';
 import { ImageProvider } from 'src/providers/image.provider';
 import { Storage } from '@ionic/storage-angular';
 import { NavController } from '@ionic/angular';
+import { AlertProvider } from 'src/providers/alert-provider';
 
 @Component({
   selector: 'app-project-detail',
@@ -40,7 +41,8 @@ export class ProjectDetailPage implements OnInit {
     private loadingProvider: LoadingProvider,
     private imageProvider: ImageProvider,
     private storage: Storage,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private alertProvider: AlertProvider
   ) { }
 
   ngOnInit() {
@@ -160,13 +162,16 @@ export class ProjectDetailPage implements OnInit {
     let formData = await this.processData();
     this.restProvider.createAnnouncement(formData).then((result:any) => {
       console.log(result);
-      // this.loadingProvider.closeSaving();
+      this.loadingProvider.closeSaving();
       // this.nav.setRoot(TabsPage,{tabIndex: 0});
       // this.navCtrl.pop();
+      this.exitForm();
+      this.alertProvider.successAlert()
     }, (err) => {
       console.log(err);
-      // this.loadingProvider.closeSaving();
-      // this.showAlert();
+      this.loadingProvider.closeSaving();
+       this.alertProvider.errorAlert()
+         // this.showAlert();
     });
   }
 
@@ -215,6 +220,9 @@ export class ProjectDetailPage implements OnInit {
       }
     };
     this.router.navigate(['task-list'], navigationExtras);
+  }
+    exitForm() {
+    this.navCtrl.back();
   }
 
 }

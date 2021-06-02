@@ -5,6 +5,7 @@ import { LoadingProvider } from  './../../providers/loading-provider';
 import { Storage } from '@ionic/storage';
 import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';
 import * as $ from "jquery";
+import { AlertProvider } from 'src/providers/alert-provider';
 
 
 
@@ -45,6 +46,7 @@ export class ContactListPage implements OnInit {
     private alertCtrl: AlertController,
     private router: Router,
     private route: ActivatedRoute,
+    private alertProvider: AlertProvider,
   ) { }
 
   ionViewWillEnter(){
@@ -246,10 +248,13 @@ export class ContactListPage implements OnInit {
       this.restProvider.createEmergencyContact(this.createList).then((result:any) => {
         console.log(result);
         this.getContact();
+        this.loadingProvider.closeSaving();
+        this.alertProvider.successAlert()
       }, (err) => {
         console.log(err);
         this.loadingProvider.closeSaving();
-        this.showAlert();
+        this.alertProvider.errorAlert()
+        //this.showAlert();
       });
     }
 
@@ -305,6 +310,9 @@ export class ContactListPage implements OnInit {
       console.log('updated create list ', filtered);
       this.createList = filtered;
     }
+  }
+  exitForm() {
+    this.navCtrl.back();
   }
 
 }
