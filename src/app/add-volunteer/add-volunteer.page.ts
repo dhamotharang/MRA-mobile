@@ -5,6 +5,7 @@ import { LoadingProvider } from 'src/providers/loading-provider';
 import { Storage } from '@ionic/storage-angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
+import { AlertProvider } from 'src/providers/alert-provider';
 
 @Component({
   selector: 'app-add-volunteer',
@@ -37,6 +38,7 @@ export class AddVolunteerPage implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private navCtrl: NavController,
+    private alertProvider: AlertProvider
   ) { }
 
   ngOnInit() {
@@ -132,11 +134,13 @@ export class AddVolunteerPage implements OnInit {
       }
       this.restProvider.addVolunteer(body).then((result:any) => {
         this.loadingProvider.closeLoading();
-        this.exitForm();
         this.createAnnouncement();
+        this.exitForm();
+        this.alertProvider.successAlert()
       }, (err) => {
         // console.log(err);
         this.loadingProvider.closeLoading();
+        this.alertProvider.errorAlert()
         // this.showAlert();
       });
     }

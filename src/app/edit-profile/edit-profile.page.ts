@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
 import { LoadingProvider } from 'src/providers/loading-provider';
 import { RestProvider } from 'src/providers/rest/rest';
+import { AlertProvider } from 'src/providers/alert-provider';
 
 
 @Component({
@@ -33,6 +34,8 @@ export class EditProfilePage implements OnInit {
     private formBuilder: FormBuilder,
     public loadingProvider: LoadingProvider,
     public restProvider: RestProvider,
+    private navCtrl: NavController,
+    private alertProvider: AlertProvider,
 
 
   ) {
@@ -129,15 +132,20 @@ export class EditProfilePage implements OnInit {
   getProfile() {
     this.restProvider.getProfile(this.param).then((result) => {    //get data from REST
       this.storage.set('defaultProfile', result);   //update ke storage
-      //this.loadingProvider.closeSaving();    loading ui
+      this.loadingProvider.closeSaving();    //loading ui
+      this.exitForm();
+      this.alertProvider.successAlert()
       //this.navCtrl.pop();          pergi back ke previous page
     }, (err) => {
       console.log(err);
-      //this.loadingProvider.closeSaving();
+      this.loadingProvider.closeSaving();
+      this.alertProvider.errorAlert()
     });
   }
 
-
+  exitForm() {
+    this.navCtrl.back();
+  }
 
 
 }

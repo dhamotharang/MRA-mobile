@@ -3,7 +3,9 @@ import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { RestProvider } from 'src/providers/rest/rest';
 import { Storage } from '@ionic/storage-angular';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
+import { LoadingProvider } from 'src/providers/loading-provider';
+import { AlertProvider } from 'src/providers/alert-provider';
 
 @Component({
   selector: 'app-receipt-form',
@@ -64,6 +66,9 @@ export class ReceiptFormPage implements OnInit {
     private restProvider: RestProvider,
     private storage: Storage,
     public alertCtrl: AlertController,
+    private loadingProvider: LoadingProvider,
+    private navCtrl: NavController,
+    private alertProvider: AlertProvider,
   ) { }
 
   ngOnInit() {
@@ -645,9 +650,13 @@ export class ReceiptFormPage implements OnInit {
       this.restProvider.PendingReceipt(this.receiptData).then((result: any) => {
         console.log(result);
         // this.informTreasury();
+        this.loadingProvider.closeSaving();
+        this.exitForm();
+        this.alertProvider.successAlert()
       }, (err) => {
         console.log(err);
-        // this.loadingProvider.closeSaving();
+         this.loadingProvider.closeSaving();
+        this.alertProvider.errorAlert()
         // this.showAlert();
       });
     } else if (this.role == 'treasury') {
@@ -686,6 +695,9 @@ export class ReceiptFormPage implements OnInit {
       //   console.log(error);
       // });
     }
+  }
+  exitForm() {
+    this.navCtrl.back();
   }
 
 

@@ -83,7 +83,7 @@ export class CreatePostPage implements OnInit {
   }
 
   setupPage() {
-    if (this.fromPage == 'task') {
+    if (this.fromPage == 'task')  {
       this.postForm = this.formBuilder.group({
         taskName: [],
         description:[],
@@ -224,6 +224,7 @@ export class CreatePostPage implements OnInit {
       }, (err) => {
         console.log(err);
         this.loadingProvider.closeLoading();
+        this.alertProvider.errorAlert()
         // this.showAlert();
       });
     }
@@ -238,8 +239,9 @@ export class CreatePostPage implements OnInit {
     console.log('this.postForm.value',this.postForm.value);
     this.loadingProvider.presentLoading();
     this.restProvider.postTaskSingle(this.postForm.value,this.personId,this.navParam.projId).then((result:any) => {
-      this.loadingProvider.closeLoading();
-      this.exitForm();
+     // this.loadingProvider.closeLoading();
+     // this.exitForm();
+      this.postImage(result)
     }, (err) => {
       console.log(err);
       this.loadingProvider.closeLoading();
@@ -251,8 +253,9 @@ export class CreatePostPage implements OnInit {
     console.log('this.postForm.value',this.postForm.value);
     this.loadingProvider.presentLoading();
     this.restProvider.postTaskComment(this.postForm.value,this.personId).then((result:any) => {
-      this.loadingProvider.closeLoading();
-      this.exitForm();
+     // this.loadingProvider.closeLoading();
+     // this.exitForm();
+    this.postImage(result)
     }, (err) => {
       console.log(err);
       this.loadingProvider.closeLoading();

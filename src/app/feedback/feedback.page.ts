@@ -6,6 +6,7 @@ import { Storage } from '@ionic/storage-angular';
 import { LoadingProvider } from "src/providers/loading-provider";
 import { RestProvider } from "src/providers/rest/rest";
 import { TabsPage } from "../tabs/tabs.page";
+import { AlertProvider } from 'src/providers/alert-provider';
 //import { MediaModal } from '../media-modal/media-modal.page';
 //import { PushProvider } from  './../../providers/push-provider';
 //import { LocationModal } from '../location-modal/location-modal';
@@ -61,10 +62,10 @@ public alertController: AlertController,
 public alertCtr: AlertController,
 public loadingProvider: LoadingProvider,
 public  restProvider: RestProvider,
-
 public modalCtrl: ModalController,
 private zone: NgZone,
 public actionSheetCtrl: ActionSheetController,
+private alertProvider: AlertProvider,
 
 ){
 // this.storage.get('oaid').then((val:any) => {
@@ -165,14 +166,19 @@ async post(){
     console.log('getFeedbackcreate',result);
     this.createFeedback = result;
     this.loadingProvider.closeLoading();
+    this.exitForm();
+    this.alertProvider.successAlert()
   }, (err) => {
-    this.loadingProvider.closeLoading();
-    // console.log(err);
-    // this.loadingProvider.closeLoading();
+     console.log(err);
+     this.loadingProvider.closeLoading();
+     this.alertProvider.errorAlert()
     // this.showAlert();
   });
 }
 
+exitForm() {
+  this.navCtrl.back();
+}
 
 
 // async showAlert() {
