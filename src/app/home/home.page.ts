@@ -4,6 +4,7 @@ import { LoadingProvider } from 'src/providers/loading-provider';
 import { RestProvider } from 'src/providers/rest/rest';
 import { Storage } from '@ionic/storage-angular';
 import { IonSlides } from '@ionic/angular';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-home',
@@ -157,22 +158,25 @@ export class HomePage implements OnInit {
   }
 
   checkUpdTokenStaff() {
-    let p = []
-    this.restProvider.getTokenStaff(320).then((res: any) => {
-      console.log('checkUpdTokenStaff',res);
-      p = res.filter(x => x.personId == this.profile.personId)
-      console.log(p.length);
-      if (p.length != 0) {
-        this.updateToken(p[0]);
-      }
-      else {
-        this.createToken();
-      }
-    }).catch(error => {
-      console.log(error);
-      // this.showAlert();
-      // this.loadingProvider.closeSaving();
-    })
+    if (Capacitor.platform !== 'web') {
+      let p = []
+      this.restProvider.getTokenStaff(320).then((res: any) => {
+        console.log('checkUpdTokenStaff',res);
+        p = res.filter(x => x.personId == this.profile.personId)
+        console.log(p.length);
+        if (p.length != 0) {
+          this.updateToken(p[0]);
+        }
+        else {
+          this.createToken();
+        }
+      }).catch(error => {
+        console.log(error);
+        // this.showAlert();
+        // this.loadingProvider.closeSaving();
+      })
+    }
+
   }
 
   checkUpdTokenVol() {
