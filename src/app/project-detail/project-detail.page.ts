@@ -158,7 +158,7 @@ export class ProjectDetailPage implements OnInit {
   }
 
   async submitAnnouncement(){
-    // this.loadingProvider.setupSaving();
+    this.loadingProvider.presentLoading();
     let formData = await this.processData();
     this.restProvider.createAnnouncement(formData).then((result:any) => {
       console.log(result);
@@ -168,8 +168,8 @@ export class ProjectDetailPage implements OnInit {
       this.exitForm();
       this.alertProvider.successAlert()
     }, (err) => {
-      console.log(err);
       this.loadingProvider.closeSaving();
+      console.log(err);
        this.alertProvider.errorAlert()
          // this.showAlert();
     });

@@ -50,14 +50,14 @@ export class LiveFeedPage implements OnInit {
   }
 
   getLiveFeed() {
-    this.loadingProvider.presentLoading();
+    //this.loadingProvider.presentLoading();
     this.restProvider.getProjectFeed(this.navParam.projId).then((result:any) => {
       console.log('getLiveFeed',result);
       this.feedList = result;
       this.loadingProvider.closeLoading();
     }, (err) => {
+     this.loadingProvider.closeLoading();
       // console.log(err);
-      this.loadingProvider.closeLoading();
       // this.loadingProvider.closeLoading();
       // this.showAlert();
     });
@@ -74,7 +74,7 @@ export class LiveFeedPage implements OnInit {
   }
   
   geFeedImg() {
-    this.loadingProvider.presentLoading();
+   //this.loadingProvider.presentLoading();
     this.restProvider.geFeedImg().then((result:any) => {
       let p = result.filter(x => x.projectId == this.navParam.projId)
      this.categorizedFeed(p)

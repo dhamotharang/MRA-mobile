@@ -205,7 +205,7 @@ export class CreatePostPage implements OnInit {
     this.loadingProvider.presentLoading();
     this.restProvider.postProjectFeed(this.postForm.value,this.navParam,this.personId).then((result:any) => {
       console.log('postProjectFeed',result);
-      // this.loadingProvider.closeLoading();
+       this.loadingProvider.closeLoading();
       this.postImage(result)
     }, (err) => {
       console.log(err);
@@ -239,12 +239,13 @@ export class CreatePostPage implements OnInit {
     console.log('this.postForm.value',this.postForm.value);
     this.loadingProvider.presentLoading();
     this.restProvider.postTaskSingle(this.postForm.value,this.personId,this.navParam.projId).then((result:any) => {
-     // this.loadingProvider.closeLoading();
+     this.loadingProvider.closeLoading();
      // this.exitForm();
       this.postImage(result)
     }, (err) => {
-      console.log(err);
       this.loadingProvider.closeLoading();
+      console.log(err);
+    
       // this.showAlert();
     });
   }
@@ -253,12 +254,12 @@ export class CreatePostPage implements OnInit {
     console.log('this.postForm.value',this.postForm.value);
     this.loadingProvider.presentLoading();
     this.restProvider.postTaskComment(this.postForm.value,this.personId).then((result:any) => {
-     // this.loadingProvider.closeLoading();
+     this.loadingProvider.closeLoading();
      // this.exitForm();
     this.postImage(result)
     }, (err) => {
-      console.log(err);
       this.loadingProvider.closeLoading();
+      console.log(err);
       // this.showAlert();
     });
   }

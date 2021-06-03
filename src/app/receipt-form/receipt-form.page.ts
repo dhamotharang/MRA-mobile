@@ -644,7 +644,7 @@ export class ReceiptFormPage implements OnInit {
   }
 
   send(code) {
-
+    this.loadingProvider.presentLoading();
     console.log(this.receiptData);
     if (this.role == 'user' || this.role == 'ajk') {
       this.restProvider.PendingReceipt(this.receiptData).then((result: any) => {
@@ -654,8 +654,8 @@ export class ReceiptFormPage implements OnInit {
         this.exitForm();
         this.alertProvider.successAlert()
       }, (err) => {
+        this.loadingProvider.closeSaving();
         console.log(err);
-         this.loadingProvider.closeSaving();
         this.alertProvider.errorAlert()
         // this.showAlert();
       });

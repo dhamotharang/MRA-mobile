@@ -169,8 +169,8 @@ async post(){
     this.exitForm();
     this.alertProvider.successAlert()
   }, (err) => {
+    this.loadingProvider.closeLoading();
      console.log(err);
-     this.loadingProvider.closeLoading();
      this.alertProvider.errorAlert()
     // this.showAlert();
   });
