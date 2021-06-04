@@ -63,8 +63,8 @@ export class AddVolunteerPage implements OnInit {
 
   }
 
-  getAllVolunteer() {
-    this.loadingProvider.presentLoading();
+  getAllVolunteer() {  
+   //this.loadingProvider.presentLoading();
     this.restProvider.getAllVolunteerList('VOLUNTEER',this.orgId).then((result:any) => {
       let p = result.filter(x => x.voidStatus == 'A')
       console.log('getVolunteerList',p);
@@ -225,14 +225,15 @@ export class AddVolunteerPage implements OnInit {
   }
 
   async submitAnnouncement(){
-    // this.loadingProvider.setupSaving();
+    this.loadingProvider.presentLoading();
     let formData = await this.processData();
     this.restProvider.createAnnouncement(formData).then((result:any) => {
       console.log(result);
-      // this.loadingProvider.closeSaving();
+       this.loadingProvider.closeSaving();
       // this.nav.setRoot(TabsPage,{tabIndex: 0});
       // this.navCtrl.pop();
     }, (err) => {
+      this.loadingProvider.closeSaving();
       console.log(err);
       // this.loadingProvider.closeSaving();
       // this.showAlert();

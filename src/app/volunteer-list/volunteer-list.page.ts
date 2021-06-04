@@ -43,14 +43,14 @@ export class VolunteerListPage implements OnInit {
   }
 
   getVolunteerList() {
-    this.loadingProvider.presentLoading();
+    //this.loadingProvider.presentLoading();
     this.restProvider.getVolunteerList(this.navParam.projId).then((result:any) => {
       console.log('getVolunteerList',result);
       let p = result.filter(x => x.joinStatus == 'A')
       this.volunteerList = p;
       this.loadingProvider.closeLoading();
     }, (err) => {
-      this.loadingProvider.closeLoading();
+     this.loadingProvider.closeLoading();
       // console.log(err);
       // this.loadingProvider.closeLoading();
       // this.showAlert();

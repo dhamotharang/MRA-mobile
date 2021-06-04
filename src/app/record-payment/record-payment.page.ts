@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { RestProvider } from 'src/providers/rest/rest';
 import { Storage } from '@ionic/storage-angular';
+import { LoadingProvider } from 'src/providers/loading-provider';
 import { ImageProvider } from 'src/providers/image.provider';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 
@@ -30,6 +31,7 @@ export class RecordPaymentPage implements OnInit {
     private imageProvider: ImageProvider,
     private router: Router,
     private route: ActivatedRoute,
+    private loadingProvider: LoadingProvider,
   ) { }
 
   async ngOnInit() {
@@ -54,7 +56,7 @@ export class RecordPaymentPage implements OnInit {
   }
 
   getDonation(){
-    // //this.loadingProvider.setupLoading();
+    //this.loadingProvider.presentLoading();
     this.restProvider.getUserDonation(this.profile.personId).then((result:any) => {
       this.donationList = result.filter(x => x.orgId == this.orgId)
       console.log('getDonation',this.donationList);
@@ -65,9 +67,10 @@ export class RecordPaymentPage implements OnInit {
       //   this.isDonateShown.push(false);
       //   // this.orgs[i].orgProfile.orgLogo = this.sanitize.bypassSecurityTrustUrl('data:image/jpg;base64,'+ result[i].orgProfile.orgLogo);
       // }
-      // this.loadingProvider.closeLoading();
+       this.loadingProvider.closeLoading();
       // });
     }, (err) => {
+      this.loadingProvider.closeLoading();
       console.log(err);
       // this.loadingProvider.closeLoading();
       // this.showAlert();
