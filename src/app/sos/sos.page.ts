@@ -64,6 +64,7 @@ export class SosPage implements OnInit {
   }
 
   getContact(){               //to get list of contact
+    this.loadingProvider.presentLoading();
     this.storage.get('defaultProfile').then((val:any) => {   //untuk guna storage
       //console.log("val from getOrg",val)
       this.profile= val
@@ -112,7 +113,7 @@ export class SosPage implements OnInit {
     //this.loadingProvider.setupDelete();
     this.restProvider.deleteEmergency(this.contactList[i].smecId).then((result) => {
       console.log("Result after call delete emergency contact",result);
-      this.loadingProvider.closeSaving();
+     this.loadingProvider.closeSaving();
       this.getContact();
     }, (err) => {
       console.log(err);

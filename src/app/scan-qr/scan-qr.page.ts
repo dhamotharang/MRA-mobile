@@ -55,15 +55,16 @@ export class ScanQrPage implements OnInit {
   }
 
   sendAttendance() {
+    this.loadingProvider.presentLoading();
     this.storage.get('defaultPersonId').then((val:any) => {
       this.restProvider.attendProject(val, this.projId).then((result:any) => {
         console.log('sendAttendance',result);
         // this.projectDetail = result;
-        // this.loadingProvider.closeLoading();
+         this.loadingProvider.closeLoading();
         // this.navCtrl.back();
       }, (err) => {
         // console.log(err);
-        // this.loadingProvider.closeLoading();
+         this.loadingProvider.closeLoading();
         // this.showAlert();
       });
     });
