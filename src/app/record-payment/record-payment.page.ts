@@ -56,7 +56,7 @@ export class RecordPaymentPage implements OnInit {
   }
 
   getDonation(){
-    //this.loadingProvider.presentLoading();
+    this.loadingProvider.presentLoading();
     this.restProvider.getUserDonation(this.profile.personId).then((result:any) => {
       this.donationList = result.filter(x => x.orgId == this.orgId)
       console.log('getDonation',this.donationList);
@@ -79,11 +79,13 @@ export class RecordPaymentPage implements OnInit {
   }
 
   getOrg(){
+   // this.loadingProvider.presentLoading();
     this.restProvider.getFee(this.profile.personId).then((result:any) => {
       console.log(result);
       this.orgs = result;
-      // this.loadingProvider.closeLoading();
+       this.loadingProvider.closeLoading();
     }, (err) => {
+      this.loadingProvider.closeLoading();
       console.log(err);
       // this.loadingProvider.closeLoading();
       // this.showAlert();

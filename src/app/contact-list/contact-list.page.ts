@@ -246,7 +246,7 @@ export class ContactListPage implements OnInit {
       (await alert).present()
     }else{
       console.log(this.createList);
-     this.loadingProvider.presentLoading();
+    // this.loadingProvider.presentLoading();
       this.restProvider.createEmergencyContact(this.createList).then((result:any) => {
         console.log(result);
         this.getContact();

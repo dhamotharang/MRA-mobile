@@ -268,19 +268,19 @@ export class UserAccountPage implements OnInit {
     }
   }
   delete(id) {
-    //this.loadingProvider.setupLoading();
+    this.loadingProvider.presentLoading();
     this.restProvider.deleteHosting(id).then((result: any) => {
       console.log(result);
       this.loadingProvider.closeLoading();
     }, (err) => {
-      console.log(err);
       this.loadingProvider.closeLoading();
-      this.showAlert();
+      console.log(err);
+      //this.showAlert();
     });
   }
 
   getUserAnnouncement() {
-    //this.loadingProvider.setupLoading();
+    this.loadingProvider.presentLoading();
     this.counter = 0;
     this.restProvider.getUserAnnouncement(this.oaid, this.counter).then((result: any) => {
       console.log(result);
@@ -302,9 +302,9 @@ export class UserAccountPage implements OnInit {
         this.loadingProvider.closeLoading();
       }
     }, (err) => {
-      console.log(err);
       this.loadingProvider.closeLoading();
-      this.showAlert();
+      console.log(err);
+     // this.showAlert();
     });
   }
   calcElapsed(timestamp): string {
@@ -337,6 +337,7 @@ export class UserAccountPage implements OnInit {
   doRefresh(refresher) {
     console.log('Refresh operation');
     this.counter = 0;
+    this.loadingProvider.presentLoading();
     this.restProvider.getUserAnnouncement(this.oaid, this.counter).then((result: any) => {
       console.log("refresh result  " + result);
       if (result == null) {
@@ -367,6 +368,7 @@ export class UserAccountPage implements OnInit {
     console.log('Begin async operation');
     return new Promise((resolve) => {
       this.counter = this.counter + 5;
+      this.loadingProvider.presentLoading();
       this.restProvider.getUserAnnouncement(this.oaid, this.counter).then((result: any) => {
         console.log(result.results);
         if (result == null) {
@@ -487,15 +489,16 @@ export class UserAccountPage implements OnInit {
     });
   }
   updateRSVP(i) {
-    //this.loadingProvider.setupLoading();
+    this.loadingProvider.presentLoading();
     this.restProvider.updateRSVP(this.noticeList[i].eiId, 'Y').then((result: any) => {
       console.log(result);
       this.noticeList[i].attendance = result.status;
       this.loadingProvider.closeLoading();
+
     }, (err) => {
-      console.log(err);
       this.loadingProvider.closeLoading();
-      this.showAlert();
+      console.log(err);
+     // this.showAlert();
     });
   }
 
@@ -537,7 +540,7 @@ export class UserAccountPage implements OnInit {
       console.log("val", val)
       this.profilePictUrl = val
     })
-    //this.loadingProvider.setupLoading();
+    this.loadingProvider.closeLoading();
     this.restProvider.getOrg(this.oaid).then((result: any) => {
       console.log(result);
       this.orgs = result;
@@ -819,14 +822,14 @@ export class UserAccountPage implements OnInit {
     formData.append('params', new Blob([JSON.stringify(this.restParam)], {
       type: "application/json"
     }));
+    this.loadingProvider.closeLoading();
     this.restProvider.createAnnouncement(this.restParam).then((result: any) => {
       console.log('getAnnouncementcreate', result);
-      //this.loadingProvider.closeSharing();
+      this.loadingProvider.closeLoading();
     }, (err) => {
       this.loadingProvider.closeLoading();
       console.log(err);
-      //this.loadingProvider.closeSharing();
-      this.showAlert();
+     // this.showAlert();
     });
   }
 

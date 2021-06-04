@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RestProvider } from 'src/providers/rest/rest';
 import { Storage } from '@ionic/storage-angular';
 import * as moment from 'moment';
+import { LoadingProvider } from 'src/providers/loading-provider';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class NotificationsPage implements OnInit {
   constructor(
     private restProvider: RestProvider,
     private storage: Storage,
+    private loadingProvider: LoadingProvider,
   ) { }
 
   async ngOnInit() {
@@ -58,15 +60,16 @@ export class NotificationsPage implements OnInit {
   }
 
   async submitAnnouncement(){
-    // this.loadingProvider.setupSaving();
+    this.loadingProvider.presentLoading();
     let formData = await this.processData();
     await this.restProvider.createAnnouncement(formData).then((result:any) => {
       console.log(result);
       this.getListNoti();
-      // this.loadingProvider.closeSaving();
+       this.loadingProvider.closeSaving();
       // this.nav.setRoot(TabsPage,{tabIndex: 0});
       // this.navCtrl.pop();
     }, (err) => {
+      this.loadingProvider.closeSaving();
       console.log(err);
       // this.loadingProvider.closeSaving();
       // this.showAlert();

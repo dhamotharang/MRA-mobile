@@ -132,6 +132,7 @@ export class EditProfilePage implements OnInit {
   }
 
   getProfile() {
+    this.loadingProvider.presentLoading();
     this.restProvider.getProfile(this.param).then((result) => {    //get data from REST
       this.storage.set('defaultProfile', result);   //update ke storage
       this.loadingProvider.closeSaving();    //loading ui
