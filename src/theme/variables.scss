@@ -1,6 +1,78 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
 
+
+
+@font-face {
+  font-family: AppFont;
+  src: url("../assets/fonts/Avenir/Avenir Medium.otf");
+}
+
+@font-face {
+  font-family: Avenir-Book;
+  src: url("../assets/fonts/Avenir/Avenir Book.otf");
+}
+
+@font-face {
+  font-family: PT_Sants; // Action 
+  src: url("../assets/fonts/PT_Sans/PT_Sans-Web-Regular.ttf");
+}
+
+@font-face {
+  font-family: Varela_Round; // Title/ Subtitle
+  src: url("../assets/fonts/Varela_Round/VarelaRound-Regular.ttf");
+}
+
+@font-face {
+  font-family: RobotoSlab;
+  src: url("../assets/fonts/RobotoSlab/RobotoSlab-Regular.ttf");
+}
+
+@font-face {
+  font-family: SawarabiGothic; // Navigation Bar
+  src: url("../assets/fonts/Sawarabi_Gothic/SawarabiGothic-Regular.ttf");
+}
+
+@font-face {
+  font-family: RegulatorNova; // Navigation Bar
+  src: url("../assets/fonts/Regulator_Nova/Regulator-Nova-Medium.otf");
+}
+
+@font-face {
+  font-family: GidoleRegular;
+  src: url("../assets/fonts/gidole/Gidole-Regular.otf");
+}
+
+@font-face {
+  font-family: DroidSerif-Regular;
+  src: url("../assets/fonts/DroidSerif/DroidSerif-Regular.ttf");
+}
+
+@font-face {
+  font-family: Lato-Regular;
+  src: url("../assets/fonts/Lato/Lato-Regular.ttf");
+}
+
+@font-face {
+  font-family: Poppins-Bold;
+  src: url("../assets/fonts/Poppins/Poppins-Bold.ttf");
+}
+
+@font-face {
+  font-family: Poppins-Regular;
+  src: url("../assets/fonts/Poppins/Poppins-Regular.ttf");
+}
+
+@font-face {
+  font-family: Archivo_Black;
+  src: url("../assets/fonts/Archivo_Black/ArchivoBlack-Regular.ttf");
+}
+
+* {
+  font-family: 'Varela_Round';
+}
+
+
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
