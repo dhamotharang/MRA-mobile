@@ -27,6 +27,7 @@ import { HTTP } from '@ionic-native/http/ngx';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import * as $ from 'jquery';
 import { AlertProvider } from 'src/providers/alert-provider';
+import { EmergencyProvider} from 'src/providers/emergency-provider';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import { AlertProvider } from 'src/providers/alert-provider';
     NativeGeocoder,
     HTTP,
     GooglePlus,
-    AlertProvider
+    AlertProvider,
+    EmergencyProvider
   ],
   bootstrap: [AppComponent],
 })

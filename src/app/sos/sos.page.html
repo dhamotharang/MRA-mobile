@@ -10,20 +10,20 @@
 
 <ion-content>
 
-  <ion-label class="title_margin">
+  <ion-label *ngIf="from == 'home'" class="title_margin">
     <p class="label">SOS Status</p>
   </ion-label>
 
   <ion-row class="center">
-    <ion-col size="4">
+    <ion-col size="4" *ngIf="from == 'home'"(click)="triggerSOS('Heart Attack')">
       <ion-icon class="icon" md="heart" ios="heart"></ion-icon>
       <p class="sign-label">Heart Attack</p>
     </ion-col>
-    <ion-col size="4">
+    <ion-col size="4" *ngIf="from == 'home'" (click)="triggerSOS('Robbery')">
       <ion-icon class="icon" md="sad" ios="sad"></ion-icon>
       <p class="sign-label">Roberry</p>
     </ion-col>
-    <ion-col size="4">
+    <ion-col size="4" *ngIf="from == 'home'" (click)="triggerSOS('Fire')">
       <ion-icon class="icon" md="flame" ios="flame"></ion-icon>
       <p class="sign-label">Fire</p>
     </ion-col>
@@ -55,7 +55,7 @@
     </ion-item>
   </ion-list>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="from == 'home'">
     <ion-fab-button (click)="navigateNextPage()">
       <ion-icon ios="add-outline" md="add-outline"></ion-icon>
     </ion-fab-button>

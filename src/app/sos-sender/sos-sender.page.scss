@@ -1,0 +1,333 @@
+// Style Google Maps - GMAPS + Location  Details
+  .toolbar-ios {
+    min-height: 64px;
+  }
+  [navbarTheme] .back-button{
+    display: none !important;
+  }
+  .active .back-button,
+  .active .toolbar-title {
+    // color: theme-colors('textColors', 'accent') !important;
+    color:black;
+    animation-name: color-change;
+    animation-duration: 400ms;
+  }
+
+  .back-button,
+  .toolbar-title {
+    // color: theme-colors('textColors', 'secondaryBase') !important;
+    color:black;
+  }
+
+  .bar-button-default-ios,
+  .toolbar-title-ios {
+    padding-top: 20px;
+  }
+
+  #map {
+    width: 100%;
+    height: 100%;
+  }
+  //disable map&satellite button
+  .gmnoprint .gm-bundled-control .gm-bundled-control-on-bottom{
+    display:none !important;
+  }
+  .gmnoprint{
+    display:none !important;
+  }
+  // //disable full screen toggle
+  // .gm-control-active .gm-fullscreen-control{
+  //   display:none !important;
+  // }
+  .gm-svpc{
+    display:none !important;
+  }
+  // .sebm-google-map-container {
+  //    height: calc(100vh - 54px)!important;
+  //   }
+
+  .item-inner {
+    margin-left: 0 !important;
+  }
+
+  [maps-title] {
+      font-weight: bold !important;
+  }
+
+  [span-small] {
+    margin-top: 6px;
+    display: block;
+    font-weight: 300;
+    letter-spacing: 1px;
+  }
+
+  .icon-star::before {
+    margin: 0 !important;
+  }
+
+  [twolinesEllipsis]{
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  [badgePostyle]{
+    background-color: white;
+    color: dimgrey;
+    font-weight: bold;
+    float:right;
+    margin-right: 10px;
+    margin-bottom: 3%;
+    border-radius: 15px !important;
+    padding: 6px 15px !important;
+    text-align: center;
+    display: inline-block;
+    min-width: 10px;
+    font-size: 15px !important;
+    line-height: 1;
+    white-space: nowrap;
+    vertical-align: baseline;
+    webkit-box-shadow: 0px 5px 12px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 5px 12px 0px rgba(0, 0, 0, 0.2);
+  }
+
+  [badgePostyle2]{
+    z-index: 2;
+    margin-top: 60px;
+    margin-left: 50px;
+    float: right;
+    background-image:linear-gradient(45deg, #f12711,  #f5af19);
+    -webkit-box-shadow: 6px 19px 22px 0px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 6px 19px 22px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 6px 19px 22px 0px rgba(0, 0, 0, 0.3);
+    // border-style: solid;
+    // border-width: thin;
+    // border-color: grey;
+    color:white;
+    margin-bottom: 3%;
+    position: absolute;
+    border-radius: 100% !important;
+    padding: 5px 2px !important;
+    text-align: center;
+    display: inline-block;
+    min-width: 10px;
+    font-size: 25px !important;
+    //font-weight: bold;
+    line-height: 1;
+    white-space: nowrap;
+    vertical-align: baseline;
+  }
+
+  [badgePostylerob]{
+    z-index: 2;
+    margin-top: 60px;
+    margin-left: 50px;
+    float: right;
+    background-image:linear-gradient(45deg,  #0F2027, #203A43, #2C5364);
+    -webkit-box-shadow: 6px 19px 22px 0px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 6px 19px 22px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 6px 19px 22px 0px rgba(0, 0, 0, 0.3);
+    // border-style: solid;
+    // border-width: thin;
+    // border-color: grey;
+    color:white;
+    margin-bottom: 3%;
+    position: absolute;
+    border-radius: 100% !important;
+    padding: 5px 2px !important;
+    text-align: center;
+    display: inline-block;
+    min-width: 10px;
+    font-size: 25px !important;
+    //font-weight: bold;
+    line-height: 1;
+    white-space: nowrap;
+    vertical-align: baseline;
+  }
+
+  [badgePostyleheart]{
+    z-index: 2;
+    margin-top: 60px;
+    margin-left: 50px;
+    float: right;
+    background-image:linear-gradient(45deg, #333333, #dd1818);
+    -webkit-box-shadow: 6px 19px 22px 0px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 6px 19px 22px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 6px 19px 22px 0px rgba(0, 0, 0, 0.3);
+    // border-style: solid;
+    // border-width: thin;
+    // border-color: grey;
+    color:white;
+    margin-bottom: 3%;
+    position: absolute;
+    border-radius: 100% !important;
+    padding: 5px 2px !important;
+    text-align: center;
+    display: inline-block;
+    min-width: 10px;
+    font-size: 25px !important;
+    //font-weight: bold;
+    line-height: 1;
+    white-space: nowrap;
+    vertical-align: baseline;
+  }
+
+  [badgePostylesos]{
+    z-index: 2;
+    margin-top: 60px;
+    margin-left: 50px;
+    float: right;
+    background-image:linear-gradient(45deg, #ECE9E6,#FFFFFF);
+    -webkit-box-shadow: 6px 19px 22px 0px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 6px 19px 22px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 6px 19px 22px 0px rgba(0, 0, 0, 0.3);
+    // border-style: solid;
+    // border-width: thin;
+    // border-color: grey;
+    color:red;
+    margin-bottom: 3%;
+    position: absolute;
+    border-radius: 100% !important;
+    padding: 5px 2px !important;
+    text-align: center;
+    display: inline-block;
+    min-width: 10px;
+    font-size: 25px !important;
+    //font-weight: bold;
+    line-height: 1;
+    white-space: nowrap;
+    vertical-align: baseline;
+  }
+
+  [badgePostyle3]{
+    background-color: #e33e3b;
+    color: white;
+    // font-weight: bold;
+    // float:right;
+    // margin-right: 10px;
+    // margin-bottom: 3%;
+    border-radius: 15px !important;
+    padding: 6px 15px !important;
+    text-align: center;
+    display: inline-block;
+    min-width: 10px;
+    // font-size: 15px !important;
+    line-height: 1;
+    white-space: nowrap;
+    vertical-align: baseline;
+    webkit-box-shadow: 0px 5px 12px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 5px 12px 0px rgba(0, 0, 0, 0.2);
+  }
+
+  [roundorgimg]{
+    z-index:0;
+    // position:absolute;
+    border-radius:50%;
+    height: 90px;
+    width: 90px;
+    // margin-left: 30%;
+    // margin-top: 5%;
+    -webkit-box-shadow: 2px 2px 19px 0px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 2px 2px 19px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 2px 19px 0px rgba(0, 0, 0, 0.2);
+  }
+
+  [carouselsize]{
+    background-color: transparent!important;
+    width: 287px!important;
+    height: 88%;
+  }
+
+  [cardsize]{
+    width: calc(100% - 19px)!important;
+    border-radius: 15px!important;
+    -webkit-box-shadow: 0px 5px 12px 0px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 5px 12px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 5px 12px 0px rgba(0, 0, 0, 0.2);
+  }
+
+  [footerstyle]{
+    left: 0;
+    bottom: 30px;
+    position: absolute;
+    z-index: 10;
+    display: block;
+    width: 100%;
+  }
+
+  [actbutton]{
+    font-size: 12px;
+    background-color: transparent!important;
+    color:black!important;
+  }
+
+  ion-slides {
+    height: 116%!important;
+}
+
+[reportmsg]{
+  color:dimgrey;
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 5px;
+  text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+marquee {
+  // width: 55%!important;
+  width: 100%!important;
+}
+
+.card-title-md {
+    height: 65px;
+}
+
+[cancelbtn]{
+  border-radius: 15px !important;
+  height: 50px;
+  font-size: 18px;
+  margin-top: 10px;
+  background-color: #d8373d;
+  color:white;
+  -webkit-box-shadow: 0px 5px 12px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 5px 12px 0px rgba(0, 0, 0, 0.2);
+  width: 100%;
+}
+
+// animation style
+
+@keyframes flickerAnimation {
+  0%   { opacity:1; }
+  50%  { opacity:0; }
+  100% { opacity:1; }
+}
+@-o-keyframes flickerAnimation{
+  0%   { opacity:1; }
+  50%  { opacity:0; }
+  100% { opacity:1; }
+}
+@-moz-keyframes flickerAnimation{
+  0%   { opacity:1; }
+  50%  { opacity:0; }
+  100% { opacity:1; }
+}
+@-webkit-keyframes flickerAnimation{
+  0%   { opacity:1; }
+  50%  { opacity:0; }
+  100% { opacity:1; }
+}
+.animate-flicker {
+   -webkit-animation: flickerAnimation 1.5s infinite;
+   -moz-animation: flickerAnimation 1.5s infinite;
+   -o-animation: flickerAnimation 1.5s infinite;
+    animation: flickerAnimation 1.5s infinite;
+}
+
+.animate-flicker-fast {
+   -webkit-animation: flickerAnimation 0.5s infinite;
+   -moz-animation: flickerAnimation 0.5s infinite;
+   -o-animation: flickerAnimation 0.5s infinite;
+    animation: flickerAnimation 0.5s infinite;
+}
+
+

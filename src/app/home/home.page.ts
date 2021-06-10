@@ -5,6 +5,7 @@ import { RestProvider } from 'src/providers/rest/rest';
 import { Storage } from '@ionic/storage-angular';
 import { IonSlides } from '@ionic/angular';
 import { Capacitor } from '@capacitor/core';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-home',
@@ -32,10 +33,10 @@ export class HomePage implements OnInit {
     spaceBetween: 10,
   };
 
-  ngOnInit() {   
+  ngOnInit() {
     this.storage.get('defaultProfile').then((val:any) => {this.profile = val})
     this.route.queryParams.subscribe(params => {
-      console.log('ngOnInit',params) 
+      console.log('ngOnInit',params)
       if (this.router.getCurrentNavigation().extras.state) {
         this.data = this.router.getCurrentNavigation().extras.state.user;
         this.role = this.router.getCurrentNavigation().extras.state.role;
@@ -49,7 +50,7 @@ export class HomePage implements OnInit {
 
   ionViewWillEnter() {
     // this.route.queryParams.subscribe(params => {
-    //   console.log('ngOnInit',params) 
+    //   console.log('ngOnInit',params)
     //   if (this.router.getCurrentNavigation().extras.state) {
     //     this.data = this.router.getCurrentNavigation().extras.state.user;
     //     console.log('data',this.data)
@@ -247,5 +248,15 @@ export class HomePage implements OnInit {
 
 
   }
+
+  navSos(){
+    let navigationExtras: NavigationExtras = {
+      state:{
+        from: 'home'
+      }
+    };
+    this.router.navigate(['sos'], navigationExtras);
+  }
+
 
 }
