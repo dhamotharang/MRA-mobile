@@ -4,8 +4,8 @@ import { CallNumberProvider } from 'src/providers/call-number.provider';
 import { RestProvider } from 'src/providers/rest/rest';
 import { Storage } from '@ionic/storage-angular';
 import { AlertController } from '@ionic/angular';
-import { LoadingProvider } from  './../../providers/loading-provider';
-import { EmergencyProvider } from './../../providers/emergency-provider';
+// import { EmergencyProvider } from 'src/providers/emergency-provider';
+import { LoadingProvider } from 'src/providers/loading-provider';
 
 
 @Component({

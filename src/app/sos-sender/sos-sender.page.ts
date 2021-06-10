@@ -52,17 +52,17 @@ export class SosSenderPage implements OnInit {
     ) { }
 
   ionViewDidLoad(){
-    // this.platform.registerBackButtonAction(() => {
-    //   console.log('hardware back button');
-    //   let nav = this.app.getActiveNavs()[0];
-    //   let activeView = nav.getActive();
-    //   console.log('activeView', activeView);
-    //   if(activeView.id === "SosSender"){
-    //     this.forceStop();
-    //   }else{
-    //     nav.pop();
-    //   }
-    // });
+    this.platform.backButton.subscribe(() => {
+      console.log('hardware back button');
+      let nav = this.app.getActiveNavs()[0];
+      let activeView = nav.getActive();
+      console.log('activeView', activeView);
+      if(activeView.id === "SosSender"){
+        this.forceStop();
+      }else{
+        nav.pop();
+      }
+    });
     this.initMap();
     this.storage.get('defaultPersonId').then((val:any) => {
       console.log(val);
@@ -81,43 +81,44 @@ export class SosSenderPage implements OnInit {
       this.oaid = val;
     });
     this.sos_type = this.router.getCurrentNavigation().extras.state.sos_type;
-    console.log(this.sos_type);
+    console.log("this.sos_type",this.sos_type);
   }
 
   ngOnInit() {
-    this.platform.backButton.subscribe(() => {
-      console.log('hardware back button');
-      // let nav = this.app.getActiveNavs()[0];
-      let nav = this.app.getActiveNavs()[0];
-      let activeView = nav.getActive();
-      console.log('activeView', activeView);
-      if(activeView.id === "SosSender"){
-        this.forceStop();
-      }else{
-        nav.pop();
-      }
-    });
+    // console.log("aminah");
+    // this.platform.backButton.subscribe(() => {
+    //   console.log('hardware back button');
+    //   // let nav = this.app.getActiveNavs()[0];
+    //   let nav = this.app.getActiveNavs()[0];
+    //   let activeView = nav.getActive();
+    //   console.log('activeView', activeView);
+    //   if(activeView.id === "SosSender"){
+    //     this.forceStop();
+    //   }else{
+    //     nav.pop();
+    //   }
+    // });
     // this.initMap();
-    this.storage.get('defaultPersonId').then((val:any) => {
-      console.log(val);
-      this.personid = val;
-      this.getContact();
-    });
-    this.storage.get('defaultProfile').then((val:any) => {
-      console.log(val);
-      this.personName = val.name;
-    });
-    this.storage.get('profilePictUrl').then((val:any) => {
-      this.profilePictUrl = val;
-      console.log(this.profilePictUrl );
-    });
-    this.storage.get('oaid').then((val:any) => {
-      this.oaid = val;
-    });
-    // this.timerCountdown;   this one should be at initMap method, @ the bottom of it
+    // this.storage.get('defaultPersonId').then((val:any) => {
+    //   console.log(val);
+    //   this.personid = val;
+    //   this.getContact();
+    // });
+    // this.storage.get('defaultProfile').then((val:any) => {
+    //   console.log(val);
+    //   this.personName = val.name;
+    // });
+    // this.storage.get('profilePictUrl').then((val:any) => {
+    //   this.profilePictUrl = val;
+    //   console.log(this.profilePictUrl );
+    // });
+    // this.storage.get('oaid').then((val:any) => {
+    //   this.oaid = val;
+    // });
+    // // this.timerCountdown;   this one should be at initMap method, @ the bottom of it
 
-    this.sos_type = this.router.getCurrentNavigation().extras.state.sos_type;
-    console.log(this.sos_type);
+    // this.sos_type = this.router.getCurrentNavigation().extras.state.sos_type;
+    // console.log(this.sos_type);
   }
 
   async forceStop() {
