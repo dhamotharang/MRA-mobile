@@ -16,7 +16,9 @@ declare var google;
 })
 export class SosSenderPage implements OnInit {
 
-  @ViewChild('map') mapElement: ElementRef;
+  // @ViewChild('map') mapElement: ElementRef;
+  // map: any;
+  @ViewChild('map', { static: false }) mapElement: ElementRef;
   map: any;
   lat: number = 3.0437;
   lng: number = 101.7846;
@@ -256,6 +258,7 @@ export class SosSenderPage implements OnInit {
       // disableDefaultUI: true
     };
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+
     //start panning
     this.map.panBy(0, 150);
     //Load the markers
