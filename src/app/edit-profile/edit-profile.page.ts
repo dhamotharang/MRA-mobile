@@ -118,11 +118,13 @@ export class EditProfilePage implements OnInit {
     this.profile.providerCode = this.provider.providerCode
     this.profile.providerId = this.provider.providerId
     console.log('getProfile',this.profile)
-    ////this.loadingProvider.setupSaving();
+    this.loadingProvider.presentLoading();
     this.restProvider.updateProfile(this.profile).then((result) => {
+      this.loadingProvider.closeSaving();
       console.log(result);
       this.getProfile();
     }, (err) => {
+       this.loadingProvider.closeSaving();
       console.log(err);
       //this.loadingProvider.closeSaving();
       //this.showAlert();
@@ -130,6 +132,7 @@ export class EditProfilePage implements OnInit {
   }
 
   getProfile() {
+    this.loadingProvider.presentLoading();
     this.restProvider.getProfile(this.param).then((result) => {    //get data from REST
       this.storage.set('defaultProfile', result);   //update ke storage
       this.loadingProvider.closeSaving();    //loading ui

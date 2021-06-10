@@ -21,17 +21,26 @@ export class VolunteerListPage implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private imageProvider: ImageProvider,
-  ) { }
-
-  ngOnInit() {
+  ) { 
     this.route.queryParams.subscribe(params => {      //get data from previous page
       if (this.router.getCurrentNavigation().extras.state) {
         this.navParam = this.router.getCurrentNavigation().extras.state.user;
         this.role = this.router.getCurrentNavigation().extras.state.role;
         console.log('navParam',this.navParam,this.role)
-        this.getVolunteerList();
+        // this.getVolunteerList();
       }
     });
+  }
+
+  ngOnInit() {
+    // this.route.queryParams.subscribe(params => {      //get data from previous page
+    //   if (this.router.getCurrentNavigation().extras.state) {
+    //     this.navParam = this.router.getCurrentNavigation().extras.state.user;
+    //     this.role = this.router.getCurrentNavigation().extras.state.role;
+    //     console.log('navParam',this.navParam,this.role)
+    //     this.getVolunteerList();
+    //   }
+    // });
 
   }
 
@@ -46,11 +55,11 @@ export class VolunteerListPage implements OnInit {
     this.loadingProvider.presentLoading();
     this.restProvider.getVolunteerList(this.navParam.projId).then((result:any) => {
       console.log('getVolunteerList',result);
-      let p = result.filter(x => x.joinStatus == 'A')
+      let p = result.filter(x => x.joinStatus != 'D')
       this.volunteerList = p;
       this.loadingProvider.closeLoading();
     }, (err) => {
-      this.loadingProvider.closeLoading();
+     this.loadingProvider.closeLoading();
       // console.log(err);
       // this.loadingProvider.closeLoading();
       // this.showAlert();

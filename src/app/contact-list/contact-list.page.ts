@@ -99,7 +99,7 @@ export class ContactListPage implements OnInit {
   }
 
   getList(){
-
+    this.loadingProvider.presentLoading();
     this.storage.get('personOrgs').then((val:any) => {
       //console.log('personOrgs value is', val);
       this.counter = 1;
@@ -110,10 +110,11 @@ export class ContactListPage implements OnInit {
         this.contactList = result;
         console.log("getContactCounter", this.contactList);
         this.checkList();
-        //this.loadingProvider.closeLoading();
+        this.loadingProvider.closeLoading();
       }, (err) => {
+         this.loadingProvider.closeLoading();
         console.log(err);
-        this.showAlert();
+        //this.showAlert();
         //this.loadingProvider.closeLoading();
       });
 
@@ -173,7 +174,7 @@ export class ContactListPage implements OnInit {
   }
 
   getContact(){               //to get list of contact
-
+    //this.loadingProvider.presentLoading();
     this.storage.get('defaultProfile').then((val:any) => {   //untuk guna storage
       this.profile= val
       this.restProvider.getEmergencyList(this.profile.personId).then((result:any) => {
@@ -184,9 +185,10 @@ export class ContactListPage implements OnInit {
         }
         this.loadingProvider.closeLoading();
       }, (err) => {
-        console.log(err);
         this.loadingProvider.closeLoading();
-        this.showAlert();
+        console.log(err);
+        //this.loadingProvider.closeLoading();
+       // this.showAlert();
       });
     })
   }
@@ -244,15 +246,15 @@ export class ContactListPage implements OnInit {
       (await alert).present()
     }else{
       console.log(this.createList);
-      this.loadingProvider.closeSaving();
+    // this.loadingProvider.presentLoading();
       this.restProvider.createEmergencyContact(this.createList).then((result:any) => {
         console.log(result);
         this.getContact();
-        this.loadingProvider.closeSaving();
+        this.loadingProvider.closeLoading();
         this.alertProvider.successAlert()
       }, (err) => {
         console.log(err);
-        this.loadingProvider.closeSaving();
+        this.loadingProvider.closeLoading();
         this.alertProvider.errorAlert()
         //this.showAlert();
       });
