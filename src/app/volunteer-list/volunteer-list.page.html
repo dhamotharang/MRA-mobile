@@ -22,8 +22,9 @@
             <p class="volunteer-name">{{data?.person?.name}}</p>
             <ion-row>
               <ion-col size="9">
-                <!-- <p class="volunteer-detail">{{data?.job}}</p> -->
-                <p class="volunteer-detail">Software Engineer</p>
+                <p *ngIf='data?.joinStatus == "R"' class="volunteer-detail">Pending Staff Approval</p>
+                <p *ngIf='data?.joinStatus == "I"' class="volunteer-detail">Pending Invitation</p>
+                <p *ngIf='data?.joinStatus == "A"' class="volunteer-detail">Approved</p>
               </ion-col>
             </ion-row>
             <ion-row>
