@@ -19,9 +19,28 @@
     </ion-col>
   </ion-row>
 
-  <ion-list class="padding-list" *ngIf="fromPage == 'volunteer-list'">
+  <!-- <ion-list class="padding-list" *ngIf="fromPage == 'volunteer-list'">
     <ion-item *ngFor="let data of allVolunteerList | filter:filterTerm">
       <ion-label>{{data?.name}}</ion-label>
+      <ion-label>{{data[0]?.eduList?.medicalField}}</ion-label>
+      <ion-checkbox slot="end" (click)="chooseVolunteer(data)"></ion-checkbox>
+    </ion-item>
+  </ion-list> -->
+
+  <ion-list class="padding-list" *ngIf="fromPage == 'volunteer-list'">
+    <ion-item no-padding *ngFor="let data of allVolunteerList | filter:filterTerm">
+      <ion-label>
+        <ion-row>
+          <ion-col size="9">
+            <p class="vol-name">{{data?.name}}</p>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="9">
+            <p class="vol-med">{{data?.eduList[0]?.medicalField}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-label>
       <ion-checkbox slot="end" (click)="chooseVolunteer(data)"></ion-checkbox>
     </ion-item>
   </ion-list>
