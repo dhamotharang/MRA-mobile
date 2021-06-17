@@ -52,9 +52,11 @@
       color: white !important;
     }
   
-    .label{
-      padding-left: 5px;
+    ion-label{
+    
       margin-top: 10px;
+      font-family: Poppins-Regular;
+      font-size:0.9rem;
       
     }
     .item-md.item-block .item-inner{
@@ -63,11 +65,21 @@
     [class*=" icon-"]{
       line-height: 32px;
     }
+    .attach-icon {
+      position: relative;
+      font-size: 1.6rem;
+      color: black;
+      border: solid;
+      border-width: 1px;
+      border-color: #737373;
+      border-radius: 5px;
+      top: -2px;
+  }
+  
 
     .post-button {
       width: 100%;
-     
-   
+      font-size:0.9rem;
       background-color: #af71f0;
       color: white;
       border-radius: 5px;
@@ -81,11 +93,17 @@
   .post-label {
       font-size: 0.9rem;
       // margin-top: 8px;
+      font-family: Poppins-Regular;
   }
   
     .error-message {
       color: var(--ion-color-danger);
+      font-size:0.9rem;
+      font-family: Poppins-Regular;
+
   }
   ion-item.item-has-focus > ion-label{
-    color:rgb(136, 231, 222) !important;
+    font-family: Poppins-Regular;
+    font-size: 0.9rem;
   }
+

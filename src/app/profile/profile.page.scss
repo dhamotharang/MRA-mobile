@@ -32,9 +32,14 @@ ion-toolbar {
     margin: 0;
     color: #282828;
     text-align: center;
+    font-size:0.9rem;
+    font-family: poppins-Bold;
+
   }
 }
-
+p{
+  font-size:0.9rem;
+}
 .profile-pill {
   text-decoration: none;
   padding: 6px 20px;
@@ -49,14 +54,24 @@ ion-toolbar {
 
 .settings-list ion-label h4,
 .legal-list ion-label h4 {
-  font-size: 1.125rem;
+  font-size:0.9rem;
+  font-family: Poppins-Regular;
+
 }
 
 .settings-list ion-icon,
 .legal-list ion-icon {
-  font-size: 24px;
+  font-size: 0.9rem;
 }
 
 ion-icon.chevron {
-  color: #686868;
+  color: #686868
+}
+svg.ionicon.s-ion-icon{
+  font-size:1.5rem;
+}
+ion-label{
+  font-family: Poppins-Regular;
+  font-size: 0.9rem;
+  color: purple;
 }

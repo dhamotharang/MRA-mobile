@@ -34,31 +34,47 @@
                 <p class="new-label">new</p>
               </ion-card>
             </ion-col> -->
-          </ion-row>
+          </ion-row>   
         </ion-col>
       </ion-row>
-  
+
       <ion-row class="description-row">
         <ion-col>
           <p class="description">{{data?.description}}</p>
         </ion-col>
-      </ion-row>
-  
+             
+    </ion-row>
+
       <!-- <ion-row class="description-row">
         <ion-col size="2" *ngFor="let img of data?.feed_image">
           <img class="attach-img" [src]="img?.feed_images">
         </ion-col>
       </ion-row> -->
-  
-      <ion-row  *ngIf='data?.feedImg != null'>
-        <ion-col class="ion-no-padding">
+
+      <ion-row *ngIf='data?.feedImg != null'>
+        <ion-col class="ion-no-padding-center">
           <ion-row>
-            <ion-col class="ion-no-padding center" size="4" *ngFor='let img of data?.feedImg'>
+            <ion-col class="ion-no-padding center" size="12"*ngFor='let img of data?.feedImg' >
               <img class="attach-img" [src]="img?.imageUrl">
             </ion-col>
           </ion-row>
         </ion-col>
       </ion-row>
+  
+  <ion-row  *ngIf='data?.feedImg != null'> 
+      <ion-col class="action-item ion-no-margin"  size="6"*ngFor='let img of data?.feedImg' >
+        <img class="attach-imgs"  [src]="img?.imageUrl">
+      </ion-col>
+
+         <ion-col class="action-item ion-no-margin" size="6" *ngFor='let img of data?.feedImg'>
+        <img class="attach-imgs" [src]="img?.imageUrl">
+        </ion-col>
+
+ 
+</ion-row>
+   
+      
+    
   
     </ion-card>
   </div>
@@ -80,10 +96,11 @@
 
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button>
-      <ion-icon ios="create" md="create"></ion-icon>
+ 
+      <ion-fab-button (click)="navNextPage()">
+      <ion-icon ios="newspaper-outline" md="newspaper-outline"></ion-icon>
     </ion-fab-button>
-    <ion-fab-list side="top">
+  
       <!-- <ion-item class="fab-button">
       <ion-icon name="alert" class="alert-icon"></ion-icon>
       <ion-label class="fab-label">Alert</ion-label>
@@ -109,10 +126,8 @@
       <ion-fab-button color="danger" [routerLink]="['/create-post']" data-desc="Care">
         <ion-icon name="heart"></ion-icon>
       </ion-fab-button> -->
-      <ion-fab-button color="danger" (click)="navNextPage()" data-desc="Feed">
-        <ion-icon name="newspaper-outline"></ion-icon>
-      </ion-fab-button>
-    </ion-fab-list>
+  
+
   </ion-fab>
 
 </ion-content>
