@@ -1,48 +1,82 @@
-<ion-header>
-  <ion-toolbar>
+<ion-header class="ion-no-border">
+  <!-- <ion-toolbar>
     <ion-buttons>
       <ion-back-button defaultHref="launch"></ion-back-button>
     </ion-buttons>
     <img slot="secondary" src="assets/mra.png" class="navbar-logo" />
     <ion-title slot="secondary">Login</ion-title>
-  </ion-toolbar>
+  </ion-toolbar> -->
+  <ion-buttons>
+    <ion-back-button defaultHref="launch"></ion-back-button>
+  </ion-buttons>
 </ion-header>
 
-<ion-content>
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <section id="google">
-          <h5>Login with Google</h5>
-          <ion-input clearInput name="gmail" placeholder="Enter your Gmail address" type="email" required="true">
-          </ion-input>
-        </section>
-        <div class="separator">or use a phone number</div>
-        <section>
-          <ion-grid>
-            <ion-row>
-              <ion-col size="4">
-                <div>
-                  <ion-select placeholder="🇲🇾 +60">
-                    <ion-select-option value="malaysia">🇲🇾 +60</ion-select-option>
-                  </ion-select>
-                </div>
-              </ion-col>
-              <ion-col size="8">
-                <div>
-                  <ion-input name="phone-number" placeholder="Eg. 18 292 0039" type="tel" required="true"></ion-input>
-                </div>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </section>
-      </ion-col>
+<!-- <ion-content >
+  <section>
+    <h5 class="center-content">Quick check up your payment history by</h5>
+  </section>
+  <section id="google"   class="googleLogin">
+    <h5 >Login with Google</h5>
+    <!-- <ion-input clearInput name="gmail" placeholder="Enter your Gmail address" type="email" required="true"> -->
+    <!-- </ion-input>
+    <ion-button expand="block" (click)="googleSignup()">Login</ion-button>
+  </section>
+  <div class="separator">or use your phone number</div>
+  <section>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="4">
+          <div>
+            <ion-select placeholder="🇲🇾 +60">
+              <ion-select-option value="malaysia">🇲🇾 +60</ion-select-option>
+            </ion-select>
+          </div>
+        </ion-col>
+        <ion-col size="8">
+          <div>
+            <ion-input name="phone-number" placeholder="Eg. 19 2345678" type="tel" required="true"></ion-input>
+          </div>
+        </ion-col>
     </ion-row>
-  </ion-grid>
-</ion-content>
+    </ion-grid>
+  </section>
+</ion-content> -->
+
+<div class="container">
+  <div>
+    <section>
+      <h5 class="center-content">Quick check up your payment history by</h5>
+    </section>
+    <section id="google"   class="googleLogin">
+      <!-- <h5 >Login with Google </h5> -->
+      <!-- <ion-input clearInput name="gmail" placeholder="Enter your Gmail address" type="email" required="true"> -->
+      <!-- </ion-input> -->
+      <ion-button expand="block" (click)="googleSignup()" color="danger" ><ion-icon name="logo-google"></ion-icon>Login with google</ion-button>
+    </section>
+    <div class="separator">or use your phone number</div>
+    <section>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="4">
+            <div>
+              <ion-select placeholder="🇲🇾 +60">
+                <ion-select-option value="malaysia">🇲🇾 +60</ion-select-option>
+              </ion-select>
+            </div>
+          </ion-col>
+          <ion-col size="8">
+            <div>
+              <ion-input name="phone-number" placeholder="Eg. 19 2345678" type="tel" required="true"></ion-input>
+            </div>
+          </ion-col>
+      </ion-row>
+      </ion-grid>
+    </section>
+  </div>
+</div>
 
 <ion-footer>
-  <ion-toolbar>
-    <ion-button expand="full" [routerLink]="['/payment-history']">Login</ion-button>
-  </ion-toolbar>
+  <!-- <ion-toolbar>
+    <ion-button expand="full" (click)="googleSignup()">Login</ion-button>
+  </ion-toolbar> -->
 </ion-footer>
