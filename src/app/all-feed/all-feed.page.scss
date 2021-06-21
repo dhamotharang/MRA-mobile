@@ -108,12 +108,41 @@ ion-scroll.scroll-x .scroll-content {
 .no-text {
     text-align: center;
     white-space: normal;
-    font-size: 1.2rem;
+    font-size: 0.9rem;
     margin-top: 12%;
 }
 
 .fab-label {
     margin-top: 0px;
+}
+
+.group-style {
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+}
+
+.hidden_header_style {
+    z-index: 1000;
+    padding: 0 10px;
+    border: solid;
+    border-left: none;
+    border-right: none;
+    border-width: thin;
+    background: white;
+}
+
+.project-group {
+    margin-bottom: -1rem;
+    margin-top: -1rem;
+}
+
+.project-name {
+    text-align: left;
+    margin: 14px 0;
+    color: #616161;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: Varela_Round;
 }
 
 ion-fab-button[data-desc] {

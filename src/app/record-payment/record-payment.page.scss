@@ -3,11 +3,13 @@
 }
 
 .label-project {
-    color: black;
+    color: purple;
     margin-top: 0px;
     font-size: 1rem;
     white-space: normal;
     // position: absolute;
+    font-family: Poppins-Regular;
+    
 }
 
 .row-margin {
@@ -20,4 +22,10 @@
 
 .description {
     color: black;
+    font-family: Poppins-Regular;
+    font-size: 0.9rem;
+}
+ion-button{
+    font-family: Poppins-Regular;
+    font-size: 0.9rem;
 }

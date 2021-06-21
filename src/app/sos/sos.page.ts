@@ -4,8 +4,9 @@ import { CallNumberProvider } from 'src/providers/call-number.provider';
 import { RestProvider } from 'src/providers/rest/rest';
 import { Storage } from '@ionic/storage-angular';
 import { AlertController } from '@ionic/angular';
-// import { EmergencyProvider } from 'src/providers/emergency-provider';
-import { LoadingProvider } from 'src/providers/loading-provider';
+import { LoadingProvider } from  './../../providers/loading-provider';
+import { AlertProvider } from 'src/providers/alert-provider';
+
 
 
 @Component({
@@ -35,7 +36,7 @@ export class SosPage implements OnInit {
     private storage: Storage,
     private alertCtrl: AlertController,
     public loadingProvider: LoadingProvider,
-    // private emergencyProvider: EmergencyProvider   //open when use emergency provider only
+    private alertProvider: AlertProvider,
 
   ) { }
 
@@ -125,9 +126,11 @@ export class SosPage implements OnInit {
       console.log("Result after call delete emergency contact",result);
      this.loadingProvider.closeSaving();
       this.getContact();
+      this.alertProvider.successAlert()
     }, (err) => {
       console.log(err);
       this.loadingProvider.closeSaving();
+      this.alertProvider.errorAlert()
     });
   }
 

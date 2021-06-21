@@ -27,8 +27,9 @@
     line-height: normal;
     text-overflow: inherit;
     color: #424242;
-    // font-family: Lato-Regular;
+    font-family: Poppins-bold;
     white-space: normal;
+    color:purple;
 }
   
 .selected-button {
@@ -71,11 +72,12 @@
 
 .label-detail {
     overflow: inherit;
-    font-size: 1rem;
+    font-size: 0.9rem;
     text-overflow: inherit;
     color: #424242;
     white-space: normal;
     margin-left: -2rem;
+   font-family: Poppins-Regular;
   }
 
 .active-label {
@@ -85,6 +87,7 @@
     margin-right: 0.2rem;
     margin-left: 1.3rem;
     margin-top: -1.3rem;
+    font-family: Poppins-Regular;
 }
 
 .active-button {
@@ -125,11 +128,12 @@
 .label-description {
     // font-family: Varela_Round;
     // font-weight: 600;
-    font-size: 1rem;
+    font-size: 0.9rem;
     position: relative;
     text-align: left;
     color: black;
     margin-right: 13rem;
+    font-family: Poppins-Regular;
 }
 
 .purple-background {
@@ -148,10 +152,11 @@
 
 .description-text {
     // font-family: Varela_Round;
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: #424242;
     white-space: pre-line;
     text-align: left;
+    font-family: Poppins-Regular;
 }
 
 .padding-others {
@@ -171,13 +176,18 @@
 }
 
 .link-label {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     // text-align: right;
     color: black;
     // margin-right: 0.2rem;
     // margin-left: 1.3rem;
+    font-family: Poppins-Regular;
+    text-transform:none;
 }
-
+ion-button.standard-float-button{
+    font-family: Poppins-Regular;
+    font-size: 0.9rem;
+}
 
 
 

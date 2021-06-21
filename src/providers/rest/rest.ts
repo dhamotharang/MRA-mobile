@@ -69,7 +69,7 @@ export class RestProvider {
     console.log(app);
     return new Promise((resolve, reject) => {
       console.log(app)
-      this.http.get(app[0].host+"hss-project-0.0.1-SNAPSHOT"+"/proj/feed/s/"+personId,{headers: new HttpHeaders().set('token', this.token)
+      this.http.get(app[0].host+app[0].contextPath+"/proj/feed/s/"+personId,{headers: new HttpHeaders().set('token', this.token)
       .set('api-key', app[0].apiKey)
       })
         .subscribe(res => {
@@ -452,7 +452,7 @@ export class RestProvider {
 }
 
       //http://localhost:8181/hss-organization-admin-0.0.1-SNAPSHOT/gallery/r
-      async geFeedImg(){
+      async getFeedImg(){ //get gallery
         try{
           let app = await this.appConf("GLMG");
         console.log(app);
@@ -621,7 +621,27 @@ async createAnnouncement(data){
   try{
     let app = await this.appConf("MCAN");
   return new Promise((resolve, reject) => {
-    this.http.post(app[0].host+app[0].contextPath+'/list/an/add', data,{headers: new HttpHeaders().set('enctype', 'multipart/form-data').set('Accept','application/json').set('token', this.token)
+    this.http.post(app[0].host+app[0].contextPath+'/ann/person', data,{headers: new HttpHeaders().set('enctype', 'multipart/form-data').set('Accept','application/json').set('token', this.token)
+    .set('api-key', app[0].apiKey)
+    })
+      .subscribe(res => {
+        resolve(res);
+      }, (err) => {
+        reject(err);
+      });
+  });
+  }
+  catch(e){
+    console.log(e);
+  }
+
+}
+
+async createAnnouncementCommittee(data){
+  try{
+    let app = await this.appConf("MCAN");
+  return new Promise((resolve, reject) => {
+    this.http.post(app[0].host+app[0].contextPath+'/ann/committee', data,{headers: new HttpHeaders().set('enctype', 'multipart/form-data').set('Accept','application/json').set('token', this.token)
     .set('api-key', app[0].apiKey)
     })
       .subscribe(res => {
@@ -951,7 +971,7 @@ async getUserDonation(personId){
 }
 
 ///proj/vol/upd
-async acceptJoin(data){
+async answerJoin(data){
   try{
     let app = await this.appConf("PRJM");
   console.log('requestJoin',data);
