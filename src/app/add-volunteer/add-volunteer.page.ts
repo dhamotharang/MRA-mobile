@@ -24,7 +24,7 @@ export class AddVolunteerPage implements OnInit {
   restParam: any = [];
   andList: any;
   profile: any;
-  mediaList=[];
+  // mediaList=[];
   filterTerm: string;
   allCommiteeList: any;
   chosenParticipate: any[];
@@ -135,13 +135,11 @@ export class AddVolunteerPage implements OnInit {
       this.restProvider.addVolunteer(body).then((result:any) => {
         this.loadingProvider.closeLoading();
         this.createAnnouncement();
-        this.exitForm();
         this.alertProvider.successAlert()
+        this.exitForm();
       }, (err) => {
-        // console.log(err);
         this.loadingProvider.closeLoading();
         this.alertProvider.errorAlert()
-        // this.showAlert();
       });
     }
     else {  //from task (for add participant in task)
@@ -230,25 +228,21 @@ export class AddVolunteerPage implements OnInit {
     this.restProvider.createAnnouncement(formData).then((result:any) => {
       console.log(result);
        this.loadingProvider.closeSaving();
-      // this.nav.setRoot(TabsPage,{tabIndex: 0});
-      // this.navCtrl.pop();
     }, (err) => {
       this.loadingProvider.closeSaving();
       console.log(err);
-      // this.loadingProvider.closeSaving();
-      // this.showAlert();
     });
   }
 
 
   processData(){
     const formData: FormData = new FormData();
-    for (let i = 0; i < this.mediaList.length; i++) {
-      console.log('blob array ');
-      if(this.mediaList[i].blob != null){
-        formData.append('file', this.mediaList[i].blob, this.mediaList[i].type);
-      }
-    }
+    // for (let i = 0; i < this.mediaList.length; i++) {
+    //   console.log('blob array ');
+    //   if(this.mediaList[i].blob != null){
+    //     formData.append('file', this.mediaList[i].blob, this.mediaList[i].type);
+    //   }
+    // }
     formData.append('params', new Blob([JSON.stringify(this.restParam)], {
                 type: "application/json"
             }));
@@ -297,19 +291,19 @@ export class AddVolunteerPage implements OnInit {
 
 
 
-  getToken() {
-    // this.restProvider.getTokenNoti(this.orgId, this.oaId).then((res: any) => {
-    //   console.log(res);
-    //   this.andList = res.android;
-    //   // this.iosList = res.ios;
-    //   // this.sendPush();
-    // }).catch(error => {
-    //   console.log(error);
-    //   // this.showAlert();
-    //   // this.loadingProvider.closeSaving();
-    // })
+  // getToken() {
+  //   // this.restProvider.getTokenNoti(this.orgId, this.oaId).then((res: any) => {
+  //   //   console.log(res);
+  //   //   this.andList = res.android;
+  //   //   // this.iosList = res.ios;
+  //   //   // this.sendPush();
+  //   // }).catch(error => {
+  //   //   console.log(error);
+  //   //   // this.showAlert();
+  //   //   // this.loadingProvider.closeSaving();
+  //   // })
 
-  }
+  // }
 
 
   exitForm() {
