@@ -130,7 +130,7 @@ const routes: Routes = [
     path: 'feedback',
     loadChildren: () => import('./feedback/feedback.module').then( m => m.FeedbackPageModule)
   },
-  
+
   {
     path: 'about',
     loadChildren: () => import('./about/about.module').then( m => m.AboutPageModule)
@@ -142,10 +142,16 @@ const routes: Routes = [
   {
     path: 'org-detail',
     loadChildren: () => import('./org-detail/org-detail.module').then( m => m.OrgDetailPageModule)
-  },  {
+  },
+  {
     path: 'all-feed',
     loadChildren: () => import('./all-feed/all-feed.module').then( m => m.AllFeedPageModule)
+  },  {
+    path: 'sos-sender',
+    loadChildren: () => import('./sos-sender/sos-sender.module').then( m => m.SosSenderPageModule)
   },
+
+
 
 
 

@@ -8,6 +8,7 @@ import { LoadingProvider } from  './../../providers/loading-provider';
 import { AlertProvider } from 'src/providers/alert-provider';
 
 
+
 @Component({
   selector: 'app-sos',
   templateUrl: './sos.page.html',
@@ -23,6 +24,8 @@ export class SosPage implements OnInit {
   selectedEmergencyContactList: any;
   profile: any;
   contactList: any[];
+  sos_type: any;
+  from: any;
 
 
   constructor(
@@ -42,9 +45,14 @@ export class SosPage implements OnInit {
       console.log('ngOnInit',params)
       if (this.router.getCurrentNavigation().extras.state) {
         this.selectedEmergencyContactList = this.router.getCurrentNavigation().extras.state.selectedEmergencyContactList;
-        console.log('Selected Emergency Contact List',this.selectedEmergencyContactList)
+        console.log('Selected Emergency Contact List',this.selectedEmergencyContactList);
+        this.sos_type = this.router.getCurrentNavigation().extras.state.sos_type;
+        console.log("this.sos_type",this.sos_type);
+        this.from = this.router.getCurrentNavigation().extras.state.from;
+        console.log("this.from = ",this.from);
       }
     });
+    console.log("sos_type", this.sos_type);
   }
 
   ionViewWillEnter(){
@@ -124,6 +132,17 @@ export class SosPage implements OnInit {
       this.loadingProvider.closeSaving();
       this.alertProvider.errorAlert()
     });
+  }
+
+  triggerSOS(type){
+    console.log("type: ",type);
+
+    let navigationExtras: NavigationExtras = {
+            state: {
+              sos_type: type
+            }
+          };
+          this.router.navigate(['sos-sender'], navigationExtras);  //navigate ke page lain
   }
 
 }

@@ -29,7 +29,7 @@ export class RestProvider {
 
     appConf(app) {
         return new Promise((resolve, reject) => {
-            let devplink = 'http://192.168.0.114:8181/hss-start-0.0.1-SNAPSHOT/app/config/r';  //192.168.0.105 //192.168.43.221  //dev.hss.oas.my
+            let devplink = 'http://192.168.0.177:8181/hss-start-0.0.1-SNAPSHOT/app/config/r';  //192.168.0.105 //192.168.43.221  //dev.hss.oas.my
             this.http.post(devplink, [app], {
                 headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token)//.set('api-key','eIsyynm35y3j5dDTp2RGyS1QR1gxYvSYPZB2MBHpnZUa5BeEs6Xl97cFx0004P4cWhoa12ceefOWMZ7CAJv9l30pUTpqSq9cj0mP3emB5Z7pWGGK8M0LO8fmO962h52O')
             })
@@ -202,7 +202,7 @@ export class RestProvider {
       }catch(e){
         console.log(e);
       }
-  
+
     }
 
 
@@ -793,7 +793,7 @@ async createAnnouncementCommittee(data){
 
     }
 
-    
+
     async updateProfile(data){     //guna untuk submit data
       try {
         let app = await this.appConf("MUPR");
@@ -1065,7 +1065,7 @@ async deleteEmergency(smecId){
   }
 
 }
-  
+
   // /token/add
 // /token/upd
  async createToken(data) {
@@ -1251,6 +1251,27 @@ async PendingReceipt (data){
   } catch (error) {
     console.log(error);
   }
+}
+
+async getEmergencyToken(personid){
+  try {
+    let app = await this.appConf("GECT");
+    console.log('get sos token', app[0].host+app[0].url+"/"+personid,{headers: new HttpHeaders().set('token', this.token)
+    .set('api-key', app[0].apiKey)
+    });
+    return new Promise((resolve, reject) => {
+      this.http.get(app[0].host+app[0].url+"/"+personid,{headers: new HttpHeaders().set('token', this.token)
+      .set('api-key', app[0].apiKey)
+      }).subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  } catch (error) {
+    console.log(error);
+  }
+
 }
 
 

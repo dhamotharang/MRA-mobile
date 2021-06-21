@@ -3,7 +3,7 @@
   align-items: center;
   text-align: center;
   margin: 20px 0 30px;
-  font-size: 15px;
+  font-size: 18px;
 }
 
 .separator::before,
@@ -27,3 +27,30 @@
     border-bottom: 1px solid #fff;
   }
 }
+
+.googleLogin{
+  align-content: center;
+  text-align: center;
+
+
+}
+
+.center-content{
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+ion-icon{
+  padding-right: 0.5em;
+}
+
+ion-back-button{
+  --color: var(--ion-color-primary, #3880ff);
+}
+
+
