@@ -22,6 +22,13 @@
 
   .greet-text {
     color: white;
+    font-family: Poppins-Bold;
+    font-size: 1rem;
+  }
+  .greet-texts {
+    color: white;
+    font-family: Varela_Round;
+    font-size: 0.9rem;
   }
 }
 
@@ -67,6 +74,7 @@
   width: 6.2rem;
   border: solid;
   border-width: thin;
+ 
 
   ion-icon {
     margin-bottom: 6px;
@@ -76,6 +84,7 @@
   p {
     font-size: 15px;
     margin: 0;
+  
   }
 }
 
@@ -104,6 +113,8 @@
     ion-card-content {
       padding: 12px;
       text-align: left;
+    
+
     }
   }
 }
@@ -114,4 +125,16 @@
 
 .margin-top {
   margin-top: 1rem;
+}
+h5.ion-no-margin{
+  font-family: Varela_Round;
+  font-size:1rem;
+}
+ion-col.ion-text-right{
+  font-family: Varela_Round;
+  font-size:1rem;
+}
+ion-card-content.ion-no-padding.md.card-content-md.hydrated {
+  font-family: Varela_Round;
+  font-size:0.9rem;
 }

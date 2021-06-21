@@ -13,36 +13,50 @@
   <div class="ion-padding">
     <form [formGroup]="registrationForm">
       <ion-list>
-        <ion-item lines="none">
-          <ion-label position="floating" style="color: gray">Title</ion-label>
-          <ion-textarea formControlName="title" rows="7"></ion-textarea>
-        </ion-item>
+        <div>
+ 
+          <ion-label position="floating" style="color: purple; font-family: Poppins-Regular;
+          font-size: 0.9rem; ">Title</ion-label>
+          <ion-textarea formControlName="title" rows="7" style="font-family: Poppins-Regular;
+          font-size: 0.9rem;"></ion-textarea>
+  
+        </div>
         <div *ngFor="let error of errorMessages.title">
           <ng-container *ngIf="title.hasError(error.type) && (title.dirty || title.touched)">
-            <h3><small class="error-message" style="font-family: 'San Fransico'">{{error.message}}</small></h3>
+            <h3><small class="error-message" >{{error.message}}</small></h3>
           </ng-container>
         </div>
 
-        <ion-item lines="none">
-          <ion-label position="floating" style="color: gray">Describe your issue or share your ideas...</ion-label>
-          <ion-textarea style="font-family: 'San Fransico'" rows="7" formControlName="description"></ion-textarea>
-        </ion-item>
+     
+          <ion-label position="floating" style="color: purple;font-family: Poppins-Regular;
+          font-size: 0.9rem;">Describe your issue or share your ideas...</ion-label>
+          <ion-textarea rows="7" formControlName="description" style="font-family: Poppins-Regular;
+          font-size: 0.9rem;"></ion-textarea>
+  
         <div *ngFor="let error of errorMessages.description">
           <ng-container *ngIf="description.hasError(error.type) && (description.dirty ||description.touched)">
-            <h3><small class="error-message" style="font-family: 'San Fransico'">{{error.message}}</small></h3>
+            <h3><small class="error-message">{{error.message}}</small></h3>
           </ng-container>
         </div>
-        <ion-item lines="none">
-          <ion-label style="color: gray">Rate this app</ion-label>
-          <ion-select formControlName="rate">
-            <ion-select-option value="0">Very Poor</ion-select-option>
-            <ion-select-option value="2">Poor</ion-select-option>
-            <ion-select-option value="4">Fair</ion-select-option>
-            <ion-select-option value="6">Good</ion-select-option>
-            <ion-select-option value="8">Very Good</ion-select-option>
-            <ion-select-option value="10">Excellent</ion-select-option>
+      
+          <ion-label style="color: purple;font-family: Poppins-Regular;
+          font-size: 0.9rem;">Rate this app</ion-label>
+          <ion-select formControlName="rate" style="font-family: Poppins-Regular;
+          font-size: 0.9rem;">
+            <ion-select-option value="0" style="font-family: Poppins-Regular;
+            font-size: 0.9rem;">Very Poor</ion-select-option>
+            <ion-select-option value="2"style="font-family: Poppins-Regular;
+            font-size: 0.9rem;">Poor</ion-select-option>
+            <ion-select-option value="4" style="font-family: Poppins-Regular;
+            font-size: 0.9rem;">Fair</ion-select-option>
+            <ion-select-option value="6" style="font-family: Poppins-Regular;
+            font-size: 0.9rem;">Good</ion-select-option>
+            <ion-select-option value="8"style="font-family: Poppins-Regular;
+            font-size: 0.9rem;">Very Good</ion-select-option>
+            <ion-select-option value="10"style="font-family: Poppins-Regular;
+            font-size: 0.9rem;">Excellent</ion-select-option>
           </ion-select>
-        </ion-item>
+     
       </ion-list>
       <ion-row class="attach-icon-padding">
         <ion-col (click)="getImageFx()">

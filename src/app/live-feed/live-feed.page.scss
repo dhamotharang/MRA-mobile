@@ -17,15 +17,18 @@
 
 .label-feed-title {
     color: #212121;
-    font-size: 1rem;
+    font-size: 0.9rem;
     margin-left: 0rem;
+    font-family: Varela_Round;
+    color:purple;
 }
 
 .label-feed-date {
-    color: #212121;
+    color: #100e0e;
     font-size: 0.8rem;
     margin-left: 0rem;
     margin-top: -1rem;
+    font-family: Varela_Round;
 }
 
 .feed-card {
@@ -56,22 +59,36 @@
 .description {
     color: black;
     white-space: normal;
+    font-family: Varela_Round;
+    font-size:0.9rem;
 }
 
 .description-row {
     margin-top: -1.2rem;
 }
 
-.attach-img {
-    border-radius: 17%;
+.attach-imgs {
     border: #9b9999;
     border-width: 0.1px;
-    height: 5.5rem;
-    width: 5rem;
+    height: 11rem;
     border-style: solid;
     color: #F5F5F5;
     object-fit: cover;
     margin-bottom: 0.5rem;
+    margin-bottom:1px;
+    margin-top:-16px;
+}
+.attach-img {
+    
+    border: #9b9999;
+    border-width: 0.1px;
+    height:10rem;
+    width: 360px;
+    border-style: solid;
+    color: #F5F5F5;
+    object-fit: cover;
+    margin-bottom:1px;
+    margin-top:-1rem;
 }
 
 .center {
@@ -89,6 +106,7 @@ ion-scroll.scroll-x .scroll-content {
     right: 0px;
     border-radius: 30px;
     height: 39px;
+
 }
 
 .alert-icon {
@@ -132,6 +150,8 @@ ion-fab-button[data-desc] {
     border-radius: 8px;
     color: black;
     box-shadow: 0 3px 5px -1px rgba(0,0,0,0.2), 0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12);
+    font-family: Varela_Round;
+    font-size:0.9rem;
   }
 
 

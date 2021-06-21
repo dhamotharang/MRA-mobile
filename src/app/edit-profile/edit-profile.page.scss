@@ -10,14 +10,19 @@ ion-footer{
 
 .ion-label{
   ion-label{
-    // font-size: 14px;
-    color: #6e6e6e ;
+    font-size: 0.9rem;
+    color: purple;
+    font-family: Poppins-Regular;
   }
 
   ion-input{
-    font-size: 15px;
+    font-size: 0.8rem;
+    font-family: Poppins-Regular;
   }
 }
-
+button{
+  font-size: 0.9rem;
+    font-family: Poppins-Regular;
+}
 
 

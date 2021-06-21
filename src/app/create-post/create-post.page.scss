@@ -11,11 +11,12 @@
 }
   
 .project-name {
-    color: #212121;
-    font-size: 1rem;
+    color: purple;
+    font-size: 1.2rem;
     white-space: normal;
     margin-top: 1rem;
     position: inherit;
+    font-family: Varela_Round;
 }
 
 .more-icon {
@@ -66,6 +67,7 @@
 }
 
 .post-label {
+    font-family: Varela_Round;
     font-size: 0.9rem;
     // margin-top: 8px;
 }
@@ -78,12 +80,25 @@
     height: 2.8rem;
     width: 95%;
     margin-left: 9px;
+    font-family: Varela_Round;
 }
 
 ion-select {
     /* Applies to the value and placeholder color */
     color: #545ca7;
     white-space: normal;
+}
+.description_label{
+    font-family: Varela_Round;
+    font-size:0.9rem;
+}
+.input_title{
+    font-family: Varela_Round;
+    font-size:0.9rem;
+}
+.label-title{
+    font-family: Varela_Round;
+    font-size:0.9rem;
 }
 
 // .my-custom-interface .list-option {
