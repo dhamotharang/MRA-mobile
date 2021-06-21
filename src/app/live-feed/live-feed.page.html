@@ -10,6 +10,12 @@
 
 <ion-content>
 
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Pull to refresh"
+      refreshingSpinner="circles" refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
   <div *ngIf='feedList.length != 0'>
     <ion-card *ngFor="let data of feedList" class="feed-card">
 
@@ -27,14 +33,8 @@
           <ion-row>
             <ion-col size="3">
               <p class="label-feed-date">{{data?.createdDate| date: 'd/M/yy'}}</p>
-              <!-- today -->
             </ion-col>
-            <!-- <ion-col size="3">
-              <ion-card class="new-card">
-                <p class="new-label">new</p>
-              </ion-card>
-            </ion-col> -->
-          </ion-row>   
+          </ion-row>
         </ion-col>
       </ion-row>
 
@@ -43,13 +43,8 @@
           <p class="description">{{data?.description}}</p>
         </ion-col>
              
-    </ion-row>
+       </ion-row>
 
-      <!-- <ion-row class="description-row">
-        <ion-col size="2" *ngFor="let img of data?.feed_image">
-          <img class="attach-img" [src]="img?.feed_images">
-        </ion-col>
-      </ion-row> -->
 
       <ion-row *ngIf='data?.feedImg != null'>
         <ion-col class="ion-no-padding-center">
@@ -83,7 +78,6 @@
   <div *ngIf='feedList.length == 0'>
     <ion-row>
       <ion-col>
-        <!-- <ion-icon ios="meccapan-abatanotification" md="meccapan-abatanotification" class="notification"></ion-icon> -->
         <ion-icon name="newspaper-outline" class="no-feed"></ion-icon>
       </ion-col>
     </ion-row>
@@ -96,38 +90,14 @@
 
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
- 
       <ion-fab-button (click)="navNextPage()">
       <ion-icon ios="newspaper-outline" md="newspaper-outline"></ion-icon>
     </ion-fab-button>
-  
-      <!-- <ion-item class="fab-button">
-      <ion-icon name="alert" class="alert-icon"></ion-icon>
-      <ion-label class="fab-label">Alert</ion-label>
-    </ion-item>
-    <ion-item class="fab-button">
-      <ion-icon slot="end" name="megaphone" class="alert-icon"></ion-icon>
-      <ion-label class="fab-label">Announcement</ion-label>
-    </ion-item>
-    <ion-item class="fab-button">
-      <ion-icon slot="end" name="heart" class="alert-icon"></ion-icon>
-      <ion-label class="fab-label">Care</ion-label>
-    </ion-item>
-    <ion-item class="fab-button">
-      <ion-icon slot="end" name="newspaper-outline" class="alert-icon"></ion-icon>
-      <ion-label class="fab-label">Feed</ion-label>
-    </ion-item> -->
-      <!-- <ion-fab-button color="danger" [routerLink]="['/create-post']" data-desc="Alert">
-        <ion-icon name="alert"></ion-icon>
+    <ion-fab-list side="top">
+      <ion-fab-button color="danger" (click)="navNextPage()" data-desc="Feed">
+        <ion-icon name="newspaper-outline"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button color="danger" [routerLink]="['/create-post']" data-desc="Announcement">
-        <ion-icon name="megaphone"></ion-icon>
-      </ion-fab-button>
-      <ion-fab-button color="danger" [routerLink]="['/create-post']" data-desc="Care">
-        <ion-icon name="heart"></ion-icon>
-      </ion-fab-button> -->
-  
-
+    </ion-fab-list>
   </ion-fab>
 
 </ion-content>

@@ -1,8 +1,5 @@
 <ion-header>
   <ion-toolbar>
-    <!-- <ion-buttons>
-      <ion-back-button defaultHref="tabs"></ion-back-button>
-    </ion-buttons> -->
     <img slot="secondary" src="assets/mra.png" class="navbar-logo" />
     <ion-title slot="secondary">Your Feed</ion-title>
   </ion-toolbar>
@@ -10,57 +7,81 @@
 
 <ion-content>
 
-  <div *ngIf='feedList.length != 0'>
-    <ion-card *ngFor="let data of feedList" class="feed-card">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Pull to refresh"
+      refreshingSpinner="circles" refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
 
-      <ion-row>
-        <ion-col size="3">
-          <img #img1 (error)="img1.src=imageProvider.imageErrorHandle('profile')" 
-          class="img-style" [src]="data?.profile_image">
-        </ion-col>
-        <ion-col>
-          <ion-row>
-            <ion-col class='padding_top_bot_zero'>
-              <p class="label-feed-title">{{data?.feedName}}</p>
+  <div *ngIf='feedListbyProject?.length != 0'>
+    <ion-item-group class="group-style" *ngFor="let project of feedListbyProject">
+      <ion-item-divider class="hidden_header_style">
+        <ion-label no-margin>
+
+          <ion-row class="project-group">
+            <ion-col>
+              <p class="project-name">
+                {{project?.item[0]?.projName}}
+              </p>
             </ion-col>
           </ion-row>
-          <ion-row>
-            <ion-col size="3">
-              <p class="label-feed-date">{{data?.createdDate| date: 'd/M/yy'}}</p>
-              <!-- today -->
-            </ion-col>
-            <!-- <ion-col size="3">
-              <ion-card class="new-card">
-                <p class="new-label">new</p>
-              </ion-card>
-            </ion-col> -->
-          </ion-row>
-        </ion-col>
-      </ion-row>
-  
-      <ion-row class="description-row">
-        <ion-col>
-          <p class="description">{{data?.description}}</p>
-        </ion-col>
-      </ion-row>
-  
-      <!-- <ion-row class="description-row">
-        <ion-col size="2" *ngFor="let img of data?.feed_image">
-          <img class="attach-img" [src]="img?.feed_images">
-        </ion-col>
-      </ion-row> -->
-  
-      <ion-row>
-        <ion-col class="ion-no-padding">
-          <ion-row>
-            <ion-col class="ion-no-padding center" size="4" *ngFor='let img of data?.feed_image'>
-              <img class="attach-img" [src]="[img?.feed_images]">
+        </ion-label>
+      </ion-item-divider>
+
+      <!-- <ion-card lines="none" class="hidden_header_style">
+        <ion-label no-margin>
+
+          <ion-row class="project-group">
+            <ion-col>
+              <p class="project-name">
+                {{project?.item[0]?.projName}}
+              </p>
             </ion-col>
           </ion-row>
-        </ion-col>
-      </ion-row>
-  
-    </ion-card>
+        </ion-label>
+      </ion-card> -->
+
+      <ion-card *ngFor="let data of project?.item" class="feed-card">
+        <ion-row>
+          <ion-col size="3">
+            <img #img1 (error)="img1.src=imageProvider.imageErrorHandle('profile')" 
+            class="img-style" [src]="data?.profile_image">
+          </ion-col>
+          <ion-col>
+            <ion-row>
+              <ion-col class='padding_top_bot_zero'>
+                <p class="label-feed-title">{{data?.feedName}}</p>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="3">
+                <p class="label-feed-date">{{data?.createdDate| date: 'd/M/yy'}}</p>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+    
+        <ion-row class="description-row">
+          <ion-col>
+            <p class="description">{{data?.description}}</p>
+          </ion-col>
+        </ion-row>
+    
+        <ion-row *ngIf='data?.feedImg != null'>
+          <ion-col class="ion-no-padding">
+            <ion-row>
+              <ion-col class="ion-no-padding center" size="4" *ngFor='let img of data?.feedImg'>
+                <img class="attach-img" [src]="[img?.imageUrl]">
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+    
+      </ion-card>
+
+    </ion-item-group>
+
+
   </div>
 
 

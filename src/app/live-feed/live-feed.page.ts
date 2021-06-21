@@ -3,6 +3,7 @@ import { RestProvider } from 'src/providers/rest/rest';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { ImageProvider } from 'src/providers/image.provider';
 import { LoadingProvider } from 'src/providers/loading-provider';
+import { CacheHandlerProvider } from 'src/providers/cache-handler.provider';
 
 // import 'sweetalert2/src/sweetalert2.scss'
 
@@ -15,9 +16,6 @@ export class LiveFeedPage implements OnInit {
   private feedList=[];
   data: any;
   navParam: any;
-  // private liveFeed= [];
-  res: any[];
-  feedCategorizedItem = [];
 
 
   constructor(
@@ -25,7 +23,8 @@ export class LiveFeedPage implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private imageProvider: ImageProvider,
-    private loadingProvider: LoadingProvider
+    private loadingProvider: LoadingProvider,
+    private cacheHandlerProvider: CacheHandlerProvider
   ) { }
 
   ngOnInit() {
@@ -36,30 +35,22 @@ export class LiveFeedPage implements OnInit {
         this.navParam = this.data
       }
     });
-    this.getLiveFeed();
-    this.geFeedImg();
 
   }
 
   ionViewWillEnter() {
-    console.log('ionViewWillEnter',this.navParam)
     if (this.navParam) {
       this.getLiveFeed();
-      this.geFeedImg();
+      this.getFeedImg();
     }
   }
 
   getLiveFeed() {
-    //this.loadingProvider.presentLoading();
     this.restProvider.getProjectFeed(this.navParam.projId).then((result:any) => {
       console.log('getLiveFeed',result);
       this.feedList = result;
-      this.loadingProvider.closeLoading();
     }, (err) => {
-     this.loadingProvider.closeLoading();
-      // console.log(err);
-      // this.loadingProvider.closeLoading();
-      // this.showAlert();
+      console.log(err);
     });
   }
 
@@ -73,18 +64,24 @@ export class LiveFeedPage implements OnInit {
     this.router.navigate(['create-post'], navigationExtras);
   }
   
-  geFeedImg() {
-   //this.loadingProvider.presentLoading();
-    this.restProvider.geFeedImg().then((result:any) => {
-      let p = result.filter(x => x.projectId == this.navParam.projId)
-     this.categorizedFeed(p)
-      this.loadingProvider.closeLoading();
-    }, (err) => {
-      // console.log(err);
-      this.loadingProvider.closeLoading();
-      // this.loadingProvider.closeLoading();
-      // this.showAlert();
-    });
+  getFeedImg() {
+    if (this.cacheHandlerProvider.galleryImage.length == 0) {
+      this.loadingProvider.presentLoading();
+      this.restProvider.getFeedImg().then((result:any) => {
+        this.cacheHandlerProvider.galleryImage = result;
+        let p = result.filter(x => x.projectId == this.navParam.projId)
+        this.categorizedFeed(p)
+        this.loadingProvider.closeLoading();
+      }, (err) => {
+        console.log(err);
+        this.loadingProvider.closeLoading();
+      });
+    }
+    else {
+      let p = this.cacheHandlerProvider.galleryImage.filter(x => x.projectId == this.navParam.projId)
+      this.categorizedFeed(p)
+    }
+
   }
 
   categorizedFeed(p) {
@@ -101,6 +98,15 @@ export class LiveFeedPage implements OnInit {
       }
     }
     console.log('feedList',this.feedList);
+  }
+
+  doRefresh(event) {
+    this.feedList = []
+    this.getLiveFeed();
+    this.getFeedImg();
+    setTimeout(() => {
+      event.target.complete();
+    }, 2000);
   }
 
 
