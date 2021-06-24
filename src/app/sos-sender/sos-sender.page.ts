@@ -2,8 +2,10 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AlertController, ModalController, Platform, ToastController, NavController } from '@ionic/angular';
 import { RestProvider } from 'src/providers/rest/rest';
 import { Storage } from '@ionic/storage';
-import { CallNumber } from '@ionic-native/call-number/ngx';
 import { NavigationExtras, Router } from '@angular/router';
+import { AlertProvider } from 'src/providers/alert-provider';
+import { CallNumberProvider } from 'src/providers/call-number.provider';
+import { LoadingProvider } from 'src/providers/loading-provider';
 //As we are mixing TypeScript and vanilla Javascript
 //we will get an error “Cannot find name google”
 //Typescript doesn’t know how to interpret object google.
@@ -16,12 +18,10 @@ declare var google;
 })
 export class SosSenderPage implements OnInit {
 
-  // @ViewChild('map') mapElement: ElementRef;
-  // map: any;
   @ViewChild('map', { static: false }) mapElement: ElementRef;
   map: any;
-  lat: number = 3.0437;
-  lng: number = 101.7846;
+  lat: any;
+  lng: any;
   personid: any;
   contactList:any;
   personName: any;
@@ -33,6 +33,7 @@ export class SosSenderPage implements OnInit {
   timeoutHandler: any;
   app: any;
   sos_type: any;
+  adrs: any;
 
   // lat: number = 51.678418;
   //   lng: number = 7.809007;
@@ -45,15 +46,22 @@ export class SosSenderPage implements OnInit {
     public alertCtrl: AlertController,
     public  restProvider: RestProvider,
     private storage: Storage,
-    private callNumber: CallNumber,
     private toastCtrl: ToastController,
     public modalController: ModalController,
     public platform: Platform,
-    public appCtrl : NavController,
+    private navCtrl: NavController,
     private router: Router,
-    ) { }
+    private alertProvider: AlertProvider,
+    private callNumberProvider: CallNumberProvider,
+    private loadingProvider: LoadingProvider
+    ) {
+      this.sos_type = this.router.getCurrentNavigation().extras.state.sos_type;
+      this.lat = this.router.getCurrentNavigation().extras.state.lat;
+      this.lng = this.router.getCurrentNavigation().extras.state.lng;
+      this.adrs = this.router.getCurrentNavigation().extras.state.adrs;
+     }
 
-  ionViewDidLoad(){
+    ionViewWillEnter(){ //used ionViewWillEnter to load map earlier
     this.platform.backButton.subscribe(() => {
       console.log('hardware back button');
       let nav = this.app.getActiveNavs()[0];
@@ -65,7 +73,7 @@ export class SosSenderPage implements OnInit {
         nav.pop();
       }
     });
-    this.initMap();
+
     this.storage.get('defaultPersonId').then((val:any) => {
       console.log(val);
       this.personid = val;
@@ -82,48 +90,15 @@ export class SosSenderPage implements OnInit {
     this.storage.get('oaid').then((val:any) => {
       this.oaid = val;
     });
-    this.sos_type = this.router.getCurrentNavigation().extras.state.sos_type;
-    console.log("this.sos_type",this.sos_type);
+    this.initMap();
   }
 
   ngOnInit() {
-    // console.log("aminah");
-    // this.platform.backButton.subscribe(() => {
-    //   console.log('hardware back button');
-    //   // let nav = this.app.getActiveNavs()[0];
-    //   let nav = this.app.getActiveNavs()[0];
-    //   let activeView = nav.getActive();
-    //   console.log('activeView', activeView);
-    //   if(activeView.id === "SosSender"){
-    //     this.forceStop();
-    //   }else{
-    //     nav.pop();
-    //   }
-    // });
-    // this.initMap();
-    // this.storage.get('defaultPersonId').then((val:any) => {
-    //   console.log(val);
-    //   this.personid = val;
-    //   this.getContact();
-    // });
-    // this.storage.get('defaultProfile').then((val:any) => {
-    //   console.log(val);
-    //   this.personName = val.name;
-    // });
-    // this.storage.get('profilePictUrl').then((val:any) => {
-    //   this.profilePictUrl = val;
-    //   console.log(this.profilePictUrl );
-    // });
-    // this.storage.get('oaid').then((val:any) => {
-    //   this.oaid = val;
-    // });
-    // // this.timerCountdown;   this one should be at initMap method, @ the bottom of it
 
-    // this.sos_type = this.router.getCurrentNavigation().extras.state.sos_type;
-    // console.log(this.sos_type);
   }
 
   async forceStop() {
+    console.log('forceStop enter')
     const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
       header: 'Alert!',
@@ -159,7 +134,7 @@ export class SosSenderPage implements OnInit {
   }
 
   async showCheckbox() {
-
+    console.log('showCheckbox enter')
     const alert = await this.alertCtrl.create({
       header: 'Emergency Call',
       message: 'Beware! You are about to call your emergency number',
@@ -199,13 +174,12 @@ export class SosSenderPage implements OnInit {
   }
 
   callEmergency(){
-    this.callNumber.callNumber("911", true)
-    .then(res => console.log('Launched dialer!', res))
-    .catch(err => console.log('Error launching dialer', err));
+    let phoneNumber = '911';
+    this.callNumberProvider.dialingFx(phoneNumber)
   }
 
   timerCountdown(){
-    console.log("timerCountdown");
+    console.log("timerCountdown enter");
     let sec = 0;
     let min = 0;
     this.timeoutHandler = setInterval(() => {
@@ -233,36 +207,22 @@ export class SosSenderPage implements OnInit {
     return s;
   }
 
-  async showAlert() {
-    const alert = this.alertCtrl.create({
-      header: 'Oops!',
-      message: 'Something went wrong. Please try again later.',
-      buttons: ['OK']
-    });
-    (await alert).present();
-  }
 
   initMap() {
-    // Create a map after the view is ready and the native platform is ready.
-    console.log(this.lat);
+    console.log(this.lat);     // Create a map after the view is ready and the native platform is ready.
     let latLng = new google.maps.LatLng(this.lat, this.lng);
     let mapOptions = {
       center: latLng,
       zoom: 15,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
-      // gestureHandling: 'cooperative',
-      //Sets the gestureHandling property to cooperative to prevent one-finger movements
-      zoomControl: false,
-      //Sets the zoomControl property to false to remove the Zoom control buttons on the map.
+      // gestureHandling: 'cooperative', //Sets the gestureHandling property to cooperative to prevent one-finger movements
+      zoomControl: false,  //Sets the zoomControl property to false to remove the Zoom control buttons on the map.
       fullscreenControl: false,
       // disableDefaultUI: true
     };
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-
-    //start panning
-    this.map.panBy(0, 150);
-    //Load the markers
-    let markerIcon = {
+    this.map.panBy(0, 150);     //start panning
+    let markerIcon = {      //Load the markers
         url: "https://res.cloudinary.com/myjiran/image/upload/v1538464327/mobile_asset/My-location.svg",
         scaledSize: new google.maps.Size(60, 60),
         origin: new google.maps.Point(0, 0), // used if icon is a part of sprite, indicates image position in sprite
@@ -274,15 +234,6 @@ export class SosSenderPage implements OnInit {
         icon: markerIcon,
         position: latLng
     });
-    // var bounds = new google.maps.LatLngBounds();
-    // bounds.extend(latLng);
-    // this.map.fitBounds(bounds);
-
-    // if(this.markerList != undefined && this.markerList != null){
-    //   console.log(this.markerList);
-    //   this.markerUpdate(this.markerList);
-    // }
-
     let infoWindow = new google.maps.InfoWindow({
         content: "Help Me!"
     });
@@ -310,7 +261,7 @@ export class SosSenderPage implements OnInit {
       this.sendPush();
     }).catch(error => {
       console.log(error);
-      this.showAlert();
+      this.alertProvider.errorAlert()
       //this.loadingProvider.closeLoading();
     })
   }
@@ -321,7 +272,7 @@ export class SosSenderPage implements OnInit {
     if(this.andList.length > 0){
       let pushData = {
         registration_ids : this.andList,
-        data: {
+        notification: {
           notId: null, // notId on Android needed to be an int and not a string
           title: "Emergency Call",
           body: "This user has ended the emergency call session.",
@@ -355,17 +306,17 @@ export class SosSenderPage implements OnInit {
       }
       this.pushList.push(pushData);
     }
-
-    // this.pushProvider.sendPush(this.pushList,this.personid).subscribe((result:any) => {
-    //   console.log('Stop SOS Notification Sent');
-    //   console.log(result);
-    //   this.loadingProvider.closeLoading();
-    //   this.closemodal();
-    // });
+    this.loadingProvider.closeLoading();
+    this.restProvider.sendPush(this.pushList,this.personid).subscribe((result:any) => {
+      console.log('Stop SOS Notification Sent');
+      console.log(result);
+      this.loadingProvider.closeLoading();
+      this.navCtrl.back();
+    });
   }
 
-  closemodal(){
-    this.modalController.dismiss();
-  }
+  // closemodal(){
+  //   this.modalController.dismiss();
+  // }
 
 }

@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router, ActivatedRoute } from '@angular/router';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 // import { CacheHandlerProvider } from 'src/providers/cache-handler.provider';
-import { NavController } from '@ionic/angular';
+import { NavController, AlertController } from '@ionic/angular';
 import { Plugins } from '@capacitor/core';
 import { Storage } from '@ionic/storage-angular';
 import { ImageProvider } from 'src/providers/image.provider';
+import { LogoutProvider } from 'src/providers/logout-provider';
+import { AlertProvider } from 'src/providers/alert-provider';
 
 @Component({
   selector: 'app-profile',
@@ -27,6 +29,9 @@ export class ProfilePage implements OnInit {
     private iab: InAppBrowser,
     private storage: Storage,
     private imageProvider: ImageProvider,
+    private alertCtrl: AlertController,
+    private logoutProvider: LogoutProvider,
+    private alertProvider: AlertProvider
   ) { }
 
   ngOnInit() {
@@ -53,10 +58,32 @@ export class ProfilePage implements OnInit {
  
   
   async Logout() {
-    // console.log('Logout');
-    // this.cacheHandlerProvider.clearLocalData()
-    // this.navCtrl.navigateRoot('/launch');
-    // const googleUser = await Plugins.GoogleAuth.signOut();
+    const alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Log Out',
+      subHeader: 'Are you sure?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Yes',
+          handler: data => {
+            this.logoutProvider.logoutGoogle().then((res:any) => {
+              this.router.navigateByUrl('/launch');
+              console.log('success logut')
+            },(err) => {
+              this.alertProvider
+            });
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
   getOrg(){

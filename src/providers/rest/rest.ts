@@ -29,7 +29,7 @@ export class RestProvider {
 
     appConf(app) {
         return new Promise((resolve, reject) => {
-            let devplink = 'http://192.168.0.177:8181/hss-start-0.0.1-SNAPSHOT/app/config/r';  //192.168.0.105 //192.168.43.221  //dev.hss.oas.my
+            let devplink = 'http://192.168.0.114:8181/hss-start-0.0.1-SNAPSHOT/app/config/r';  //192.168.0.105 //192.168.43.221  //dev.hss.oas.my
             this.http.post(devplink, [app], {
                 headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token)//.set('api-key','eIsyynm35y3j5dDTp2RGyS1QR1gxYvSYPZB2MBHpnZUa5BeEs6Xl97cFx0004P4cWhoa12ceefOWMZ7CAJv9l30pUTpqSq9cj0mP3emB5Z7pWGGK8M0LO8fmO962h52O')
             })
@@ -300,7 +300,7 @@ export class RestProvider {
     }
 
     //http://localhost:8181/hss-organization-admin-0.0.1-SNAPSHOT/gallery/c
-    async postFeedImage(feed_id,detail,image){
+    async postFeedImage(feed_id,detail,image,taskId){
       try{
         let app = await this.appConf("PRJM");
       console.log(app);
@@ -309,7 +309,8 @@ export class RestProvider {
           let data = {
               feedId: feed_id,
               projectId: detail.projId,
-              imageUrl:image
+              imageUrl:'https://res.cloudinary.com/myjiran/image/upload/q_auto:eco/v1621917090/mra/gallery/wultizvrjyvtzu2iecee.jpg',
+              taskId: taskId
             };
             this.http.post(app[0].host+"/hss-organization-admin-0.0.1-SNAPSHOT/gallery/c", JSON.stringify(data),{
               headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token).set('api-key', app[0].apiKey)
@@ -929,23 +930,25 @@ sendPush(list,personId) {
   return forkJoin(urlList);
 }
 
-pushNoti(list,personId) {
-  var urlList = [];
-  console.log(list);
-  console.log(personId);
-  for(let i=0; i < list.length; i++){
-    let r = Math.floor(Math.random() * 100);     // returns a random integer from 0 to 99
-    let n = personId + r; //to produce unique id, so notification is stacking
-    // list[i].data.notId = n;
-    let url = this.http.post('https://fcm.googleapis.com/fcm/send', JSON.stringify(list[i]),{
-      headers: new HttpHeaders().set('Content-Type', 'application/json')
-      .set('Authorization', 'key=AAAAhY8Iny4:APA91bF4KHWiYS2trL-hiLzqO0GiBDvJ1UvFy48ii_jWAnphHs_NBdVkVEHwm-s2R3yI_QIJn02KAbSwo-k2RifBVbpP8m63HJkryJK20rltM4JzlagUJvadt9i0_vVdZka4loaWy8BL')
-    })
-    .pipe(map((response: any) => response));
-    urlList.push(url);
-  }
-  return forkJoin(urlList);
-}
+
+
+// pushNoti(list,personId) {
+//   var urlList = [];
+//   console.log(list);
+//   console.log(personId);
+//   for(let i=0; i < list.length; i++){
+//     let r = Math.floor(Math.random() * 100);     // returns a random integer from 0 to 99
+//     let n = personId + r; //to produce unique id, so notification is stacking
+//     // list[i].data.notId = n;
+//     let url = this.http.post('https://fcm.googleapis.com/fcm/send', JSON.stringify(list[i]),{
+//       headers: new HttpHeaders().set('Content-Type', 'application/json')
+//       .set('Authorization', 'key=AAAAhY8Iny4:APA91bF4KHWiYS2trL-hiLzqO0GiBDvJ1UvFy48ii_jWAnphHs_NBdVkVEHwm-s2R3yI_QIJn02KAbSwo-k2RifBVbpP8m63HJkryJK20rltM4JzlagUJvadt9i0_vVdZka4loaWy8BL')
+//     })
+//     .pipe(map((response: any) => response));
+//     urlList.push(url);
+//   }
+//   return forkJoin(urlList);
+// }
 
 
 async getUserDonation(personId){
@@ -1106,6 +1109,26 @@ async deleteEmergency(smecId){
   }
  }
 
+ async deleteToken(token){
+  try {
+    let app = await this.appConf("MDFT");
+    console.log(app);
+    return new Promise((resolve, reject) => {
+      this.http.delete(app[0].host+app[0].url+"/"+ token,{headers: new HttpHeaders()
+        .set('token', this.token)
+        .set('api-key', app[0].apiKey)
+      })
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
  ///token/c/{rnum}
  async getTokenStaff(orgId){  //get token staff
   try {
@@ -1256,9 +1279,7 @@ async PendingReceipt (data){
 async getEmergencyToken(personid){
   try {
     let app = await this.appConf("GECT");
-    console.log('get sos token', app[0].host+app[0].url+"/"+personid,{headers: new HttpHeaders().set('token', this.token)
-    .set('api-key', app[0].apiKey)
-    });
+    console.log(app);
     return new Promise((resolve, reject) => {
       this.http.get(app[0].host+app[0].url+"/"+personid,{headers: new HttpHeaders().set('token', this.token)
       .set('api-key', app[0].apiKey)

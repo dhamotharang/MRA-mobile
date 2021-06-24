@@ -28,6 +28,8 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import * as $ from 'jquery';
 import { AlertProvider } from 'src/providers/alert-provider';
 import { EmergencyProvider} from 'src/providers/emergency-provider';
+import { EventProvider } from 'src/providers/event.provider';
+import { LogoutProvider } from 'src/providers/logout-provider';
 
 
 @NgModule({
@@ -63,7 +65,9 @@ import { EmergencyProvider} from 'src/providers/emergency-provider';
     HTTP,
     GooglePlus,
     AlertProvider,
-    EmergencyProvider
+    EmergencyProvider,
+    EventProvider,
+    LogoutProvider
   ],
   bootstrap: [AppComponent],
 })

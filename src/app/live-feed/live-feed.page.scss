@@ -70,16 +70,16 @@
 .attach-imgs {
     border: #9b9999;
     border-width: 0.1px;
-    height: 11rem;
+    height: 9rem;
     border-style: solid;
     color: #F5F5F5;
     object-fit: cover;
     margin-bottom: 0.5rem;
     margin-bottom:1px;
-    margin-top:-16px;
+    margin-top: -0.5rem;
+    border-radius: 0.5rem;
 }
 .attach-img {
-    
     border: #9b9999;
     border-width: 0.1px;
     height:10rem;
@@ -88,7 +88,8 @@
     color: #F5F5F5;
     object-fit: cover;
     margin-bottom:1px;
-    margin-top:-1rem;
+    margin-top: -0.5rem;
+    border-radius: 0.5rem;
 }
 
 .center {

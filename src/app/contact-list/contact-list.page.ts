@@ -259,11 +259,7 @@ export class ContactListPage implements OnInit {
         //this.showAlert();
       });
     }
-
-    let navigationExtras: NavigationExtras = {
-
-    };
-    this.router.navigate(['sos'], navigationExtras);
+    this.router.navigate(['sos']);
   }
 
   changed(i){

@@ -13,7 +13,8 @@ import { CacheHandlerProvider } from 'src/providers/cache-handler.provider';
   styleUrls: ['./live-feed.page.scss'],
 })
 export class LiveFeedPage implements OnInit {
-  private feedList=[];
+  private feedList = [];
+  private feedUpdatedList = []
   data: any;
   navParam: any;
 
@@ -66,6 +67,7 @@ export class LiveFeedPage implements OnInit {
   
   getFeedImg() {
     if (this.cacheHandlerProvider.galleryImage.length == 0) {
+      console.log('getFeedImg',this.cacheHandlerProvider.galleryImage)
       this.loadingProvider.presentLoading();
       this.restProvider.getFeedImg().then((result:any) => {
         this.cacheHandlerProvider.galleryImage = result;
@@ -97,11 +99,13 @@ export class LiveFeedPage implements OnInit {
         this.feedList[i]['feedImg'] = null;
       }
     }
-    console.log('feedList',this.feedList);
+    this.feedUpdatedList = this.feedList
+    console.log('feedUpdatedList',this.feedList);
   }
 
   doRefresh(event) {
     this.feedList = []
+    this.feedUpdatedList = []
     this.getLiveFeed();
     this.getFeedImg();
     setTimeout(() => {

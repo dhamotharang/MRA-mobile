@@ -1,20 +1,17 @@
-//A service provider is an Angular abstraction which can be used in any other component,
-//page or service via the Angular Dependency Injection or DI.
-//You can use providers to encapsulate code which's common between many places of your application
-// so instead of repeating the same logic in many places you can isolate that code into its own service
-//and inject it wherever you want to use it.
-
-//run on cmd, ionic g provider rest
+// import { Injectable, ViewChild } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { AlertProvider } from './alert-provider';
+// import { HttpClient, HttpHeaders } from '@angular/common/http';
+// import { Observable } from  'rxjs/Observable';
 // import 'rxjs/add/operator/catch';
 // import 'rxjs/add/operator/map';
 // import 'rxjs/add/observable/forkJoin';
+// import { timeout, catchError } from 'rxjs/operators';
+import { Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
-import { Geolocation } from '@ionic-native/geolocation';
-import { LoadingProvider } from  '../providers/loading-provider';
-import { RestProvider } from  '../providers/rest/rest';
-import { AlertController, Platform } from '@ionic/angular';
+import { RestProvider } from './rest/rest';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+// import { AlertProvider } from './alert-provider';
 // import { PushProvider } from  '../providers/push-provider';
 
 declare var google;
@@ -26,6 +23,7 @@ declare var google;
 */
 @Injectable()
 export class EmergencyProvider {
+// @ViewChild(Nav) nav: Nav;
 
   counter:any = 1;
   andList:any = [];
@@ -37,31 +35,32 @@ export class EmergencyProvider {
   lat:any;
   lng:any;
   adrs:any;
-  token:any;
+  // token:any;
   phone:any;
-  badgeCounter:number;
+  // badgeCounter:number;
 
   constructor(
-    public http: HttpClient,
-    public alertCtrl: AlertController,
-    public loadingProvider: LoadingProvider,
+    // public http: HttpClient,
+    // public alertCtrl: AlertController,
+    // public loadingProvider: LoadingProvider,
     private storage: Storage,
     // public events: Events,
     public platform: Platform,
     private geolocation: Geolocation,
-    //public pushProvider: PushProvider,
-    public restProvider: RestProvider,
+    // public pushProvider: PushProvider,
+    private restProvider: RestProvider,
+    private alertProvider: AlertProvider
   ) {
-    console.log('Hello Emergency Provider');
+    // console.log('Hello Emergency Provider');
     this.storage.get('defaultProfile').then((val:any) => {
       if(val != null){
         this.personName = val.name;
         this.phone = val.contactCode+val.contactNo;
       }
     });
-    this.storage.get('token').then((val:any) => {
-        this.token = val;
-    });
+    // this.storage.get('token').then((val:any) => {
+    //     this.token = val;
+    // });
     this.storage.get('profilePictUrl').then((val:any) => {
       this.profilePictUrl = val;
     });
@@ -70,64 +69,58 @@ export class EmergencyProvider {
     });
   }
 
-  async showAlert() {
-    const alert = await this.alertCtrl.create({
-      header: 'Oops!',
-      subHeader: 'Something went wrong. Please try again later.',
-      buttons: ['OK']
-    });
-    alert.present();
-  }
 
   getEmergencyToken(){
-    return new Promise<void>((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this.restProvider.getEmergencyToken(this.personid).then((res:any) =>{
         console.log(res);
         if(res.android != null){
           this.andList = res.android;
+          console.log('andList',this.andList);
         }
-        if(res.ios != null){
+        if(res.ios.length != 0 || res.ios != null){
           this.iosList = res.ios;
+          console.log('iosList',this.iosList);
         }
         resolve();
       }).catch(error => {
         console.log(error);
-        this.showAlert();
-        this.loadingProvider.closeLoading();
+        this.alertProvider.errorAlert()
+        // this.loadingProvider.closeLoading();
         reject(error);
       })
     });
   }
 
   getLocation(){
-    return new Promise<void>((resolve, reject) => {
-      this.loadingProvider.presentLoading();
+    return new Promise((resolve, reject) => {
       let options = {timeout: 10000, enableHighAccuracy: true};
-      this.geolocation.getCurrentPosition(options).then((pos) => {
-        console.log("senderLat="+pos.coords.latitude, "senderLng="+pos.coords.longitude);
-        this.lat = pos.coords.latitude;
-        this.lng = pos.coords.longitude;
-        let latLng = new google.maps.LatLng(pos.coords.latitude,pos.coords.longitude);
-        let geocoder = new google.maps.Geocoder();
-          geocoder.geocode({'latLng': latLng}, ( results, status ) => {
-                  if ( status == google.maps.GeocoderStatus.OK && results[0] ) {
-                      this.adrs = results[0].formatted_address;
-                      console.log( results[0].formatted_address );
-                      resolve();
-                  }
-              }
-          );
-      }).catch(async (error) => {
-        console.log('Error getting location', error);
-        this.loadingProvider.closeLoading();
-        const alert = await this.alertCtrl.create({
-          header: 'Warning!',
-          subHeader: 'Could not get location. Please allow access to location and check your network or GPS setting.',
-          buttons: ['OK']
-        });
-        alert.present();
-        reject(error);
-      });
+      this.lat = 2.9162182; //pos.coords.latitude;
+      this.lng = 101.6435751; //pos.coords.longitude;
+      let latLng = new google.maps.LatLng(this.lat,this.lng);
+      this.adrs = 'Jln Fauna 1, Cyberjaya, 63000 Cyberjaya, Selangor';
+      resolve();
+
+      //below code should be used after enable billing in google console (mra acc)
+      // this.geolocation.getCurrentPosition(options).then((pos) => {
+      //   console.log("senderLat="+pos.coords.latitude, "senderLng="+pos.coords.longitude);
+      //   this.lat = 2.9162182; //pos.coords.latitude;
+      //   this.lng = 101.6435751; //pos.coords.longitude;
+      //   let latLng = new google.maps.LatLng(this.lat,this.lng);
+      //   let geocoder = new google.maps.Geocoder();
+      //     geocoder.geocode({'latLng': latLng}, ( results, status ) => {
+      //             if ( status == google.maps.GeocoderStatus.OK && results[0] ) {
+      //                 this.adrs = results[0].formatted_address;
+      //                 console.log( results[0].formatted_address );
+      //                 resolve();
+      //             }
+      //         }
+      //     );
+      // }).catch((error) => {
+      //   console.log('Error getting location', error);
+      //   this.alertProvider.errorAlertParam('Warning!','Could not get location. Please allow access to location and check your network or GPS setting.')
+      //   reject(error);
+      // });
     });
   }
 
@@ -147,7 +140,7 @@ export class EmergencyProvider {
       if(this.andList.length > 0){
         let pushData = {
           registration_ids : this.andList,
-          data: {
+          notification: {
             notId: null, // notId on Android needed to be an int and not a string
             title: "Emergency Call",
             body: "Requires assistance at "+ this.adrs,
@@ -156,7 +149,7 @@ export class EmergencyProvider {
             lat: this.lat,
             lng: this.lng,
             adrs: this.adrs,
-            token: this.token,
+            // token: this.token,
             phone: this.phone,
             plat: plat,
             avatar: this.profilePictUrl,
@@ -182,7 +175,7 @@ export class EmergencyProvider {
             lat: this.lat,
             lng: this.lng,
             adrs: this.adrs,
-            token: this.token,
+            // token: this.token,
             plat: plat,
             phone: this.phone,
             avatar: this.profilePictUrl,
@@ -194,21 +187,21 @@ export class EmergencyProvider {
         }
         this.pushList.push(pushData);
       }
-    //   // if(this.pushList.length > 0){
-    //   //   this.pushProvider.sendPush(this.pushList,this.personid).subscribe((result:any) => {
-    //   //     console.log(result);
-    //   //     let temp = {
-    //   //       lat: this.lat,
-    //   //       lng: this.lng,
-    //   //       adrs: this.adrs
-    //   //     }
-    //   //     this.loadingProvider.closeLoading();
-    //   //     resolve(temp);
-    //   //   });
-    //   // }else{
-    //   //   this.loadingProvider.closeLoading();
-    //   //   resolve('empty');
-    //   // }
+      if(this.pushList.length > 0){
+        this.restProvider.sendPush(this.pushList,this.personid).subscribe((result:any) => {
+          console.log(result);
+          let temp = {
+            lat: this.lat,
+            lng: this.lng,
+            adrs: this.adrs
+          }
+          // this.loadingProvider.closeLoading();
+          resolve(temp);
+        });
+      }else{
+        // this.loadingProvider.closeLoading();
+        resolve('empty');
+      }
 
     });
   }
