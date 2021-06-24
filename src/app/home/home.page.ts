@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { LoadingProvider } from 'src/providers/loading-provider';
 import { RestProvider } from 'src/providers/rest/rest';
@@ -20,6 +20,7 @@ export class HomePage implements OnInit {
   fee: any;
   profile: any;
   fcmToken: any;
+  greet: string;
   // projectsInvited: any = [];
 
   constructor(
@@ -28,7 +29,8 @@ export class HomePage implements OnInit {
     private loadingProvider: LoadingProvider,
     private restProvider: RestProvider,
     private storage: Storage,
-    private cacheHandlerProvider: CacheHandlerProvider
+    private cacheHandlerProvider: CacheHandlerProvider,
+    private zone: NgZone
   ) {}
 
   option = {
@@ -38,28 +40,15 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.storage.get('defaultProfile').then((val:any) => {this.profile = val})
-    this.route.queryParams.subscribe(params => {
-      console.log('ngOnInit',params)
-      if (this.router.getCurrentNavigation().extras.state) {
-        this.data = this.router.getCurrentNavigation().extras.state.user;
-        this.role = this.router.getCurrentNavigation().extras.state.role;
-        this.fee = this.router.getCurrentNavigation().extras.state.fee;
-        console.log('data',this.data)
-        console.log('role',this.role)
-      }
-    });
+    this.storage.get('provider').then((val:any) => { this.data = val})
+    this.storage.get('role').then((val:any) => { this.role = val})
+    this.storage.get('personOrgList').then((val:any) => { this.fee = val})  //fee in each org
     this.storage.get('fcmToken').then((val:any) => { this.fcmToken = val})
+    this.checkHour()
     // this.getProjectInvolved();
   }
 
   ionViewWillEnter() {
-    // this.route.queryParams.subscribe(params => {
-    //   console.log('ngOnInit',params)
-    //   if (this.router.getCurrentNavigation().extras.state) {
-    //     this.data = this.router.getCurrentNavigation().extras.state.user;
-    //     console.log('data',this.data)
-    //   }
-    // });
     if (this.role == 'staff') {
       this.getStaffInvolved();
       this.checkUpdTokenStaff();
@@ -110,6 +99,23 @@ export class HomePage implements OnInit {
           // this.showAlert();
         });
       });
+  }
+
+  checkHour(){
+    var myDate = new Date();
+    var hrs = myDate.getHours();
+
+    if (hrs < 12){
+        this.greet = 'Good Morning';
+    }else if (hrs >= 12 && hrs <= 17){
+        this.greet = 'Good Afternoon';
+    }else if (hrs >= 17 && hrs <= 24){
+        this.greet = 'Good Evening';
+    }
+    this.zone.run(() => {
+      this.greet = this.greet.replace('Good', " ");
+      console.log(this.greet);
+    });
   }
 
   navNextPage(action) {
@@ -208,14 +214,8 @@ export class HomePage implements OnInit {
       }
       this.restProvider.updateToken(param).then((result:any) => {
         console.log('updateToken',result);
-        // this.projectDetail = result;
-        // this.loadingProvider.closeLoading();
-        // this.createAnnouncement();
-        // this.navCtrl.back();
       }, (err) => {
-        // console.log(err);
-        // this.loadingProvider.closeLoading();
-        // this.showAlert();
+        console.log(err);
       });
     });
 
@@ -230,26 +230,14 @@ export class HomePage implements OnInit {
     }
     this.restProvider.createToken(data).then((result:any) => {
       console.log('createToken',result);
-      // this.projectDetail = result;
-      // this.loadingProvider.closeLoading();
-      // this.createAnnouncement();
-      // this.navCtrl.back();
     }, (err) => {
-      // console.log(err);
-      // this.loadingProvider.closeLoading();
-      // this.showAlert();
     });
 
 
   }
 
   navSos(){
-    let navigationExtras: NavigationExtras = {
-      state:{
-        from: 'home'
-      }
-    };
-    this.router.navigate(['sos'], navigationExtras);
+    this.router.navigate(['sos']);
   }
 
 

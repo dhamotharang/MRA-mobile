@@ -6,6 +6,7 @@ import { Storage } from '@ionic/storage-angular';
 import { AlertController } from '@ionic/angular';
 import { LoadingProvider } from  './../../providers/loading-provider';
 import { AlertProvider } from 'src/providers/alert-provider';
+import { EmergencyProvider } from 'src/providers/emergency-provider';
 
 
 
@@ -15,12 +16,6 @@ import { AlertProvider } from 'src/providers/alert-provider';
   styleUrls: ['./sos.page.scss'],
 })
 export class SosPage implements OnInit {
-  // private contactList = [
-  //   {contact_name: 'muhammad ali',contact:'012-3456678'},
-  //   {contact_name: 'muhammad ali',contact:'012-3456678'},
-  //   {contact_name: 'muhammad ali',contact:'012-3456678'},
-  //   {contact_name: 'muhammad ali',contact:'012-3456678'}
-  // ]
   selectedEmergencyContactList: any;
   profile: any;
   contactList: any[];
@@ -37,31 +32,19 @@ export class SosPage implements OnInit {
     private alertCtrl: AlertController,
     public loadingProvider: LoadingProvider,
     private alertProvider: AlertProvider,
+    private emergencyProvider: EmergencyProvider
 
   ) { }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      console.log('ngOnInit',params)
-      if (this.router.getCurrentNavigation().extras.state) {
-        this.selectedEmergencyContactList = this.router.getCurrentNavigation().extras.state.selectedEmergencyContactList;
-        console.log('Selected Emergency Contact List',this.selectedEmergencyContactList);
-        this.sos_type = this.router.getCurrentNavigation().extras.state.sos_type;
-        console.log("this.sos_type",this.sos_type);
-        this.from = this.router.getCurrentNavigation().extras.state.from;
-        console.log("this.from = ",this.from);
-      }
-    });
-    console.log("sos_type", this.sos_type);
   }
 
   ionViewWillEnter(){
-    //take createlist from contact list page
     this.getContact();
   }
 
-  callFx() {
-    let phoneNumber = '0174164546';
+  callFx(data) {
+    let phoneNumber = '+'+data.contactCode+data.contactNo;
     this.callNumberProvider.dialingFx(phoneNumber)
   }
 
@@ -77,16 +60,13 @@ export class SosPage implements OnInit {
   getContact(){               //to get list of contact
     this.loadingProvider.presentLoading();
     this.storage.get('defaultProfile').then((val:any) => {   //untuk guna storage
-      //console.log("val from getOrg",val)
       this.profile= val
       this.restProvider.getEmergencyList(this.profile.personId).then((result:any) => {
-        //console.log("this is result value",result);
-        //console.log("this.personid",this.profile.personId);
         if(result == null){
           this.contactList = [];
         }else{
           this.contactList = result;  //give value to contactList from result
-          console.log("getContactSos",this.contactList);
+          console.log("getContactSos",result);
         }
         this.loadingProvider.closeLoading();
       }, (err) => {
@@ -136,13 +116,25 @@ export class SosPage implements OnInit {
 
   triggerSOS(type){
     console.log("type: ",type);
-
-    let navigationExtras: NavigationExtras = {
-            state: {
-              sos_type: type
-            }
-          };
-          this.router.navigate(['sos-sender'], navigationExtras);  //navigate ke page lain
+    this.emergencyProvider.trigger(type).then((result:any) => {
+      console.log('emergencyProvider',result);
+      if(result == 'empty'){
+        this.alertProvider.errorAlertParam('Error!','Please check your emergency contacts list')
+      }else{
+        let navigationExtras: NavigationExtras = {
+          state: {
+            lat: result.lat,
+            lng: result.lng,
+            adrs: result.adrs,
+            sos_type: type
+          }
+        };
+        this.router.navigate(['sos-sender'], navigationExtras);  //navigate ke page lain
+      }
+    }, (err) => {
+      console.log(err);
+    });
   }
+
 
 }

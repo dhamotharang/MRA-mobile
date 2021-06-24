@@ -17,7 +17,7 @@
   </ion-refresher>
 
   <div *ngIf='feedList.length != 0'>
-    <ion-card *ngFor="let data of feedList" class="feed-card">
+    <ion-card *ngFor="let data of feedUpdatedList" class="feed-card">
 
       <ion-row>
         <ion-col size="3">
@@ -31,42 +31,36 @@
             </ion-col>
           </ion-row>
           <ion-row>
-            <ion-col size="3">
+            <ion-col>
               <p class="label-feed-date">{{data?.createdDate| date: 'd/M/yy'}}</p>
             </ion-col>
           </ion-row>
         </ion-col>
       </ion-row>
 
-      <ion-row class="description-row">
+      <!-- <ion-row class="description-row">
         <ion-col>
           <p class="description">{{data?.description}}</p>
         </ion-col>
              
-       </ion-row>
+       </ion-row> -->
 
 
-      <ion-row *ngIf='data?.feedImg != null'>
+      <ion-row *ngIf='data?.feedImg != null && data?.feedImg?.length == 1'>
         <ion-col class="ion-no-padding-center">
           <ion-row>
-            <ion-col class="ion-no-padding center" size="12"*ngFor='let img of data?.feedImg' >
+            <ion-col class="ion-no-padding center" size="12" *ngFor='let img of data?.feedImg' >
               <img class="attach-img" [src]="img?.imageUrl">
             </ion-col>
           </ion-row>
         </ion-col>
       </ion-row>
-  
-  <ion-row  *ngIf='data?.feedImg != null'> 
-      <ion-col class="action-item ion-no-margin"  size="6"*ngFor='let img of data?.feedImg' >
-        <img class="attach-imgs"  [src]="img?.imageUrl">
-      </ion-col>
 
-         <ion-col class="action-item ion-no-margin" size="6" *ngFor='let img of data?.feedImg'>
-        <img class="attach-imgs" [src]="img?.imageUrl">
+      <ion-row *ngIf='data?.feedImg != null && data?.feedImg?.length > 1'>
+        <ion-col class="action-item ion-no-margin" size="6" *ngFor='let img of data?.feedImg' >
+          <img class="attach-imgs"  [src]="img?.imageUrl">
         </ion-col>
-
- 
-</ion-row>
+      </ion-row>  
    
       
     
@@ -93,11 +87,11 @@
       <ion-fab-button (click)="navNextPage()">
       <ion-icon ios="newspaper-outline" md="newspaper-outline"></ion-icon>
     </ion-fab-button>
-    <ion-fab-list side="top">
+    <!-- <ion-fab-list side="top">
       <ion-fab-button color="danger" (click)="navNextPage()" data-desc="Feed">
         <ion-icon name="newspaper-outline"></ion-icon>
       </ion-fab-button>
-    </ion-fab-list>
+    </ion-fab-list> -->
   </ion-fab>
 
 </ion-content>

@@ -9,13 +9,14 @@
 </ion-header>
 
 <ion-content>
-  <div *ngIf='isNewUser == false'>
-    <ion-buttons (click)="navigateNextPage()">
-      <button btn-edit >
-        Edit Account
-      </button>
-    </ion-buttons>
-  </div>
+  <ion-row *ngIf='isNewUser == false'>
+    <ion-col>
+      <ion-button btn-edit (click)="navigateNextPage()">
+        Edit
+      </ion-button>
+    </ion-col>
+  </ion-row>
+
 
 
   <div class="flex-center avatar-container">

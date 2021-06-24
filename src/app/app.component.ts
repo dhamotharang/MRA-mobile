@@ -2,7 +2,10 @@ import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 import { Platform } from '@ionic/angular';
 import { PushNotiProvider } from 'src/providers/push-noti.provider';
-import { Capacitor } from '@capacitor/core';
+import { Capacitor, StatusBarStyle } from '@capacitor/core';
+import { Plugins } from '@capacitor/core';
+import { Router } from '@angular/router';
+const { SplashScreen, StatusBar } = Plugins;
 
 @Component({
   selector: 'app-root',
@@ -13,8 +16,8 @@ export class AppComponent {
   constructor(
     private storage: Storage,
     private platform: Platform,
-    private pushProvider: PushNotiProvider
-    // private statusBar: StatusBar,
+    private pushProvider: PushNotiProvider,
+    private router: Router
   ) {}
 
   async ngOnInit() {
@@ -22,15 +25,17 @@ export class AppComponent {
     if (Capacitor.platform !== 'web') {
       this.setupPlatform();
     }
+    else {
+      this.checkingLogin();
+    }
   }
 
   setupPlatform() {
     this.platform.ready().then(() => {
-      // this.statusBar.styleDefault();
-      // this.splashScreen.hide();
- 
-      // Trigger the push setup 
-      this.pushProvider.registerPush();
+      StatusBar.setStyle({ style: StatusBarStyle.Light });
+      SplashScreen.show();
+      this.checkingLogin();
+      this.pushProvider.registerPush();       // Trigger the push setup 
     });
   }
 
@@ -41,17 +46,16 @@ export class AppComponent {
         this.storage.get('isNewUser').then((res:any) => {
           console.log(res);
           if(res == false){
-            // this.getOrg();
-            // this.splashScreen.hide();
-            // this.nav.setRoot(TabsPage, {condition:'main',opentab: 1});
+            SplashScreen.hide();
+            this.router.navigateByUrl('/tabs');
           }else{
-            // this.splashScreen.hide();
-            // this.nav.setRoot(ProfileModal);
+            SplashScreen.hide();
+            this.router.navigateByUrl('/profile');
           }
         });
       }else{
-        // this.splashScreen.hide();
-        // this.nav.setRoot("HomePage");
+          SplashScreen.hide();
+          this.router.navigateByUrl('/launch');
       }
     });
   }
