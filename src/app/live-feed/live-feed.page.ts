@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { ImageProvider } from 'src/providers/image.provider';
 import { LoadingProvider } from 'src/providers/loading-provider';
 import { CacheHandlerProvider } from 'src/providers/cache-handler.provider';
+import { ActionSheetController } from '@ionic/angular';
 
 // import 'sweetalert2/src/sweetalert2.scss'
 
@@ -25,7 +26,8 @@ export class LiveFeedPage implements OnInit {
     private route: ActivatedRoute,
     private imageProvider: ImageProvider,
     private loadingProvider: LoadingProvider,
-    private cacheHandlerProvider: CacheHandlerProvider
+    private cacheHandlerProvider: CacheHandlerProvider,
+    private actionSheetController: ActionSheetController
   ) { }
 
   ngOnInit() {
@@ -66,23 +68,16 @@ export class LiveFeedPage implements OnInit {
   }
   
   getFeedImg() {
-    if (this.cacheHandlerProvider.galleryImage.length == 0) {
-      console.log('getFeedImg',this.cacheHandlerProvider.galleryImage)
-      this.loadingProvider.presentLoading();
-      this.restProvider.getFeedImg().then((result:any) => {
-        this.cacheHandlerProvider.galleryImage = result;
-        let p = result.filter(x => x.projectId == this.navParam.projId)
-        this.categorizedFeed(p)
-        this.loadingProvider.closeLoading();
-      }, (err) => {
-        console.log(err);
-        this.loadingProvider.closeLoading();
-      });
-    }
-    else {
-      let p = this.cacheHandlerProvider.galleryImage.filter(x => x.projectId == this.navParam.projId)
+    this.loadingProvider.presentLoading();
+    this.restProvider.getFeedImg().then((result:any) => {
+      this.cacheHandlerProvider.galleryImage = result;
+      let p = result.filter(x => x.projectId == this.navParam.projId)
       this.categorizedFeed(p)
-    }
+      this.loadingProvider.closeLoading();
+    }, (err) => {
+      console.log(err);
+      this.loadingProvider.closeLoading();
+    });
 
   }
 
@@ -101,6 +96,36 @@ export class LiveFeedPage implements OnInit {
     }
     this.feedUpdatedList = this.feedList
     console.log('feedUpdatedList',this.feedList);
+  }
+
+  async addImage(data) {
+    console.log('addImage',data)
+    const actionSheet = await this.actionSheetController.create({
+      // header: 'Albums',
+      // cssClass: 'my-custom-class',
+      buttons: [{
+        text: 'Camera',
+        role: 'camera',
+        icon: 'camera',
+        handler: () => {
+          console.log('Camera clicked');
+          this.imageProvider.uploadImageCamera(data, 'feed')
+        }
+      }, {
+        text: 'Gallery',
+        role: 'gallery',
+        icon: 'image',
+        handler: () => {
+          console.log('Gallery clicked');
+          this.imageProvider.uploadImageGallery(data, 'feed')
+        }
+      }]
+    });
+    await actionSheet.present();
+
+    const { role } = await actionSheet.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+  
   }
 
   doRefresh(event) {

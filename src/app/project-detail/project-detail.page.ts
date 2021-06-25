@@ -62,7 +62,7 @@ export class ProjectDetailPage implements OnInit {
 
 
   callFx() {
-    let phoneNumber = '0174164546';
+    let phoneNumber = this.projectDetail.contact_code + this.projectDetail.mobile_num;
     this.callNumberProvider.dialingFx(phoneNumber)
   }
 
@@ -78,7 +78,7 @@ export class ProjectDetailPage implements OnInit {
 
   composeEmail() {
     let email = {
-      to: 'nisahasin95@gmail.com',
+      to: this.projectDetail.email,
       cc: '',
       bcc: ['', ''],
       attachments: [],

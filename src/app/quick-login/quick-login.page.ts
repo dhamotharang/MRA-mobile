@@ -150,18 +150,12 @@ export class QuickLoginPage implements OnInit {
     }
     this.loadingProvider.closeLoading()
     this.storage.set('role', this.role);
+    this.storage.set('fromQuickLogin', true);
     this.navToHome();
   }
 
   navToHome() {
-    let navigationExtras: NavigationExtras = {
-      state: {
-        user: this.param,
-        role: this.role,
-        fee: this.personOrg
-      }
-    };
-    this.router.navigate(['payment-history'], navigationExtras);
+    this.router.navigate(['payment-history']);
   }
 
 }

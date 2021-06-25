@@ -5,6 +5,7 @@ import { RestProvider } from 'src/providers/rest/rest';
 import { LoadingProvider } from 'src/providers/loading-provider';
 import { NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
+import { AlertProvider } from 'src/providers/alert-provider';
 
 @Component({
   selector: 'app-scan-qr',
@@ -24,6 +25,7 @@ export class ScanQrPage implements OnInit {
     private loadingProvider: LoadingProvider,
     private navCtrl: NavController,
     private route: ActivatedRoute,
+    private alertProvider: AlertProvider
   ) { }
 
   ngOnInit() {
@@ -40,40 +42,41 @@ export class ScanQrPage implements OnInit {
 
   scan() {
     let p = [];
-    this.barcodeScanner.scan().then(projId => {
+    this.barcodeScanner.scan().then(data => {
+      console.log('scan data',data)
+      let projId = Number(data.text)
       p = this.projectInvolved.filter(x => x.projId == projId)
+      console.log('p',p)
       if (p.length != 0) {
-        alert('You have not joined this project!')
+        this.projId = projId
+        this.sendAttendance(p)
       }
       else {
-        this.projId = projId
-        this.sendAttendance()
+       this.alertProvider.errorAlertParam('Error!','You have not joined this project!')
       }
     }).catch(err => {
       console.log('Error', err);
     });
   }
 
-  sendAttendance() {
+  sendAttendance(p) {
+    let data = p[0]
     this.loadingProvider.presentLoading();
-    this.storage.get('defaultPersonId').then((val:any) => {
-      this.restProvider.attendProject(val, this.projId).then((result:any) => {
-        console.log('sendAttendance',result);
-        // this.projectDetail = result;
-         this.loadingProvider.closeLoading();
-        // this.navCtrl.back();
-      }, (err) => {
-        // console.log(err);
-         this.loadingProvider.closeLoading();
-        // this.showAlert();
-      });
+    this.restProvider.attendProject(data).then((result:any) => {
+      console.log('sendAttendance',result);
+       this.loadingProvider.closeLoading();
+       this.alertProvider.successAlert()
+    }, (err) => {
+      console.log(err);
+      this.loadingProvider.closeLoading();
+      this.alertProvider.errorAlert()
     });
-    this.navigate();
+    this.navigateBack();
   }
 
 
-  navigate(){
-    this.router.navigate(['/home'])
+  navigateBack(){
+    this.navCtrl.back();
   }
 
 }

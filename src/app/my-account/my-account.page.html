@@ -22,51 +22,51 @@
   <div class="flex-center avatar-container">
     <ion-avatar>
       <img #img1 (error)="img1.src=imageProvider.imageErrorHandle('profile')"
-        [src]="[navParam?.profilePicture]"
+        [src]="[profile?.profilePicture]"
         alt="Placeholder avatar">
     </ion-avatar>
   </div>
   <div  class="flex-center">
-    <h2 parallax-title>{{navParam?.name}}</h2>
+    <h2 parallax-title>{{profile?.name}}</h2>
   </div>
   <div class="flex-center">
-    <p class="profile-pill">{{navParam?.email}}</p>
+    <p class="profile-pill">{{profile?.email}}</p>
   </div>
 
   <ion-list class= "accountList">
     <ion-label>
       <p>Identification Number</p>
-      <h2>{{navParam?.icNo}}</h2>
+      <h2>{{profile?.icNo}}</h2>
     </ion-label>
     <ion-label>
       <p>Gender</p>
-      <h2>{{navParam?.gender}}</h2>
+      <h2>{{profile?.gender}}</h2>
     </ion-label>
     <ion-label>
       <p>Phone Number</p>
-      <h2>+{{navParam?.contactCode}}{{navParam.contactNo}}</h2>
+      <h2>+{{profile?.contactCode}}{{profile?.contactNo}}</h2>
     </ion-label>
     <ion-label>
       <p>Email Address</p>
-      <h2>{{navParam?.email}}</h2>
+      <h2>{{profile?.email}}</h2>
     </ion-label>
     <ion-label>
       <p>Home Address</p>
-      <h2>{{navParam?.address1}}</h2>
-      <h2>{{navParam?.address2}}</h2>
-      <h2>{{navParam?.address3}}</h2>
+      <h2>{{profile?.address1}}</h2>
+      <h2>{{profile?.address2}}</h2>
+      <h2>{{profile?.address3}}</h2>
     </ion-label>
     <ion-label>
       <p>Postcode</p>
-      <h2>{{navParam?.postcode}}</h2>
+      <h2>{{profile?.postcode}}</h2>
     </ion-label>
     <ion-label>
       <p>City</p>
-      <h2>{{navParam?.city}}</h2>
+      <h2>{{profile?.city}}</h2>
     </ion-label>
     <ion-label>
       <p>Country</p>
-      <h2>{{navParam?.country}}</h2>
+      <h2>{{profile?.country}}</h2>
     </ion-label>
   </ion-list>
 </ion-content>

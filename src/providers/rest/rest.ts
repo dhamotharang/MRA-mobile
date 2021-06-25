@@ -43,6 +43,27 @@ export class RestProvider {
 
     }
 
+    // async getCountryCode(){
+    //   try{
+    //     let app = await this.appConf("ISCI");
+    //   console.log(app);
+    //   return new Promise((resolve, reject) => {
+    //     this.http.get(app[0].host+"/"+app[0].url,{headers: new HttpHeaders().set('token', this.token)
+    //     .set('api-key', app[0].apiKey)
+    //     })
+    //       .subscribe(res => {
+    //         resolve(res);
+    //       }, (err) => {
+    //         reject(err);
+    //       });
+    //   });
+    //   }
+    //   catch(e){
+    //     console.log(e);
+    //   }
+  
+    // }
+
     async getProfile(data) {
       try {
         let app = await this.appConf("MGPR");
@@ -177,20 +198,20 @@ export class RestProvider {
   }
 
     //http://localhost:8181/hss-project-0.0.1-SNAPSHOT/proj/vol/join
-    async attendProject(personId,detail){
+    async attendProject(detail){
       try{
         let app = await this.appConf("PRJM");
-      console.log('requestJoin',detail);
       return new Promise((resolve, reject) => {
           let data = {
-              projId:detail,
-              personId:personId,
+              projId:detail.projId,
+              personId:detail.personId,
               enabled:'Y',
               createdDate: new Date(),
               voidStatus: "A",
-              joinStatus: "Q"
+              joinStatus: "Q",
+              volunteerId: detail.volunteerId
             };
-            this.http.post(app[0].host+app[0].contextPath+"/proj/vol/join", JSON.stringify(data),{
+            this.http.post(app[0].host+app[0].contextPath+"/proj/vol/upd", JSON.stringify(data),{
               headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token).set('api-key', app[0].apiKey)
             })
           .subscribe(res => {
@@ -309,7 +330,7 @@ export class RestProvider {
           let data = {
               feedId: feed_id,
               projectId: detail.projId,
-              imageUrl:'https://res.cloudinary.com/myjiran/image/upload/q_auto:eco/v1621917090/mra/gallery/wultizvrjyvtzu2iecee.jpg',
+              imageUrl: image,
               taskId: taskId
             };
             this.http.post(app[0].host+"/hss-organization-admin-0.0.1-SNAPSHOT/gallery/c", JSON.stringify(data),{
@@ -371,6 +392,27 @@ export class RestProvider {
 
   }
 
+  ///proj/task/com/v/{taskId}
+//   async getTasksDetail(taskId){
+//     try{
+//       let app = await this.appConf("PRJM");
+//     console.log(app);
+//     return new Promise((resolve, reject) => {
+//       this.http.get(app[0].host+app[0].contextPath+"/proj/task/com/v/"+taskId,{headers: new HttpHeaders().set('token', this.token)
+//       .set('api-key', app[0].apiKey)
+//       })
+//         .subscribe(res => {
+//           resolve(res);
+//         }, (err) => {
+//           reject(err);
+//         });
+//     });
+//     }catch(e){
+//       console.log(e);
+//     }
+// }
+
+
 
     //http://localhost:8181/hss-project-0.0.1-SNAPSHOT/proj/task/u
     async postTaskSingle(form,personId,projId){ //post task without participant
@@ -425,7 +467,7 @@ export class RestProvider {
   }
 
   //http://localhost:8181/hss-project-0.0.1-SNAPSHOT/proj/task/k/u
-  async postTaskComment(form,personId){
+  async postTaskComment(form,personId,img){
     try{
       let app = await this.appConf("PRJM");
     console.log(app);
@@ -434,8 +476,9 @@ export class RestProvider {
           let data = {
             taskId:form.taskId,
             taskComment:form.taskComment,
-            taskPicture:form.taskPicture,
-            personId:personId
+            taskPicture:img,
+            personId:personId,
+            createdDate: new Date()
           }
           this.http.post(app[0].host+app[0].contextPath+"/proj/task/k/u", JSON.stringify(data),{
             headers: new HttpHeaders().set('Content-Type', 'application/json').set('token', this.token).set('api-key', app[0].apiKey)

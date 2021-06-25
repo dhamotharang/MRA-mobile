@@ -8,6 +8,7 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { Capacitor } from '@capacitor/core';
 import { Camera,CameraOptions } from '@ionic-native/camera/ngx';
 import { DomSanitizer } from '@angular/platform-browser';
+import { AlertProvider } from 'src/providers/alert-provider';
 
 @Component({
   selector: 'app-home',
@@ -48,6 +49,7 @@ export class LaunchPage {
     private alertCtrl: AlertController,
     private camera: Camera,
     private sanitize: DomSanitizer,
+    private alertProvider: AlertProvider
   ) {}
 
   ngOnInit() {
@@ -102,8 +104,8 @@ export class LaunchPage {
 
       }else{
         this.storage.set('isNewUser', false);
-        this.storage.set('defaultProfile', result);
-        this.storage.set('nonOrgPersonId', result.personId);  //personId not for org
+        this.storage.set('defaultProfile', result); //use this to get personId  for orgId 320
+        this.storage.set('nonOrgPersonId', result.personId);  //personId not for org, default_prs=Y
         this.getOrg();
       }
     }, (err) => {
@@ -118,11 +120,10 @@ export class LaunchPage {
     this.restProvider.getFee(this.profile.personId).then((result:any) => {
       // this.loadingProvider.closeLoading();
       this.personOrg = result;
+      this.storage.set('personOrgList', result)
       this.filterOrg();
     }, (err) => {
       console.log('getOrg err',err);
-      // this.loadingProvider.closeLoading();
-      // this.showAlert();
     });
 
   }
@@ -153,15 +154,14 @@ export class LaunchPage {
   async checkRole() {
     let result = [];
     let ids = ["1","4","5","9"]; 
-    // this.loadingProvider.presentLoading();
     for (let i = 0; i < ids.length; i++) {
       await this.restProvider.checkRole(this.profile.personId, ids[i]).then((data:any) => {
         result.push(data)
         console.log('checkRole',result)
       }, (err) => {
         console.log('checkRoleErr',err);
+        //this.alertProvider.errorAlert()
       });
-      // this.loadingProvider.closeLoading();
     }
     let q = result.find(x => x == true);
     console.log('q',q)
@@ -180,17 +180,12 @@ export class LaunchPage {
   
 
   navToHome() {
-    let navigationExtras: NavigationExtras = {
-      state: {
-        user: this.param,
-        role: this.role,
-        fee: this.personOrg
-      }
-    };
-    this.router.navigate(['tabs'], navigationExtras);
+    this.storage.set('fromQuickLogin', false);
+    this.router.navigate(['tabs']);
   }
 
   volunteer() {
+    this.loadingProvider.presentLoading()
     this.param.providerCode = "google";
     this.param.providerId = "nisahasin95@gmail.com";  //sitivolunteer@gmail.com
     this.storage.set('profilePictUrl', 'https://res.cloudinary.com/myjiran/image/upload/v1541160270/mobile_asset/ion-ios-contact.png');
@@ -199,69 +194,6 @@ export class LaunchPage {
     this.getProfile();
   }
 
-
-
-
-  // takePicture() {
-  //   const options: CameraOptions = {
-  //     quality: 100,
-  //     destinationType: this.camera.DestinationType.DATA_URL,
-  //     encodingType: this.camera.EncodingType.JPEG,
-  //     mediaType: this.camera.MediaType.PICTURE
-  //   };
-
-  //   // this.camera.getPicture(options).then((imageData) => {
-  //   //   this.currentImage = 'data:image/jpeg;base64,' + imageData;
-  //   // }, (err) => {
-  //   //   console.log("Camera issue:" + err);
-  //   // });
-
-  //   this.camera.getPicture(options).then((imageData) => {
-  //     this.sanitize.bypassSecurityTrustUrl(imageData);
-  //     let x = decodeURIComponent(imageData);
-  //     let name = x.substring(x.lastIndexOf('/') + 1);
-  //      this.currentImage = [{
-  //        name:name,
-  //        thumbnail: this.sanitize.bypassSecurityTrustUrl(imageData),
-  //        uri: imageData,
-  //        type: 'image'
-  //      }];
-  //      console.log('this.currentImage',this.currentImage);
-  //      this.upload();
-  //    });
-  // }
-
-  // upload(){
-  //   this.loadingProvider.presentLoading();
-  //   this.restProvider.cloudinaryUpload(this.currentImage,'feed','proj_pic')
-  //   .then((res) =>{
-  //     console.log('res',res);
-  //       for(let i=0; i < res.length; i++){
-  //         let x = JSON.parse(res[i]);
-  //         this.secureURL = x.secure_url;
-  //       }
-  //     console.log('secureURL',this.secureURL);
-  //     // if(this.purpose == "jumaat")
-  //     // {
-  //     //   console.log('trigger');
-  //     //   this.IssueReceipt();
-  //     // }else{
-  //     //   console.log('not trigger');
-  //     //   this.IssueReceiptOther();
-  //     // }
-  //     this.loadingProvider.closeLoading();
-
-  //   }).catch(error => {
-  //     console.log('uploadError',error);
-  //     this.loadingProvider.closeLoading();
-  //     // const alert = this.alertCtrl.create({
-  //     //   title: 'Cloudinary Server Error!',
-  //     //   subTitle: 'Please try again later.',
-  //     //   buttons: ['OK']
-  //     // });
-  //     // alert.present();
-  //   })
-  // }
 
   
 }

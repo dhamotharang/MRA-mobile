@@ -46,8 +46,16 @@ export class AppComponent {
         this.storage.get('isNewUser').then((res:any) => {
           console.log(res);
           if(res == false){
-            SplashScreen.hide();
-            this.router.navigateByUrl('/tabs');
+            this.storage.get('fromQuickLogin').then((result:any) => {
+              if (result == false) {
+                SplashScreen.hide();
+                this.router.navigateByUrl('/tabs');
+              }else{
+                SplashScreen.hide();
+                this.router.navigateByUrl('/payment-history');
+              }
+            })
+
           }else{
             SplashScreen.hide();
             this.router.navigateByUrl('/profile');

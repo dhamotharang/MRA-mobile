@@ -23,18 +23,11 @@ export class CreatePostPage implements OnInit {
   private project_name: String = 'Third Wave Covid-19 Emergency';
   private project_image: String ='assets/covid-img.jpg'
   private postForm: FormGroup;
-  private cameraOptions: CameraOptions = {
-    quality: 20,
-    destinationType: this.camera.DestinationType.DATA_URL,
-    encodingType: this.camera.EncodingType.JPEG,
-    mediaType: this.camera.MediaType.PICTURE,
-    sourceType: 0
-  }
   private image: string;
   private currentImage;
   private data: any;
   private navParam: any;
-  private secureURL:any = [];
+  private secureURL:any;
   private fromPage: any;
   staffList: any;
   participant=[]
@@ -108,7 +101,14 @@ export class CreatePostPage implements OnInit {
 
   getImageFx() {
     this.image = null;
-    this.camera.getPicture(this.cameraOptions).then(data => {
+    const cameraOptions: CameraOptions = {
+      quality: 20,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: 0
+    }
+    this.camera.getPicture(cameraOptions).then(data => {
       this.image = 'data:image/jpeg;base64,' + data;
       this.param = {
         'upload_preset': 'c4gf0qoq',
@@ -121,13 +121,14 @@ export class CreatePostPage implements OnInit {
 
   takePicture() {
     this.image = null;
-    const options: CameraOptions = {
+    const cameraOptions: CameraOptions = {
       quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
-    };
-    this.camera.getPicture(this.cameraOptions).then((mediaData) => {
+      sourceType: this.camera.PictureSourceType.CAMERA,
+      saveToPhotoAlbum: true,
+    }
+    this.camera.getPicture(cameraOptions).then(mediaData => {
       console.log(mediaData);
       this.image = 'data:image/jpeg;base64,' + mediaData;
       this.param = {
@@ -153,7 +154,7 @@ export class CreatePostPage implements OnInit {
         this.secureURL = result.eager[0].secure_url
         console.log('this.secureURL',this.secureURL);
         this.imgList.push(this.secureURL)
-        this.alertProvider.successAlert()
+        // this.alertProvider.successAlert()
       }).catch(error => {
         this.loadingProvider.closeLoading();
         console.log(error);
@@ -185,6 +186,7 @@ export class CreatePostPage implements OnInit {
     }, (err) => {
       console.log(err);
       this.loadingProvider.closeLoading();
+      this.alertProvider.errorAlert();
       // this.showAlert();
     });
   }
@@ -219,55 +221,45 @@ export class CreatePostPage implements OnInit {
       this.postImageTask(result)
     }, (err) => {
       this.loadingProvider.closeLoading();
+      this.alertProvider.errorAlert();
       console.log(err);
     
       // this.showAlert();
     });
   }
 
+  postImageTask(result) {
+    if (this.image != null) {
+      this.restProvider.postFeedImage(null,this.navParam,this.secureURL,result.taskId).then((result:any) => {
+        console.log('postImageTask',result);
+        this.loadingProvider.closeLoading();
+        this.exitForm();
+        this.alertProvider.successAlert()
+      }, (err) => {
+        console.log(err);
+        this.loadingProvider.closeLoading();
+        this.alertProvider.errorAlert()
+        // this.showAlert();
+      });
+    }
+    else {
+      this.exitForm();
+      this.alertProvider.successAlert()
+    }
+  }
+
   postTaskComment() {
     console.log('this.postForm.value',this.postForm.value);
     this.loadingProvider.presentLoading();
-    this.restProvider.postTaskComment(this.postForm.value,this.personId).then((result:any) => {
+    this.restProvider.postTaskComment(this.postForm.value,this.personId,this.secureURL).then((result:any) => {
      this.loadingProvider.closeLoading();
-     // this.exitForm();
-    this.postImageTask(result)
+     this.exitForm();
     }, (err) => {
       this.loadingProvider.closeLoading();
+      this.alertProvider.errorAlert();
       console.log(err);
       // this.showAlert();
     });
-  }
-
-  postImageTask(result) {
-    this.restProvider.postFeedImage(null,this.navParam,this.secureURL,result.taskId).then((result:any) => {
-      console.log('postImageTask',result);
-      this.loadingProvider.closeLoading();
-      this.exitForm();
-      this.alertProvider.successAlert()
-    }, (err) => {
-      console.log(err);
-      this.loadingProvider.closeLoading();
-      this.alertProvider.errorAlert()
-      // this.showAlert();
-    });
-    // if (this.image != null) {
-    //   this.restProvider.postFeedImage(null,this.navParam,this.secureURL,result.taskId).then((result:any) => {
-    //     console.log('postProjectFeed',result);
-    //     this.loadingProvider.closeLoading();
-    //     this.exitForm();
-    //     this.alertProvider.successAlert()
-    //   }, (err) => {
-    //     console.log(err);
-    //     this.loadingProvider.closeLoading();
-    //     this.alertProvider.errorAlert()
-    //     // this.showAlert();
-    //   });
-    // }
-    // else {
-    //   this.exitForm();
-    //   this.alertProvider.successAlert()
-    // }
   }
 
   exitForm() {

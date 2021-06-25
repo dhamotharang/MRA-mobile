@@ -94,7 +94,7 @@ export class NotificationsPage implements OnInit {
       projId:data.projectId,
       personId:this.profile.personId,
       enabled:'Y',
-      createdDate: moment().format(),
+      createdDate: new Date(),
       voidStatus: "A",
       joinStatus: "A",
       volunteerId: data.volId
@@ -137,7 +137,7 @@ export class NotificationsPage implements OnInit {
       projId:data.projectId,
       personId:this.profile.personId,
       enabled:'Y',
-      createdDate: moment().format(),
+      createdDate: new Date(),
       voidStatus: "A",
       joinStatus: "D",
       volunteerId: data.volId
@@ -156,7 +156,7 @@ export class NotificationsPage implements OnInit {
 
   createAnnouncement(data, type) {
     let Type;
-    if (type.joinStatus == 'A') {
+    if (type.joinStatus == 'A' || type.joinStatus == 'Q') {
       Type = 'accept'
     }
     else {

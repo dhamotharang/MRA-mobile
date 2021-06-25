@@ -9,9 +9,15 @@
 </ion-header>
 
 <ion-content>
+  
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Pull to refresh"
+      refreshingSpinner="circles" refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
 
   <div *ngIf='taskList.length != 0'>
-    <ion-card *ngFor="let data of taskList" class="task-card">
+    <ion-card *ngFor="let data of taskUpdatedList" class="task-card">
       <ion-row>
         <ion-col size="3">
           <img #img1 (error)="img1.src=imageProvider.imageErrorHandle('profile')" class="img-style" [src]="data?.person?.profilePicture">
@@ -44,7 +50,7 @@
         </ion-col>
       </ion-row>
   
-      <ion-row>
+      <!-- <ion-row>
         <ion-col class="ion-no-padding">
           <ion-row>
             <ion-col class="ion-no-padding center" size="4" *ngFor='let img of data?.task_image'>
@@ -53,7 +59,27 @@
             </ion-col>
           </ion-row>
         </ion-col>
+      </ion-row> -->
+
+      <ion-row *ngIf='data?.taskImg != null && data?.taskImg?.length == 1'>
+        <ion-col class="ion-no-padding-center">
+          <ion-row>
+            <ion-col class="ion-no-padding center" size="12" *ngFor='let img of data?.taskImg' >
+              <ion-icon class='add-icon position-icon' ios='add-circle-outline' md="add-circle-outline"
+              (click)='addImage(data)'></ion-icon>
+              <img class="attach-img" [src]="img?.imageUrl">
+            </ion-col>
+          </ion-row>
+        </ion-col>
       </ion-row>
+
+      <ion-row *ngIf='data?.taskImg != null && data?.taskImg?.length > 1'>
+        <ion-col class="action-item ion-no-margin" size="6" *ngFor='let img of data?.taskImg; index as i' >
+          <ion-icon *ngIf='i == 0' class='add-icon position-icon-multiple' ios='add-circle-outline' md="add-circle-outline"
+          (click)='addImage(data)'></ion-icon>
+          <img class="attach-imgs"  [src]="img?.imageUrl">
+        </ion-col>
+      </ion-row>  
   
       <ion-row (click)="commentTask(data)" class="comment-item">
         <ion-col size="12">
