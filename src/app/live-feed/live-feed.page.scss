@@ -136,6 +136,26 @@ ion-scroll.scroll-x .scroll-content {
     margin-top: 0px;
 }
 
+.add-icon {
+    font-size: 2rem !important;
+    text-align: left !important;
+    margin-top: 43%;
+    margin-left: -11%;
+    z-index: 1100 !important;
+    position: absolute;
+    color: #56077e !important;
+}
+
+.position-icon-multiple {
+    margin-top: 61% !important;
+    margin-left: 75% !important;
+}
+
+.position-icon {
+    margin-top: 36% !important;
+    margin-left: 90% !important;
+}
+
 ion-fab-button[data-desc] {
     position: relative;
   }

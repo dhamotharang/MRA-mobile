@@ -64,15 +64,12 @@ export class HomePage implements OnInit {
     this.storage.get('defaultPersonId').then((val:any) => {
       this.restProvider.getStaffProjectList(val).then((result:any) => {
         console.log('getListProjects',result);
-        // let p = result.filter(x => x.joinStatus == 'A')
         this.projectList = result;
         this.cacheHandlerProvider.projectInvolved = this.projectList;
         this.loadingProvider.closeLoading();
       }, (err) => {
         this.loadingProvider.closeLoading();
         console.log('getListProjects err',err);
-        // this.loadingProvider.closeLoading();
-        // this.showAlert();
       });
 
     });
@@ -85,7 +82,7 @@ export class HomePage implements OnInit {
         this.restProvider.getProjectInvolvedList(val).then((result:any) => {
           console.log('getListProjects',result);
           let projectsInvited = []
-          let p = result.filter(x => x.joinStatus == 'A')
+          let p = result.filter(x => x.joinStatus == 'A'|| x.joinStatus == 'Q')
           this.projectList = p;
           this.cacheHandlerProvider.projectInvolved = this.projectList;
           projectsInvited = result.filter(x => x.joinStatus == 'I')

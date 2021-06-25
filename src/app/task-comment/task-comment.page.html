@@ -9,6 +9,12 @@
 </ion-header>
 
 <ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Pull to refresh"
+      refreshingSpinner="circles" refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
   
   <div *ngIf='taskCommentList.length != 0'>
     <ion-card *ngFor="let data of taskCommentList" class="task-card">
@@ -29,7 +35,7 @@
           </ion-row>
           <ion-row class="space">
             <ion-col>
-              <p class="label-task-date">8/4/2021</p>
+              <p class="label-task-date">{{data?.createdDate| date: 'd/M/yy'}}</p>
               <!-- {{data?.createdDate| date: 'd/M/yy'}} -->            
             </ion-col>
           </ion-row>
@@ -37,12 +43,22 @@
       </ion-row>
   
   
-      <ion-row *ngIf='data?.taskPicture != null'>
+      <!-- <ion-row *ngIf='data?.taskPicture != null'>
         <ion-col class="ion-no-padding">
           <ion-row>
             <ion-col class="ion-no-padding center" size="4" *ngFor='let img of data?.task_image'>
               <img class="attach-img"
                 [src]="[data?.taskPicture]">
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row> -->
+
+      <ion-row *ngIf='data?.taskPicture != null'>
+        <ion-col class="ion-no-padding-center">
+          <ion-row>
+            <ion-col class="ion-no-padding center" size="12">
+              <img class="attach-img" [src]="[data?.taskPicture]">
             </ion-col>
           </ion-row>
         </ion-col>

@@ -98,6 +98,7 @@ token:any;
     this.storage.remove('nonOrgPersonId');
     this.storage.remove('personOrgs');
     this.storage.remove('personOrgList')
+    this.storage.remove('fromQuickLogin')
     this.cacheHandlerProvider.clearLocalData()
     this.storage.clear();
   }
@@ -119,6 +120,7 @@ token:any;
             this.storage.remove('nonOrgPersonId');
             this.storage.remove('personOrgs');
             this.storage.remove('personOrgList')
+            this.storage.remove('fromQuickLogin')
             this.cacheHandlerProvider.clearLocalData()
             this.storage.clear();
         }, (err) => {

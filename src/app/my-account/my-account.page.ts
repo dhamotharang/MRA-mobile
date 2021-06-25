@@ -22,21 +22,30 @@ export class MyAccountPage implements OnInit {
     private imageProvider: ImageProvider,
   ) { }
 
-  ngOnInit() {
-    //this.getOrg()  //this one boleh take data from previos page
+  ionViewWillEnter() {
     this.storage.get('isNewUser').then((val:any) => {   //untuk guna storage
       console.log("val",val)
       this.isNewUser= val
     })
-    this.route.queryParams.subscribe(params => {      //get data from previous page
-      if (this.router.getCurrentNavigation().extras.state) {
-        this.navParam = this.router.getCurrentNavigation().extras.state.user;
-        console.log('navParam',this.navParam)
-      }
-    });
+    this.getProfile()
   }
 
-  getOrg(){
+  ngOnInit() {
+    //this.getOrg()  //this one boleh take data from previos page
+    // this.storage.get('isNewUser').then((val:any) => {   //untuk guna storage
+    //   console.log("val",val)
+    //   this.isNewUser= val
+    // })
+    // this.route.queryParams.subscribe(params => {      //get data from previous page
+    //   if (this.router.getCurrentNavigation().extras.state) {
+    //     this.navParam = this.router.getCurrentNavigation().extras.state.user;
+    //     console.log('navParam',this.navParam)
+    //   }
+    // });
+
+  }
+
+  getProfile(){
     // this.loadingProvider.presentLoading();
     this.storage.get('defaultProfile').then((val:any) => {   //untuk guna storage
       console.log("val",val)

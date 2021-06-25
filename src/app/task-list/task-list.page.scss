@@ -72,17 +72,49 @@
   
 }
 
-.attach-img {
-    border-radius: 17%;
+.attach-imgs {
     border: #9b9999;
     border-width: 0.1px;
-    height: 5.5rem;
-    width: 5rem;
+    height: 9rem;
     border-style: solid;
     color: #F5F5F5;
     object-fit: cover;
     margin-bottom: 0.5rem;
+    margin-bottom:1px;
+    margin-top: -0.5rem;
+    border-radius: 0.5rem;
+}
+.attach-img {
+    border: #9b9999;
+    border-width: 0.1px;
+    height:10rem;
+    width: 360px;
+    border-style: solid;
+    color: #F5F5F5;
+    object-fit: cover;
+    margin-bottom:1px;
+    margin-top: -0.5rem;
+    border-radius: 0.5rem;
+}
 
+.add-icon {
+    font-size: 2rem !important;
+    text-align: left !important;
+    margin-top: 43%;
+    margin-left: -11%;
+    z-index: 1100 !important;
+    position: absolute;
+    color: #56077e !important;
+}
+
+.position-icon-multiple {
+    margin-top: 52% !important;
+    margin-left: 75% !important;
+}
+
+.position-icon {
+    margin-top: 36% !important;
+    margin-left: 90% !important;
 }
 
 .center {
@@ -154,4 +186,24 @@
 
 .space {
     margin-top: -1rem;
+}
+
+.add-icon {
+    font-size: 2rem !important;
+    text-align: left !important;
+    margin-top: 43%;
+    margin-left: -11%;
+    z-index: 1100 !important;
+    position: absolute;
+    color: #56077e !important;
+}
+
+.position-icon-multiple {
+    margin-top: 61% !important;
+    margin-left: 75% !important;
+}
+
+.position-icon {
+    margin-top: 36% !important;
+    margin-left: 90% !important;
 }

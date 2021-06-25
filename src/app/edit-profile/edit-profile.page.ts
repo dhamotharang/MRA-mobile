@@ -26,6 +26,7 @@ export class EditProfilePage implements OnInit {
     platform:""
   }
   profilePersonId: any;
+  codeList: any = [];
 
   constructor(
     private router: Router,
@@ -50,6 +51,7 @@ export class EditProfilePage implements OnInit {
 
 
   ngOnInit() {
+    // this.getCountryCode()
     this.getOrg()
   }
 
@@ -100,6 +102,15 @@ export class EditProfilePage implements OnInit {
 
     })
   }
+
+  // getCountryCode(){
+  //   this.restProvider.getCountryCode().then((result:any) => {
+  //     this.codeList = result;
+  //     console.log('getCountryCode',this.codeList)
+  //   }, (err) => {
+  //     console.log(err);
+  //   });
+  // }
 
   save(){
     this.profile.name = this.profileForm.controls.name.value;

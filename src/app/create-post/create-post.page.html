@@ -83,12 +83,12 @@
             <ion-col (click)="getImageFx()">
               <ion-icon class="attach-icon" ios="image" md="image"></ion-icon>
             </ion-col>
-            <!-- <ion-col>
-              <ion-icon class="attach-icon" ios="location" md="location"></ion-icon>
-            </ion-col> -->
           </ion-row>
-          <!-- <input *ngIf="!platform.is('cordova')" type="file" name="file" id="file"
-          (change)='uploadpictureFx("localthumbnail",$event)' /> -->
+          <ion-row *ngIf='secureURL != null'>
+            <ion-col class="action-item ion-no-margin" size="6">
+              <img class="attach-imgs"  [src]="secureURL">
+            </ion-col>
+          </ion-row>  
           <ion-row>
             <ion-col>
               <button ion-button (click)="postProjectTask()" class="post-button">
@@ -119,12 +119,12 @@
             <ion-col (click)="getImageFx()">
               <ion-icon class="attach-icon" ios="image" md="image"></ion-icon>
             </ion-col>
-            <!-- <ion-col>
-              <ion-icon class="attach-icon" ios="location" md="location"></ion-icon>
-            </ion-col> -->
           </ion-row>
-          <!-- <input *ngIf="!platform.is('cordova')" type="file" name="file" id="file"
-          (change)='uploadpictureFx("localthumbnail",$event)' /> -->
+          <ion-row *ngIf='secureURL != null'>
+            <ion-col class="action-item ion-no-margin" size="6">
+              <img class="attach-imgs"  [src]="secureURL">
+            </ion-col>
+          </ion-row>  
           <ion-row>
             <ion-col>
               <button ion-button (click)="postProjectFeed()" class="post-button">
@@ -153,12 +153,12 @@
             <ion-col (click)="getImageFx()">
               <ion-icon class="attach-icon" ios="image" md="image"></ion-icon>
             </ion-col>
-            <!-- <ion-col>
-              <ion-icon class="attach-icon" ios="location" md="location"></ion-icon>
-            </ion-col> -->
           </ion-row>
-          <!-- <input *ngIf="!platform.is('cordova')" type="file" name="file" id="file"
-          (change)='uploadpictureFx("localthumbnail",$event)' /> -->
+          <ion-row *ngIf='secureURL != null'>
+            <ion-col class="action-item ion-no-margin" size="6">
+              <img class="attach-imgs"  [src]="secureURL">
+            </ion-col>
+          </ion-row>  
           <ion-row>
             <ion-col>
               <button ion-button (click)="postTaskComment()" class="post-button">

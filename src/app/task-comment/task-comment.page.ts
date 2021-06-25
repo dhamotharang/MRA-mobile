@@ -65,6 +65,14 @@ export class TaskCommentPage implements OnInit {
     this.router.navigate(['create-post'], navigationExtras);
   }
 
+  doRefresh(event) {
+    this.taskCommentList = []
+    this.getCommentList()
+    setTimeout(() => {
+      event.target.complete();
+    }, 2000);
+  }
+
 }
 
 
