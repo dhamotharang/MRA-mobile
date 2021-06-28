@@ -1,6 +1,6 @@
 {
-  "appId": "com.oas.mramobile",
-  "appName": "MRA-mobile",
+  "appId": "com.mra.mobile",
+  "appName": "mra-mobile",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
@@ -16,9 +16,5 @@
       ]
     }
   },
-  "cordova": {},
-  "server": {
-    "url": "http://192.168.0.105:8100",
-    "cleartext": true
-  }
+  "cordova": {}
 }

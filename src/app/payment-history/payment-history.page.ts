@@ -30,9 +30,11 @@ export class PaymentHistoryPage implements OnInit {
       this.profile = val;
       this.restProvider.getFee(this.profile.personId).then((result:any) => {
         // this.loadingProvider.closeLoading();
-        this.feeList = result.filter(x => x.orgProfile.orgId == 320)
-        console.log('this.feeList',this.feeList)
-        this.feeListSelected = this.feeList[0].fee;
+        if (result != null) {
+          this.feeList = result.filter(x => x.orgProfile.orgId == 320)
+          console.log('this.feeList',this.feeList)
+          this.feeListSelected = this.feeList[0].fee;
+        }
         this.loadingProvider.closeLoading();
   
       }, (err) => {

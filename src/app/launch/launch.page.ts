@@ -100,6 +100,7 @@ export class LaunchPage {
       // this.loadingProvider.closeLoading();
       if(result.personId == null){
         this.storage.set('isNewUser', true);
+        this.loadingProvider.closeLoading()
         this.router.navigate(['profile']);
 
       }else{

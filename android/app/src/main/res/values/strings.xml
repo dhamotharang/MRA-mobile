@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">MRA-mobile</string>
-    <string name="title_activity_main">MRA-mobile</string>
-    <string name="package_name">com.oas.mramobile</string>
-    <string name="custom_url_scheme">com.oas.mramobile</string>
+    <string name="app_name">mra-mobile</string>
+    <string name="title_activity_main">mra-mobile</string>
+    <string name="package_name">com.mra.mobile</string>
+    <string name="custom_url_scheme">com.mra.mobile</string>
 </resources>
