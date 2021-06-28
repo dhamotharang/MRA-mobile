@@ -1,5 +1,5 @@
 {
-  "name": "MRA-mobile",
+  "name": "mra-mobile",
   "integrations": {
     "capacitor": {},
     "cordova": {}
